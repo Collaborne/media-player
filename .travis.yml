@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+- lts/erbium
+cache:
+  directories:
+  - node_modules
+script:
+- npm test
+- npm run predeploy
+after_success:
+- npm run build
+deploy:
+- provider: npm
+  email: npm@collaborne.com
+  api_key:
+    secure: "ktNV3mbQgqEy/euKgjOl5oPNCjM6bK+Zn4W3VZ5132WC9u/G+8l3SOEamag4rHs1QlEGBVPcAGMQ9+m66LI/bhhq2hq4Yci2cjjdB0TbJClr4gTxIu/3P48Ic/LhdnASniWIorM8ENam2iZJ9vVSuK6TxIbeBrLX3evJBZbl9irki1ClgyMVN3MqLjzAwAdycu5tyP/twZOp7BztBmaYFbr3AF/Z/AegjBj6rHFibX8EESPcwmtHv90HFfV07byRbHPNQIjJNDsZSLOnw37WG7xKtVLEDIsCV3nQZuerkKluf9wIjupy0JjHSVfd09WGGjkUI+D/k+vVxnMpkWiUqpnTv5Gq3hJpu5AdC9GYuINAMC7gZfZgb6/1sNFVslr7wWsAb3NLCsKslMI1HG5lvwZ4E2koL1BlJ+ylwLqXUm4VrkS8A8uXtay8Fj2+weABTXM5pUsx0qMKB4vHkEOcShNQlQb/DVRP8jbg3gtDu+M1Ke7pA9syMA54luviPK/fA+g/mTQkwQyARW/3+jVn0j+0ReZLSEd1qNa7NZ1CfUmiS07CfPDJPZdKGVV7PNXSVXdk1zN9bezdalu0FK/MBB9twhnMBty/BXlbXMEIfhwzxJyRwtF3JbO4BrEB2nySiWSOeBwTY3k798YTMjjXnL+iSwvxN03WvnYC/ZLNp0o="
+  on:
+    tags: true
+    condition: $(node -e 'console.log("v" + require("./package.json").version)') = ${TRAVIS_TAG}
+  skip_cleanup: true
+- provider: pages
+  skip_cleanup: true
+  local_dir: storybook-static
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: master

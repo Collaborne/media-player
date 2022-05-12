@@ -1,0 +1,28 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "chrome",
+			"request": "launch",
+			"name": "storybook (chrome)",
+			"preLaunchTask": "storybook",
+			"url": "http://localhost:9009",
+			"webRoot": "${workspaceFolder}",
+			"trace": "verbose",
+			// Use the runtimeExecutable to configure a different chrome instance
+			// "runtimeExecutable": "/usr/bin/google-chrome-unstable",
+			"runtimeArgs": [
+				// Use `--load-extension` to preload extensions into the chrome instance
+				// See https://stackoverflow.com/a/22670021/196315
+				// "--load-extension=/home/andreas/modules/redux-dev-tools"
+			],
+			"userDataDir": true,
+			"showAsyncStacks": true,
+			"smartStep": true,
+			"sourceMaps": true,
+		},
+	]
+}
