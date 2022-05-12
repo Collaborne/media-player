@@ -75,6 +75,11 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56"
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "bowser": "^2.11.0",
+    "mitt": "^3.0.0",
+    "react-player": "^2.10.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "screenfull": "^6.0.1"
   }
 }

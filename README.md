@@ -1,13 +1,13 @@
-# material-oss-component
+# video-player
+A package for video player and it's features
+> Or a wrapper to https://github.com/CookPete/react-player with efficient and exposed API
 
-> Material styled OSS component
-
-[Live demo](https://collaborne.github.io/material-oss-component/)
+[Live demo](https://collaborne.github.io/video-player/)
 
 ## Install
 
 ```bash
-npm install --save @collaborne/material-oss-component
+npm install --save @collaborne/video-player
 ```
 
 ## License

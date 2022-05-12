@@ -23,9 +23,7 @@
 			"version": "16"
 		}
 	},
-	"plugins": [
-		"react-hooks"
-	],
+	"plugins": ["react-hooks"],
 	"rules": {
 		"space-before-function-paren": 0,
 		"react/prop-types": 0,
@@ -36,6 +34,7 @@
 		"react-hooks/exhaustive-deps": "warn",
 		"import/export": 0,
 		"@typescript-eslint/explicit-function-return-type": "off",
-		"@typescript-eslint/no-empty-interface": "off"
+		"@typescript-eslint/no-empty-interface": "off",
+		"no-unused-expressions": "off"
 	}
 }

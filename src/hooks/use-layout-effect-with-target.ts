@@ -2,8 +2,8 @@ import { DependencyList, EffectCallback, useLayoutEffect, useRef } from 'react';
 import { BasicTarget, getTargetElement } from '../utils';
 import { useOnUnmount } from '.';
 import { hasSameReactDeps } from '../utils/strict-equals';
+
 /**
- *
  * @param effect Callbacks need to be runned in useLayoutEffect
  * @param deps dependencies when to run useEffectLayout hook
  * @param target elements to be "targeted" in useEffectLayout hook
