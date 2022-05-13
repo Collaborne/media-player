@@ -1,20 +1,20 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
+import ReactPlayer from 'react-player';
 
-// TODO: Remove this story
-
-function Dummy(): JSX.Element {
-	return (
-		<div>This is a placeholder for the real stories of this component.</div>
-	);
-}
+const Dummy = () => (
+	<ReactPlayer
+		controls
+		url="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
+	/>
+);
 
 export default {
-	title: 'Dummy',
+	title: 'Standart Player',
 	component: Dummy,
 	decorators: [withKnobs],
 };
 
-export const Introduction = () => {
+export const StandartBrowserFunctionality = () => {
 	return <Dummy />;
 };

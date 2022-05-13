@@ -12,7 +12,7 @@ export type BasicTarget<T extends TargetType = Element> =
 
 // TODO: CHECK HOW DETECTS ANY KIND OF BROWSER
 
-const browser = Bowser.getParser(window.navigator.userAgent);
+export const browser = Bowser.getParser(window.navigator.userAgent);
 export const isBrowser = browser.isBrowser('');
 
 export const getTargetElement = <T extends TargetType>(

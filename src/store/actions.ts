@@ -1,6 +1,6 @@
 import screenfull from 'screenfull';
 import { VideoActions } from '../types/actions';
-import { getVideoEl, pip, WebKitHTMLVideoElement } from '../utils';
+import { getVideoEl, pip } from '../utils';
 
 export const videoActions: VideoActions = {
 	// all public actions (not prefixed with `_`)
@@ -118,14 +118,12 @@ export const videoActions: VideoActions = {
 		};
 	},
 	requestFullscreen: state => {
-		const video = getVideoEl(state) as Element;
+		const video = getVideoEl(state);
 		if (!video) return;
 		if (pip.supported) {
 			// Ignore pip exit DOM errors (we are just trying to exit any open pip),
 			// if there is no open pip DOM will throw an error we ignore.
-			Promise.resolve(
-				(() => pip.exit?.(video as WebKitHTMLVideoElement))(),
-			).catch();
+			Promise.resolve((() => pip.exit?.(video))()).catch();
 		}
 		state.emitter?.emit('fullscreenEnter');
 		if (screenfull.isEnabled) {

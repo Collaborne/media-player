@@ -1,5 +1,5 @@
 import { VideoGetters } from '../types';
-import { getVideoEl, pip, WebKitHTMLVideoElement } from '../utils';
+import { getVideoEl, pip } from '../utils';
 
 // Getters return a return value, no side effects.
 export const videoGetters: VideoGetters = {
@@ -21,10 +21,6 @@ export const videoGetters: VideoGetters = {
 	getHasPlayedOrSeeked: state => state.hasPlayedOrSeeked,
 	getPictureInPicture: state => {
 		const video = getVideoEl(state);
-		return !!(
-			video &&
-			pip.supported &&
-			pip.isActive?.(video as WebKitHTMLVideoElement)
-		);
+		return !!(video && pip.supported && pip.isActive?.(video));
 	},
 };

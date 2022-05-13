@@ -1,8 +1,8 @@
+import { ControlsConfig } from '../../types';
+
 /**
  * Default configuration for controls
  */
-
-import { ControlsConfig } from '../../types';
 
 export const DEFAULT_CONTROLS_CONFIG: ControlsConfig = {
 	bottomControls: true,

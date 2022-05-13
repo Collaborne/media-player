@@ -1,25 +1,16 @@
-type WebkitSetPresentationMode = 'picture-in-picture' | 'inline';
-export interface WebKitHTMLVideoElement extends HTMLVideoElement {
-	webkitPresentationMode: WebkitSetPresentationMode;
-	webkitSetPresentationMode: (state: WebkitSetPresentationMode) => void;
-	webkitSupportsPresentationMode: boolean;
-}
+import { browser } from './dom-target';
+
 interface PictureInPictureResponse {
 	supported: boolean;
-	request?: (
-		video: WebKitHTMLVideoElement,
-	) => Promise<PictureInPictureWindow> | void;
-	exit?: (video?: WebKitHTMLVideoElement) => Promise<void> | void;
-	isActive?: (video?: WebKitHTMLVideoElement) => boolean;
+	request?: (video: HTMLVideoElement) => Promise<PictureInPictureWindow> | void;
+	exit?: (video?: HTMLVideoElement) => Promise<void> | void;
+	isActive?: (video?: HTMLVideoElement) => boolean;
 }
 
-const hasPipWebKit = (
-	video: HTMLVideoElement,
-): video is WebKitHTMLVideoElement => {
+const hasPipWebKit = (video: HTMLVideoElement): video is HTMLVideoElement => {
 	return (
-		typeof (video as WebKitHTMLVideoElement).webkitSetPresentationMode ===
-			'function' &&
-		(video as WebKitHTMLVideoElement).webkitSupportsPresentationMode
+		typeof video.webkitSetPresentationMode === 'function' &&
+		video.webkitSupportsPresentationMode
 	);
 };
 
@@ -30,7 +21,11 @@ const getPip = (): PictureInPictureResponse => {
 
 	// Chrome
 	// https://developers.google.com/web/updates/2018/10/watch-video-using-picture-in-picture
-	if (document.pictureInPictureEnabled && !video.disablePictureInPicture) {
+	if (
+		browser.isBrowser('chrome') &&
+		document.pictureInPictureEnabled &&
+		!video.disablePictureInPicture
+	) {
 		return {
 			supported: true,
 			request: video => video.requestPictureInPicture(),
@@ -44,7 +39,10 @@ const getPip = (): PictureInPictureResponse => {
 	// https://developer.apple.com/documentation/webkitjs/adding_picture_in_picture_to_your_safari_media_controls
 	if (hasPipWebKit(video)) {
 		// Mobile safari says it supports webkitPresentationMode, but you can't pip there.
-		if (/ipad|iphone/i.test(window.navigator.userAgent)) {
+		if (
+			browser.satisfies({ platform: { type: 'ipad' } }) ||
+			browser.satisfies({ platform: { type: 'iphone' } })
+		) {
 			return { supported: false };
 		}
 		return {

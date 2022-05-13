@@ -1,7 +1,4 @@
 import { VideoState } from '../types/video-state';
-import { WebKitHTMLVideoElement } from './pip';
 
-export const getVideoEl = (
-	state: VideoState,
-): HTMLVideoElement | WebKitHTMLVideoElement =>
+export const getVideoEl = (state: VideoState): HTMLVideoElement =>
 	state?.videoRef?.current?.getInternalPlayer();
