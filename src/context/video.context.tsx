@@ -16,17 +16,17 @@ import { PROVIDER_FIRST_INITIAL_STATE } from './context.constants';
 import { videoActions } from '../store/actions';
 import usePreviousDistinct from '../hooks/use-previous-distinct';
 import { useStateReducer } from '../store/reducer';
+import { BaseReactPlayerProps } from 'react-player/base';
 
 export interface VideoContext {
 	api?: VideoApi;
-	keyboardTargetRef?: RefObject<any> | null;
 	lastActivityRef?: MutableRefObject<number | undefined>;
 	markActivity?: VoidFunction;
 	controlsConfig?: ControlsConfig;
 	reactPlayerProps?: ReactPlayerProps;
 	size?: Size;
 	state?: VideoState;
-	videoRef?: RefObject<any>;
+	videoRef?: RefObject<BaseReactPlayerProps | undefined>;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -161,7 +161,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			removeEventListener: state.emitter?.off,
 		});
 		for (const event in videoActions) {
-			api[event] = (payload: any) =>
+			api[event] = (payload: (...args: unknown[]) => VideoState | void) =>
 				dispatch({ type: event as VideoActionKeys, payload });
 		}
 

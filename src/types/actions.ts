@@ -51,6 +51,8 @@ export interface VideoActions {
 }
 
 export type VideoActionKeys = keyof VideoActions;
+
+// TODO: Remove any when creating VideoAction
 type ActionMap<M extends { [index: string]: any }> = {
 	[Key in keyof M]: M[Key] extends undefined
 		? {

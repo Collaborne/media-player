@@ -10,7 +10,7 @@ export type BasicTarget<T extends TargetType = Element> =
 	| TargetValue<T>
 	| MutableRefObject<TargetValue<T>>;
 
-// TODO: CHECK HOW DETECTS ANY KIND OF BROWSER
+// TODO: Check bowser lib for getting any type of browser
 
 export const browser = Bowser.getParser(window.navigator.userAgent);
 export const isBrowser = browser.isBrowser('');

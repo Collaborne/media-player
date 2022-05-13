@@ -144,7 +144,7 @@ export const videoActions: VideoActions = {
 	setEndTime: (_state, endTime) => ({ endTime }),
 
 	setDuration: (state, duration) => {
-		if ((state?.duration ?? 0) > 0) {
+		if ((state.duration ?? 0) > 0) {
 			return state;
 		}
 

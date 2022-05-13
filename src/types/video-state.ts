@@ -37,9 +37,7 @@ export interface VideoProviderProps {
 
 export interface VideoState {
 	lastActivityRef?: MutableRefObject<number | undefined>;
-	// to fix emitter state
 	emitter?: Emitter<Record<EmitterEvents, unknown>>;
-	// fix TS for React Player Ref
 	videoRef?: MutableRefObject<BaseReactPlayerProps | undefined>;
 	oneStopPoint?: number;
 	playPromiseRef?: MutableRefObject<Promise<void> | undefined>;
@@ -61,10 +59,12 @@ export interface VideoState {
 	keyboardDisabled?: boolean;
 }
 
+export type VideoDispatchArgs = unknown[];
+
 export type VideoActionsDispatch = {
-	[key in keyof VideoActions]: (payload: VideoState | any) => Dispatch<{
+	[key in keyof VideoActions]: (...payload: VideoDispatchArgs) => Dispatch<{
 		type: keyof VideoActions;
-		payload: VideoState | any;
+		payload: VideoDispatchArgs;
 	}>;
 };
 
