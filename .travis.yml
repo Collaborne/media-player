@@ -1,27 +1,82 @@
 language: node_js
 node_js:
-- lts/erbium
+- 17
 cache:
   directories:
   - node_modules
+  - $HOME/.cache/pip
+before_install:
+- npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
 script:
 - npm test
-- npm run predeploy
 after_success:
+- npm run predeploy
 - npm run build
+- |-
+  # If this is a non-main branch build: Deploy the storyboard to S3
+  if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" != "main" ]; then
+    # Force installation from pip cache, to reduce the amount of ~/.local we need to store in the Travis cache
+    pip install --user awscli | cat
+
+    aws s3 cp --recursive storybook-static s3://collaborne-carrot-styles/${TRAVIS_BRANCH}/${TRAVIS_COMMIT}/
+
+    curl \
+      -X POST \
+      -H "Accept: application/vnd.github.v3+json" \
+      -H "Authorization: token ${GITHUB_TOKEN}" \
+      https://api.github.com/repos/${TRAVIS_REPO_SLUG}/commits/${TRAVIS_COMMIT}/comments \
+      -d "{\"body\":\"Storybook deployed at http://collaborne-carrot-styles.s3-website-eu-west-1.amazonaws.com/${TRAVIS_BRANCH}/${TRAVIS_COMMIT}/\"}"
+    fi
+before_deploy:
+- |-
+  # `before_deploy` runs before each deploy provider, so if there is already a build_package_version defined don't bother working
+  # through this again.
+  # Note that we only do this when this is a non-tagged build; for tagged builds the assumption is that the version inside
+  # `package.json` is correct.
+  if [ -z "${build_package_version}" ] && [ -z "${TRAVIS_TAG}" ]; then
+    # Build a version that properly compares as prerelease on top of the existing version. If the existing version is
+    # a pre-release already separate further components with '.', otherwise use '-'.
+    # The safe branch name is used as dist tag and as part of the version as prerelease identifier, so must follow
+    # the strict semver grammar rules.
+    safe_branch_name=$(echo "${TRAVIS_BRANCH}" | tr -d '\n' | tr -cd 'A-Za-z0-9-')
+    ts=$(date +%Y%m%d%H%M%S)
+    package_version=$(node -p 'require("./package.json").version')
+    if echo "${package_version}" | grep -- '-' >/dev/null 2>&1; then
+      prerelease_separator=.
+    else
+      prerelease_separator=-
+    fi
+
+    build_package_version=${package_version}${prerelease_separator}${safe_branch_name}.${ts}
+    echo "build_package_version calculated as ${build_package_version}" >&2
+    npm --no-git-tag-version version ${build_package_version}
+  fi
 deploy:
 - provider: npm
   email: npm@collaborne.com
   api_key:
-    secure: "ktNV3mbQgqEy/euKgjOl5oPNCjM6bK+Zn4W3VZ5132WC9u/G+8l3SOEamag4rHs1QlEGBVPcAGMQ9+m66LI/bhhq2hq4Yci2cjjdB0TbJClr4gTxIu/3P48Ic/LhdnASniWIorM8ENam2iZJ9vVSuK6TxIbeBrLX3evJBZbl9irki1ClgyMVN3MqLjzAwAdycu5tyP/twZOp7BztBmaYFbr3AF/Z/AegjBj6rHFibX8EESPcwmtHv90HFfV07byRbHPNQIjJNDsZSLOnw37WG7xKtVLEDIsCV3nQZuerkKluf9wIjupy0JjHSVfd09WGGjkUI+D/k+vVxnMpkWiUqpnTv5Gq3hJpu5AdC9GYuINAMC7gZfZgb6/1sNFVslr7wWsAb3NLCsKslMI1HG5lvwZ4E2koL1BlJ+ylwLqXUm4VrkS8A8uXtay8Fj2+weABTXM5pUsx0qMKB4vHkEOcShNQlQb/DVRP8jbg3gtDu+M1Ke7pA9syMA54luviPK/fA+g/mTQkwQyARW/3+jVn0j+0ReZLSEd1qNa7NZ1CfUmiS07CfPDJPZdKGVV7PNXSVXdk1zN9bezdalu0FK/MBB9twhnMBty/BXlbXMEIfhwzxJyRwtF3JbO4BrEB2nySiWSOeBwTY3k798YTMjjXnL+iSwvxN03WvnYC/ZLNp0o="
+    secure: "blup9XV3jJyCJpZrWFqESch6l8UTZGWUPdC7lYBOqIzeYdfEIzzihu4D5KCe+rcM3yabSGSC/KRHBTUEIH/BKgXDCBlwTsGpLPYlEY6MvWI4fO5BYghxQU3a5af9atz3QOwMZv5QHNNus7jTPGQ61dgJSJEyDRxxm3RnDMTXOnH6CZQEm0AQQnR8ifJQnH81R9Ndvx7vzy8aFVn8Fudbl6oVadnoLkOqop2Zr+Af05epYpvg0DyOXykH2iwiLZ2hUBF/15MJCqRyp5mEzCPTcnAzNNk30KvHnevJSU043iIAiylDMZwbfM7BxOHAzJX4LWMBhRfwmJybsAbVJindiz1yH+4aC3QnlUUsSvNIuTCj+OJ9KW94TAEkPJLZ2Qwvi8lcRlfuxJqSV3zrYpKDoXn7eaqiPWaVRXZsCgN7rrxJiCF7Q/q65FJ1w6+3W5I9aNUPaY8LuLyP53TECNq6UgpdcNnHYeqn82Ly2RbENrUyTyHhee6YzbLNKP/718mbD/dxsSPagPRxDhF2cPdsCKPmkOxXMuShYDhYx58xHa3Qw13P5MQZ1zv/J4Jvcd29UiZJxYjCRGil1lR5ZRtPYEqpN8SfOD3HpkA/BgPh/5ymifrG37cabit1KY5KvAx+LhwNXBv4xWXZpA28YvTzTYtVJcSeMt6oaPif7qIM91c="
   on:
     tags: true
     condition: $(node -e 'console.log("v" + require("./package.json").version)') = ${TRAVIS_TAG}
   skip_cleanup: true
+- provider: npm
+  email: npm@collaborne.com
+  api_key:
+    secure: "blup9XV3jJyCJpZrWFqESch6l8UTZGWUPdC7lYBOqIzeYdfEIzzihu4D5KCe+rcM3yabSGSC/KRHBTUEIH/BKgXDCBlwTsGpLPYlEY6MvWI4fO5BYghxQU3a5af9atz3QOwMZv5QHNNus7jTPGQ61dgJSJEyDRxxm3RnDMTXOnH6CZQEm0AQQnR8ifJQnH81R9Ndvx7vzy8aFVn8Fudbl6oVadnoLkOqop2Zr+Af05epYpvg0DyOXykH2iwiLZ2hUBF/15MJCqRyp5mEzCPTcnAzNNk30KvHnevJSU043iIAiylDMZwbfM7BxOHAzJX4LWMBhRfwmJybsAbVJindiz1yH+4aC3QnlUUsSvNIuTCj+OJ9KW94TAEkPJLZ2Qwvi8lcRlfuxJqSV3zrYpKDoXn7eaqiPWaVRXZsCgN7rrxJiCF7Q/q65FJ1w6+3W5I9aNUPaY8LuLyP53TECNq6UgpdcNnHYeqn82Ly2RbENrUyTyHhee6YzbLNKP/718mbD/dxsSPagPRxDhF2cPdsCKPmkOxXMuShYDhYx58xHa3Qw13P5MQZ1zv/J4Jvcd29UiZJxYjCRGil1lR5ZRtPYEqpN8SfOD3HpkA/BgPh/5ymifrG37cabit1KY5KvAx+LhwNXBv4xWXZpA28YvTzTYtVJcSeMt6oaPif7qIM91c="
+  on:
+    all_branches: true
+    condition: ${TRAVIS_TAG} == ""
+  skip_cleanup: true
+  tag: ${safe_branch_name}
 - provider: pages
   skip_cleanup: true
   local_dir: storybook-static
   github_token: $GITHUB_TOKEN
   keep_history: true
   on:
-    branch: master
+    branch: main
+env:
+  global:
+  # NPM_TOKEN
+  - secure: "NvXTgJ70UcUBfa2AB7plrhuV/k9NiM0xO+VNGp9Bf/kugxZxQpuxxXB/ixkzz+Jlx2GDynkptETVthSOKcCdpXniC2hE7E1BzDAq7yymKhkPv6zGxVPhSPZSO2qMtxqe9MxRXtu4PVwknRhCkbFC0qH2oOVn08akwRnoLRxdgtLdg4QZVQCTbEaCTABw4kQqltmXKDyuZ2xhhYkI4QmUS2/m37frDm6u5cGTO+KMz8IIKph4PMSpAwmynzw90HYH6XFgKs9GFJ9sGIEd1pRUUiCzAfeEqz4R7eAWwJDtCog3jIAVU8HGg0ouuxgG7cKM0CHigsLlkNphQNmWyxb5UOphoOtIyiy1DV31BRGtDirMq+cvSrFTATFQrkQUboN9XJ09VVpPPAJNXsbbSbXsalI5xICf3Jc9CWzRNcH1vUi5/kW1oFW4Qnf85o/3ngaLYKOYxB3aCwsY4YfeFCMW8CrAS+pynLalskYb0Dgomkn/kyzy3Xi7X0B0jNXGEuRz7M2oYCVntCRSWVinHbVNx6ZJo14Sm+z1DAR0CgAWtKos7/aZde2J7uZmo2sMhEmeAftrqfdP5iev414fg5OoerLTP7NhnSuzvpH992PLyN9in2NFVicMUHxV8uzXA7zoLNygBelDW/Ylt9haNSBTQQUrq4CeQ5uHhN3SCYgTZLA="

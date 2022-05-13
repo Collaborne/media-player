@@ -1,10 +1,10 @@
 {
-	"name": "@collaborne/material-oss-component",
-	"version": "0.0.1",
-	"description": "Material styled component",
+	"name": "@collaborne/video-player",
+	"version": "0.0.2",
+	"description": "Video player for carrot-app",
 	"author": "Collaborne",
-	"license": "MIT",
-	"repository": "Collaborne/material-oss-component",
+	"license": "UNLICENSED",
+	"repository": "Collaborne/video-player",
 	"main": "dist/index.js",
 	"source": "src/index.tsx",
 	"engines": {
