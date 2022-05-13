@@ -1,14 +1,14 @@
 import { VideoState } from '.';
 
+export type PartialVideoState = Partial<VideoState> | void;
+
 export type VideoStateSetter = (
 	state: VideoState,
 	// TODO: Replace *any* with corresponding type structure
 	args: any,
-) => VideoState | void;
+) => PartialVideoState;
 
 type NewBounds = Record<'startTime' | 'endTime', number>;
-
-export type PartialVideoState = Partial<VideoState> | void;
 
 export interface VideoActions {
 	play: (state: VideoState) => PartialVideoState;

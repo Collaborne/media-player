@@ -1,4 +1,4 @@
-import React, { MutableRefObject, ReactNode, RefObject } from 'react';
+import { Dispatch, MutableRefObject, ReactNode } from 'react';
 import { Emitter } from 'mitt';
 import {
 	ControlsConfig,
@@ -7,6 +7,7 @@ import {
 	VideoActions,
 	VideoGetters,
 } from '.';
+import { BaseReactPlayerProps } from 'react-player/base';
 
 /**
  * Video Players initial state
@@ -14,10 +15,10 @@ import {
 
 interface VideoPlayerInitialState {
 	playing?: boolean;
-	transcript?: string[];
-	startTime?: number;
-	endTime?: number;
-	duration?: number;
+	startTime: number;
+	endTime: number;
+	duration: number;
+	currentTime: number;
 }
 
 /**
@@ -39,7 +40,7 @@ export interface VideoState {
 	// to fix emitter state
 	emitter?: Emitter<Record<EmitterEvents, unknown>>;
 	// fix TS for React Player Ref
-	videoRef?: RefObject<HTMLVideoElement>;
+	videoRef?: MutableRefObject<BaseReactPlayerProps | undefined>;
 	oneStopPoint?: number;
 	playPromiseRef?: MutableRefObject<Promise<void> | undefined>;
 	playbackRate?: number;
@@ -61,9 +62,10 @@ export interface VideoState {
 }
 
 export type VideoActionsDispatch = {
-	[key in keyof VideoActions]: (
-		payload: VideoState | any,
-	) => React.Dispatch<{ type: keyof VideoActions; payload: VideoState | any }>;
+	[key in keyof VideoActions]: (payload: VideoState | any) => Dispatch<{
+		type: keyof VideoActions;
+		payload: VideoState | any;
+	}>;
 };
 
 export type VideoApi = Partial<

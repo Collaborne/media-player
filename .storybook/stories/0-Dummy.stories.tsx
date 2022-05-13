@@ -5,9 +5,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 
 function Dummy(): JSX.Element {
 	return (
-		<div>
-			This is a placeholder for the real stories of this component.
-		</div>
+		<div>This is a placeholder for the real stories of this component.</div>
 	);
 }
 
@@ -18,5 +16,5 @@ export default {
 };
 
 export const Introduction = () => {
-	return <Dummy/>;
-}
+	return <Dummy />;
+};

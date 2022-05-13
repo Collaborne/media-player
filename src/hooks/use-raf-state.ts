@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { useOnUnmount } from './use-on-unmount';
+import { useOnUnmount } from '.';
 
 /**
  * Update the state only in requestAnimationFrame callback.
