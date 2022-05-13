@@ -1,3 +1,5 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
 	stories: ['./stories/*.stories.tsx'],
 	addons: [
@@ -8,4 +10,5 @@ module.exports = {
 		'@storybook/addon-links',
 		'@storybook/addon-controls',
 	],
+	plugins: [new HtmlWebpackPlugin()],
 };
