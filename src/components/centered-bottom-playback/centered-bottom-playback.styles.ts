@@ -1,4 +1,4 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 
 export const useCenteredBottomPlaybackStyles = makeStyles(theme => ({
 	wrapper: {
@@ -8,8 +8,12 @@ export const useCenteredBottomPlaybackStyles = makeStyles(theme => ({
 		justifyContent: 'center',
 	},
 	playbackWrapper: {
-		background: theme.palette?.paper,
+		padding: ' 0 4px',
+
+		backgroundColor: theme.palette.background.paper,
 		height: '40px',
 		borderRadius: '8px 8px 0 0',
+		display: 'flex',
+		alignItems: 'center',
 	},
 }));

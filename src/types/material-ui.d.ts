@@ -1,6 +1,10 @@
 import '@mui/styles/createTheme';
 import { Theme } from '@mui/material/styles';
 
+import { CustomColor } from '../theme';
+
+export {};
+
 /**
  * Colors used for tags
  */
@@ -42,7 +46,7 @@ interface ProjectColors {
 declare module '@mui/material/styles/createPalette' {
 	type CustomColorMap = Record<CustomColor, string>;
 
-	interface Palette extends Partial<CustomColorMap> {
+	export interface Palette extends Partial<CustomColorMap> {
 		/** Color for indicator icons */
 		icon: string;
 

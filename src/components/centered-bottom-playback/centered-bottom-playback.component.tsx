@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 
 import { useCenteredBottomPlaybackStyles } from './centered-bottom-playback.styles';
 import { StyledPlaybackRateButton } from './playback-rate.button.styled';
@@ -14,13 +14,22 @@ const PLAYBACK_RATES = [1, 1.2, 1.5, 1.7, 2];
 const PlayBackButton: FC<PlayBackButtonProps> = ({
 	playbackRate,
 	onChangeRate,
-	active: _active,
+	active,
 }) => {
 	const onClick = useCallback(() => {
 		onChangeRate(playbackRate);
 	}, [onChangeRate, playbackRate]);
+	const isActive = useMemo(
+		() => active === playbackRate,
+		[active, playbackRate],
+	);
 	return (
-		<StyledPlaybackRateButton onClick={onClick} variant="text" color="inherit">
+		<StyledPlaybackRateButton
+			isActive={isActive}
+			onClick={onClick}
+			variant="text"
+			color="inherit"
+		>
 			{playbackRate}x
 		</StyledPlaybackRateButton>
 	);
@@ -33,7 +42,7 @@ interface CenteredBottomPlaybackProps {
 
 export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = ({
 	onChangePlaybackRate,
-	activePlaybackRate: _activePlay,
+	activePlaybackRate,
 }) => {
 	const { wrapper, playbackWrapper } = useCenteredBottomPlaybackStyles();
 	return (
@@ -42,7 +51,7 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = ({
 				{PLAYBACK_RATES.map(playbackRate => (
 					<PlayBackButton
 						key={playbackRate}
-						active={3}
+						active={activePlaybackRate}
 						onChangeRate={onChangePlaybackRate}
 						playbackRate={playbackRate}
 					/>
