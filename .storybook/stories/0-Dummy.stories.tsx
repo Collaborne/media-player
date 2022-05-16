@@ -10,11 +10,11 @@ const Dummy = () => (
 );
 
 export default {
-	title: 'Standart Player',
+	title: 'Standard Player',
 	component: Dummy,
 	decorators: [withKnobs],
 };
 
-export const StandartBrowserFunctionality = () => {
+export const StandardBrowserFunctionality = () => {
 	return <Dummy />;
 };

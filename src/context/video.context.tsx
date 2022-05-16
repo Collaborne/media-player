@@ -12,7 +12,7 @@ import {
 
 import { videoGetters } from '../store/getters';
 import { Size, useSize } from '../hooks';
-import { PROVIDER_FIRST_INITIAL_STATE } from './context.constants';
+import { PROVIDER_INITIAL_STATE } from './context.constants';
 import { videoActions } from '../store/actions';
 import usePreviousDistinct from '../hooks/use-previous-distinct';
 import { useStateReducer } from '../store/reducer';
@@ -33,7 +33,7 @@ export interface VideoContext {
 export const VideoContext = createContext<VideoContext | null>(null);
 
 export const VideoProvider: FC<VideoProviderProps> = ({
-	initialState: firstInitialState = PROVIDER_FIRST_INITIAL_STATE,
+	initialState: firstInitialState = PROVIDER_INITIAL_STATE,
 	children,
 	controlsConfig,
 }) => {
@@ -49,7 +49,9 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	// so that state re-renders are not triggered every mousemove.
 	const lastActivityRef = React.useRef<number>();
 	const markActivity = React.useCallback(() => {
-		if (lastActivityRef) lastActivityRef.current = Date.now();
+		if (lastActivityRef) {
+			lastActivityRef.current = Date.now();
+		}
 	}, [lastActivityRef]);
 
 	const { oneTimeStopPoint } = state;
