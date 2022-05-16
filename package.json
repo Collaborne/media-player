@@ -20,7 +20,7 @@
 		"predeploy": "run-s storybook:build",
 		"deploy": "gh-pages -d storybook-static -b deploy/gh-pages",
 		"storybook": "start-storybook -p 9009",
-		"storybook:build": "build-storybook --quiet -s public"
+		"storybook:build": "build-storybook --quiet"
 	},
 	"peerDependencies": {
 		"@collaborne/carrot-styles": "^5.0.7",
