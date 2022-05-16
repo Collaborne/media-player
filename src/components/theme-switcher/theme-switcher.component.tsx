@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { MaterialUISwitch, MaterialUIFormLabel } from './theme-swither.styled';
 

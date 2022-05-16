@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
 import { useCenteredBottomPlaybackStyles } from './centered-bottom-playback.styles';
 import { StyledPlaybackRateButton } from './playback-rate.button.styled';

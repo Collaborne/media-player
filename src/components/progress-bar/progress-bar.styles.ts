@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-export const useProgressBarStyles = makeStyles(theme => ({
+export const useProgressBarStyles = makeStyles({
 	wrapper: {
 		alignSelf: 'flex-end',
 		width: '100%',
@@ -12,4 +12,4 @@ export const useProgressBarStyles = makeStyles(theme => ({
 		display: 'flex',
 		alignItems: 'flex-end',
 	},
-}));
+});

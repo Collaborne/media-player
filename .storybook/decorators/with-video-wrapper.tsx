@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { StoryContext } from '@storybook/addons';
 
 // TODO: Fixing TS via updating/implementing new addons/decorators to fix the any TS

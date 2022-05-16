@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { StoryContext } from '@storybook/addons';
 
 import { DemoCard } from '../../src/components/demo-card/demo-card.component';

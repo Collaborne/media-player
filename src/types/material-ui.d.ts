@@ -1,6 +1,5 @@
 import '@mui/styles/createTheme';
 import { Theme } from '@mui/material/styles';
-
 import { CustomColor } from '../theme';
 
 export {};
@@ -46,6 +45,13 @@ interface ProjectColors {
 declare module '@mui/material/styles/createPalette' {
 	type CustomColorMap = Record<CustomColor, string>;
 
+	interface ContrastColors {
+		1: string;
+		2: string;
+		3: string;
+		4: string;
+		5: string;
+	}
 	export interface Palette extends Partial<CustomColorMap> {
 		/** Color for indicator icons */
 		icon: string;
@@ -62,13 +68,6 @@ declare module '@mui/material/styles/createPalette' {
 		contrasts: Partial<ContrastColors>;
 	}
 
-	interface ContrastColors {
-		1: string;
-		2: string;
-		3: string;
-		4: string;
-		5: string;
-	}
 	interface PaletteOptions extends Partial<CustomColorMap> {
 		icon: string;
 		comment: string;
