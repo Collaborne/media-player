@@ -1,10 +1,18 @@
-import { SvgIcon } from '@mui/material';
+import { FC } from 'react';
+import { IconProps, SvgIcon } from '@mui/material';
 import { VolumeUp, VolumeDown } from '@mui/icons-material';
+import { useBottomControlPanel } from './bottom-control-panel.styles';
 
-export const createVolumeIcon = (volume: number) => {
+interface VolumeIconProps extends IconProps {
+	volume: number;
+}
+
+export const VolumeIcon: FC<VolumeIconProps> = ({ volume }) => {
+	const { mediumIcons } = useBottomControlPanel();
+
 	if (volume === 0) {
 		return (
-			<SvgIcon viewBox="0 0 28 28">
+			<SvgIcon viewBox="0 0 28 28" className={mediumIcons}>
 				<path
 					d="M4 10.5V17.5H8.66667L14.5 23.3334V4.66669L8.66667 10.5H4Z"
 					fill="#F2F2F2"
@@ -25,7 +33,7 @@ export const createVolumeIcon = (volume: number) => {
 		);
 	}
 	if (volume >= 50) {
-		return <VolumeUp />;
+		return <VolumeUp className={mediumIcons} />;
 	}
-	return <VolumeDown />;
+	return <VolumeDown className={mediumIcons} />;
 };

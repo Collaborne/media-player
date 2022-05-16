@@ -1,6 +1,6 @@
 import { StoryContext } from '@storybook/addons';
 
-import { DemoCard } from '../../src/components/demo-card/demo-card.component';
+import { DemoCard } from '../../src/components/demo-card/demo-card';
 
 // TODO: Fixing TS via updating/implementing new addons/decorators to fix the any TS
 /**

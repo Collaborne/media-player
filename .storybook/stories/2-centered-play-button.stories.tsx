@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions';
 
-import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/centered-play-button.component';
+import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/centered-play-button';
 import { withDemoCard, withTheme, withVideoWrapper } from '../decorators';
 
 export const CenteredPlayButton = () => {

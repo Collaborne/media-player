@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { StoryContext } from '@storybook/addons';
 import { createThemeOptions } from '@collaborne/carrot-styles';
 
-import { ThemeSwitcher } from '../../src/components/theme-switcher/theme-switcher.component';
+import { ThemeSwitcher } from '../../src/components/theme-switcher/theme-switcher';
 
 const lightTheme = createTheme(createThemeOptions(false));
 const darkTheme = createTheme(createThemeOptions(true));

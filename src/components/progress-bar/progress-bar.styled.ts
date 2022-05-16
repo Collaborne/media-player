@@ -47,6 +47,5 @@ export const ProgressBarSlider = styled(Slider)(({ theme }) => ({
 		transform: 'unset',
 		borderRadius: 0,
 		top: 'unset',
-		bottom: 0,
 	},
 }));

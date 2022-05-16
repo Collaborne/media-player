@@ -1,7 +1,7 @@
 import { action } from '@storybook/addon-actions';
 
 import { withDemoCard, withTheme, withVideoWrapper } from '../decorators';
-import { BottomControlPanel as BottomControlPanelComponent } from '../../src/components/bottom-control-panel/bottom-control-panel.component';
+import { BottomControlPanel as BottomControlPanelComponent } from '../../src/components/bottom-control-panel/bottom-control-panel';
 
 export const BottomControlPanel = () => {
 	return (
@@ -14,8 +14,8 @@ export const BottomControlPanel = () => {
 			onFullscreen={action('onFullscreen')}
 			onFwd={action('onFwd')}
 			onPip={action('onPip')}
-			onPlayFromStart={action('onPlayFromStart')}
 			onRwd={action('onRwd')}
+			onReplay={action('onReplay')}
 			onSetPlaybackRate={action('onSetPlaybackRate')}
 			onStop={action('onStop')}
 			onVolumeChange={action('onVolumeChange')}

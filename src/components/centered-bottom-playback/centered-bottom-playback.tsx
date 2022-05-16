@@ -9,7 +9,7 @@ interface PlayBackButtonProps {
 	active: number;
 }
 
-const PLAYBACK_RATES = [1, 1.2, 1.5, 1.7, 2];
+export const PLAYBACK_RATES = [1, 1.2, 1.5, 1.7, 2];
 
 const PlayBackButton: FC<PlayBackButtonProps> = ({
 	playbackRate,
