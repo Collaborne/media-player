@@ -1,5 +1,3 @@
-import { withKnobs } from '@storybook/addon-knobs';
-
 import { withTheme, withDemoCard, withVideoWrapper } from '../decorators';
 
 const AllPlayerControls = () => {
@@ -13,7 +11,7 @@ const AllPlayerControls = () => {
 export default {
 	title: 'Video Player Controls',
 	component: AllPlayerControls,
-	decorators: [withKnobs, withVideoWrapper, withDemoCard, withTheme],
+	decorators: [withVideoWrapper, withDemoCard, withTheme],
 };
 
 export const AllControls = () => {

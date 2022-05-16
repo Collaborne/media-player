@@ -1,4 +1,3 @@
-import { withKnobs } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/centered-play-button.component';
@@ -11,5 +10,5 @@ export const CenteredPlayButton = () => {
 export default {
 	title: 'Video Player Controls',
 	component: CenteredPlayButton,
-	decorators: [withKnobs, withVideoWrapper, withDemoCard, withTheme],
+	decorators: [withVideoWrapper, withDemoCard, withTheme],
 };

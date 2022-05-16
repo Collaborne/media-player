@@ -1,37 +1,59 @@
 {
-	"parser": "@typescript-eslint/parser",
-	"extends": [
-		"standard",
+	"extends": "collaborne",
 
-		"plugin:prettier/recommended",
-		"plugin:@typescript-eslint/recommended"
-	],
-	"env": {
-		"node": true
-	},
-	"parserOptions": {
-		"ecmaVersion": 2020,
-		"ecmaFeatures": {
-			"legacyDecorators": true,
-			"jsx": true
+	"overrides": [
+		{
+			"files": [
+				"**/*.ts",
+				"**/*.tsx"
+			],
+
+			"extends": [
+				"standard-react",
+				"plugin:prettier/recommended",
+				"collaborne"
+			],
+
+			"env": {
+				"node": false
+			},
+
+			"settings": {
+				"react": {
+					"version": "17"
+				}
+			},
+			"plugins": [
+				"react-hooks"
+			],
+			"rules": {
+				"react/prop-types": "off",
+				"react/jsx-handler-names": "off",
+				"react/jsx-fragments": "off",
+				"react/no-unused-prop-types": "off",
+				"react/jsx-uses-react": "off",
+				"react/react-in-jsx-scope": "off",
+				"react-hooks/rules-of-hooks": "error",
+				"react-hooks/exhaustive-deps": "warn",
+				"camelcase": "warn"
+			}
+		},
+		{
+			"files": "src/**/*.spec.ts",
+
+			"extends": [
+				"plugin:jest/recommended"
+			]
+		},
+		{
+			"files": [
+				".storybook/**/*.ts",
+				".storybook/**/*.tsx"
+			],
+
+			"parserOptions": {
+				"project": "tsconfig.test.json"
+			}
 		}
-	},
-	"settings": {
-		"react": {
-			"version": "16"
-		}
-	},
-	"plugins": ["react-hooks"],
-	"rules": {
-		"space-before-function-paren": 0,
-		"react/prop-types": 0,
-		"react/jsx-handler-names": 0,
-		"react/jsx-fragments": 0,
-		"react/no-unused-prop-types": 0,
-		"react-hooks/rules-of-hooks": "error",
-		"react-hooks/exhaustive-deps": "warn",
-		"import/export": 0,
-		"@typescript-eslint/explicit-function-return-type": "off",
-		"@typescript-eslint/no-empty-interface": "off"
-	}
+	]
 }
