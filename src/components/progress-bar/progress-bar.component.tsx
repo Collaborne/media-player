@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { SliderProps } from '@mui/material';
+
+import { SliderProps } from '@mui/material/Slider/Slider';
 import { ProgressBarSlider } from './progress-bar.styled';
 import { useProgressBarStyles } from './progress-bar.styles';
 

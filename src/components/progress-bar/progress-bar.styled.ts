@@ -15,8 +15,8 @@ export const ProgressBarSlider = styled(Slider)(({ theme }) => ({
 		width: 12,
 		backgroundColor: '#fff',
 		border: '2px solid currentColor',
-		marginTop: 3,
-		marginLeft: -4,
+		marginTop: 5,
+		marginLeft: -3,
 		'&:focus, &:hover, &$active': {
 			boxShadow: 'inherit',
 		},
@@ -37,6 +37,8 @@ export const ProgressBarSlider = styled(Slider)(({ theme }) => ({
 		color: theme.palette.primary.main,
 		borderRadius: 0,
 		transform: 'unset',
+		top: 'unset',
+		bottom: 0,
 	},
 	'& .MuiSlider-rail': {
 		bottom: 0,
@@ -44,5 +46,7 @@ export const ProgressBarSlider = styled(Slider)(({ theme }) => ({
 		color: theme.palette.grey[300],
 		transform: 'unset',
 		borderRadius: 0,
+		top: 'unset',
+		bottom: 0,
 	},
 }));
