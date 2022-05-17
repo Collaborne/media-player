@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { MaterialUISwitch, MaterialUIFormLabel } from './theme-swither.styled';
+import { MaterialUISwitch, MaterialUIFormLabel } from './theme-switcher.styled';
 
 interface ThemeSwitcherProps {
 	onSwitchTheme: () => void;

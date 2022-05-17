@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import { FC, useCallback, useMemo } from 'react';
 
 import { useCenteredBottomPlaybackStyles } from './centered-bottom-playback.styles';
-import { PlaybackRateButtonStyled } from './playback-rate.button.styled';
+import { PlaybackRateButtonStyled } from './components/playback-rate.button.styled';
 
 interface PlayBackButtonProps {
 	onChangeRate: (playbackRate: number) => void;

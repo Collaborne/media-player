@@ -1,7 +1,9 @@
 import { FC } from 'react';
+
 import { IconProps, SvgIcon } from '@mui/material';
 import { VolumeUp, VolumeDown } from '@mui/icons-material';
-import { useBottomControlPanel } from './bottom-control-panel.styles';
+
+import { useBottomControlPanel } from '../bottom-control-panel.styles';
 
 interface VolumeIconProps extends IconProps {
 	volume: number;

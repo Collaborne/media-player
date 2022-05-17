@@ -5,11 +5,7 @@ export const ProgressBarSlider = styled(Slider)(({ theme }) => ({
 	'&.MuiSlider-root': {
 		padding: '12px 0 0 0',
 	},
-	mark: {
-		height: '100%',
-		background: 'transparent',
-		width: '2px',
-	},
+
 	'& .MuiSlider-thumb': {
 		height: 10,
 		width: 10,

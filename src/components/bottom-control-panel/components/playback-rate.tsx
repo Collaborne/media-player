@@ -1,6 +1,8 @@
 import { FC, useCallback } from 'react';
+
 import { Button, Typography } from '@mui/material';
-import { PLAYBACK_RATES } from '../centered-bottom-playback/centered-bottom-playback';
+
+import { PLAYBACK_RATES } from '../../centered-bottom-playback/centered-bottom-playback';
 
 interface PlaybackRateButtonProps {
 	playbackRate: number;

@@ -1,4 +1,5 @@
 import { FC, useCallback } from 'react';
+
 import {
 	Forward10Outlined,
 	FullscreenOutlined,
@@ -6,12 +7,15 @@ import {
 	Replay10Outlined,
 } from '@mui/icons-material';
 import { Grid, IconButton, Typography } from '@mui/material';
+
 import { useBottomControlPanel } from './bottom-control-panel.styles';
-import { VolumeIcon } from './volume-icon';
-import { VolumeBarStyled } from './volume-slider.styled';
+import {
+	PlaybackRateButton,
+	PlayPauseReplay,
+	VolumeBarStyled,
+	VolumeIcon,
+} from './components';
 import { toTimestamp } from '../../utils/time';
-import { PlaybackRateButton } from './playback-rate';
-import { PlayPauseReplay } from './play-pause-replay-buttons';
 
 export interface BottomControlPanelProps {
 	isFinished: boolean;
@@ -29,8 +33,8 @@ export interface BottomControlPanelProps {
 	onSetPlaybackRate: (playbackRate: number) => void;
 	onPip: VoidFunction;
 	onFullscreen: VoidFunction;
+	onMute: VoidFunction;
 }
-// Add clicks on volume with mute/unmute
 
 export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 	const {
@@ -48,6 +52,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 		onPlay,
 		onStop,
 		onReplay,
+		onMute,
 		onVolumeChange,
 	} = props;
 	const {
@@ -61,10 +66,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 	} = useBottomControlPanel();
 
 	// Update callback when store is added
-	const handleVolumeClick = useCallback(
-		() => onVolumeChange(),
-		[onVolumeChange],
-	);
+	const handleVolumeClick = useCallback(() => onMute(), [onMute]);
 
 	return (
 		<Grid

@@ -1,5 +1,6 @@
-import { CSSProperties, FC } from 'react';
+import { FC } from 'react';
 import cn from 'clsx';
+
 import IconButton, {
 	IconButtonProps,
 } from '@mui/material/IconButton/IconButton';
@@ -11,19 +12,17 @@ interface CenteredPlayButtonProps {
 	onClick?: VoidFunction;
 	classNames?: string;
 	iconButtonProps?: IconButtonProps;
-	style?: CSSProperties;
 }
 
 export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 	onClick,
 	classNames,
 	iconButtonProps,
-	style,
 }) => {
 	const { controlsWrapper, svgStyle } = useCenteredPlayButtonStyles();
 
 	return (
-		<div className={cn(controlsWrapper, classNames)} style={style ?? {}}>
+		<div className={cn(controlsWrapper, classNames)}>
 			<IconButton onClick={onClick} {...iconButtonProps}>
 				<SvgIcon className={svgStyle} viewBox="0 0 64 64">
 					<path

@@ -5,7 +5,16 @@ import { ProgressBar as ProgressBarComponent } from '../../src/components/progre
 
 export const ProgressBar = () => {
 	return (
-		<ProgressBarComponent min={0} max={100} onChange={action('onChange')} />
+		<div
+			style={{
+				display: 'flex',
+				alignItems: 'end',
+				width: '100%',
+				position: 'relative',
+			}}
+		>
+			<ProgressBarComponent min={0} max={100} onChange={action('onChange')} />
+		</div>
 	);
 };
 

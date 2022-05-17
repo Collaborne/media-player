@@ -1,7 +1,9 @@
 import { FC, useCallback } from 'react';
+
 import { PauseOutlined, PlayArrow, ReplayOutlined } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-import { useBottomControlPanel } from './bottom-control-panel.styles';
+
+import { useBottomControlPanel } from '../bottom-control-panel.styles';
 
 interface PlayPauseReplayProps {
 	isFinished: boolean;
