@@ -24,7 +24,7 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 		() => active === playbackRate,
 		[active, playbackRate],
 	);
-	const { timeStampText } = useCenteredBottomPlaybackStyles({ isActive });
+	const { btnInner } = useCenteredBottomPlaybackStyles({ isActive });
 
 	return (
 		<PlaybackRateButtonStyled
@@ -33,7 +33,7 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 			variant="text"
 			color="inherit"
 		>
-			<Typography variant="body2" className={timeStampText}>
+			<Typography variant="body2" className={btnInner}>
 				{playbackRate}&#10005;
 			</Typography>
 		</PlaybackRateButtonStyled>

@@ -1,7 +1,7 @@
 import { makeStyles } from '@mui//styles';
 
 // To be expanded for themes
-export const useBottomControlPanel = makeStyles(_theme => ({
+export const useBottomControlPanelStyles = makeStyles(_theme => ({
 	wrapper: {
 		width: '100%',
 		height: '44px',

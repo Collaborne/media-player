@@ -21,8 +21,8 @@ export const useCenteredBottomPlaybackStyles = makeStyles(theme =>
 			display: 'flex',
 			alignItems: 'center',
 		},
-		timeStampText: {
-			fontWeight: 500,
+		btnInner: {
+			fontWeight: 600,
 			color: (props: ButtonStyles) =>
 				props.isActive ? 'rgba(242,242,242,1)' : theme.palette.grey[300],
 		},

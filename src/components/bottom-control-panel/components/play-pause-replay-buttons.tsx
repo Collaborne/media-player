@@ -3,7 +3,7 @@ import { FC, useCallback } from 'react';
 import { PauseOutlined, PlayArrow, ReplayOutlined } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 
-import { useBottomControlPanel } from '../bottom-control-panel.styles';
+import { useBottomControlPanelStyles } from '../bottom-control-panel.styles';
 
 interface PlayPauseReplayProps {
 	isFinished: boolean;
@@ -20,7 +20,7 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	onReplay,
 	onStop,
 }) => {
-	const { mediumIconButtons, mediumIcons } = useBottomControlPanel();
+	const { mediumIconButtons, mediumIcons } = useBottomControlPanelStyles();
 
 	const handleClick = useCallback(() => {
 		if (isFinished) {

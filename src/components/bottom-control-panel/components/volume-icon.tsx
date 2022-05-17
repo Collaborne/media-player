@@ -3,14 +3,14 @@ import { FC } from 'react';
 import { IconProps, SvgIcon } from '@mui/material';
 import { VolumeUp, VolumeDown } from '@mui/icons-material';
 
-import { useBottomControlPanel } from '../bottom-control-panel.styles';
+import { useBottomControlPanelStyles } from '../bottom-control-panel.styles';
 
 interface VolumeIconProps extends IconProps {
 	volume: number;
 }
 
 export const VolumeIcon: FC<VolumeIconProps> = ({ volume }) => {
-	const { mediumIcons } = useBottomControlPanel();
+	const { mediumIcons } = useBottomControlPanelStyles();
 
 	if (volume === 0) {
 		return (

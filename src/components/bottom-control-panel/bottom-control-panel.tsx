@@ -8,7 +8,7 @@ import {
 } from '@mui/icons-material';
 import { Grid, IconButton, Typography } from '@mui/material';
 
-import { useBottomControlPanel } from './bottom-control-panel.styles';
+import { useBottomControlPanelStyles } from './bottom-control-panel.styles';
 import {
 	PlaybackRateButton,
 	PlayPauseReplay,
@@ -63,7 +63,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 		pipIcon,
 		fullScreenIcon,
 		timeStampText,
-	} = useBottomControlPanel();
+	} = useBottomControlPanelStyles();
 
 	// Update callback when store is added
 	const handleVolumeClick = useCallback(() => onMute(), [onMute]);

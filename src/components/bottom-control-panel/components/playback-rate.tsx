@@ -31,7 +31,7 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 			onClick={handleClick}
 			className={className}
 		>
-			<Typography variant="subtitle2" color={'white'}>
+			<Typography variant="body2" fontWeight={600}>
 				{playbackRate}&#10005;
 			</Typography>
 		</Button>
