@@ -1,6 +1,7 @@
 import { makeStyles } from '@mui//styles';
 
-export const useBottomControlPanel = makeStyles(theme => ({
+// To be expanded for themes
+export const useBottomControlPanel = makeStyles(_theme => ({
 	wrapper: {
 		width: '100%',
 		height: '44px',
@@ -8,13 +9,14 @@ export const useBottomControlPanel = makeStyles(theme => ({
 		background: 'rgba(0,0,0,0.72)',
 	},
 	timeStampText: {
-		color: theme.palette.primary.contrastText,
+		color: 'rgba(242, 242, 242,1)',
+		fontWeight: 500,
 	},
 	mediumIconButtons: {
 		width: '36px',
 		height: '100%',
 		minWidth: 'unset',
-		color: theme.palette.primary.contrastText,
+		color: 'rgba(242, 242, 242,1)',
 	},
 	gridCentered: {
 		display: 'inline-flex',

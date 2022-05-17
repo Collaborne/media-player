@@ -10,7 +10,6 @@ export const useDemoCardStyles = makeStyles({
 		boxSizing: 'border-box',
 		border: '1px solid red',
 		flexShrink: 0,
-		bordSer: '1px solid green',
 	},
 	header: {
 		flexShrink: 0,

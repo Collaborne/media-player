@@ -1,7 +1,8 @@
+import { Typography } from '@mui/material';
 import { FC, useCallback, useMemo } from 'react';
 
 import { useCenteredBottomPlaybackStyles } from './centered-bottom-playback.styles';
-import { StyledPlaybackRateButton } from './playback-rate.button.styled';
+import { PlaybackRateButtonStyled } from './playback-rate.button.styled';
 
 interface PlayBackButtonProps {
 	onChangeRate: (playbackRate: number) => void;
@@ -23,19 +24,23 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 		() => active === playbackRate,
 		[active, playbackRate],
 	);
+	const { timeStampText } = useCenteredBottomPlaybackStyles({ isActive });
+
 	return (
-		<StyledPlaybackRateButton
+		<PlaybackRateButtonStyled
 			isActive={isActive}
 			onClick={onClick}
 			variant="text"
 			color="inherit"
 		>
-			{playbackRate}x
-		</StyledPlaybackRateButton>
+			<Typography variant="body2" className={timeStampText}>
+				{playbackRate}&#10005;
+			</Typography>
+		</PlaybackRateButtonStyled>
 	);
 };
 
-interface CenteredBottomPlaybackProps {
+export interface CenteredBottomPlaybackProps {
 	onChangePlaybackRate: (playbackRate: number) => void;
 	activePlaybackRate: number;
 }
@@ -44,7 +49,7 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = ({
 	onChangePlaybackRate,
 	activePlaybackRate,
 }) => {
-	const { wrapper, playbackWrapper } = useCenteredBottomPlaybackStyles();
+	const { wrapper, playbackWrapper } = useCenteredBottomPlaybackStyles({});
 	return (
 		<div className={wrapper}>
 			<div className={playbackWrapper}>

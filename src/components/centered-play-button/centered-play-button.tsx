@@ -6,22 +6,25 @@ import IconButton, {
 import SvgIcon from '@mui/material/SvgIcon/SvgIcon';
 
 import { useCenteredPlayButtonStyles } from './centered-play-button.styles';
+import { CSSProperties } from '@mui/styled-engine';
 
 interface CenteredPlayButtonProps {
 	onClick?: VoidFunction;
 	classNames?: string;
 	iconButtonProps?: IconButtonProps;
+	style?: CSSProperties;
 }
 
 export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 	onClick,
 	classNames,
 	iconButtonProps,
+	style,
 }) => {
 	const { controlsWrapper, svgStyle } = useCenteredPlayButtonStyles();
 
 	return (
-		<div className={cn(controlsWrapper, classNames)}>
+		<div className={cn(controlsWrapper, classNames)} style={style}>
 			<IconButton onClick={onClick} {...iconButtonProps}>
 				<SvgIcon className={svgStyle} viewBox="0 0 64 64">
 					<path

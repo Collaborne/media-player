@@ -2,8 +2,6 @@ import '@mui/styles/createTheme';
 import { Theme } from '@mui/material/styles';
 import { CustomColor } from '../theme';
 
-export {};
-
 /**
  * Colors used for tags
  */

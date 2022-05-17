@@ -13,11 +13,13 @@ import { toTimestamp } from '../../utils/time';
 import { PlaybackRateButton } from './playback-rate';
 import { PlayPauseReplay } from './play-pause-replay-buttons';
 
-interface BottomControlPanelProps {
+export interface BottomControlPanelProps {
 	isFinished: boolean;
 	isPlaying: boolean;
 	volume: number;
 	playbackRate: number;
+	duration: number;
+	currentTime: number;
 	onPlay: VoidFunction;
 	onStop: VoidFunction;
 	onReplay: VoidFunction;
@@ -28,7 +30,7 @@ interface BottomControlPanelProps {
 	onPip: VoidFunction;
 	onFullscreen: VoidFunction;
 }
-// Add clicks on volume with muting/unmuting
+// Add clicks on volume with mute/unmute
 
 export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 	const {
@@ -36,6 +38,8 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 		isFinished,
 		volume,
 		playbackRate,
+		currentTime,
+		duration,
 		onSetPlaybackRate,
 		onFullscreen,
 		onFwd,
@@ -53,9 +57,10 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 		gridCentered,
 		pipIcon,
 		fullScreenIcon,
+		timeStampText,
 	} = useBottomControlPanel();
 
-	// Udpate callback when store is added
+	// Update callback when store is added
 	const handleVolumeClick = useCallback(
 		() => onVolumeChange(),
 		[onVolumeChange],
@@ -86,7 +91,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 					>
 						<Replay10Outlined className={mediumIcons} />
 					</IconButton>
-					{/* Formward Button */}
+					{/* Forward Button */}
 					<IconButton
 						size="medium"
 						className={mediumIconButtons}
@@ -112,8 +117,8 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 				</Grid>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="center">
-				<Typography variant="subtitle2" color={'white'}>
-					{toTimestamp(6000)} / {toTimestamp(6500000)}
+				<Typography variant="body2" className={timeStampText}>
+					{toTimestamp(currentTime)} / {toTimestamp(duration)}
 				</Typography>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="flex-end">

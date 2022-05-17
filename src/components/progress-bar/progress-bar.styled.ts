@@ -11,12 +11,11 @@ export const ProgressBarSlider = styled(Slider)(({ theme }) => ({
 		width: '2px',
 	},
 	'& .MuiSlider-thumb': {
-		height: 12,
-		width: 12,
-		backgroundColor: '#fff',
-		border: '2px solid currentColor',
+		height: 10,
+		width: 10,
+		backgroundColor: theme.palette.primary.main,
 		marginTop: 5,
-		marginLeft: -3,
+		marginLeft: 0,
 		'&:focus, &:hover, &$active': {
 			boxShadow: 'inherit',
 		},
@@ -24,13 +23,14 @@ export const ProgressBarSlider = styled(Slider)(({ theme }) => ({
 		opacity: 0,
 		transition: '.3s opacity ease-out',
 	},
+
 	'&:hover .MuiSlider-thumb': {
 		opacity: 1,
+		'&:hover': {
+			boxShadow: '0px 0px 0px 3px rgb(203 1 255 / 16%)',
+		},
 	},
-	active: {},
-	valueLabel: {
-		left: 'calc(-50% + 4px)',
-	},
+
 	'& .MuiSlider-track': {
 		height: 6,
 		border: 0,

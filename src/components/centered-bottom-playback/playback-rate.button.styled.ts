@@ -1,20 +1,23 @@
-import Button, { ButtonProps } from '@mui/material/Button/Button';
+import { Button, ButtonProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-interface StyledPlaybackRateButton extends ButtonProps {
+interface PlaybackRateButtonStyled extends ButtonProps {
 	isActive?: boolean;
 }
 
-export const StyledPlaybackRateButton = styled(Button, {
+export const PlaybackRateButtonStyled = styled(Button, {
 	shouldForwardProp: prop => prop !== 'isActive',
-})<StyledPlaybackRateButton>(({ theme, isActive }) => ({
-	width: 20,
+})<PlaybackRateButtonStyled>(({ theme, isActive }) => ({
+	minWidth: 'unset',
 	'&.MuiButton-root:not(:first-of-type)': {
 		marginLeft: '12px',
 	},
+	'&:hover': {
+		background: theme.palette.grey[500],
+	},
 	...(isActive && {
 		'&.MuiButton-root': {
-			background: theme.palette.action.selected,
+			background: theme.palette.grey[400],
 		},
 	}),
 }));
