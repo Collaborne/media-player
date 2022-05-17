@@ -19,11 +19,11 @@ export const BottomControlPanel: Story<
 			}}
 		>
 			<BottomControlPanelComponent
-				isFinished={args.isFinished}
-				isPlaying={args.isPlaying}
-				volume={args.volume}
-				currentTime={args.currentTime}
-				duration={args.duration}
+				isFinished={args.isFinished ?? false}
+				isPlaying={args.isPlaying ?? false}
+				volume={args.volume ?? 0}
+				currentTime={args.currentTime ?? 0}
+				duration={args.duration ?? 0}
 				playbackRate={1}
 				onPlay={action('onPlay')}
 				onFullscreen={action('onFullscreen')}
