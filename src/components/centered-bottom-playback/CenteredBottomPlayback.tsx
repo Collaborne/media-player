@@ -1,16 +1,17 @@
-import { Typography } from '@mui/material';
 import { FC, useCallback, useMemo } from 'react';
 
-import { useCenteredBottomPlaybackStyles } from './centered-bottom-playback.styles';
-import { PlaybackRateButtonStyled } from './components/playback-rate.button.styled';
+import { Typography } from '@mui/material';
+
+import { useCenteredBottomPlaybackStyles } from './useCenteredBottomPlaybackStyles';
+import { PlaybackRateButtonStyled } from './components/PlaybackRateButtonStyled';
+import { PLAYBACK_RATES } from '../../utils/constants';
+import { MultiplySymbol } from '../../utils/MultiplySymbol';
 
 interface PlayBackButtonProps {
 	onChangeRate: (playbackRate: number) => void;
 	playbackRate: number;
 	active: number;
 }
-
-export const PLAYBACK_RATES = [1, 1.2, 1.5, 1.7, 2];
 
 const PlayBackButton: FC<PlayBackButtonProps> = ({
 	playbackRate,
@@ -20,11 +21,13 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 	const onClick = useCallback(() => {
 		onChangeRate(playbackRate);
 	}, [onChangeRate, playbackRate]);
+
 	const isActive = useMemo(
 		() => active === playbackRate,
 		[active, playbackRate],
 	);
-	const { btnInner } = useCenteredBottomPlaybackStyles({ isActive });
+
+	const { playbackRateInner } = useCenteredBottomPlaybackStyles();
 
 	return (
 		<PlaybackRateButtonStyled
@@ -33,8 +36,9 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 			variant="text"
 			color="inherit"
 		>
-			<Typography variant="body2" className={btnInner}>
-				{playbackRate}&#10005;
+			<Typography variant="body2" className={playbackRateInner}>
+				{playbackRate}
+				<MultiplySymbol />
 			</Typography>
 		</PlaybackRateButtonStyled>
 	);

@@ -1,6 +1,6 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from '@mui/styles';
 
-export const useCenteredPlayButtonStyles = makeStyles({
+export const useCenteredPlayButtonStyles = makeStyles(theme => ({
 	controlsWrapper: {
 		width: '100%',
 		height: '100%',
@@ -12,10 +12,10 @@ export const useCenteredPlayButtonStyles = makeStyles({
 
 	svgStyle: {
 		transition: '.2s transform ease-out',
-		width: '80px',
-		height: '80px',
+		width: theme.spacing(10),
+		height: theme.spacing(10),
 		'&:hover': {
 			transform: 'scale(1.2)',
 		},
 	},
-});
+}));

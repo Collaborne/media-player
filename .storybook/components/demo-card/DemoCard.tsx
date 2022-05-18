@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
-import { useDemoCardStyles } from './demo-card.styles';
+
+import { useDemoCardStyles } from './useDemoCardStyles';
 
 interface DemoCardProps {
 	title?: string;
@@ -7,8 +8,7 @@ interface DemoCardProps {
 }
 
 /**
- * A card that is used as decorator vor every story container
- * TODO: implement theme (in case of video player's themes support) and integrate into app
+ * A card that is used as decorator for every story container
  */
 export const DemoCard: FC<DemoCardProps> = ({ children, title }) => {
 	const { container, header, title: titleStyle, body } = useDemoCardStyles();

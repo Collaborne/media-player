@@ -1,18 +1,18 @@
 import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/centered-play-button';
+import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/CenteredPlayButton';
 import {
 	CenteredBottomPlayback as CenteredBottomPlaybackComponent,
 	CenteredBottomPlaybackProps,
-} from '../../src/components/centered-bottom-playback/centered-bottom-playback';
+} from '../../src/components/centered-bottom-playback/CenteredBottomPlayback';
 import { withTheme, withDemoCard, withVideoWrapper } from '../decorators';
 
-import { ProgressBar } from '../../src/components/progress-bar/progress-bar';
+import { ProgressBar } from '../../src/components/progress-bar/ProgressBar';
 import {
 	BottomControlPanel as BottomControlPanelComponent,
 	BottomControlPanelProps,
-} from '../../src/components/bottom-control-panel/bottom-control-panel';
+} from '../../src/components/bottom-control-panel/BottomControlPanel';
 import {
 	bottomControlPanelStoryArgs,
 	bottomControlPanelStoryArgTypes,

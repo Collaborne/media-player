@@ -8,7 +8,7 @@ import {
 } from '@mui/icons-material';
 import { Grid, IconButton, Typography } from '@mui/material';
 
-import { useBottomControlPanelStyles } from './bottom-control-panel.styles';
+import { useBottomControlPanelStyles } from './useBottomControlPanelStyles';
 import {
 	PlaybackRateButton,
 	PlayPauseReplay,
@@ -36,25 +36,24 @@ export interface BottomControlPanelProps {
 	onMute: VoidFunction;
 }
 
-export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
-	const {
-		isPlaying,
-		isFinished,
-		volume,
-		playbackRate,
-		currentTime,
-		duration,
-		onSetPlaybackRate,
-		onFullscreen,
-		onFwd,
-		onRwd,
-		onPip,
-		onPlay,
-		onStop,
-		onReplay,
-		onMute,
-		onVolumeChange,
-	} = props;
+export const BottomControlPanel: FC<BottomControlPanelProps> = ({
+	isPlaying,
+	isFinished,
+	volume,
+	playbackRate,
+	currentTime,
+	duration,
+	onSetPlaybackRate,
+	onFullscreen,
+	onFwd,
+	onRwd,
+	onPip,
+	onPlay,
+	onStop,
+	onReplay,
+	onMute,
+	onVolumeChange,
+}) => {
 	const {
 		wrapper,
 		mediumIcons,
@@ -101,6 +100,13 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 					>
 						<Forward10Outlined className={mediumIcons} />
 					</IconButton>
+					<IconButton
+						size="medium"
+						className={mediumIconButtons}
+						onClick={handleVolumeClick}
+					>
+						<VolumeIcon volume={volume} />
+					</IconButton>
 					{/* Volume Slider */}
 					<Grid className={gridCentered}>
 						<IconButton
@@ -110,16 +116,12 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = props => {
 						>
 							<VolumeIcon volume={volume} />
 						</IconButton>
-						<VolumeBarStyled
-							size="small"
-							color="secondary"
-							onChange={onVolumeChange}
-						/>
+						<VolumeBarStyled size="small" onChange={onVolumeChange} />
 					</Grid>
 				</Grid>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="center">
-				<Typography variant="body2" className={timeStampText}>
+				<Typography variant="body2" className={timeStampText} color="inherit">
 					{toTimestamp(currentTime)} / {toTimestamp(duration)}
 				</Typography>
 			</Grid>

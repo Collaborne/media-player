@@ -1,40 +1,11 @@
 import '@mui/styles/createTheme';
 import { Theme } from '@mui/material/styles';
-import { CustomColor } from '../theme';
+import type { CustomColor } from '@collaborne/carrot-styles';
 
-/**
- * Colors used for tags
- */
-interface TagColors {
-	turquoise: string;
-	yellow: string;
-	green: string;
-	red: string;
-	orange: string;
-	purple: string;
-	brown: string;
-	pink: string;
-	blue: string;
-	raspberry: string;
-	navy: string;
-	lime: string;
-}
-
-/**
- * Colors used e.g. for project background
- */
-interface ProjectColors {
-	orange: string;
-	green: string;
-	purple: string;
-	blue: string;
-	brown: string;
-	yellow: string;
-	red: string;
-	grey: string;
-	pink: string;
-	turquoise: string;
-}
+import type {
+	ProjectColors,
+	TagColors,
+} from '@collaborne/carrot-styles/src/types/material-ui';
 
 /**
  * Define own color schema

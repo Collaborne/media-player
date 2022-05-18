@@ -1,5 +1,4 @@
-import { Button, ButtonProps } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Button, ButtonProps, styled } from '@mui/material';
 
 interface PlaybackRateButtonStyled extends ButtonProps {
 	isActive?: boolean;
@@ -10,14 +9,12 @@ export const PlaybackRateButtonStyled = styled(Button, {
 })<PlaybackRateButtonStyled>(({ theme, isActive }) => ({
 	minWidth: 'unset',
 	'&.MuiButton-root:not(:first-of-type)': {
-		marginLeft: '12px',
+		marginLeft: theme.spacing(1.5),
 	},
-	'&:hover': {
-		background: theme.palette.grey[500],
-	},
+
 	...(isActive && {
 		'&.MuiButton-root': {
-			background: theme.palette.grey[400],
+			background: theme.palette.action.selected,
 		},
 	}),
 }));

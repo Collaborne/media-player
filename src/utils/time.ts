@@ -8,7 +8,7 @@ function padTime(num: number) {
 }
 
 /**
- * Converts seconds to HH:MM:SS format
+ * Converts milliseconds to HH:MM:SS format
  */
 export const toTimestamp = (ms: number, short = true) => {
 	const seconds = Math.round(ms / 1000);

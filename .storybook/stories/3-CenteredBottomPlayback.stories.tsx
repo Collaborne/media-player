@@ -5,8 +5,8 @@ import { withDemoCard, withTheme, withVideoWrapper } from '../decorators';
 import {
 	CenteredBottomPlayback as CenteredBottomPlaybackComponent,
 	CenteredBottomPlaybackProps,
-	PLAYBACK_RATES,
-} from '../../src/components/centered-bottom-playback/centered-bottom-playback';
+} from '../../src/components/centered-bottom-playback/CenteredBottomPlayback';
+import { PLAYBACK_RATES } from '../../src/utils/constants';
 
 export const CenteredBottomPlayback: Story<
 	CenteredBottomPlaybackProps
