@@ -1,2 +1,2 @@
-export * from './video-player/video-player.component';
-export * from './controls/controls.component';
+export * from './video-player/VideoPlayer';
+export * from './controls/Controls';

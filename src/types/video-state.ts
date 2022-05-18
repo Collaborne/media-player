@@ -29,6 +29,7 @@ export interface VideoProviderProps {
 	controlsConfig: ControlsConfig;
 	initialState?: VideoPlayerInitialState;
 	children: ReactNode;
+	persistedState?: VideoState;
 }
 
 /**

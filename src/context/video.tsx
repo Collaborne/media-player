@@ -11,8 +11,7 @@ import {
 } from '../types';
 
 import { videoGetters } from '../store/getters';
-import { Size, useSize } from '../hooks';
-import { PROVIDER_INITIAL_STATE } from './context.constants';
+import { PROVIDER_INITIAL_STATE } from './constants';
 import { videoActions } from '../store/actions';
 import usePreviousDistinct from '../hooks/use-previous-distinct';
 import { useStateReducer } from '../store/reducer';
@@ -24,7 +23,6 @@ export interface VideoContext {
 	markActivity?: VoidFunction;
 	controlsConfig?: ControlsConfig;
 	reactPlayerProps?: ReactPlayerProps;
-	size?: Size;
 	state?: VideoState;
 	videoRef?: RefObject<BaseReactPlayerProps | undefined>;
 }
@@ -36,14 +34,15 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	initialState: firstInitialState = PROVIDER_INITIAL_STATE,
 	children,
 	controlsConfig,
+	persistedState,
 }) => {
 	const { state, dispatch, videoRef, initialState } = useStateReducer({
 		firstInitialState,
+		persistedState,
 	});
 	const prevState = usePreviousDistinct(state);
 	const readyFiredRef = React.useRef(false);
 	const [hasAutoplayed, setAutoplayed] = React.useState(false);
-	const videoSize = useSize(videoRef.current?.getInternalPlayer());
 
 	// Store the user's last "activity" (including mousemove over player) within a ref,
 	// so that state re-renders are not triggered every mousemove.
@@ -152,7 +151,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			newValue = { ...newValue };
 		}
 		setVideoContext(newValue);
-	}, [state, dispatch, videoRef, controlsConfig, videoSize, initialState]);
+	}, [state, dispatch, videoRef, controlsConfig, initialState]);
 
 	function updateContextValue(currentValue?: VideoContext) {
 		const ctx = currentValue || {};
@@ -180,7 +179,6 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 		ctx.markActivity = markActivity;
 		ctx.state = state;
 		ctx.controlsConfig = controlsConfig;
-		ctx.size = videoSize;
 		ctx.reactPlayerProps = {
 			autoPlay: !!(initialState && initialState.playing),
 			playsinline: true,

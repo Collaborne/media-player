@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { VideoContext } from '../context/video.context';
+import { VideoContext } from '../context/video';
 
 export const useVideo = (): VideoContext => {
 	const context = useContext<VideoContext | null>(VideoContext);

@@ -4,7 +4,7 @@ import { useRef } from 'react';
  * Hook that returns the mounting state of a component (first render = true)
  */
 
-export function useFirstMountState(): boolean {
+export const useFirstMountState = (): boolean => {
 	const isFirst = useRef(true);
 
 	if (isFirst.current) {
@@ -13,4 +13,4 @@ export function useFirstMountState(): boolean {
 	}
 
 	return isFirst.current;
-}
+};

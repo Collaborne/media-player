@@ -3,8 +3,6 @@ import ReactPlayer, { Config } from 'react-player';
 
 interface VideoPlayerProps {
 	videoUrl: string;
-	videoWidth?: number;
-	videoHeight?: number;
 	classNames?: string;
 	config?: Config;
 }

@@ -9,11 +9,11 @@ import {
 } from 'react';
 import { BaseReactPlayerProps } from 'react-player/base';
 import { VideoAction, VideoState, VideoStateSetter } from '../types';
-import { withPersistedState, writePersistedState } from '../utils';
 import { videoActions } from './actions';
 
 interface UseStateReducerProps {
 	firstInitialState: VideoState;
+	persistedState?: VideoState;
 }
 interface UseStateReducer {
 	state: VideoState;
@@ -24,6 +24,7 @@ interface UseStateReducer {
 
 export const useStateReducer = ({
 	firstInitialState,
+	persistedState,
 }: UseStateReducerProps): UseStateReducer => {
 	const [initialState] = useState(firstInitialState);
 	const videoRef = useRef<BaseReactPlayerProps>();
@@ -40,8 +41,6 @@ export const useStateReducer = ({
 		if (!fn) throw new Error(`Unhandled action type: ${action.type}`);
 		const changes = fn(state, action.payload);
 
-		writePersistedState(changes || {});
-
 		const newState = { ...state, ...changes };
 
 		// Non-private actions mark new activity date.
@@ -52,7 +51,7 @@ export const useStateReducer = ({
 	};
 
 	const initialReducerState: VideoState = {
-		...withPersistedState({
+		...{
 			currentTime: 0,
 			currentRelativeTime: 0,
 			playbackRate: 1,
@@ -70,7 +69,8 @@ export const useStateReducer = ({
 			playPromiseRef,
 			muted: false,
 			fullscreen: false,
-		}),
+		},
+		...persistedState,
 		...initialState,
 	};
 
