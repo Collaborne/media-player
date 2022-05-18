@@ -100,13 +100,6 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 					>
 						<Forward10Outlined className={mediumIcons} />
 					</IconButton>
-					<IconButton
-						size="medium"
-						className={mediumIconButtons}
-						onClick={handleVolumeClick}
-					>
-						<VolumeIcon volume={volume} />
-					</IconButton>
 					{/* Volume Slider */}
 					<Grid className={gridCentered}>
 						<IconButton
@@ -121,19 +114,23 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 				</Grid>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="center">
+				{/* Current Time / Duration */}
 				<Typography variant="body2" className={timeStampText} color="inherit">
 					{toTimestamp(currentTime)} / {toTimestamp(duration)}
 				</Typography>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="flex-end">
+				{/* Playback Rate */}
 				<PlaybackRateButton
 					playbackRate={playbackRate}
 					onChangeRate={onSetPlaybackRate}
 					className={mediumIconButtons}
 				/>
+				{/* Picture In Picture */}
 				<IconButton size="medium" className={mediumIconButtons} onClick={onPip}>
 					<PictureInPictureAltOutlined className={pipIcon} />
 				</IconButton>
+				{/* Fullscreen mode */}
 				<IconButton
 					size="medium"
 					className={mediumIconButtons}
