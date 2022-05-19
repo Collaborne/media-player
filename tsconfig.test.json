@@ -1,10 +1,7 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "module": "commonjs"
-  },
-  "include": [
-    "src/**/*",
-    ".storybook/stories/**/*"
-  ]
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"module": "commonjs"
+	},
+	"include": ["src/**/*", ".storybook/**/*"]
 }
