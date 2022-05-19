@@ -70,7 +70,7 @@ export const videoActions: VideoActions = {
 		// details: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play
 		// pausing a video is sync: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause
 		if (video && state.playPromiseRef?.current) {
-			state.playPromiseRef.current.then(() => video.pause());
+			void state.playPromiseRef.current.then(() => video.pause());
 		}
 		return { playing: false };
 	},
@@ -125,19 +125,22 @@ export const videoActions: VideoActions = {
 		if (pip.supported) {
 			// Ignore pip exit DOM errors (we are just trying to exit any open pip),
 			// if there is no open pip DOM will throw an error we ignore.
-			Promise.resolve(pip.exit?.(video)).catch();
+			// eslint-disable-next-line promise/valid-params
+			void Promise.resolve(pip.exit?.(video)).catch();
 		}
 		state.emitter?.emit('fullscreenEnter');
 		if (screenfull.isEnabled) {
 			// Check on base.parentNode vs parentNode
-			screenfull.request(state.videoRef?.current?.parentNode as HTMLElement);
+			void screenfull.request(
+				state.videoRef?.current?.parentNode as HTMLElement,
+			);
 		}
 	},
 
 	exitFullscreen: state => {
-		state.emitter?.emit('fullscreenExit');
+		void state.emitter?.emit('fullscreenExit');
 		if (screenfull.isEnabled) {
-			screenfull.exit();
+			void screenfull.exit();
 		}
 	},
 	setFullscreen: (_state, fullscreen) => ({ fullscreen }),
@@ -205,7 +208,7 @@ export const videoActions: VideoActions = {
 		return {
 			currentTime,
 			currentRelativeTime,
-			playing: playing,
+			playing,
 			oneTimeStopPoint,
 		};
 	},
