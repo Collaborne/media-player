@@ -21,6 +21,6 @@ export const videoGetters: VideoGetters = {
 	getHasPlayedOrSeeked: state => state.hasPlayedOrSeeked,
 	getPictureInPicture: state => {
 		const video = getVideoEl(state);
-		return !!(video && pip.supported && pip.isActive?.(video));
+		return Boolean(video && pip.supported && pip.isActive?.(video));
 	},
 };

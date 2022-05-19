@@ -51,7 +51,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 		if (lastActivityRef) {
 			lastActivityRef.current = Date.now();
 		}
-	}, [lastActivityRef]);
+	}, []);
 
 	const { oneTimeStopPoint } = state;
 	React.useEffect(() => {
@@ -74,7 +74,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			frameId = window.requestAnimationFrame(tick);
 		})();
 		return () => window.cancelAnimationFrame(frameId);
-	}, [oneTimeStopPoint, dispatch, videoRef]);
+	}, [oneTimeStopPoint, dispatch]);
 
 	/**
 	 * Creating a lazy state:
@@ -92,7 +92,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 		if (!browser.satisfies({ safari: '*' })) return;
 		const videoEl = videoRef.current?.getInternalPlayer();
 		if (videoEl) videoEl.load();
-	}, [videoRef]);
+	}, []);
 
 	// Autoplay @edwardbaeg
 	// 1. Load the video player and video
@@ -112,6 +112,9 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			});
 	}, [dispatch, state.emitter, videoRef]);
 
+	// Play is a async operation. so when the player is ready to autoplay video,
+	// then we must be sure that first of all we solve setCurrentTime and after that the play method.
+	// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play
 	const onReadyToSeek = React.useCallback(() => {
 		state.emitter?.on('seeked', onReadyToPlay);
 		state.emitter?.off('ready', onReadyToSeek);
@@ -133,7 +136,6 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 		setAutoplayed(true);
 	}, [
 		initialState,
-		videoRef,
 		hasAutoplayed,
 		setAutoplayed,
 		state.emitter,
@@ -170,17 +172,12 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			api[key] = () => videoGetters[key](state);
 		}
 
-		Object.keys(videoGetters).reduce((acc, key) => {
-			acc[key] = 'redacted';
-			return acc;
-		}, {});
-
 		ctx.lastActivityRef = lastActivityRef;
 		ctx.markActivity = markActivity;
 		ctx.state = state;
 		ctx.controlsConfig = controlsConfig;
 		ctx.reactPlayerProps = {
-			autoPlay: !!(initialState && initialState.playing),
+			autoPlay: Boolean(initialState.playing),
 			playsinline: true,
 			playbackRate: state.playbackRate,
 			playing: state.playing,

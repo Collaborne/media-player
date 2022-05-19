@@ -15,7 +15,9 @@ const hasPipWebKit = (video: HTMLVideoElement): video is HTMLVideoElement => {
 };
 
 const getPip = (): PictureInPictureResponse => {
-	if (typeof document === 'undefined') return { supported: false };
+	if (typeof document === 'undefined') {
+		return { supported: false };
+	}
 
 	const video = document.createElement('video');
 

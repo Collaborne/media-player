@@ -7,7 +7,9 @@ export const hasSameReactDeps = (
 ): boolean => {
 	if (oldDeps === deps) return true;
 	for (let i = 0; i < oldDeps.length; i++) {
-		if (!Object.is(oldDeps[i], deps[i])) return false;
+		if (!Object.is(oldDeps[i], deps[i])) {
+			return false;
+		}
 	}
 	return true;
 };

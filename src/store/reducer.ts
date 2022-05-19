@@ -34,11 +34,15 @@ export const useStateReducer = ({
 	// so that state re-renders are not triggered every mousemove.
 	const lastActivityRef = useRef<number>();
 	const markActivity = useCallback(() => {
-		if (lastActivityRef) lastActivityRef.current = Date.now();
-	}, [lastActivityRef]);
+		if (lastActivityRef) {
+			lastActivityRef.current = Date.now();
+		}
+	}, []);
 	const stateReducer = (state: VideoState, action: VideoAction): VideoState => {
 		const fn: VideoStateSetter = videoActions[action.type];
-		if (!fn) throw new Error(`Unhandled action type: ${action.type}`);
+		if (!fn) {
+			throw new Error(`Unhandled action type: ${action.type}`);
+		}
 		const changes = fn(state, action.payload);
 
 		const newState = { ...state, ...changes };

@@ -119,11 +119,13 @@ export const videoActions: VideoActions = {
 	},
 	requestFullscreen: state => {
 		const video = getVideoEl(state);
-		if (!video) return;
+		if (!video) {
+			return;
+		}
 		if (pip.supported) {
 			// Ignore pip exit DOM errors (we are just trying to exit any open pip),
 			// if there is no open pip DOM will throw an error we ignore.
-			Promise.resolve((() => pip.exit?.(video))()).catch();
+			Promise.resolve(pip.exit?.(video)).catch();
 		}
 		state.emitter?.emit('fullscreenEnter');
 		if (screenfull.isEnabled) {
@@ -144,7 +146,7 @@ export const videoActions: VideoActions = {
 	setEndTime: (_state, endTime) => ({ endTime }),
 
 	setDuration: (state, duration) => {
-		if ((state.duration ?? 0) > 0) {
+		if (state.duration > 0) {
 			return state;
 		}
 
@@ -193,7 +195,11 @@ export const videoActions: VideoActions = {
 		// If the currentTime is *approaching* the soft stop point but hasn't reached it yet,
 		// go ahead and stop. We only receive time updates every 50ms, so we want to stop once
 		// the video "almost" reaches the point.
-		if (oneTimeStopPoint != null && currentTime >= oneTimeStopPoint) {
+		if (
+			oneTimeStopPoint &&
+			oneTimeStopPoint !== null &&
+			currentTime >= oneTimeStopPoint
+		) {
 			playing = false;
 			oneTimeStopPoint = null;
 		} else if (currentTime >= (state.startTime ?? 0) + (state.duration ?? 0)) {
