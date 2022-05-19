@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { SvgIcon, SvgIconProps } from '@mui/material';
+import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
-// TODO: Integrate PlayButtonBig fill colors into main themes
-export const PlayButtonBig: FC<SvgIconProps> = props => {
+// TODO: Integrate BigPlayIcon fill colors into main themes
+export const BigPlayIcon: FC<SvgIconProps> = props => {
 	return (
 		<SvgIcon viewBox="0 0 24 24" {...props}>
 			<path

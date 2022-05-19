@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { SvgIcon, SvgIconProps } from '@mui/material';
+import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
 export const VolumeMuted: FC<SvgIconProps> = props => (
 	<SvgIcon viewBox="0 0 24 24" {...props}>

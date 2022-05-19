@@ -1,12 +1,10 @@
 import { FC } from 'react';
 
 import clsx from 'clsx';
-import IconButton, {
-	IconButtonProps,
-} from '@mui/material/IconButton/IconButton';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 
 import { useCenteredPlayButtonStyles } from './useCenteredPlayButtonStyles';
-import { PlayButtonBig } from '../icons/PlayButtonBig';
+import { BigPlayIcon } from '../icons/BigPlayIcon';
 
 interface CenteredPlayButtonProps {
 	onClick?: VoidFunction;
@@ -24,7 +22,7 @@ export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 	return (
 		<div className={clsx(controlsWrapper, classNames)}>
 			<IconButton onClick={onClick} {...iconButtonProps}>
-				<PlayButtonBig className={svgStyle} />
+				<BigPlayIcon className={svgStyle} />
 			</IconButton>
 		</div>
 	);

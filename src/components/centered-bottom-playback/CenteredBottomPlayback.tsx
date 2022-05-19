@@ -1,6 +1,6 @@
 import { FC, useCallback, useMemo } from 'react';
 
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 import { useCenteredBottomPlaybackStyles } from './useCenteredBottomPlaybackStyles';
 import { PlaybackRateButtonStyled } from './components/PlaybackRateButtonStyled';

@@ -1,12 +1,14 @@
 import { FC, useCallback } from 'react';
 
+import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import {
 	Forward10Outlined,
 	FullscreenOutlined,
 	PictureInPictureAltOutlined,
 	Replay10Outlined,
 } from '@mui/icons-material';
-import { Grid, IconButton, Typography } from '@mui/material';
 
 import { useBottomControlPanelStyles } from './useBottomControlPanelStyles';
 import {
@@ -64,7 +66,8 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 		timeStampText,
 	} = useBottomControlPanelStyles();
 
-	// Update callback when store is added
+	// TODO: Update callback when store is added
+	// TODO: Mutes and "unmutes" video player
 	const handleVolumeClick = useCallback(() => onMute(), [onMute]);
 
 	return (
