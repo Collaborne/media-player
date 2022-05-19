@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { createContext, FC, MutableRefObject, RefObject } from 'react';
+import React, { createContext, FC, RefObject, MutableRefObject } from 'react';
 import Bowser from 'bowser';
 import {
 	ControlsConfig,
@@ -15,7 +15,7 @@ import { PROVIDER_INITIAL_STATE } from './constants';
 import { videoActions } from '../store/actions';
 import usePreviousDistinct from '../hooks/use-previous-distinct';
 import { useStateReducer } from '../store/reducer';
-import { BaseReactPlayerProps } from 'react-player/base';
+import type ReactPlayer from 'react-player';
 
 export interface VideoContext {
 	api?: VideoApi;
@@ -24,7 +24,7 @@ export interface VideoContext {
 	controlsConfig?: ControlsConfig;
 	reactPlayerProps?: ReactPlayerProps;
 	state?: VideoState;
-	videoRef?: RefObject<BaseReactPlayerProps | undefined>;
+	videoRef?: RefObject<ReactPlayer>;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -61,7 +61,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 
 		let frameId: number;
 		(function tick() {
-			const el = videoRef.current?.getInternalPlayer();
+			const el = videoRef?.current?.getInternalPlayer();
 
 			// Stop within two frames of end of word (34ms)
 			if (el?.currentTime >= oneTimeStopPoint - 34 / 1000) {
@@ -101,10 +101,10 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	// NOTE: For this to work in Safari, the video must start muted
 	// NOTE: This does not set hasPlayedOrSeeked in state
 	const onReadyToPlay = React.useCallback(() => {
-		const videoEl = videoRef.current?.getInternalPlayer();
+		const videoEl = videoRef?.current?.getInternalPlayer();
 		state?.emitter?.off('seeked', onReadyToPlay);
 		videoEl
-			.play()
+			?.play()
 			.then(() => state.emitter?.emit('autoplayStart'))
 			.catch((error: unknown) => {
 				console.info('Player failed to autoplay', error);
@@ -124,7 +124,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	}, [state.emitter, onReadyToPlay, videoContext]);
 
 	React.useLayoutEffect(() => {
-		if (!hasAutoplayed && videoRef.current && initialState?.playing) {
+		if (!hasAutoplayed && videoRef?.current && initialState?.playing) {
 			if (videoRef.current?.base?.parentNode) {
 				videoRef.current.base.parentNode.focus();
 			}

@@ -5,9 +5,10 @@ import {
 	useRef,
 	useReducer,
 	Dispatch,
-	MutableRefObject,
+	RefObject,
+	createRef,
 } from 'react';
-import { BaseReactPlayerProps } from 'react-player/base';
+import ReactPlayer from 'react-player';
 import { VideoAction, VideoState, VideoStateSetter } from '../types';
 import { videoActions } from './actions';
 
@@ -18,7 +19,7 @@ interface UseStateReducerProps {
 interface UseStateReducer {
 	state: VideoState;
 	initialState: VideoState;
-	videoRef: MutableRefObject<BaseReactPlayerProps | undefined>;
+	videoRef?: RefObject<ReactPlayer>;
 	dispatch: Dispatch<VideoAction>;
 }
 
@@ -27,7 +28,7 @@ export const useStateReducer = ({
 	persistedState,
 }: UseStateReducerProps): UseStateReducer => {
 	const [initialState] = useState(firstInitialState);
-	const videoRef = useRef<BaseReactPlayerProps>();
+	const videoRef = createRef<ReactPlayer>();
 	const playPromiseRef = useRef<Promise<void>>();
 
 	// Store the user's last "activity" (including mousemove over player) within a ref,
