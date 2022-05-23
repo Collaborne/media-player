@@ -20,8 +20,8 @@ export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 	const { controlsWrapper, svgStyle } = useCenteredPlayButtonStyles();
 
 	return (
-		<div className={clsx(controlsWrapper, classNames)}>
-			<IconButton onClick={onClick} {...iconButtonProps}>
+		<div className={clsx(controlsWrapper, classNames)} onClick={onClick}>
+			<IconButton {...iconButtonProps}>
 				<BigPlayIcon className={svgStyle} />
 			</IconButton>
 		</div>

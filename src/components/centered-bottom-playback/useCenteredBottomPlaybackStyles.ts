@@ -2,6 +2,8 @@ import { makeStyles } from '@mui/styles';
 
 export const useCenteredBottomPlaybackStyles = makeStyles(theme => ({
 	wrapper: {
+		position: 'absolute',
+		bottom: 0,
 		alignSelf: 'flex-end',
 		width: '100%',
 		display: 'flex',

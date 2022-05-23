@@ -11,6 +11,7 @@ const WrappedStyled = styled(Paper)(({ theme }) => ({
 	borderColor: theme.palette.grey[500],
 	overflow: 'hidden',
 	backgroundImage: 'url("https://picsum.photos/640/480")',
+	position: 'relative',
 }));
 /**
  * Adds video wrapper for styles simulation

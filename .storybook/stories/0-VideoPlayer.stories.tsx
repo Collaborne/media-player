@@ -14,7 +14,10 @@ export default {
 	title: 'Video Player',
 	component: VideoPlayer,
 	decorators: [withVideoWrapper, withDemoCard, withTheme],
-	args: { videoUrl: 'http://techslides.com/demos/sample-videos/small.mp4' },
+	args: {
+		videoUrl:
+			'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+	},
 	argTypes: {
 		videoUrl: {
 			name: 'props.videoUrl',

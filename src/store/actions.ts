@@ -131,9 +131,7 @@ export const videoActions: VideoActions = {
 		state.emitter?.emit('fullscreenEnter');
 		if (screenfull.isEnabled) {
 			// Check on base.parentNode vs parentNode
-			void screenfull.request(
-				state.videoRef?.current?.parentNode as HTMLElement,
-			);
+			void screenfull.request(video.parentElement as any);
 		}
 	},
 
