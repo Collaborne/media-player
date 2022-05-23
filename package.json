@@ -94,7 +94,7 @@
 		"mitt": "^3.0.0",
 		"react-player": "^2.10.1",
 		"resize-observer-polyfill": "^1.5.1",
-		"screenfull": "^6.0.1"
+		"screenfull": "^5.2.0"
 	},
 	"overrides": {
 		"colors": "1.4.0",
