@@ -5,5 +5,6 @@ export const useControlsStyles = makeStyles(() => ({
 		width: '100%',
 		height: '100%',
 		position: 'absolute',
+		pointerEvents: 'none',
 	},
 }));

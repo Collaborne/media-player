@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 
 import Typography from '@mui/material/Typography';
 
@@ -6,6 +6,7 @@ import { useCenteredBottomPlaybackStyles } from './useCenteredBottomPlaybackStyl
 import { PlaybackRateButtonStyled } from './components/PlaybackRateButtonStyled';
 import { PLAYBACK_RATES } from '../../utils/constants';
 import { MultiplySymbol } from '../../utils/MultiplySymbol';
+import { useVideo } from '../../hooks/use-video';
 
 interface PlayBackButtonProps {
 	onChangeRate: (playbackRate: number) => void;
@@ -44,16 +45,23 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 	);
 };
 
-export interface CenteredBottomPlaybackProps {
-	onChangePlaybackRate: (playbackRate: number) => void;
-	activePlaybackRate: number;
-}
+export interface CenteredBottomPlaybackProps {}
 
-export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = ({
-	onChangePlaybackRate,
-	activePlaybackRate,
-}) => {
+export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
+	const { api } = useVideo();
+	const [activePlaybackRate, setActivePlaybackRate] = useState(
+		Number(api?.getPlaybackRate?.()),
+	);
+
+	const onChangePlaybackRate = useCallback(
+		(rate: number) => {
+			setActivePlaybackRate(rate);
+			api?.setPlaybackRate?.(rate);
+		},
+		[api],
+	);
 	const { wrapper, playbackWrapper } = useCenteredBottomPlaybackStyles({});
+
 	return (
 		<div className={wrapper}>
 			<div className={playbackWrapper}>

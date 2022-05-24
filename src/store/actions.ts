@@ -160,8 +160,6 @@ export const videoActions: VideoActions = {
 		};
 	},
 
-	setKeyboardDisabled: (_state, keyboardDisabled) => ({ keyboardDisabled }),
-
 	// Private Actions
 	_setReady: state => {
 		// In safari, any seeking that happens before a video is ready is canceled as soon

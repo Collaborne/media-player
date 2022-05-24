@@ -35,7 +35,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			markActivity,
 			controlsConfig,
 		} = useVideo();
-		const [showOverlay, setShowOverlay] = useState(true);
+		const [showOverlay, setShowControls] = useState(true);
 		const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 		const [lastMouseMove, setLastMouseMove] = useState<number>(0);
 		const videoContainerRef = useRef<HTMLDivElement>(null);
@@ -43,16 +43,16 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 
 		const updateShowOverlay = useCallback(() => {
 			if (controlsConfig?.alwaysShowConfig) {
-				return setShowOverlay(true);
+				return setShowControls(true);
 			}
 			const lastActivity = lastActivityRef?.current || 0;
 			if (api?.getPaused?.()) {
-				setShowOverlay(true);
-			} else if (lastMouseLeave && lastMouseLeave > lastActivity) {
-				setShowOverlay(false);
-			} else {
-				setShowOverlay(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
+				return setShowControls(true);
 			}
+			if (lastMouseLeave && lastMouseLeave > lastActivity) {
+				return setShowControls(false);
+			}
+			return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
 		}, [api, lastMouseLeave, lastActivityRef, controlsConfig]);
 
 		useEffect(updateShowOverlay, [
@@ -73,33 +73,6 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			return () => clearTimeout(timeoutId);
 		}, [videoUrl, videoRef]);
 
-		useEffect(() => {
-			if (!playing) return;
-			const timeoutId = setTimeout(updateShowOverlay, OVERLAY_HIDE_DELAY + 100);
-			return () => clearTimeout(timeoutId);
-		}, [updateShowOverlay, lastMouseMove, playing]);
-
-		// Show video controls when browser tab receives focus
-		useEventListener(
-			'visibilitychange',
-			() => {
-				markActivity?.();
-				updateShowOverlay();
-			},
-			document,
-		);
-
-		// Show video controls when controls are focused
-		useEventListener(
-			'focus',
-			() => {
-				markActivity?.();
-				updateShowOverlay();
-			},
-			videoContainerRef.current,
-			{ capture: true },
-		);
-
 		useOnUnmount(() => {
 			// Bug: video is stuck browser memory, so even after dismount the OS play/pause controls work
 			// Clear src attribute so it's removed.
@@ -108,6 +81,20 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		});
 
 		const { wrapper } = useVideoContainerStyles();
+
+		const togglePlay = useCallback(() => {
+			if (api?.getPaused?.()) {
+				return api?.play?.();
+			}
+			return api?.pause?.();
+		}, [api]);
+
+		useEventListener(
+			'click',
+			togglePlay,
+			videoRef?.current?.getInternalPlayer() || undefined,
+		);
+
 		return (
 			<div
 				ref={videoContainerRef}

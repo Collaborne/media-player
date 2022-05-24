@@ -5,7 +5,7 @@ import {
 	EmitterAddRemoveListeners,
 	EmitterEvents,
 	VideoActions,
-	VideoGetters,
+	VideoGettersApi,
 } from '.';
 import type ReactPlayer from 'react-player';
 /**
@@ -36,27 +36,25 @@ export interface VideoProviderProps {
  */
 
 export interface VideoState {
-	lastActivityRef?: MutableRefObject<number | undefined>;
-	emitter?: Emitter<Record<EmitterEvents, unknown>>;
-	videoRef?: RefObject<ReactPlayer>;
-	oneStopPoint?: number;
-	playPromiseRef?: MutableRefObject<Promise<void> | undefined>;
-	playbackRate?: number;
-	fullscreen?: boolean;
-	playing?: boolean;
-	muted?: boolean;
+	lastActivityRef: MutableRefObject<number> | null;
+	emitter: Emitter<Record<EmitterEvents, unknown>>;
+	videoRef: RefObject<ReactPlayer>;
+	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
+	playbackRate: number;
+	fullscreen: boolean;
+	playing: boolean;
+	muted: boolean;
 	startTime: number;
 	endTime: number;
 	duration: number;
 	currentTime: number;
-	currentRelativeTime?: number;
-	loop?: boolean;
-	volume?: number;
-	ready?: boolean;
-	hasPlayedOrSeeked?: boolean;
+	currentRelativeTime: number;
+	loop: boolean;
+	volume: number;
+	ready: boolean;
+	hasPlayedOrSeeked: boolean;
 	pip?: boolean;
-	oneTimeStopPoint?: number | null;
-	keyboardDisabled?: boolean;
+	oneTimeStopPoint: number | null;
 }
 
 export type VideoDispatchArgs = unknown[];
@@ -67,10 +65,6 @@ export type VideoActionsDispatch = {
 		payload: VideoDispatchArgs;
 	}>;
 };
-
-type VideoGetterApi = () => Partial<VideoState>;
-
-export type VideoGettersApi = Record<keyof VideoGetters, VideoGetterApi>;
 
 export type VideoApi = Partial<
 	VideoActionsDispatch & EmitterAddRemoveListeners & VideoGettersApi

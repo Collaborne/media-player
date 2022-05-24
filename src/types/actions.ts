@@ -37,10 +37,6 @@ export interface VideoActions {
 	setStartTime: (state: VideoState, startTime: number) => PartialVideoState;
 	setEndTime: (state: VideoState, endTime: number) => PartialVideoState;
 	setDuration: (state: VideoState, duration: number) => PartialVideoState;
-	setKeyboardDisabled: (
-		state: VideoState,
-		keyboardDisabled: boolean,
-	) => PartialVideoState;
 
 	// Private Methods
 	_setReady: (state: VideoState) => PartialVideoState;

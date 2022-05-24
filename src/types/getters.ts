@@ -1,6 +1,6 @@
 import { VideoState } from '.';
 
-export type VideoGetter<T> = (state: VideoState) => T | undefined;
+export type VideoGetter<T> = (state: VideoState) => T;
 
 /**
  * Video Getters for controlling video player
@@ -25,3 +25,9 @@ export interface VideoGetters {
 	getHasPlayedOrSeeked: VideoGetter<boolean>;
 	getPictureInPicture: VideoGetter<boolean>;
 }
+
+export type VideoGettersKey = keyof VideoGetters;
+
+export type VideoGettersApi = {
+	[K in VideoGettersKey]: () => ReturnType<VideoGetters[K]>;
+};

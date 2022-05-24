@@ -60,3 +60,11 @@ declare global {
 	}
 	type WebkitSetPresentationMode = 'picture-in-picture' | 'inline';
 }
+
+// TODO: Fix when deciding to use youtube links
+// TS for only video player that plays video files
+declare module 'react-player' {
+	export default interface ReactPlayer extends ReactPlayer {
+		getInternalPlayer(): HTMLVideoElement;
+	}
+}

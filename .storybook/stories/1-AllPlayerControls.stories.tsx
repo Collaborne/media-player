@@ -6,7 +6,12 @@ import {
 	CenteredBottomPlayback as CenteredBottomPlaybackComponent,
 	CenteredBottomPlaybackProps,
 } from '../../src/components/centered-bottom-playback/CenteredBottomPlayback';
-import { withTheme, withDemoCard, withVideoWrapper } from '../decorators';
+import {
+	withTheme,
+	withDemoCard,
+	withVideoWrapper,
+	withVideoProvider,
+} from '../decorators';
 
 import { ProgressBar } from '../../src/components/progress-bar/ProgressBar';
 import {
@@ -34,13 +39,10 @@ export const AllPlayerControls: Story<AllPlayerControlsProps> = args => {
 				}}
 			>
 				<div style={{ width: '100%', height: '100%' }}>
-					<CenteredPlayButtonComponent onClick={action('onClickPlay')} />
+					<CenteredPlayButtonComponent />
 				</div>
 				<div style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-					<CenteredBottomPlaybackComponent
-						onChangePlaybackRate={action('playBackRate')}
-						activePlaybackRate={1}
-					/>
+					<CenteredBottomPlaybackComponent />
 				</div>
 			</div>
 		);
@@ -81,7 +83,7 @@ export const AllPlayerControls: Story<AllPlayerControlsProps> = args => {
 export default {
 	title: 'Video Player Controls',
 	component: AllPlayerControls,
-	decorators: [withVideoWrapper, withDemoCard, withTheme],
+	decorators: [withVideoProvider, withVideoWrapper, withDemoCard, withTheme],
 	args: {
 		isFirstView: true,
 		...bottomControlPanelStoryArgs,

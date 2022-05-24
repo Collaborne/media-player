@@ -1,6 +1,6 @@
 import { VideoState } from '../types';
 
-export const PROVIDER_INITIAL_STATE: VideoState = {
+export const PROVIDER_INITIAL_STATE: Partial<VideoState> = {
 	playing: false,
 	startTime: 0,
 	endTime: 0,
