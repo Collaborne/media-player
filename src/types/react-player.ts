@@ -12,7 +12,7 @@ export interface ReactPlayerProps {
 	playing: VideoState['playing'];
 	muted: VideoState['muted'];
 	volume: VideoState['volume'];
-	ref: RefObject<ReactPlayer> | undefined;
+	ref: RefObject<ReactPlayer>;
 	onReady: () => void;
 	onEnded: () => void;
 	onDuration: (duration: VideoState['duration']) => void;

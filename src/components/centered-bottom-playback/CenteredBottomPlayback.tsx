@@ -50,7 +50,7 @@ export interface CenteredBottomPlaybackProps {}
 export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 	const { api } = useVideo();
 	const [activePlaybackRate, setActivePlaybackRate] = useState(
-		Number(api?.getPlaybackRate?.()),
+		api?.getPlaybackRate?.() || 1,
 	);
 
 	const onChangePlaybackRate = useCallback(
