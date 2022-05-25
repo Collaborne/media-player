@@ -8,7 +8,6 @@ export interface ControlsConfig {
 	fullscreen?: boolean;
 	volume?: boolean;
 	speed?: boolean;
-	showPrePlayback?: boolean;
-	showPostPlayback?: boolean;
 	showVolumeSlider?: boolean;
+	alwaysShowConfig?: boolean;
 }

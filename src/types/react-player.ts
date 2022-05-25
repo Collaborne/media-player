@@ -1,5 +1,5 @@
 import { RefObject } from 'react';
-import { BaseReactPlayerProps } from 'react-player/base';
+import type ReactPlayer from 'react-player';
 import { VideoState } from '.';
 
 /**
@@ -12,7 +12,7 @@ export interface ReactPlayerProps {
 	playing: VideoState['playing'];
 	muted: VideoState['muted'];
 	volume: VideoState['volume'];
-	ref: RefObject<BaseReactPlayerProps | undefined>;
+	ref: RefObject<ReactPlayer>;
 	onReady: () => void;
 	onEnded: () => void;
 	onDuration: (duration: VideoState['duration']) => void;

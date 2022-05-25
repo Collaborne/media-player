@@ -8,6 +8,7 @@ export const useCenteredPlayButtonStyles = makeStyles(theme => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+		pointerEvents: 'auto',
 	},
 
 	svgStyle: {

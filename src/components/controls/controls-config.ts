@@ -10,7 +10,6 @@ export const DEFAULT_CONTROLS_CONFIG: ControlsConfig = {
 	fullscreen: true,
 	volume: true,
 	speed: true,
-	showPrePlayback: false,
-	showPostPlayback: false,
 	showVolumeSlider: true,
+	alwaysShowConfig: false,
 };
