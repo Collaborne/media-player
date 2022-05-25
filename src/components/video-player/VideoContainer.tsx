@@ -23,8 +23,6 @@ interface VideoContainerProps {
 	videoUrl?: string;
 }
 
-const dateNow = Date.now();
-
 const VideoContainer: FC<VideoContainerProps> = memo(
 	({ className, videoUrl }) => {
 		const {
@@ -35,7 +33,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			markActivity,
 			controlsConfig,
 		} = useVideo();
-		const [showOverlay, setShowControls] = useState(true);
+		const [showControls, setShowControls] = useState(true);
 		const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 		const [lastMouseMove, setLastMouseMove] = useState<number>(0);
 		const videoContainerRef = useRef<HTMLDivElement>(null);
@@ -49,7 +47,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			if (api?.getPaused?.()) {
 				return setShowControls(true);
 			}
-			if (lastMouseLeave && lastMouseLeave > lastActivity) {
+			if (lastMouseLeave > lastActivity) {
 				return setShowControls(false);
 			}
 			return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
@@ -57,7 +55,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 
 		useEffect(updateShowOverlay, [
 			updateShowOverlay,
-			showOverlay,
+			showControls,
 			playing,
 			lastMouseMove,
 		]);
@@ -91,11 +89,11 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 
 		const onMouseEnterHandler = useCallback(() => {
 			markActivity?.();
-			setLastMouseMove(dateNow);
+			setLastMouseMove(Date.now());
 		}, [markActivity]);
 
 		const onMouseLeaveHandler = useCallback(
-			() => setLastMouseLeave(dateNow),
+			() => setLastMouseLeave(Date.now()),
 			[],
 		);
 
@@ -116,14 +114,14 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 					<ReactPlayer
 						url={videoUrl}
 						progressInterval={50}
-						width={'100%'}
-						height={'100%'}
+						width="100%"
+						height="100%"
 						className="react-player"
 						css={['position: relative;']}
 						{...reactPlayerProps}
 					/>
 				)}
-				<Controls isVisible={showOverlay} />
+				<Controls isVisible={showControls} />
 			</div>
 		);
 	},

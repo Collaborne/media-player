@@ -14,12 +14,12 @@ export const Controls: FC<ControlProps> = () => {
 	const { api } = useVideo();
 
 	// Show first controls screen
-	const [hasStarted, setStarted] = useState<boolean>(
+	const [hasStarted, setHasStarted] = useState<boolean>(
 		Boolean(api?.getPlaying?.()),
 	);
 	// Added TS for api as any, because it is also a event listener,
 	// that this hook looks for
-	useEventListener('play', () => setStarted(true), api as any);
+	useEventListener('play', () => setHasStarted(true), api as any);
 
 	// Controls styles
 	const { wrapper } = useControlsStyles();
