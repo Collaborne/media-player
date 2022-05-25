@@ -15,7 +15,7 @@ import useEventListener from '@use-it/event-listener';
 import { useOnUnmount } from '../../hooks';
 import { useVideo } from '../../hooks/use-video';
 import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
-import { useVideoContainerStyles } from './useVideoContainer';
+import { useVideoContainerStyles } from './useVideoContainerStyles';
 import { Controls } from '../controls/Controls';
 
 interface VideoContainerProps {
@@ -89,6 +89,16 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			return api?.pause?.();
 		}, [api]);
 
+		const onMouseEnterHandler = useCallback(() => {
+			markActivity?.();
+			setLastMouseMove(dateNow);
+		}, [markActivity]);
+
+		const onMouseLeaveHandler = useCallback(
+			() => setLastMouseLeave(dateNow),
+			[],
+		);
+
 		useEventListener(
 			'click',
 			togglePlay,
@@ -99,11 +109,8 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			<div
 				ref={videoContainerRef}
 				className={clsx(wrapper, className)}
-				onMouseEnter={() => {
-					markActivity?.();
-					setLastMouseMove(dateNow);
-				}}
-				onMouseLeave={() => setLastMouseLeave(dateNow)}
+				onMouseEnter={onMouseEnterHandler}
+				onMouseLeave={onMouseLeaveHandler}
 			>
 				{Boolean(videoUrl) && (
 					<ReactPlayer
