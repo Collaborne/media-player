@@ -18,14 +18,14 @@ after_success:
     # Force installation from pip cache, to reduce the amount of ~/.local we need to store in the Travis cache
     pip install --user awscli | cat
 
-    aws s3 cp --recursive storybook-static s3://collaborne-carrot-styles/${TRAVIS_BRANCH}/${TRAVIS_COMMIT}/
+    aws s3 cp --recursive storybook-static s3://collaborne-storybooks/video-player/${TRAVIS_BRANCH}/${TRAVIS_COMMIT}/
 
     curl \
       -X POST \
       -H "Accept: application/vnd.github.v3+json" \
       -H "Authorization: token ${GITHUB_TOKEN}" \
       https://api.github.com/repos/${TRAVIS_REPO_SLUG}/commits/${TRAVIS_COMMIT}/comments \
-      -d "{\"body\":\"Storybook deployed at http://collaborne-carrot-styles.s3-website-eu-west-1.amazonaws.com/${TRAVIS_BRANCH}/${TRAVIS_COMMIT}/\"}"
+      -d "{\"body\":\"Storybook deployed at http://collaborne-storybooks.s3-website-eu-west-1.amazonaws.com/video-player/${TRAVIS_BRANCH}/${TRAVIS_COMMIT}/\"}"
     fi
 before_deploy:
 - |-
