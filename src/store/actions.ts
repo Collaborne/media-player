@@ -122,23 +122,23 @@ export const videoActions: VideoActions = {
 		if (!video) {
 			return;
 		}
-		if (pip.supported) {
+		if (pip.supported && video && state.pip) {
 			// Ignore pip exit DOM errors (we are just trying to exit any open pip),
 			// if there is no open pip DOM will throw an error we ignore.
 			// eslint-disable-next-line promise/valid-params
 			void Promise.resolve(pip.exit?.(video)).catch();
 		}
-		state.emitter?.emit('fullscreenEnter');
-		if (screenfull.isEnabled) {
-			// Check on base.parentNode vs parentNode
-			void screenfull.request(video.parentElement as any);
+		state.emitter.emit('fullscreenEnter');
+		// requesting fullscreen for video player wrapper to include UI for the controls
+		if (screenfull.isEnabled && video.parentElement?.parentElement) {
+			void screenfull.request(video.parentElement?.parentElement);
 		}
 	},
 
 	exitFullscreen: state => {
-		void state.emitter?.emit('fullscreenExit');
+		state.emitter.emit('fullscreenExit');
 		if (screenfull.isEnabled) {
-			void screenfull.exit();
+			screenfull.exit().catch(console.error);
 		}
 	},
 	setFullscreen: (_state, fullscreen) => ({ fullscreen }),
@@ -158,6 +158,21 @@ export const videoActions: VideoActions = {
 			startTime: 0,
 			currentTime: 0,
 		};
+	},
+
+	requestPip: state => {
+		state.emitter.emit('pipEnter');
+		const video = getVideoEl(state);
+		if (pip.supported && video) {
+			void pip.request?.(video);
+		}
+	},
+	exitPip: state => {
+		state.emitter.emit('pipExit');
+		const video = getVideoEl(state);
+		if (pip.supported && video) {
+			void pip.exit?.(video);
+		}
 	},
 
 	// Private Actions

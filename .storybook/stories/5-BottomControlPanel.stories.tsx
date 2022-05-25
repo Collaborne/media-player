@@ -1,7 +1,12 @@
 import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import { withDemoCard, withTheme, withVideoWrapper } from '../decorators';
+import {
+	withDemoCard,
+	withTheme,
+	withVideoProvider,
+	withVideoWrapper,
+} from '../decorators';
 import {
 	BottomControlPanel as BottomControlPanelComponent,
 	BottomControlPanelProps,
@@ -48,7 +53,7 @@ export const BottomControlPanel: Story<
 export default {
 	title: 'Video Player Controls',
 	component: BottomControlPanel,
-	decorators: [withVideoWrapper, withDemoCard, withTheme],
+	decorators: [withVideoProvider, withVideoWrapper, withDemoCard, withTheme],
 	args: {
 		...bottomControlPanelStoryArgs,
 	},

@@ -26,6 +26,7 @@ import { useStateReducer } from '../store/reducer';
 import type ReactPlayer from 'react-player';
 import { getVideoEl } from '../utils';
 import Bowser from 'bowser';
+import screenfull from 'screenfull';
 
 export interface VideoContext {
 	api?: VideoApi;
@@ -225,6 +226,31 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 			}
 			setVideoContext(() => newValue);
 		}, [state, controlsConfig, initialState]);
+
+		React.useEffect(() => {
+			const onFullscreenChange = () => {
+				document.body.classList[screenfull.isFullscreen ? 'add' : 'remove'](
+					'body-fullscreen',
+				);
+				const isFullscreen =
+					screenfull.isFullscreen &&
+					screenfull.element ===
+						videoRef.current?.getInternalPlayer().parentElement?.parentElement;
+				dispatch({
+					type: 'setFullscreen',
+					payload: isFullscreen as any,
+				});
+			};
+
+			if (screenfull.isEnabled) {
+				screenfull.on('change', onFullscreenChange);
+			}
+			return () => {
+				if (screenfull.isEnabled) {
+					screenfull.off('change', onFullscreenChange);
+				}
+			};
+		}, []);
 
 		return (
 			<VideoContext.Provider value={videoContext}>

@@ -1,5 +1,6 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
+import clsx from 'clsx';
 import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -18,44 +19,100 @@ import {
 	VolumeIcon,
 } from './components';
 import { toTimestamp } from '../../utils/time';
+import { useVideo } from '../../hooks/use-video';
 
 export interface BottomControlPanelProps {
-	isFinished: boolean;
-	isPlaying: boolean;
-	volume: number;
-	playbackRate: number;
-	duration: number;
-	currentTime: number;
-	onPlay: VoidFunction;
-	onStop: VoidFunction;
-	onReplay: VoidFunction;
-	onFwd: VoidFunction;
-	onRwd: VoidFunction;
-	onVolumeChange: VoidFunction;
-	onSetPlaybackRate: (playbackRate: number) => void;
-	onPip: VoidFunction;
-	onFullscreen: VoidFunction;
-	onMute: VoidFunction;
+	className?: string;
 }
 
 export const BottomControlPanel: FC<BottomControlPanelProps> = ({
-	isPlaying,
-	isFinished,
-	volume,
-	playbackRate,
-	currentTime,
-	duration,
-	onSetPlaybackRate,
-	onFullscreen,
-	onFwd,
-	onRwd,
-	onPip,
-	onPlay,
-	onStop,
-	onReplay,
-	onMute,
-	onVolumeChange,
+	className,
 }) => {
+	const { api } = useVideo();
+
+	const isPlaying = useMemo(
+		() => Boolean(api?.getPlaying?.()),
+		[api?.getPlaying],
+	);
+	const duration = useMemo(
+		() => Number(api?.getDuration?.()),
+		[api?.getDuration],
+	);
+
+	const relativeTime = useMemo(
+		() => Number(api?.getCurrentRelativeTime?.()),
+		[api?.getCurrentRelativeTime],
+	);
+	const currentTime = useMemo(
+		() => Number(api?.getCurrentTime?.()),
+		[api?.getCurrentTime],
+	);
+	const isFinished = useMemo(
+		() => duration > 0 && !isPlaying && relativeTime >= duration,
+		[duration, isPlaying, relativeTime],
+	);
+
+	const onPlay = useCallback(() => api?.play?.(), [api?.play]);
+	const onStop = useCallback(() => api?.pause?.(), [api?.pause]);
+	const onRwd = useCallback(
+		() => api?.setCurrentTime?.(currentTime - 10),
+		[api?.setCurrentTime, currentTime],
+	);
+	const onFwd = useCallback(
+		() => api?.setCurrentTime?.(currentTime + 10),
+		[api?.setCurrentTime, currentTime],
+	);
+
+	const volume = useMemo(
+		() => (api?.getVolume?.() || 0) * 100,
+		[api?.getVolume],
+	);
+	const isMuted = useMemo(() => Boolean(api?.getMuted?.()), [api?.getMuted]);
+	const playbackRate = useMemo(
+		() => api?.getPlaybackRate?.() || 1,
+		[api?.getPlaybackRate],
+	);
+
+	const handleVolumeClick = useCallback(() => {
+		if (isMuted) {
+			return api?.unmute?.();
+		}
+		return api?.mute?.();
+	}, [api?.mute, api?.unmute, isMuted]);
+
+	const onVolumeChange = useCallback(
+		(event: Event, value: number | number[], _activeThumb: number) => {
+			event.preventDefault();
+			if (Array.isArray(value)) {
+				return;
+			}
+			api?.setVolume?.(value / 100);
+		},
+		[api?.setVolume, volume],
+	);
+
+	const onSetPlaybackRate = useCallback(
+		(playbackRate: number) => {
+			api?.setPlaybackRate?.(playbackRate);
+		},
+		[api?.setPlaybackRate],
+	);
+
+	const onPip = useCallback(
+		() =>
+			api?.getPictureInPicture?.() ? api?.exitPip?.() : api?.requestPip?.(),
+		[api?.exitPip, api?.requestPip, api?.getPictureInPicture],
+	);
+
+	const onFullscreen = useCallback(
+		() =>
+			api?.getFullscreen?.()
+				? api?.exitFullscreen?.()
+				: api?.requestFullscreen?.(),
+		[api?.getFullscreen, api?.exitFullscreen, api?.requestFullscreen],
+	);
+
+	// Bottom panel styles
 	const {
 		wrapper,
 		mediumIcons,
@@ -66,26 +123,23 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 		timeStampText,
 	} = useBottomControlPanelStyles();
 
-	// TODO: Update callback when store is added
-	// TODO: Mutes and "unmutes" video player
-	const handleVolumeClick = useCallback(() => onMute(), [onMute]);
-
 	return (
 		<Grid
 			container
-			className={wrapper}
+			className={clsx(wrapper, className)}
 			alignItems="center"
 			justifyContent="space-between"
+			direction="row"
 		>
-			<Grid item direction="row" height="100%">
-				<Grid item className={gridCentered} xs>
+			<Grid item className={gridCentered} xs>
+				<Grid item className={gridCentered} xs justifyContent="flex-start">
 					{/*  Video Playing Statuses: Play-Pause-Replay */}
 					<PlayPauseReplay
 						isFinished={isFinished}
 						isPlaying={isPlaying}
 						onPlay={onPlay}
 						onStop={onStop}
-						onReplay={onReplay}
+						onReplay={onPlay}
 					/>
 					{/* Rewind Button */}
 					<IconButton
@@ -110,16 +164,22 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 							className={mediumIconButtons}
 							onClick={handleVolumeClick}
 						>
-							<VolumeIcon volume={volume} />
+							<VolumeIcon volume={isMuted ? 0 : volume} />
 						</IconButton>
-						<VolumeBarStyled size="small" onChange={onVolumeChange} />
+						<VolumeBarStyled
+							min={0}
+							max={100}
+							value={volume}
+							size="small"
+							onChange={onVolumeChange}
+						/>
 					</Grid>
 				</Grid>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="center">
 				{/* Current Time / Duration */}
 				<Typography variant="body2" className={timeStampText} color="inherit">
-					{toTimestamp(currentTime)} / {toTimestamp(duration)}
+					{toTimestamp(currentTime * 1000)} / {toTimestamp(duration * 1000)}
 				</Typography>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="flex-end">
