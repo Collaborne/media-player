@@ -11,7 +11,7 @@ interface ProgressBarProps extends SliderProps {}
 export const ProgressBar: FC<ProgressBarProps> = props => {
 	const { api } = useVideo();
 
-	const onVolumeChange = useCallback(
+	const onCurrentTimeUpdate = useCallback(
 		(e: Event, newValue: number | number[], _activeThumb: number) => {
 			e.preventDefault();
 			if (Array.isArray(newValue)) {
@@ -41,7 +41,7 @@ export const ProgressBar: FC<ProgressBarProps> = props => {
 		<ProgressBarStyled
 			min={0}
 			max={PROGRESS_BAR_DIVIDER}
-			onChange={onVolumeChange}
+			onChange={onCurrentTimeUpdate}
 			value={value}
 			{...props}
 		/>
