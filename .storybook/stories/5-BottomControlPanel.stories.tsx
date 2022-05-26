@@ -1,5 +1,4 @@
 import { Meta, Story } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import {
 	withDemoCard,
@@ -19,7 +18,7 @@ import {
 
 export const BottomControlPanel: Story<
 	Partial<BottomControlPanelProps>
-> = args => {
+> = () => {
 	return (
 		<div
 			style={{
@@ -28,24 +27,7 @@ export const BottomControlPanel: Story<
 				flexDirection: 'column-reverse',
 			}}
 		>
-			<BottomControlPanelComponent
-				isFinished={args.isFinished ?? false}
-				isPlaying={args.isPlaying ?? false}
-				volume={args.volume ?? 0}
-				currentTime={args.currentTime ?? 0}
-				duration={args.duration ?? 0}
-				playbackRate={1}
-				onPlay={action('onPlay')}
-				onFullscreen={action('onFullscreen')}
-				onFwd={action('onFwd')}
-				onPip={action('onPip')}
-				onRwd={action('onRwd')}
-				onReplay={action('onReplay')}
-				onSetPlaybackRate={action('onSetPlaybackRate')}
-				onStop={action('onStop')}
-				onMute={action('onMute')}
-				onVolumeChange={action('onVolumeChange')}
-			/>
+			<BottomControlPanelComponent />
 		</div>
 	);
 };

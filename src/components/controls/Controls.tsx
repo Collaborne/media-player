@@ -12,7 +12,7 @@ type ControlProps = {
 	isVisible?: boolean;
 };
 
-export const Controls: FC<ControlProps> = () => {
+export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	const { api } = useVideo();
 
 	// Show first controls screen
@@ -36,7 +36,7 @@ export const Controls: FC<ControlProps> = () => {
 			) : (
 				<div className={wrapperBottomPanel}>
 					<ProgressBar />
-					<BottomControlPanel />
+					{isVisible && <BottomControlPanel />}
 				</div>
 			)}
 		</div>
