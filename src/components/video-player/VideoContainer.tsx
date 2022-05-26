@@ -54,17 +54,8 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			if (api?.getPaused?.()) {
 				return setShowControls(true);
 			}
-			if (lastMouseLeave > lastActivity) {
-				return setShowControls(false);
-			}
 			return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
-		}, [
-			api?.getPaused,
-			lastMouseLeave,
-			lastMouseMove,
-			lastActivityRef,
-			controlsConfig,
-		]);
+		}, [controlsConfig?.alwaysShowConfig, lastMouseLeave, api?.getPaused]);
 
 		useEffect(updateShowControls, [
 			updateShowControls,
@@ -90,7 +81,9 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			// Bug: video is stuck browser memory, so even after dismount the OS play/pause controls work
 			// Clear src attribute so it's removed.
 			const videoEl = videoContainerRef.current?.querySelector('video');
-			if (videoEl) videoEl.setAttribute('src', '');
+			if (videoEl) {
+				videoEl.setAttribute('src', '');
+			}
 		});
 
 		const { wrapper } = useVideoContainerStyles();

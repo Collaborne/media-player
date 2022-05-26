@@ -7,20 +7,16 @@ export const videoActions: VideoActions = {
 	// set "lastActivityRef" to a new Date
 	// lastActivityRef is used to figure out when to hide/show player controls.
 	play: state => {
-		state.emitter?.emit('play');
+		state.emitter.emit('play');
 
 		const video = getVideoEl(state);
 
 		if (
-			video &&
-			(video?.currentTime >= (state.endTime ?? 0) ||
-				video?.currentTime < (state.startTime ?? 0))
+			video.currentTime >= state.endTime ||
+			video.currentTime < state.startTime
 		) {
 			video.currentTime = state.startTime;
-
-			if (state?.playPromiseRef) {
-				state.playPromiseRef.current = video.play();
-			}
+			state.playPromiseRef.current = video.play();
 			return {
 				playing: true,
 				currentTime: state.startTime,
@@ -29,7 +25,7 @@ export const videoActions: VideoActions = {
 			};
 		}
 
-		if (video && state?.playPromiseRef) {
+		if (video) {
 			state.playPromiseRef.current = video.play();
 		}
 
