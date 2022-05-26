@@ -21,6 +21,8 @@ import {
 import { toTimestamp } from '../../utils/time';
 import { useBottomControlPanelHook } from './useBottomControlPanelHook';
 
+const SECONDS_MULTIPLIER = 1000;
+
 export interface BottomControlPanelProps {
 	className?: string;
 }
@@ -44,7 +46,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 		onFullscreen,
 		onSetPlaybackRate,
 		onVolumeChange,
-		onVolumeClick,
+		onToggleClick,
 	} = useBottomControlPanelHook();
 
 	// Bottom panel styles
@@ -97,7 +99,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 						<IconButton
 							size="medium"
 							className={mediumIconButtons}
-							onClick={onVolumeClick}
+							onClick={onToggleClick}
 						>
 							<VolumeIcon volume={isMuted ? 0 : volume} />
 						</IconButton>
@@ -114,7 +116,8 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 			<Grid item className={gridCentered} xs justifyContent="center">
 				{/* Current Time / Duration */}
 				<Typography variant="body2" className={timeStampText} color="inherit">
-					{toTimestamp(currentTime * 1000)} / {toTimestamp(duration * 1000)}
+					{toTimestamp(currentTime * SECONDS_MULTIPLIER)} /{' '}
+					{toTimestamp(duration * SECONDS_MULTIPLIER)}
 				</Typography>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="flex-end">

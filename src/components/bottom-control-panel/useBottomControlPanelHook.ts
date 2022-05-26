@@ -1,6 +1,8 @@
 import { useCallback, useMemo } from 'react';
 import { useVideo } from '../../hooks/use-video';
 
+const SECONDS_TO_SKIP = 10;
+const VOLUME_DIVIDER = 100;
 interface UseBottomControlPanelHook {
 	volume: number;
 	playbackRate: number;
@@ -21,7 +23,7 @@ interface UseBottomControlPanelHook {
 	onSetPlaybackRate: (playbackRate: number) => void;
 	onPip: VoidFunction;
 	onFullscreen: VoidFunction;
-	onVolumeClick: VoidFunction;
+	onToggleClick: VoidFunction;
 }
 export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 	const { api } = useVideo();
@@ -51,11 +53,11 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 	const onPlay = useCallback(() => api?.play?.(), [api?.play]);
 	const onStop = useCallback(() => api?.pause?.(), [api?.pause]);
 	const onRwd = useCallback(
-		() => api?.setCurrentTime?.(currentTime - 10),
+		() => api?.setCurrentTime?.(currentTime - SECONDS_TO_SKIP),
 		[api?.setCurrentTime, currentTime],
 	);
 	const onFwd = useCallback(
-		() => api?.setCurrentTime?.(currentTime + 10),
+		() => api?.setCurrentTime?.(currentTime + SECONDS_TO_SKIP),
 		[api?.setCurrentTime, currentTime],
 	);
 
@@ -69,7 +71,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		[api?.getPlaybackRate],
 	);
 
-	const onVolumeClick = useCallback(() => {
+	const onToggleClick = useCallback(() => {
 		if (isMuted) {
 			return api?.unmute?.();
 		}
@@ -82,7 +84,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 			if (Array.isArray(value)) {
 				return;
 			}
-			api?.setVolume?.(value / 100);
+			api?.setVolume?.(value / VOLUME_DIVIDER);
 		},
 		[api?.setVolume, volume],
 	);
@@ -123,6 +125,6 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		onFwd,
 		onSetPlaybackRate,
 		onVolumeChange,
-		onVolumeClick,
+		onToggleClick,
 	};
 };
