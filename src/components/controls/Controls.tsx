@@ -5,6 +5,7 @@ import { useVideo } from '../../hooks';
 import { CenteredBottomPlayback } from '../centered-bottom-playback/CenteredBottomPlayback';
 import { CenteredPlayButton } from '../centered-play-button/CenteredPlayButton';
 import { useControlsStyles } from './useControlsStyles';
+import { ProgressBar } from '../progress-bar/ProgressBar';
 
 type ControlProps = {
 	isVisible?: boolean;
@@ -26,11 +27,13 @@ export const Controls: FC<ControlProps> = () => {
 
 	return (
 		<div className={wrapper}>
-			{!hasStarted && (
+			{!hasStarted ? (
 				<>
 					<CenteredPlayButton />
 					<CenteredBottomPlayback />
 				</>
+			) : (
+				<ProgressBar />
 			)}
 		</div>
 	);

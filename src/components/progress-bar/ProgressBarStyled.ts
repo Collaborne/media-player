@@ -4,6 +4,9 @@ import { styled } from '@mui/material/styles';
 export const ProgressBarStyled = styled(Slider)(({ theme }) => ({
 	'&.MuiSlider-root': {
 		padding: `${theme.spacing(1.5)} 0 0 0`,
+		pointerEvents: 'auto',
+		position: 'absolute',
+		bottom: 0,
 	},
 
 	'& .MuiSlider-thumb': {
