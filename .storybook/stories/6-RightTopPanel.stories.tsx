@@ -7,7 +7,7 @@ import {
 	RightTopPanelProps,
 } from '../../src/components/right-top-panel/RightTopPanel';
 
-export const RightTopPanel: Story<Partial<RightTopPanelProps>> = () => {
+export const RightTopPanel: Story<Partial<RightTopPanelProps>> = args => {
 	return (
 		<div
 			style={{
@@ -17,9 +17,13 @@ export const RightTopPanel: Story<Partial<RightTopPanelProps>> = () => {
 			}}
 		>
 			<RightTopPanelComponent
-				onCover={action('onCover')}
+				setAsCover={action('setAsCover')}
+				removeAsCover={action('removeAsCover')}
 				onDelete={action('onDelete')}
 				onDownload={action('onDownload')}
+				className={args.className}
+				hasImageCover={args.hasImageCover}
+				isCover={args.isCover}
 			/>
 		</div>
 	);
@@ -29,8 +33,38 @@ export default {
 	title: 'Video Player Controls',
 	component: RightTopPanel,
 	decorators: [withVideoWrapper, withDemoCard, withTheme],
-	args: {},
-	argTypes: {},
+	args: {
+		isCover: false,
+		hasImageCover: false,
+		className: '',
+	},
+	argTypes: {
+		hasImageCover: {
+			name: 'props.hasImageCover',
+			description:
+				'Video has a cover image! Some video do not have thumbnails!',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: false },
+			},
+		},
+		isCover: {
+			name: 'props.isCover',
+			description: "If this video's thumbnails is set as a cover image ",
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: false },
+			},
+		},
+		className: {
+			name: 'props.className',
+			description: 'Class name applied to div*wrapper of the component',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: undefined },
+			},
+		},
+	},
 	parameters: {
 		controls: { expanded: true },
 	},
