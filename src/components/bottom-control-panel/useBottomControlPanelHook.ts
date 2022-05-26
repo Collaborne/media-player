@@ -60,7 +60,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 	);
 
 	const volume = useMemo(
-		() => (api?.getVolume?.() || 0) * 100,
+		() => (Number(api?.getVolume?.()) || 0) * 100,
 		[api?.getVolume],
 	);
 	const isMuted = useMemo(() => Boolean(api?.getMuted?.()), [api?.getMuted]);

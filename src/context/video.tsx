@@ -48,21 +48,19 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		controlsConfig,
 		persistedState,
 	}) => {
-		const { state, dispatch, videoRef, initialState } = useStateReducer({
+		const {
+			state,
+			dispatch,
+			videoRef,
+			initialState,
+			lastActivityRef,
+			markActivity,
+		} = useStateReducer({
 			firstInitialState,
 			persistedState,
 		});
 		const readyFiredRef = React.useRef(false);
 		const [hasAutoplayed, setAutoplayed] = React.useState(false);
-
-		// Store the user's last "activity" (including mousemove over player) within a ref,
-		// so that state re-renders are not triggered every mousemove.
-		const lastActivityRef = React.useRef<number>();
-		const markActivity = React.useCallback(() => {
-			if (lastActivityRef) {
-				lastActivityRef.current = Date.now();
-			}
-		}, []);
 
 		const { oneTimeStopPoint } = state;
 		React.useEffect(() => {
@@ -144,6 +142,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 				markActivity,
 				state,
 				videoRef,
+				lastActivityRef,
 			],
 		);
 

@@ -7,6 +7,7 @@ import {
 	Dispatch,
 	RefObject,
 	useMemo,
+	MutableRefObject,
 } from 'react';
 import ReactPlayer from 'react-player';
 import { VideoAction, VideoState, VideoStateSetter } from '../types';
@@ -21,6 +22,8 @@ interface UseStateReducer {
 	initialState: Partial<VideoState>;
 	videoRef: RefObject<ReactPlayer>;
 	dispatch: Dispatch<VideoAction>;
+	lastActivityRef: MutableRefObject<number | undefined>;
+	markActivity: VoidFunction;
 }
 
 export const useStateReducer = ({
@@ -38,7 +41,7 @@ export const useStateReducer = ({
 		if (lastActivityRef) {
 			lastActivityRef.current = Date.now();
 		}
-	}, []);
+	}, [lastActivityRef]);
 	const stateReducer = useCallback(
 		(state: VideoState, action: VideoAction): VideoState => {
 			const fn: VideoStateSetter = videoActions[action.type];
@@ -92,6 +95,8 @@ export const useStateReducer = ({
 		state,
 		initialState,
 		videoRef,
+		lastActivityRef,
 		dispatch,
+		markActivity,
 	};
 };
