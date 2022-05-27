@@ -1,7 +1,11 @@
 import { Meta, Story } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
-import { withDemoCard, withTheme, withVideoWrapper } from '../decorators';
+import {
+	withDemoCard,
+	withTheme,
+	withVideoProvider,
+	withVideoWrapper,
+} from '../decorators';
 import {
 	BottomControlPanel as BottomControlPanelComponent,
 	BottomControlPanelProps,
@@ -14,7 +18,7 @@ import {
 
 export const BottomControlPanel: Story<
 	Partial<BottomControlPanelProps>
-> = args => {
+> = () => {
 	return (
 		<div
 			style={{
@@ -23,24 +27,7 @@ export const BottomControlPanel: Story<
 				flexDirection: 'column-reverse',
 			}}
 		>
-			<BottomControlPanelComponent
-				isFinished={args.isFinished ?? false}
-				isPlaying={args.isPlaying ?? false}
-				volume={args.volume ?? 0}
-				currentTime={args.currentTime ?? 0}
-				duration={args.duration ?? 0}
-				playbackRate={1}
-				onPlay={action('onPlay')}
-				onFullscreen={action('onFullscreen')}
-				onFwd={action('onFwd')}
-				onPip={action('onPip')}
-				onRwd={action('onRwd')}
-				onReplay={action('onReplay')}
-				onSetPlaybackRate={action('onSetPlaybackRate')}
-				onStop={action('onStop')}
-				onMute={action('onMute')}
-				onVolumeChange={action('onVolumeChange')}
-			/>
+			<BottomControlPanelComponent />
 		</div>
 	);
 };
@@ -48,7 +35,7 @@ export const BottomControlPanel: Story<
 export default {
 	title: 'Video Player Controls',
 	component: BottomControlPanel,
-	decorators: [withVideoWrapper, withDemoCard, withTheme],
+	decorators: [withVideoProvider, withVideoWrapper, withDemoCard, withTheme],
 	args: {
 		...bottomControlPanelStoryArgs,
 	},

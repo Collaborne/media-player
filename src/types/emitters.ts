@@ -32,7 +32,9 @@ export type EmitterEvents =
 	| 'fullscreenExit'
 	| 'progress'
 	| 'end'
-	| 'relativeEnd';
+	| 'relativeEnd'
+	| 'pipEnter'
+	| 'pipExit';
 
 export type AddRemoveListener<Arguments> = (
 	event: EmitterEvents,

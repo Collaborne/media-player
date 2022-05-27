@@ -1,5 +1,6 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
+import clsx from 'clsx';
 import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -18,44 +19,37 @@ import {
 	VolumeIcon,
 } from './components';
 import { toTimestamp } from '../../utils/time';
+import { useBottomControlPanelHook } from './useBottomControlPanelHook';
+
+const SECONDS_MULTIPLIER = 1000;
 
 export interface BottomControlPanelProps {
-	isFinished: boolean;
-	isPlaying: boolean;
-	volume: number;
-	playbackRate: number;
-	duration: number;
-	currentTime: number;
-	onPlay: VoidFunction;
-	onStop: VoidFunction;
-	onReplay: VoidFunction;
-	onFwd: VoidFunction;
-	onRwd: VoidFunction;
-	onVolumeChange: VoidFunction;
-	onSetPlaybackRate: (playbackRate: number) => void;
-	onPip: VoidFunction;
-	onFullscreen: VoidFunction;
-	onMute: VoidFunction;
+	className?: string;
 }
 
 export const BottomControlPanel: FC<BottomControlPanelProps> = ({
-	isPlaying,
-	isFinished,
-	volume,
-	playbackRate,
-	currentTime,
-	duration,
-	onSetPlaybackRate,
-	onFullscreen,
-	onFwd,
-	onRwd,
-	onPip,
-	onPlay,
-	onStop,
-	onReplay,
-	onMute,
-	onVolumeChange,
+	className,
 }) => {
+	const {
+		currentTime,
+		duration,
+		playbackRate,
+		volume,
+		isFinished,
+		isMuted,
+		isPlaying,
+		onFwd,
+		onPlay,
+		onRwd,
+		onStop,
+		onPip,
+		onFullscreen,
+		onSetPlaybackRate,
+		onVolumeChange,
+		onToggleClick,
+	} = useBottomControlPanelHook();
+
+	// Bottom panel styles
 	const {
 		wrapper,
 		mediumIcons,
@@ -66,26 +60,23 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 		timeStampText,
 	} = useBottomControlPanelStyles();
 
-	// TODO: Update callback when store is added
-	// TODO: Mutes and "unmutes" video player
-	const handleVolumeClick = useCallback(() => onMute(), [onMute]);
-
 	return (
 		<Grid
 			container
-			className={wrapper}
+			className={clsx(wrapper, className)}
 			alignItems="center"
 			justifyContent="space-between"
+			direction="row"
 		>
-			<Grid item direction="row" height="100%">
-				<Grid item className={gridCentered} xs>
+			<Grid item className={gridCentered} xs>
+				<Grid item className={gridCentered} xs justifyContent="flex-start">
 					{/*  Video Playing Statuses: Play-Pause-Replay */}
 					<PlayPauseReplay
 						isFinished={isFinished}
 						isPlaying={isPlaying}
 						onPlay={onPlay}
 						onStop={onStop}
-						onReplay={onReplay}
+						onReplay={onPlay}
 					/>
 					{/* Rewind Button */}
 					<IconButton
@@ -108,18 +99,25 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 						<IconButton
 							size="medium"
 							className={mediumIconButtons}
-							onClick={handleVolumeClick}
+							onClick={onToggleClick}
 						>
-							<VolumeIcon volume={volume} />
+							<VolumeIcon volume={isMuted ? 0 : volume} />
 						</IconButton>
-						<VolumeBarStyled size="small" onChange={onVolumeChange} />
+						<VolumeBarStyled
+							min={0}
+							max={100}
+							value={volume}
+							size="small"
+							onChange={onVolumeChange}
+						/>
 					</Grid>
 				</Grid>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="center">
 				{/* Current Time / Duration */}
 				<Typography variant="body2" className={timeStampText} color="inherit">
-					{toTimestamp(currentTime)} / {toTimestamp(duration)}
+					{toTimestamp(currentTime * SECONDS_MULTIPLIER)} /{' '}
+					{toTimestamp(duration * SECONDS_MULTIPLIER)}
 				</Typography>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="flex-end">

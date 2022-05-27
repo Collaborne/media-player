@@ -1,5 +1,4 @@
 import { Meta, Story } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/CenteredPlayButton';
 import {
@@ -58,24 +57,7 @@ export const AllPlayerControls: Story<AllPlayerControlsProps> = args => {
 		>
 			<div style={{ flex: 1 }} />
 			<ProgressBar />
-			<BottomControlPanelComponent
-				isFinished={args.isFinished ?? false}
-				isPlaying={args.isPlaying ?? false}
-				volume={args.volume ?? 0}
-				currentTime={args.currentTime ?? 0}
-				duration={args.duration ?? 0}
-				playbackRate={1}
-				onPlay={action('onPlay')}
-				onFullscreen={action('onFullscreen')}
-				onFwd={action('onFwd')}
-				onPip={action('onPip')}
-				onRwd={action('onRwd')}
-				onReplay={action('onReplay')}
-				onSetPlaybackRate={action('onSetPlaybackRate')}
-				onStop={action('onStop')}
-				onMute={action('onMute')}
-				onVolumeChange={action('onVolumeChange')}
-			/>
+			<BottomControlPanelComponent />
 		</div>
 	);
 };

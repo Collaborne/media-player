@@ -6,12 +6,13 @@ import { CenteredBottomPlayback } from '../centered-bottom-playback/CenteredBott
 import { CenteredPlayButton } from '../centered-play-button/CenteredPlayButton';
 import { useControlsStyles } from './useControlsStyles';
 import { ProgressBar } from '../progress-bar/ProgressBar';
+import { BottomControlPanel } from '../bottom-control-panel/BottomControlPanel';
 
 type ControlProps = {
 	isVisible?: boolean;
 };
 
-export const Controls: FC<ControlProps> = () => {
+export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	const { api } = useVideo();
 
 	// Show first controls screen
@@ -23,7 +24,7 @@ export const Controls: FC<ControlProps> = () => {
 	useEventListener('play', () => setHasStarted(true), api as any);
 
 	// Controls styles
-	const { wrapper } = useControlsStyles();
+	const { wrapper, wrapperBottomPanel } = useControlsStyles();
 
 	return (
 		<div className={wrapper}>
@@ -33,7 +34,10 @@ export const Controls: FC<ControlProps> = () => {
 					<CenteredBottomPlayback />
 				</>
 			) : (
-				<ProgressBar />
+				<div className={wrapperBottomPanel}>
+					<ProgressBar />
+					{isVisible && <BottomControlPanel />}
+				</div>
 			)}
 		</div>
 	);

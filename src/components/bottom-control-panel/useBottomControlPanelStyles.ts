@@ -6,6 +6,7 @@ export const useBottomControlPanelStyles = makeStyles(theme => ({
 		height: theme.spacing(5.5),
 		padding: `0 ${theme.spacing(0.5)}`,
 		background: theme.palette.background.paper,
+		pointerEvents: 'auto',
 	},
 	timeStampText: {
 		fontWeight: 500,
