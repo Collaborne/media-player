@@ -1,7 +1,12 @@
 import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import { withDemoCard, withTheme, withVideoWrapper } from '../decorators';
+import {
+	withDemoCard,
+	withTheme,
+	withVideoWrapper,
+	withIntl,
+} from '../decorators';
 import {
 	RightTopPanel as RightTopPanelComponent,
 	RightTopPanelProps,
@@ -32,7 +37,7 @@ export const RightTopPanel: Story<Partial<RightTopPanelProps>> = args => {
 export default {
 	title: 'Video Player Controls',
 	component: RightTopPanel,
-	decorators: [withVideoWrapper, withDemoCard, withTheme],
+	decorators: [withVideoWrapper, withDemoCard, withTheme, withIntl],
 	args: {
 		isCover: false,
 		hasImageCover: false,

@@ -2,6 +2,7 @@ import { FC, useCallback, useState } from 'react';
 
 import clsx from 'clsx';
 import Grid from '@mui/material/Grid';
+import intl from 'react-intl-universal';
 
 import IconButton from '@mui/material/IconButton';
 import {
@@ -61,7 +62,7 @@ export const RightTopPanel: FC<RightTopPanelProps> = ({
 				<FileDownloadOutlined />
 
 				<Typography variant="button" className={textWrapper}>
-					Download
+					{intl.get('action.download')}
 				</Typography>
 			</IconButton>
 			<IconButton
@@ -73,7 +74,7 @@ export const RightTopPanel: FC<RightTopPanelProps> = ({
 				<DeleteOutlineOutlined />
 
 				<Typography variant="button" className={textWrapper}>
-					Delete
+					{intl.get('action.delete')}
 				</Typography>
 			</IconButton>
 
@@ -87,7 +88,7 @@ export const RightTopPanel: FC<RightTopPanelProps> = ({
 					<ImageNotSupportedOutlined />
 
 					<Typography variant="button" className={textWrapper}>
-						Remove cover image
+						{intl.get('action.remove_as_cover')}
 					</Typography>
 				</IconButton>
 			) : (
@@ -101,7 +102,7 @@ export const RightTopPanel: FC<RightTopPanelProps> = ({
 					<ImageOutlined />
 
 					<Typography variant="button" className={textWrapper}>
-						Set cover image
+						{intl.get('action.set_as_cover')}
 					</Typography>
 				</IconButton>
 			)}
