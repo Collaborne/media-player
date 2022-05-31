@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import useEventListener from '@use-it/event-listener';
 
 import { useVideo } from '../../hooks';
@@ -25,6 +25,14 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	);
 	const [showPlayAnimation, setShowPlayAnimation] = useState(false);
 	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
+
+	// TODO: Use for Replay button
+	const _isFinished = useMemo(() => {
+		const duration = Number(api?.getDuration?.());
+		const isPlaying = Boolean(api?.getPlaying?.());
+		const relativeTime = Number(api?.getCurrentRelativeTime?.());
+		return duration > 0 && !isPlaying && relativeTime >= duration;
+	}, [api?.getDuration, api?.getPlaying, api?.getCurrentRelativeTime]);
 
 	// Added TS for api as any, because it is also a event listener,
 	// that this hook looks for
@@ -63,15 +71,26 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	);
 
 	// Controls styles
-	const { wrapper, wrapperBottomPanel, bigCenteredIcon } = useControlsStyles();
+	const {
+		bigCenteredIcon,
+		wrapper,
+		wrapperBottomPanel,
+		pauseIconWrapper,
+		playIconWrapper,
+	} = useControlsStyles({
+		isEnteringPauseAnimation: showPauseAnimation,
+		isEnteringPlayAnimation: showPlayAnimation,
+		durationMs: PLAY_PAUSE_ANIMATION_DURATION,
+	});
+
 	return (
 		<div className={wrapper}>
-			{showPauseAnimation && (
-				<BigPauseIcon width={90} height={90} className={bigCenteredIcon} />
-			)}
-			{showPlayAnimation && (
-				<BigPlayIcon width={90} height={90} className={bigCenteredIcon} />
-			)}
+			<div className={pauseIconWrapper}>
+				<BigPauseIcon className={bigCenteredIcon} />
+			</div>
+			<div className={playIconWrapper}>
+				<BigPlayIcon className={bigCenteredIcon} />
+			</div>
 
 			{!hasStarted ? (
 				<>
