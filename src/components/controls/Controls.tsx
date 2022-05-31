@@ -28,7 +28,6 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	const [showPlayAnimation, setShowPlayAnimation] = useState(false);
 	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
 
-	// TODO: Use for Replay button
 	const isFinished = useMemo(() => {
 		const duration = Number(api?.getDuration?.());
 		const isPlaying = Boolean(api?.getPlaying?.());
