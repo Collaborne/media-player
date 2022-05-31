@@ -10,8 +10,9 @@ import { BottomControlPanel } from '../bottom-control-panel/BottomControlPanel';
 import { BigPauseIcon } from '../icons/BigPauseIcon';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
+import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
 
-const PLAY_PAUSE_ANIMATION_DURATION = 300;
+const PLAY_PAUSE_ANIMATION_DURATION = 200;
 
 type ControlProps = {
 	isVisible?: boolean;
@@ -72,26 +73,20 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	);
 
 	// Controls styles
-	const {
-		bigCenteredIcon,
-		wrapper,
-		wrapperBottomPanel,
-		pauseIconWrapper,
-		playIconWrapper,
-	} = useControlsStyles({
-		isEnteringPauseAnimation: showPauseAnimation,
-		isEnteringPlayAnimation: showPlayAnimation,
-		durationMs: PLAY_PAUSE_ANIMATION_DURATION,
-	});
+	const { bigCenteredIcon, wrapper, wrapperBottomPanel } = useControlsStyles();
 
 	return (
 		<div className={wrapper}>
-			<div className={pauseIconWrapper}>
-				<BigPauseIcon className={bigCenteredIcon} />
-			</div>
-			<div className={playIconWrapper}>
-				<BigPlayIcon className={bigCenteredIcon} />
-			</div>
+			{showPauseAnimation && (
+				<AnimatedIconWrapper durationMs={PLAY_PAUSE_ANIMATION_DURATION - 10}>
+					<BigPauseIcon className={bigCenteredIcon} />
+				</AnimatedIconWrapper>
+			)}
+			{showPlayAnimation && (
+				<AnimatedIconWrapper durationMs={PLAY_PAUSE_ANIMATION_DURATION}>
+					<BigPlayIcon className={bigCenteredIcon} />
+				</AnimatedIconWrapper>
+			)}
 
 			{!hasStarted ? (
 				<>
