@@ -9,6 +9,7 @@ import { ProgressBar } from '../progress-bar/ProgressBar';
 import { BottomControlPanel } from '../bottom-control-panel/BottomControlPanel';
 import { BigPauseIcon } from '../icons/BigPauseIcon';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
+import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
 
 const PLAY_PAUSE_ANIMATION_DURATION = 300;
 
@@ -27,7 +28,7 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
 
 	// TODO: Use for Replay button
-	const _isFinished = useMemo(() => {
+	const isFinished = useMemo(() => {
 		const duration = Number(api?.getDuration?.());
 		const isPlaying = Boolean(api?.getPlaying?.());
 		const relativeTime = Number(api?.getCurrentRelativeTime?.());
@@ -98,10 +99,13 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 					<CenteredBottomPlayback />
 				</>
 			) : (
-				<div className={wrapperBottomPanel}>
-					<ProgressBar />
-					{isVisible && <BottomControlPanel />}
-				</div>
+				<>
+					{isFinished && <CenteredReplayButton />}
+					<div className={wrapperBottomPanel}>
+						<ProgressBar />
+						{isVisible && <BottomControlPanel />}
+					</div>
+				</>
 			)}
 		</div>
 	);

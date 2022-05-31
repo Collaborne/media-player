@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-export const useCenteredPlayButtonStyles = makeStyles(theme => ({
+export const useBigCenteredButtonStyles = makeStyles(theme => ({
 	controlsWrapper: {
 		width: '100%',
 		height: '100%',
