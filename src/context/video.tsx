@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, {
 	createContext,
 	FC,
@@ -38,7 +37,6 @@ export interface VideoContext {
 	videoRef?: RefObject<ReactPlayer>;
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const VideoContext = createContext<VideoContext | null>(null);
 
 export const VideoProvider: FC<VideoProviderProps> = memo(
@@ -152,7 +150,6 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		 * https://kentcdodds.com/blog/use-state-lazy-initialization-and-function-updates
 		 */
 		const [videoContext, setVideoContext] =
-			// eslint-disable-next-line @typescript-eslint/no-use-before-define
 			React.useState<Partial<VideoContext>>(updateContextValue);
 
 		// Force a ready event for safari when the video has been loaded
