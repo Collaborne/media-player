@@ -12,7 +12,7 @@ storybook-static/
 .rpt2_cache/
 
 # Dynamically created files
-/.storybook/locales
+/.storybook/locales/*
 
 .vscode/
 
