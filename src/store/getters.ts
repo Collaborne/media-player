@@ -1,5 +1,5 @@
 import { VideoGetters } from '../types';
-import { getVideoEl, pip } from '../utils';
+import { canPIP, getVideoEl, isInPIP } from '../utils';
 
 // Getters return a return value, no side effects.
 export const videoGetters: VideoGetters = {
@@ -21,6 +21,6 @@ export const videoGetters: VideoGetters = {
 	getHasPlayedOrSeeked: state => state.hasPlayedOrSeeked,
 	getPictureInPicture: state => {
 		const video = getVideoEl(state);
-		return Boolean(video && pip.supported && pip.isActive?.(video));
+		return Boolean(video && canPIP() && isInPIP());
 	},
 };

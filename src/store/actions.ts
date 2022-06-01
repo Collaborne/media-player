@@ -1,6 +1,6 @@
 import screenfull from 'screenfull';
 import { VideoActions } from '../types/actions';
-import { getVideoEl, pip } from '../utils';
+import { canPIP, closePIP, getVideoEl, openPIP } from '../utils';
 
 export const videoActions: VideoActions = {
 	// all public actions (not prefixed with `_`)
@@ -113,16 +113,16 @@ export const videoActions: VideoActions = {
 			hasPlayedOrSeeked: true,
 		};
 	},
-	requestFullscreen: state => {
+	requestFullscreen: async state => {
 		const video = getVideoEl(state);
 		if (!video) {
 			return;
 		}
-		if (pip.supported && video && state.pip) {
+		if (canPIP() && video && state.pip) {
 			// Ignore pip exit DOM errors (we are just trying to exit any open pip),
 			// if there is no open pip DOM will throw an error we ignore.
 			// eslint-disable-next-line promise/valid-params
-			void Promise.resolve(pip.exit?.(video)).catch();
+			await closePIP(video).catch(console.warn);
 		}
 		state.emitter.emit('fullscreenEnter');
 		// requesting fullscreen for video player wrapper to include UI for the controls
@@ -156,18 +156,18 @@ export const videoActions: VideoActions = {
 		};
 	},
 
-	requestPip: state => {
+	requestPip: async state => {
 		state.emitter.emit('pipEnter');
 		const video = getVideoEl(state);
-		if (pip.supported && video) {
-			void pip.request?.(video);
+		if (canPIP()) {
+			await openPIP(video).catch(console.warn);
 		}
 	},
-	exitPip: state => {
+	exitPip: async state => {
 		state.emitter.emit('pipExit');
 		const video = getVideoEl(state);
-		if (pip.supported && video) {
-			void pip.exit?.(video);
+		if (canPIP()) {
+			await closePIP(video).catch(console.warn);
 		}
 	},
 

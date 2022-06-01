@@ -1,72 +1,51 @@
-import { browser } from './dom-target';
+export const canPIP = (): boolean =>
+	'pictureInPictureEnabled' in document && document.pictureInPictureEnabled;
 
-interface PictureInPictureResponse {
-	supported: boolean;
-	request?: (video: HTMLVideoElement) => Promise<PictureInPictureWindow> | void;
-	exit?: (video?: HTMLVideoElement) => Promise<void> | void;
-	isActive?: (video?: HTMLVideoElement) => boolean;
-}
+export const isInPIP = (): boolean => Boolean(document.pictureInPictureElement);
 
-const hasPipWebKit = (video: HTMLVideoElement): video is HTMLVideoElement => {
+const supportsOldSafariPIP = () => {
+	const video = document.createElement('video');
+
 	return (
-		typeof video.webkitSetPresentationMode === 'function' &&
-		video.webkitSupportsPresentationMode
+		canPIP() &&
+		video.webkitSupportsPresentationMode &&
+		typeof video.webkitSetPresentationMode === 'function'
 	);
 };
 
-const getPip = (): PictureInPictureResponse => {
-	if (typeof document === 'undefined') {
-		return { supported: false };
-	}
-
+const supportsModernPIP = () => {
 	const video = document.createElement('video');
 
-	// Chrome
-	// https://developers.google.com/web/updates/2018/10/watch-video-using-picture-in-picture
-	if (
-		browser.isBrowser('chrome') &&
-		document.pictureInPictureEnabled &&
-		!video.disablePictureInPicture
-	) {
-		return {
-			supported: true,
-			request: video => video.requestPictureInPicture(),
+	return (
+		canPIP() &&
+		video.requestPictureInPicture &&
+		typeof video.requestPictureInPicture === 'function'
+	);
+};
+export const supportsPIP = (): boolean =>
+	supportsOldSafariPIP() || supportsModernPIP();
 
-			exit: () => document.exitPictureInPicture(),
+export const openPIP = async (video?: HTMLVideoElement | null) => {
+	if (isInPIP()) return;
 
-			isActive: video => video === document.pictureInPictureElement,
-		};
+	if (supportsOldSafariPIP()) {
+		// eslint-disable-next-line @typescript-eslint/await-thenable
+		await video?.webkitSetPresentationMode('picture-in-picture');
 	}
-	// Safari
-	// https://developer.apple.com/documentation/webkitjs/adding_picture_in_picture_to_your_safari_media_controls
-	if (hasPipWebKit(video)) {
-		// Mobile safari says it supports webkitPresentationMode, but you can't pip there.
-		if (
-			browser.satisfies({ platform: { type: 'ipad' } }) ||
-			browser.satisfies({ platform: { type: 'iphone' } })
-		) {
-			return { supported: false };
-		}
-		return {
-			supported: true,
-			request: video => video.webkitSetPresentationMode('picture-in-picture'),
-
-			exit: video => video?.webkitSetPresentationMode('inline'),
-
-			isActive: video => video?.webkitPresentationMode === 'picture-in-picture',
-		};
+	if (supportsModernPIP()) {
+		await video?.requestPictureInPicture();
 	}
-
-	// No firefox JS API https://github.com/mozilla/standards-positions/issues/72
-	return {
-		supported: false,
-	};
 };
 
-/**
- * A function that returns Picture in Picture current state and methods to call
- * Cross-platform support for Chrome, Mozilla, Safari browsers
- */
-const pip = getPip();
-
-export { pip };
+export const closePIP = async (video?: HTMLVideoElement | null) => {
+	if (!isInPIP()) {
+		return;
+	}
+	if (supportsOldSafariPIP()) {
+		// eslint-disable-next-line @typescript-eslint/await-thenable
+		await video?.webkitSetPresentationMode('inline');
+	}
+	if (supportsModernPIP()) {
+		await document?.exitPictureInPicture();
+	}
+};

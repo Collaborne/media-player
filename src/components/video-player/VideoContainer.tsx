@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import ReactPlayer from 'react-player';
 
 import useEventListener from '@use-it/event-listener';
-import { useOnUnmount } from '../../hooks';
+import { useOnUnmount, useInViewport } from '../../hooks';
 import { useVideo } from '../../hooks/use-video';
 import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
@@ -143,6 +143,25 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				setIsPlayerReady(true);
 			}
 		}, [videoUrl, isPlayerReady]);
+
+		// Check if is in viewport, switch to normal mode, otherwise we display pip mode
+		const entry = useInViewport(videoContainerRef, {});
+		const isVisible = useMemo(
+			() => Boolean(entry?.isIntersecting),
+			[entry?.isIntersecting],
+		);
+
+		// If the player is mounted, ready , playing and not in the viewport
+		// and not in pip mode => requesting for pip
+		useEffect(() => {
+			const videoEl = videoRef?.current?.getInternalPlayer();
+			if (!isPlaying || !isPlayerReady || isVisible || !videoEl) {
+				return;
+			}
+			if (!api?.getPictureInPicture?.()) {
+				api?.requestPip?.();
+			}
+		}, [isPlayerReady, isPlaying, isVisible]);
 
 		// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
 		if (!videoUrl || !isPlayerReady) {

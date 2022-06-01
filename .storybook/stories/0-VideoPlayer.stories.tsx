@@ -5,9 +5,115 @@ import {
 	VideoPlayer as VideoPlayerComponent,
 	VideoPlayerProps,
 } from '../../src/components/video-player';
+import { Typography } from '@mui/material';
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => (
-	<VideoPlayerComponent {...args} />
+	<div>
+		<VideoPlayerComponent {...args} />
+		<br />
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+		<Typography variant="body2">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+			similique, optio rem maiores numquam neque, repudiandae architecto a
+			eligendi tenetur in, vero odit dolorem asperiores molestiae dolorum sed?
+			Cum, voluptatibus!
+		</Typography>
+	</div>
 );
 
 export default {

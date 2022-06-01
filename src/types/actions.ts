@@ -31,7 +31,7 @@ export interface VideoActions {
 		state: VideoState,
 		relativeSeconds?: number,
 	) => PartialVideoState;
-	requestFullscreen: (state: VideoState) => PartialVideoState;
+	requestFullscreen: (state: VideoState) => Promise<void>;
 	exitFullscreen: (state: VideoState) => PartialVideoState;
 	setFullscreen: (state: VideoState, fullscreen: boolean) => PartialVideoState;
 	setStartTime: (state: VideoState, startTime: number) => PartialVideoState;
