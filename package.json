@@ -12,15 +12,18 @@
 	},
 	"scripts": {
 		"build": "tsc --noEmit false",
-		"test": "run-s test:lint test:build test:unit",
-		"test:build": "tsc --noEmit -p tsconfig.test.json",
-		"test:lint": "eslint '*/**/*.{js,ts,tsx}' '.storybook/stories/**/*.{js,ts,tsx}'",
+		"build:locales": "cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/prepare-locales.ts .storybook/locales",
+		"build:watch": "npm run build -- --watch",
+		"lint": "npm run lint:ts",
+		"lint:ts": "eslint --report-unused-disable-directives $(node -p 'require(\"./tsconfig.test.json\").include.map(include => `'\\${include}.\\{js,ts,tsx\\}'`).join(\" \")')",
+		"test": "run-s lint test:build test:unit",
+		"test:build": "npm run build:locales && tsc --noEmit -p tsconfig.test.json",
 		"test:unit": "cross-env CI=1 SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom --passWithNoTests",
 		"test:watch": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom",
 		"predeploy": "run-s storybook:build",
 		"deploy": "gh-pages -d storybook-static -b deploy/gh-pages",
-		"storybook": "start-storybook -p 9009",
-		"storybook:build": "build-storybook --quiet"
+		"storybook": "npm run build:locales &&  start-storybook -p 9009",
+		"storybook:build": "npm run build:locales ^^  build-storybook --quiet"
 	},
 	"peerDependencies": {
 		"@collaborne/carrot-styles": "^5.0.7",
@@ -46,6 +49,8 @@
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
 		"@types/jest": "^26.0.24",
+		"@types/lodash": "^4.14.171",
+		"@types/mkdirp": "^1.0.2",
 		"@types/node": "^12.20.16",
 		"@types/react": "^17.0.26",
 		"@types/react-dom": "^17.0.9",
@@ -67,6 +72,8 @@
 		"eslint-plugin-react-hooks": "^4.2.0",
 		"eslint-plugin-standard": "^4.0.2",
 		"gh-pages": "^2.2.0",
+		"lodash": "^4.17.20",
+		"mkdirp": "^1.0.4",
 		"node-random-name": "^1.0.1",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^2.3.2",
@@ -76,9 +83,9 @@
 		"react-is": "^17.0.0",
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.3",
-		"ts-node": "^9.0.0",
+		"ts-node": "~10.7.0",
 		"tsconfig-collaborne": "^1.5.0",
-		"typescript": "^4.3.5",
+		"typescript": "~4.6.4",
 		"webpack": "4.44.2"
 	},
 	"files": [
