@@ -1,5 +1,5 @@
 /**
- * Presence of the controls on video player
+ * Presence of the controls on video player.
  */
 
 export interface ControlsConfig {
@@ -10,4 +10,8 @@ export interface ControlsConfig {
 	speed?: boolean;
 	showVolumeSlider?: boolean;
 	alwaysShowConfig?: boolean;
+	/**
+	 * Duration of the animation when triggered an event (Play/Pause or others)
+	 */
+	eventAnimationDurationMs?: number;
 }

@@ -11,15 +11,21 @@ import { BigPauseIcon } from '../icons/BigPauseIcon';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
-
-const PLAY_PAUSE_ANIMATION_DURATION = 200;
+import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
 
 type ControlProps = {
 	isVisible?: boolean;
 };
 
 export const Controls: FC<ControlProps> = ({ isVisible }) => {
-	const { api } = useVideo();
+	const { api, controlsConfig } = useVideo();
+
+	const animationDuration = useMemo(
+		() =>
+			controlsConfig?.eventAnimationDurationMs ||
+			DEFAULT_EVENT_ANIMATION_DURATION,
+		[controlsConfig?.eventAnimationDurationMs],
+	);
 
 	// Show first controls screen
 	const [hasStarted, setHasStarted] = useState<boolean>(
@@ -47,10 +53,7 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 				return;
 			}
 			setShowPauseAnimation(true);
-			setTimeout(
-				() => setShowPauseAnimation(false),
-				PLAY_PAUSE_ANIMATION_DURATION,
-			);
+			setTimeout(() => setShowPauseAnimation(false), animationDuration);
 		},
 		api as any,
 	);
@@ -63,10 +66,7 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 				return;
 			}
 			setShowPlayAnimation(true);
-			setTimeout(
-				() => setShowPlayAnimation(false),
-				PLAY_PAUSE_ANIMATION_DURATION,
-			);
+			setTimeout(() => setShowPlayAnimation(false), animationDuration);
 		},
 		api as any,
 	);
@@ -77,12 +77,12 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	return (
 		<div className={wrapper}>
 			{showPauseAnimation && (
-				<AnimatedIconWrapper durationMs={PLAY_PAUSE_ANIMATION_DURATION - 10}>
+				<AnimatedIconWrapper durationMs={animationDuration}>
 					<BigPauseIcon className={bigCenteredIcon} />
 				</AnimatedIconWrapper>
 			)}
 			{showPlayAnimation && (
-				<AnimatedIconWrapper durationMs={PLAY_PAUSE_ANIMATION_DURATION}>
+				<AnimatedIconWrapper durationMs={animationDuration}>
 					<BigPlayIcon className={bigCenteredIcon} />
 				</AnimatedIconWrapper>
 			)}
