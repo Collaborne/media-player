@@ -1,7 +1,7 @@
 export const parameters = {
 	controls: { expanded: true },
 };
-//	TODO: Add Internationalization packet/toolbar
+
 export const globalTypes = {
 	theme: {
 		name: 'Dark Mode',

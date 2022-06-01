@@ -8,11 +8,11 @@ import {
 	withIntl,
 } from '../decorators';
 import {
-	RightTopPanel as RightTopPanelComponent,
-	RightTopPanelProps,
-} from '../../src/components/right-top-panel/RightTopPanel';
+	FileActionPanel as FileActionPanelComponent,
+	FileActionPanelProps,
+} from '../../src/components/file-action-panel/FileActionPanel';
 
-export const RightTopPanel: Story<Partial<RightTopPanelProps>> = args => {
+export const FileActionPanel: Story<Partial<FileActionPanelProps>> = args => {
 	return (
 		<div
 			style={{
@@ -21,7 +21,7 @@ export const RightTopPanel: Story<Partial<RightTopPanelProps>> = args => {
 				flexDirection: 'column-reverse',
 			}}
 		>
-			<RightTopPanelComponent
+			<FileActionPanelComponent
 				setAsCover={action('setAsCover')}
 				removeAsCover={action('removeAsCover')}
 				onDelete={action('onDelete')}
@@ -36,7 +36,7 @@ export const RightTopPanel: Story<Partial<RightTopPanelProps>> = args => {
 
 export default {
 	title: 'Video Player Controls',
-	component: RightTopPanel,
+	component: FileActionPanel,
 	decorators: [withVideoWrapper, withDemoCard, withTheme, withIntl],
 	args: {
 		isCover: false,
@@ -55,7 +55,7 @@ export default {
 		},
 		isCover: {
 			name: 'props.isCover',
-			description: "If this video's thumbnails is set as a cover image ",
+			description: `If this video's thumbnails is set as a cover image`,
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: false },

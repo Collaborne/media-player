@@ -1,10 +1,10 @@
 import { makeStyles } from '@mui/styles';
 
-interface UseRightTopPanelStylesProps {
+interface UseFileActionPanelStylesProps {
 	isOpened: boolean;
 }
 
-export const useRightTopPanelStyles = makeStyles(theme => ({
+export const useFileActionPanelStyles = makeStyles(theme => ({
 	wrapper: {
 		background: theme.palette.background.paper,
 		pointerEvents: 'auto',
@@ -12,21 +12,19 @@ export const useRightTopPanelStyles = makeStyles(theme => ({
 		top: theme.spacing(2),
 		right: 0,
 		width: 'fit-content',
-		padding: `${theme.spacing(0.5)} 0`,
-		borderRadius: `${theme.spacing(0.5)} 0 0 ${theme.spacing(0.5)}`,
+		padding: theme.spacing(0.5, 0),
+		borderRadius: theme.spacing(0.5, 0, 0, 0.5),
 	},
 	iconWrapper: {
 		justifyContent: 'flex-start',
 		width: 'auto',
 		overflow: 'hidden',
 	},
-	textWrapper: ({ isOpened }: UseRightTopPanelStylesProps) => ({
+	textWrapper: ({ isOpened }: UseFileActionPanelStylesProps) => ({
 		overflow: 'hidden',
 		padding: isOpened
-			? `${theme.spacing(0.5)} ${theme.spacing(1)} ${theme.spacing(
-					0.5,
-			  )} ${theme.spacing(0.5)}`
-			: `0 0 0 ${theme.spacing(0.5)}`,
+			? theme.spacing(0.5, 1, 0.5, 0.5)
+			: theme.spacing(0, 0, 0, 0.5),
 		width: isOpened ? 'auto' : 0,
 		transition: 'all 0.5s ease-out',
 	}),

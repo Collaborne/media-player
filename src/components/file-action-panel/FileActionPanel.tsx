@@ -12,10 +12,10 @@ import {
 	ImageOutlined,
 } from '@mui/icons-material';
 
-import { useRightTopPanelStyles } from './useRightTopPanelStyles';
+import { useFileActionPanelStyles } from './useFileActionPanelStyles';
 import { Typography } from '@mui/material';
 
-export interface RightTopPanelProps {
+export interface FileActionPanelProps {
 	onDownload: VoidFunction;
 	onDelete: VoidFunction;
 	setAsCover: VoidFunction;
@@ -27,7 +27,7 @@ export interface RightTopPanelProps {
 	className?: string;
 }
 
-export const RightTopPanel: FC<RightTopPanelProps> = ({
+export const FileActionPanel: FC<FileActionPanelProps> = ({
 	onDownload,
 	onDelete,
 	setAsCover,
@@ -37,7 +37,7 @@ export const RightTopPanel: FC<RightTopPanelProps> = ({
 	className,
 }) => {
 	const [isOpened, setIsOpened] = useState(false);
-	const { wrapper, iconWrapper, textWrapper } = useRightTopPanelStyles({
+	const { wrapper, iconWrapper, textWrapper } = useFileActionPanelStyles({
 		isOpened,
 	});
 
