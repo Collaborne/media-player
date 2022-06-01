@@ -22,8 +22,8 @@
 		"test:watch": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom",
 		"predeploy": "run-s storybook:build",
 		"deploy": "gh-pages -d storybook-static -b deploy/gh-pages",
-		"storybook": "npm run build:locales &&  start-storybook -p 9009",
-		"storybook:build": "npm run build:locales ^^  build-storybook --quiet"
+		"storybook": "npm run build:locales && start-storybook -p 9009",
+		"storybook:build": "npm run build:locales && build-storybook --quiet"
 	},
 	"peerDependencies": {
 		"@collaborne/carrot-styles": "^5.0.7",
