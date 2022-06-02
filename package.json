@@ -6,7 +6,7 @@
 	"license": "UNLICENSED",
 	"repository": "Collaborne/video-player",
 	"main": "dist/index.js",
-	"source": "src/index.tsx",
+	"source": "src/index.ts",
 	"engines": {
 		"node": ">=10"
 	},
