@@ -26,7 +26,9 @@ export const supportsPIP = (): boolean =>
 	supportsOldSafariPIP() || supportsModernPIP();
 
 export const openPIP = async (video?: HTMLVideoElement | null) => {
-	if (isInPIP()) return;
+	if (isInPIP()) {
+		return;
+	}
 
 	if (supportsOldSafariPIP()) {
 		// eslint-disable-next-line @typescript-eslint/await-thenable
