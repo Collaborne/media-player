@@ -1,6 +1,6 @@
 import { VideoState } from '.';
 
-export type PartialVideoState = Partial<VideoState> | void;
+export type PartialVideoState = Partial<VideoState> | Promise<void> | void;
 
 export type VideoStateSetter = (
 	state: VideoState,
@@ -38,8 +38,8 @@ export interface VideoActions {
 	setEndTime: (state: VideoState, endTime: number) => PartialVideoState;
 	setDuration: (state: VideoState, duration: number) => PartialVideoState;
 
-	requestPip: (state: VideoState) => void;
-	exitPip: (state: VideoState) => void;
+	requestPip: (state: VideoState) => Promise<void>;
+	exitPip: (state: VideoState) => Promise<void>;
 	// Private Methods
 	_setReady: (state: VideoState) => PartialVideoState;
 	_handleProgress: (

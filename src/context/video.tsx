@@ -11,7 +11,6 @@ import React, {
 import {
 	ControlsConfig,
 	ReactPlayerProps,
-	VideoActionKeys,
 	VideoApi,
 	VideoProviderProps,
 	VideoState,
@@ -97,7 +96,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 
 				for (const event in videoActions) {
 					api[event] = (payload: (...args: unknown[]) => VideoState | void) =>
-						dispatch({ type: event as VideoActionKeys, payload });
+						dispatch({ type: event as any, payload });
 				}
 
 				for (const key in videoGetters) {

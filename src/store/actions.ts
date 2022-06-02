@@ -121,7 +121,6 @@ export const videoActions: VideoActions = {
 		if (canPIP() && video && state.pip) {
 			// Ignore pip exit DOM errors (we are just trying to exit any open pip),
 			// if there is no open pip DOM will throw an error we ignore.
-			// eslint-disable-next-line promise/valid-params
 			await closePIP(video).catch(console.warn);
 		}
 		state.emitter.emit('fullscreenEnter');
