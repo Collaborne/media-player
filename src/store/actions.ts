@@ -1,6 +1,6 @@
 import screenfull from 'screenfull';
 import { VideoActions } from '../types/actions';
-import { getVideoEl, pip } from '../utils';
+import { getVideoEl } from '../utils';
 
 export const videoActions: VideoActions = {
 	// all public actions (not prefixed with `_`)
@@ -118,11 +118,8 @@ export const videoActions: VideoActions = {
 		if (!video) {
 			return;
 		}
-		if (pip.supported && video && state.pip) {
-			// Ignore pip exit DOM errors (we are just trying to exit any open pip),
-			// if there is no open pip DOM will throw an error we ignore.
-			// eslint-disable-next-line promise/valid-params
-			void Promise.resolve(pip.exit?.(video)).catch();
+		if (state.pip) {
+			state.emitter.emit('pipExit');
 		}
 		state.emitter.emit('fullscreenEnter');
 		// requesting fullscreen for video player wrapper to include UI for the controls
@@ -158,17 +155,11 @@ export const videoActions: VideoActions = {
 
 	requestPip: state => {
 		state.emitter.emit('pipEnter');
-		const video = getVideoEl(state);
-		if (pip.supported && video) {
-			void pip.request?.(video);
-		}
+		return { pip: true };
 	},
 	exitPip: state => {
 		state.emitter.emit('pipExit');
-		const video = getVideoEl(state);
-		if (pip.supported && video) {
-			void pip.exit?.(video);
-		}
+		return { pip: false };
 	},
 
 	// Private Actions

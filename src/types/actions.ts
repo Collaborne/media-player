@@ -38,8 +38,8 @@ export interface VideoActions {
 	setEndTime: (state: VideoState, endTime: number) => PartialVideoState;
 	setDuration: (state: VideoState, duration: number) => PartialVideoState;
 
-	requestPip: (state: VideoState) => void;
-	exitPip: (state: VideoState) => void;
+	requestPip: (state: VideoState) => PartialVideoState;
+	exitPip: (state: VideoState) => PartialVideoState;
 	// Private Methods
 	_setReady: (state: VideoState) => PartialVideoState;
 	_handleProgress: (

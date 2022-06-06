@@ -17,6 +17,10 @@ import { useVideo } from '../../hooks/use-video';
 import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
 import { Controls } from '../controls/Controls';
+import { DraggablePopover } from '../draggable-popover/DraggablePopover';
+
+import { VideoPoster } from '../video-poster/VideoPoster';
+import Portal from '@mui/material/Portal';
 
 interface VideoContainerProps {
 	className?: string;
@@ -40,14 +44,13 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 
 		const videoContainerRef = useRef<HTMLDivElement>(null);
 		const hasAutoFocusedRef = useRef(false);
-
 		const isPlaying = useMemo(
 			() => Boolean(api?.getPlaying?.()),
 			[api?.getPlaying],
 		);
 
 		const updateShowControls = useCallback(() => {
-			if (controlsConfig?.alwaysShowConfig) {
+			if (controlsConfig?.alwaysShowConfig || api?.getPictureInPicture?.()) {
 				return setShowControls(true);
 			}
 			const lastActivity = lastActivityRef?.current || 0;
@@ -55,7 +58,12 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				return setShowControls(true);
 			}
 			return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
-		}, [controlsConfig?.alwaysShowConfig, lastMouseLeave, api?.getPaused]);
+		}, [
+			controlsConfig?.alwaysShowConfig,
+			lastMouseLeave,
+			api?.getPaused,
+			api?.getPictureInPicture?.(),
+		]);
 
 		useEffect(updateShowControls, [
 			updateShowControls,
@@ -89,11 +97,15 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		const { wrapper } = useVideoContainerStyles();
 
 		const togglePlay = useCallback(() => {
+			// PIP mode disables clicking on screen to toggle playing
+			if (api?.getPictureInPicture?.()) {
+				return;
+			}
 			if (api?.getPaused?.()) {
 				return api?.play?.();
 			}
 			return api?.pause?.();
-		}, [api?.play, api?.pause]);
+		}, [api?.play, api?.pause, api?.getPictureInPicture]);
 
 		const onMouseMove = useCallback(() => {
 			markActivity?.();
@@ -105,7 +117,9 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		// Add stop/pause events on clicking to video-player
 		useEventListener(
 			'click',
-			togglePlay,
+			() => {
+				togglePlay();
+			},
 			videoRef?.current?.getInternalPlayer() || undefined,
 		);
 
@@ -148,35 +162,40 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		if (!videoUrl || !isPlayerReady) {
 			return null;
 		}
-
 		return (
-			<div
-				ref={videoContainerRef}
-				className={clsx(wrapper, className)}
-				onMouseMove={onMouseMove}
-				onMouseLeave={onMouseLeave}
-			>
-				{Boolean(videoUrl) && (
-					<ReactPlayer
-						url={videoUrl}
-						progressInterval={50}
-						width="100%"
-						height="100%"
-						className="react-player"
-						css={['position: relative;']}
-						config={{
-							file: {
-								attributes: {
-									crossOrigin: 'anonymous',
-									preload: 'false',
-								},
-							},
-						}}
-						{...reactPlayerProps}
-					/>
-				)}
-				<Controls isVisible={showControls} />
-			</div>
+			<Portal>
+				<div
+					ref={videoContainerRef}
+					className={clsx(wrapper, className)}
+					onMouseMove={onMouseMove}
+					onMouseLeave={onMouseLeave}
+				>
+					{Boolean(videoUrl) && (
+						<DraggablePopover disabled={Boolean(!api?.getPictureInPicture?.())}>
+							<ReactPlayer
+								url={videoUrl}
+								progressInterval={50}
+								width="100%"
+								height="100%"
+								className="react-player"
+								css={['position: relative']}
+								config={{
+									file: {
+										attributes: {
+											crossOrigin: 'anonymous',
+											preload: 'false',
+										},
+									},
+								}}
+								{...reactPlayerProps}
+							/>
+						</DraggablePopover>
+					)}
+					{Boolean(api?.getPictureInPicture?.()) && <VideoPoster />}
+
+					<Controls isVisible={showControls} />
+				</div>
+			</Portal>
 		);
 	},
 );

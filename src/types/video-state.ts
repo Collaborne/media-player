@@ -53,7 +53,7 @@ export interface VideoState {
 	volume: number;
 	ready: boolean;
 	hasPlayedOrSeeked: boolean;
-	pip?: boolean;
+	pip: boolean;
 	oneTimeStopPoint: number | null;
 }
 
