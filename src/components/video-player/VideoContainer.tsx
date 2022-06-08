@@ -14,13 +14,11 @@ import ReactPlayer from 'react-player';
 import useEventListener from '@use-it/event-listener';
 import { useOnUnmount } from '../../hooks';
 import { useVideo } from '../../hooks/use-video';
-import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
+import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
 import { Controls } from '../controls/Controls';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
-
 import { VideoPoster } from '../video-poster/VideoPoster';
-import Portal from '@mui/material/Portal';
 
 interface VideoContainerProps {
 	className?: string;
@@ -41,9 +39,11 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 		const [lastMouseMove, setLastMouseMove] = useState<number>(0);
 		const [isPlayerReady, setIsPlayerReady] = useState(Boolean(videoUrl));
-
 		const videoContainerRef = useRef<HTMLDivElement>(null);
 		const hasAutoFocusedRef = useRef(false);
+		const containerSizeRef = useRef<
+			{ width: number; height: number } | undefined
+		>();
 		const isPlaying = useMemo(
 			() => Boolean(api?.getPlaying?.()),
 			[api?.getPlaying],
@@ -78,7 +78,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			}
 			const timeoutId = setTimeout(() => {
 				if (videoRef?.current?.getInternalPlayer()) {
-					videoRef.current.getInternalPlayer().parentElement?.focus();
+					videoRef.current?.getInternalPlayer()?.parentElement?.focus();
 					hasAutoFocusedRef.current = true;
 				}
 			}, 100);
@@ -134,6 +134,40 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			{ capture: true },
 		);
 
+		const calculateContainerSizes = useCallback(() => {
+			const width = videoContainerRef.current?.offsetWidth;
+			const height = videoContainerRef.current?.offsetHeight;
+			if (width && height) {
+				containerSizeRef.current = { width, height };
+			}
+		}, []);
+
+		// TODO: Open a issue for ReactPlayer on github
+		// Listening for pip events and updating currentTime for ProgressBar
+		// This is used for covering bugs with ReactPlayer
+		useEventListener(
+			'pipEnter',
+			() => {
+				const currentTime = api?.getCurrentRelativeTime?.();
+				calculateContainerSizes();
+				setTimeout(() => {
+					api?.setCurrentTime?.(currentTime);
+				}, PROGRESS_INTERVAL - 1);
+			},
+			api as any,
+		);
+
+		useEventListener(
+			'pipExit',
+			() => {
+				const currentTime = api?.getCurrentRelativeTime?.();
+				setTimeout(() => {
+					api?.setCurrentTime?.(currentTime);
+				}, PROGRESS_INTERVAL - 1);
+			},
+			api as any,
+		);
+
 		// Updating video players bottom control's panel after OVERLAY_HIDE_DELAY time period
 		useEffect(() => {
 			if (!isPlaying) {
@@ -162,19 +196,22 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		if (!videoUrl || !isPlayerReady) {
 			return null;
 		}
+
 		return (
-			<Portal>
-				<div
-					ref={videoContainerRef}
-					className={clsx(wrapper, className)}
-					onMouseMove={onMouseMove}
-					onMouseLeave={onMouseLeave}
-				>
-					{Boolean(videoUrl) && (
-						<DraggablePopover disabled={Boolean(!api?.getPictureInPicture?.())}>
+			<div
+				ref={videoContainerRef}
+				className={clsx(wrapper, className)}
+				onMouseMove={onMouseMove}
+				onMouseLeave={onMouseLeave}
+			>
+				{Boolean(videoUrl) && (
+					<>
+						<DraggablePopover
+							disablePortal={Boolean(!api?.getPictureInPicture?.())}
+						>
 							<ReactPlayer
 								url={videoUrl}
-								progressInterval={50}
+								progressInterval={PROGRESS_INTERVAL}
 								width="100%"
 								height="100%"
 								className="react-player"
@@ -190,12 +227,16 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 								{...reactPlayerProps}
 							/>
 						</DraggablePopover>
-					)}
-					{Boolean(api?.getPictureInPicture?.()) && <VideoPoster />}
-
-					<Controls isVisible={showControls} />
-				</div>
-			</Portal>
+						{Boolean(api?.getPictureInPicture?.()) && (
+							<VideoPoster
+								width={containerSizeRef?.current?.width || 0}
+								height={containerSizeRef?.current?.height || 0}
+							></VideoPoster>
+						)}
+						<Controls isVisible={showControls} />
+					</>
+				)}
+			</div>
 		);
 	},
 );

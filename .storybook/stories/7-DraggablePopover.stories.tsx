@@ -21,7 +21,7 @@ export const DraggablePopover: Story<Partial<DraggablePopoverProps>> = args => {
 				flexDirection: 'column-reverse',
 			}}
 		>
-			<DraggablePopoverComponent open={args.open}>
+			<DraggablePopoverComponent disablePortal={args.disablePortal}>
 				<div style={{ background: 'red', width: '100%', height: '100%' }} />
 			</DraggablePopoverComponent>
 		</div>
@@ -33,13 +33,13 @@ export default {
 	component: DraggablePopover,
 	decorators: [withVideoWrapper, withDemoCard, withTheme, withIntl],
 	args: {
-		open: false,
+		disablePortal: false,
 		className: '',
 	},
 	argTypes: {
-		open: {
-			name: 'props.open',
-			description: 'Popover open status',
+		disablePortal: {
+			name: 'props.disablePortal',
+			description: 'Moves React component into a *portal*',
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: false },

@@ -9,11 +9,11 @@ export const isHTMLVideoElement = (e: unknown): e is HTMLVideoElement =>
 /**
  * Gets the HTMLVideoElement from a VideoState
  */
-export const getVideoEl = (state: VideoState): HTMLVideoElement => {
+export const getVideoEl = (state: VideoState): HTMLVideoElement | undefined => {
 	const internalPlayer = state?.videoRef?.current?.getInternalPlayer();
 
 	if (isHTMLVideoElement(internalPlayer)) {
 		return internalPlayer;
 	}
-	throw new Error("Couldn't get the <video> element from ReactPlayer's ref  ");
+	return undefined;
 };

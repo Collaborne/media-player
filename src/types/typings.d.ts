@@ -65,6 +65,6 @@ declare global {
 // TS for only video player that plays video files
 declare module 'react-player' {
 	export default interface ReactPlayer extends ReactPlayer {
-		getInternalPlayer(): HTMLVideoElement;
+		getInternalPlayer(): HTMLVideoElement | null;
 	}
 }

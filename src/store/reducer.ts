@@ -82,6 +82,7 @@ export const useStateReducer = ({
 				muted: false,
 				fullscreen: false,
 				hasPlayedOrSeeked: false,
+				pip: false,
 			},
 			...persistedState,
 			...initialState,

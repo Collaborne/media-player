@@ -7,9 +7,11 @@ interface VideoPosterProps {
 }
 
 export const VideoPoster = styled('div')<VideoPosterProps>(
-	({ img, width, height }) => ({
-		backgroundImage: img ?? 'none',
-		width: width ?? '100px',
-		height: height ?? '100px',
-	}),
+	({ theme }) =>
+		({ img, width, height }) => ({
+			backgroundImage: img ?? 'none',
+			width: width ?? theme.spacing(40),
+			height: height ?? theme.spacing(40),
+			background: 'black',
+		}),
 );

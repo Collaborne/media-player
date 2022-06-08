@@ -1,10 +1,15 @@
 import { makeStyles } from '@mui/styles';
 
+interface UseDraggablePopoverStylesProps {
+	isExpanded: boolean;
+}
+
 export const useDraggablePopoverStyles = makeStyles(theme => ({
-	paper: {
+	paper: ({ isExpanded }: UseDraggablePopoverStylesProps) => ({
 		height: 'fit-content',
-		width: 'fit-content',
-	},
+		width: isExpanded ? '100%' : 'fit-content',
+		display: 'inline-block',
+	}),
 	progressBar: {
 		position: 'absolute',
 		bottom: 0,

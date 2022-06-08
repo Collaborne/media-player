@@ -13,11 +13,6 @@ type NewBounds = Record<'startTime' | 'endTime', number>;
 export interface VideoActions {
 	play: (state: VideoState) => PartialVideoState;
 	setNewBounds: (state: VideoState, duration: NewBounds) => PartialVideoState;
-	setOneTimeStopPoint: (
-		state: VideoState,
-		seconds: number,
-	) => PartialVideoState;
-
 	pause: (state: VideoState) => PartialVideoState;
 	mute: (state: VideoState) => PartialVideoState;
 	unmute: (state: VideoState) => PartialVideoState;
@@ -29,7 +24,7 @@ export interface VideoActions {
 	setVolume: (state: VideoState, volume: number) => PartialVideoState;
 	setCurrentTime: (
 		state: VideoState,
-		relativeSeconds?: number,
+		relativeSeconds: number,
 	) => PartialVideoState;
 	requestFullscreen: (state: VideoState) => PartialVideoState;
 	exitFullscreen: (state: VideoState) => PartialVideoState;

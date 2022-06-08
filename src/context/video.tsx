@@ -60,31 +60,6 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		const readyFiredRef = React.useRef(false);
 		const [hasAutoplayed, setAutoplayed] = React.useState(false);
 
-		const { oneTimeStopPoint } = state;
-		React.useEffect(() => {
-			// When one time stop point is set, start checking time every frame
-			// so we can stop video EXACTLY when user hits it.
-			if (!oneTimeStopPoint) return;
-
-			let frameId: number;
-			(function tick() {
-				const el = videoRef?.current?.getInternalPlayer();
-				if (!el) {
-					return;
-				}
-				// Stop within two frames of end of word (34ms)
-				if (el?.currentTime >= oneTimeStopPoint - 34 / 1000) {
-					el.currentTime = oneTimeStopPoint;
-					dispatch({
-						type: '_handleProgress',
-						payload: el.currentTime as any,
-					});
-				}
-				frameId = window.requestAnimationFrame(tick);
-			})();
-			return () => window.cancelAnimationFrame(frameId);
-		}, [oneTimeStopPoint, dispatch, videoRef]);
-
 		const updateContextValue = useCallback(
 			(currentValue?: Partial<VideoContext>) => {
 				const ctx = currentValue || {};
@@ -231,7 +206,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 				const isFullscreen =
 					screenfull.isFullscreen &&
 					screenfull.element ===
-						videoRef.current?.getInternalPlayer().parentElement?.parentElement;
+						videoRef.current?.getInternalPlayer()?.parentElement?.parentElement;
 				dispatch({
 					type: 'setFullscreen',
 					payload: isFullscreen as any,
