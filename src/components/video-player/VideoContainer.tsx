@@ -10,6 +10,7 @@ import {
 } from 'react';
 import clsx from 'clsx';
 import ReactPlayer from 'react-player';
+import intl from 'react-intl-universal';
 
 import useEventListener from '@use-it/event-listener';
 import { useOnUnmount } from '../../hooks';
@@ -98,7 +99,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			}
 		});
 
-		const { wrapper } = useVideoContainerStyles();
+		const { wrapper, pipText } = useVideoContainerStyles();
 
 		const togglePlay = useCallback(() => {
 			// PIP mode disables clicking on screen to toggle playing
@@ -236,7 +237,9 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 							<VideoPoster
 								width={containerSizeRef?.current?.width || 0}
 								height={containerSizeRef?.current?.height || 0}
-							></VideoPoster>
+							>
+								<div className={pipText}>{intl.get('video.playing_pip')}</div>
+							</VideoPoster>
 						)}
 						<Controls isVisible={showControls} />
 					</>

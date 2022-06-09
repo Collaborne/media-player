@@ -10,5 +10,8 @@
 	},
 	"action.remove_as_cover": {
 		"message": "Remove as cover"
+	},
+	"video.playing_pip": {
+		"message": "Playing in picture-in-picture"
 	}
 }
