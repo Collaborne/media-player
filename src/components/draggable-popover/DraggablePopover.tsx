@@ -1,4 +1,4 @@
-import { FC, memo, useMemo, useRef } from 'react';
+import { FC, memo, MutableRefObject, RefObject, useMemo, useRef } from 'react';
 
 import clsx from 'clsx';
 import { Resizable, ResizableProps } from 're-resizable';
@@ -10,11 +10,20 @@ import { ProgressBar } from '../progress-bar/ProgressBar';
 import Portal, { PortalProps } from '@mui/material/Portal';
 import { DEFAULT_PIP_SIZE } from '../../utils/constants';
 
+export type ContainerSizePosition = {
+	width: number;
+	height: number;
+	left: number;
+	top: number;
+};
 export interface DraggablePopoverProps extends PortalProps {
 	resizableProps?: Partial<ResizableProps>;
 	draggableProps?: Partial<DraggableProps>;
 	className?: string;
 }
+
+const SCROLLBAR_SIZE = 28;
+const POPOVER_MARGIN = 16;
 
 export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 	({ resizableProps, draggableProps, className, children, ...props }) => {
@@ -46,23 +55,25 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		// TODO: fix sizes!
 		// Get current wrapper position, and calculate it distance until the vw finished -16px
 		const defaultPosition = useMemo((): DraggableProps['defaultPosition'] => {
-			const vw = window.innerWidth || 0;
-
-			const vh = window.innerHeight;
-
-			if (!props.disablePortal)
+			const vw = window.innerWidth;
+			if (!props.disablePortal) {
 				return {
-					x: vw,
-					y: vh,
+					y: 0,
+					x: vw - SCROLLBAR_SIZE - POPOVER_MARGIN - DEFAULT_PIP_SIZE.width,
 				};
+			}
 
 			return { x: 0, y: 0 };
 		}, [props.disablePortal]);
 
-		console.log(defaultPosition);
 		return (
 			<Portal {...props}>
-				<Draggable {...draggableProps} positionOffset={defaultPosition}>
+				<Draggable
+					{...draggableProps}
+					positionOffset={defaultPosition}
+					allowAnyClick
+					disabled={props.disablePortal}
+				>
 					<Paper
 						elevation={0}
 						className={clsx(paper, className)}

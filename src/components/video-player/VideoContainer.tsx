@@ -17,8 +17,12 @@ import { useVideo } from '../../hooks/use-video';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
 import { Controls } from '../controls/Controls';
-import { DraggablePopover } from '../draggable-popover/DraggablePopover';
+import {
+	ContainerSizePosition,
+	DraggablePopover,
+} from '../draggable-popover/DraggablePopover';
 import { VideoPoster } from '../video-poster/VideoPoster';
+import { getElementOffset } from '../../utils/html-elements';
 
 interface VideoContainerProps {
 	className?: string;
@@ -34,16 +38,16 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			lastActivityRef,
 			markActivity,
 			controlsConfig,
+			videoContainerRef,
 		} = useVideo();
 		const [showControls, setShowControls] = useState(true);
 		const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 		const [lastMouseMove, setLastMouseMove] = useState<number>(0);
 		const [isPlayerReady, setIsPlayerReady] = useState(Boolean(videoUrl));
-		const videoContainerRef = useRef<HTMLDivElement>(null);
+
 		const hasAutoFocusedRef = useRef(false);
-		const containerSizeRef = useRef<
-			{ width: number; height: number } | undefined
-		>();
+		const containerSizeRef = useRef<ContainerSizePosition>();
+
 		const isPlaying = useMemo(
 			() => Boolean(api?.getPlaying?.()),
 			[api?.getPlaying],
@@ -62,7 +66,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			controlsConfig?.alwaysShowConfig,
 			lastMouseLeave,
 			api?.getPaused,
-			api?.getPictureInPicture?.(),
+			api?.getPictureInPicture,
 		]);
 
 		useEffect(updateShowControls, [
@@ -88,7 +92,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		useOnUnmount(() => {
 			// Bug: video is stuck browser memory, so even after dismount the OS play/pause controls work
 			// Clear src attribute so it's removed.
-			const videoEl = videoContainerRef.current?.querySelector('video');
+			const videoEl = videoContainerRef?.current?.querySelector('video');
 			if (videoEl) {
 				videoEl.setAttribute('src', '');
 			}
@@ -117,9 +121,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		// Add stop/pause events on clicking to video-player
 		useEventListener(
 			'click',
-			() => {
-				togglePlay();
-			},
+			togglePlay,
 			videoRef?.current?.getInternalPlayer() || undefined,
 		);
 
@@ -130,15 +132,18 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				markActivity?.();
 				updateShowControls();
 			},
-			videoContainerRef.current,
+			videoContainerRef?.current,
 			{ capture: true },
 		);
 
 		const calculateContainerSizes = useCallback(() => {
-			const width = videoContainerRef.current?.offsetWidth;
-			const height = videoContainerRef.current?.offsetHeight;
-			if (width && height) {
-				containerSizeRef.current = { width, height };
+			const width = videoContainerRef?.current?.offsetWidth;
+			const height = videoContainerRef?.current?.offsetHeight;
+			const rect = videoContainerRef?.current
+				? getElementOffset(videoContainerRef.current)
+				: undefined;
+			if (width && height && rect) {
+				containerSizeRef.current = { width, height, ...rect };
 			}
 		}, []);
 

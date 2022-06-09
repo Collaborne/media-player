@@ -24,6 +24,7 @@ interface UseStateReducer {
 	dispatch: Dispatch<VideoAction>;
 	lastActivityRef: MutableRefObject<number | undefined>;
 	markActivity: VoidFunction;
+	videoContainerRef: RefObject<HTMLDivElement>;
 }
 
 export const useStateReducer = ({
@@ -33,6 +34,7 @@ export const useStateReducer = ({
 	const [initialState] = useState(firstInitialState);
 	const videoRef = useRef<ReactPlayer>(null);
 	const playPromiseRef = useRef<Promise<void>>();
+	const videoContainerRef = useRef<HTMLDivElement>(null);
 
 	// Store the user's last "activity" (including mousemove over player) within a ref,
 	// so that state re-renders are not triggered every mousemove.
@@ -99,5 +101,6 @@ export const useStateReducer = ({
 		lastActivityRef,
 		dispatch,
 		markActivity,
+		videoContainerRef,
 	};
 };

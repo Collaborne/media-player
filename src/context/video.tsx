@@ -7,6 +7,7 @@ import React, {
 	useEffect,
 	useLayoutEffect,
 	memo,
+	useRef,
 } from 'react';
 import {
 	ControlsConfig,
@@ -35,6 +36,7 @@ export interface VideoContext {
 	reactPlayerProps?: ReactPlayerProps;
 	state?: VideoState;
 	videoRef?: RefObject<ReactPlayer>;
+	videoContainerRef?: RefObject<HTMLDivElement>;
 }
 
 export const VideoContext = createContext<VideoContext | null>(null);
@@ -53,11 +55,12 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 			initialState,
 			lastActivityRef,
 			markActivity,
+			videoContainerRef,
 		} = useStateReducer({
 			firstInitialState,
 			persistedState,
 		});
-		const readyFiredRef = React.useRef(false);
+		const readyFiredRef = useRef(false);
 		const [hasAutoplayed, setAutoplayed] = React.useState(false);
 
 		const updateContextValue = useCallback(
@@ -78,7 +81,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 				for (const key in videoGetters) {
 					api[key] = () => videoGetters[key](state);
 				}
-
+				ctx.videoContainerRef = videoContainerRef;
 				ctx.lastActivityRef = lastActivityRef;
 				ctx.markActivity = markActivity;
 				ctx.state = state;
@@ -200,13 +203,10 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 
 		React.useEffect(() => {
 			const onFullscreenChange = () => {
-				document.body.classList[screenfull.isFullscreen ? 'add' : 'remove'](
-					'body-fullscreen',
-				);
 				const isFullscreen =
 					screenfull.isFullscreen &&
-					screenfull.element ===
-						videoRef.current?.getInternalPlayer()?.parentElement?.parentElement;
+					screenfull.element === videoContainerRef.current;
+
 				dispatch({
 					type: 'setFullscreen',
 					payload: isFullscreen as any,

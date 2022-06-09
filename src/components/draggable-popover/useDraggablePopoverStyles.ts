@@ -9,6 +9,8 @@ export const useDraggablePopoverStyles = makeStyles(theme => ({
 		height: 'fit-content',
 		width: isExpanded ? '100%' : 'fit-content',
 		display: 'inline-block',
+		position: !isExpanded ? 'sticky' : 'initial',
+		bottom: theme.spacing(2),
 	}),
 	progressBar: {
 		position: 'absolute',

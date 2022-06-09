@@ -8,7 +8,17 @@ import {
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => (
-	<VideoPlayerComponent {...args} />
+	<>
+		<VideoPlayerComponent {...args} />
+		<div
+			style={{
+				width: '100%',
+				height: '500px',
+				background: 'green',
+				margin: '10px',
+			}}
+		/>
+	</>
 );
 
 export default {

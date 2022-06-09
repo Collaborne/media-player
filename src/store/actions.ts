@@ -109,6 +109,8 @@ export const videoActions: VideoActions = {
 		if (!video) {
 			return;
 		}
+
+		// Closing PIP mode if it is enabled
 		if (state.pip) {
 			state.emitter.emit('pipExit');
 		}
