@@ -9,6 +9,7 @@ import { useDraggablePopoverStyles } from './useDraggablePopoverStyles';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 import Portal, { PortalProps } from '@mui/material/Portal';
 import { DEFAULT_PIP_SIZE } from '../../utils/constants';
+import { PipOverlay } from '../pip-overlay/PipOverlay';
 
 export type ContainerSizePosition = {
 	width: number;
@@ -52,7 +53,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 					: DEFAULT_PIP_SIZE,
 			[props.disablePortal],
 		);
-		// TODO: fix sizes!
+
 		// Get current wrapper position, and calculate it distance until the vw finished -16px
 		const defaultPosition = useMemo((): DraggableProps['defaultPosition'] => {
 			const vw = window.innerWidth;
@@ -82,7 +83,12 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 							lockAspectRatio
 						>
 							{children}
-							{!props.disablePortal && <ProgressBar className={progressBar} />}
+							{!props.disablePortal && (
+								<>
+									<PipOverlay />
+									<ProgressBar className={progressBar} />
+								</>
+							)}
 						</Resizable>
 					</Paper>
 				</Draggable>

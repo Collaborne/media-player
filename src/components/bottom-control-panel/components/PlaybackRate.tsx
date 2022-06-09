@@ -1,6 +1,7 @@
 import { FC, useCallback } from 'react';
 
-import { Button, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { PLAYBACK_RATES } from '../../../utils/constants';
 import { MultiplySymbol } from '../../../utils/MultiplySymbol';
 

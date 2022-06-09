@@ -1,16 +1,20 @@
-import { FC, useCallback } from 'react';
+import { ComponentType, FC, useCallback } from 'react';
+import clsx from 'clsx';
 
 import { PauseOutlined, PlayArrow, ReplayOutlined } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import { SvgIconProps } from '@mui/material/SvgIcon';
 
 import { useBottomControlPanelStyles } from '../useBottomControlPanelStyles';
 
-interface PlayPauseReplayProps {
+interface PlayPauseReplayProps extends IconButtonProps {
 	isFinished: boolean;
 	isPlaying: boolean;
 	onStop: VoidFunction;
 	onPlay: VoidFunction;
 	onReplay: VoidFunction;
+	svgClassName?: string;
+	Icons?: Record<'Play' | 'Replay' | 'Pause', ComponentType<SvgIconProps>>;
 }
 
 export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
@@ -19,8 +23,14 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	onPlay,
 	onReplay,
 	onStop,
+	className,
+	svgClassName,
+	Icons = { Pause: PauseOutlined, Play: PlayArrow, Replay: ReplayOutlined },
+	...props
 }) => {
 	const { mediumIconButtons, mediumIcons } = useBottomControlPanelStyles();
+	const { Pause, Play, Replay } = Icons;
+	const svgClasses = clsx(mediumIcons, svgClassName);
 
 	const handleClick = useCallback(() => {
 		if (isFinished) {
@@ -36,15 +46,16 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	return (
 		<IconButton
 			size="medium"
-			className={mediumIconButtons}
+			className={clsx(mediumIconButtons, className)}
 			onClick={handleClick}
+			{...props}
 		>
 			{isFinished ? (
-				<ReplayOutlined className={mediumIcons} />
+				<Replay className={svgClasses} />
 			) : isPlaying ? (
-				<PauseOutlined className={mediumIcons} />
+				<Pause className={svgClasses} />
 			) : (
-				<PlayArrow className={mediumIcons} />
+				<Play className={svgClasses} />
 			)}
 		</IconButton>
 	);
