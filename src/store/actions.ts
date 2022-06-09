@@ -105,20 +105,24 @@ export const videoActions: VideoActions = {
 		};
 	},
 	requestFullscreen: state => {
-		const video = getVideoEl(state);
-		if (!video) {
+		if (!state.videoContainerRef.current) {
 			return;
 		}
-
 		// Closing PIP mode if it is enabled
 		if (state.pip) {
 			state.emitter.emit('pipExit');
 		}
 		state.emitter.emit('fullscreenEnter');
-		// requesting fullscreen for video player wrapper to include UI for the controls
-		if (screenfull.isEnabled && video.parentElement?.parentElement) {
-			void screenfull.request(video.parentElement?.parentElement);
+
+		// Requesting fullscreen for video player wrapper to include UI for the controls
+		if (screenfull.isEnabled) {
+			void screenfull.request(state?.videoContainerRef?.current);
 		}
+		// Returning pip state if we have pip enabled
+		if (state.pip) {
+			return { pip: false };
+		}
+		return undefined;
 	},
 
 	exitFullscreen: state => {
@@ -148,6 +152,11 @@ export const videoActions: VideoActions = {
 
 	requestPip: state => {
 		state.emitter.emit('pipEnter');
+		// Closing fullscreen if it is enabled
+		if (screenfull.isEnabled) {
+			screenfull.exit().catch(console.error);
+			state.emitter.emit('fullscreenExit');
+		}
 		return {
 			pip: true,
 		};

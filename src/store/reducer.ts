@@ -85,6 +85,7 @@ export const useStateReducer = ({
 				fullscreen: false,
 				hasPlayedOrSeeked: false,
 				pip: false,
+				videoContainerRef,
 			},
 			...persistedState,
 			...initialState,

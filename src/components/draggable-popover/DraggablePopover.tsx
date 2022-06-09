@@ -1,4 +1,4 @@
-import { FC, memo, MutableRefObject, RefObject, useMemo, useRef } from 'react';
+import { FC, memo, useMemo } from 'react';
 
 import clsx from 'clsx';
 import { Resizable, ResizableProps } from 're-resizable';
@@ -30,7 +30,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		const { paper, progressBar } = useDraggablePopoverStyles({
 			isExpanded: Boolean(props.disablePortal),
 		});
-		const paperRef = useRef<HTMLDivElement>(null);
+
 		/** Disable Resizing events when  *portal mode* is disabled */
 		const enableResizing = useMemo(
 			(): ResizableProps['enable'] =>
@@ -74,11 +74,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 					allowAnyClick
 					disabled={props.disablePortal}
 				>
-					<Paper
-						elevation={0}
-						className={clsx(paper, className)}
-						ref={paperRef}
-					>
+					<Paper elevation={0} className={clsx(paper, className)}>
 						<Resizable
 							{...resizableProps}
 							enable={enableResizing}
