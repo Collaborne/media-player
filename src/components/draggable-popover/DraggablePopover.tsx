@@ -28,7 +28,7 @@ const POPOVER_MARGIN = 16;
 
 export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 	({ resizableProps, draggableProps, className, children, ...props }) => {
-		const { paper, progressBar } = useDraggablePopoverStyles({
+		const { paper, progressBar, portalWrapper } = useDraggablePopoverStyles({
 			isExpanded: Boolean(props.disablePortal),
 		});
 
@@ -57,9 +57,10 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		// Get current wrapper position, and calculate it distance until the vw finished -16px
 		const defaultPosition = useMemo((): DraggableProps['defaultPosition'] => {
 			const vw = window.innerWidth;
+			const vh = window.innerHeight;
 			if (!props.disablePortal) {
 				return {
-					y: 0,
+					y: vh - SCROLLBAR_SIZE - POPOVER_MARGIN - DEFAULT_PIP_SIZE.height,
 					x: vw - SCROLLBAR_SIZE - POPOVER_MARGIN - DEFAULT_PIP_SIZE.width,
 				};
 			}
@@ -69,29 +70,31 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 
 		return (
 			<Portal {...props}>
-				<Draggable
-					{...draggableProps}
-					positionOffset={defaultPosition}
-					allowAnyClick
-					disabled={props.disablePortal}
-				>
-					<Paper elevation={0} className={clsx(paper, className)}>
-						<Resizable
-							{...resizableProps}
-							enable={enableResizing}
-							defaultSize={defaultSize}
-							lockAspectRatio
-						>
-							{children}
-							{!props.disablePortal && (
-								<>
-									<PipOverlay />
-									<ProgressBar className={progressBar} />
-								</>
-							)}
-						</Resizable>
-					</Paper>
-				</Draggable>
+				<div className={portalWrapper}>
+					<Draggable
+						{...draggableProps}
+						positionOffset={defaultPosition}
+						allowAnyClick
+						disabled={props.disablePortal}
+					>
+						<Paper elevation={0} className={clsx(paper, className)}>
+							<Resizable
+								{...resizableProps}
+								enable={enableResizing}
+								defaultSize={defaultSize}
+								lockAspectRatio
+							>
+								{children}
+								{!props.disablePortal && (
+									<>
+										<PipOverlay />
+										<ProgressBar className={progressBar} />
+									</>
+								)}
+							</Resizable>
+						</Paper>
+					</Draggable>
+				</div>
 			</Portal>
 		);
 	},

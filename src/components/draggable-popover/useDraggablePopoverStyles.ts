@@ -11,6 +11,13 @@ export const useDraggablePopoverStyles = makeStyles(theme => ({
 		display: 'inline-block',
 		position: !isExpanded ? 'sticky' : 'initial',
 		bottom: theme.spacing(2),
+		zIndex: 9999,
+	}),
+	portalWrapper: ({ isExpanded }: UseDraggablePopoverStylesProps) => ({
+		height: isExpanded ? '100%' : '100vh',
+		width: isExpanded ? '100%' : '100vw',
+		zIndex: isExpanded ? 0 : 9999,
+		background: 'transparent',
 	}),
 	progressBar: {
 		position: 'absolute',
