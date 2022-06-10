@@ -11,7 +11,7 @@ export const useCenteredBottomPlaybackStyles = makeStyles(theme => ({
 		pointerEvents: 'auto',
 	},
 	playbackWrapper: {
-		padding: `0 ${theme.spacing(0.5)}`,
+		padding: theme.spacing(0.5),
 		background: theme.palette.background.paper,
 
 		height: theme.spacing(5),
