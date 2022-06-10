@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react';
 
-import { withDemoCard, withTheme } from '../decorators';
+import { withDemoCard, withIntl, withTheme } from '../decorators';
 import {
 	VideoPlayer as VideoPlayerComponent,
 	VideoPlayerProps,
@@ -8,13 +8,30 @@ import {
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => (
-	<VideoPlayerComponent {...args} />
+	<>
+		<VideoPlayerComponent {...args} />
+		<br />
+		<VideoPlayerComponent
+			{...args}
+			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+		/>
+		<br />
+		<VideoPlayerComponent
+			{...args}
+			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
+		/>
+		<br />
+		<VideoPlayerComponent
+			{...args}
+			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
+		/>
+	</>
 );
 
 export default {
 	title: 'Video Player',
 	component: VideoPlayer,
-	decorators: [withDemoCard, withTheme],
+	decorators: [withDemoCard, withTheme, withIntl],
 	args: {
 		videoUrl:
 			'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',

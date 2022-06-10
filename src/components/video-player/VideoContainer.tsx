@@ -10,13 +10,20 @@ import {
 } from 'react';
 import clsx from 'clsx';
 import ReactPlayer from 'react-player';
+import intl from 'react-intl-universal';
 
 import useEventListener from '@use-it/event-listener';
 import { useOnUnmount } from '../../hooks';
 import { useVideo } from '../../hooks/use-video';
-import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
+import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
 import { Controls } from '../controls/Controls';
+import {
+	ContainerSizePosition,
+	DraggablePopover,
+} from '../draggable-popover/DraggablePopover';
+import { VideoPoster } from '../video-poster/VideoPoster';
+import { getElementOffset } from '../../utils/html-elements';
 
 interface VideoContainerProps {
 	className?: string;
@@ -32,14 +39,15 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			lastActivityRef,
 			markActivity,
 			controlsConfig,
+			videoContainerRef,
 		} = useVideo();
 		const [showControls, setShowControls] = useState(true);
 		const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 		const [lastMouseMove, setLastMouseMove] = useState<number>(0);
 		const [isPlayerReady, setIsPlayerReady] = useState(Boolean(videoUrl));
 
-		const videoContainerRef = useRef<HTMLDivElement>(null);
 		const hasAutoFocusedRef = useRef(false);
+		const containerSizeRef = useRef<ContainerSizePosition>();
 
 		const isPlaying = useMemo(
 			() => Boolean(api?.getPlaying?.()),
@@ -47,7 +55,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		);
 
 		const updateShowControls = useCallback(() => {
-			if (controlsConfig?.alwaysShowConfig) {
+			if (controlsConfig?.alwaysShowConfig || api?.getPictureInPicture?.()) {
 				return setShowControls(true);
 			}
 			const lastActivity = lastActivityRef?.current || 0;
@@ -55,7 +63,12 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				return setShowControls(true);
 			}
 			return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
-		}, [controlsConfig?.alwaysShowConfig, lastMouseLeave, api?.getPaused]);
+		}, [
+			controlsConfig?.alwaysShowConfig,
+			lastMouseLeave,
+			api?.getPaused,
+			api?.getPictureInPicture,
+		]);
 
 		useEffect(updateShowControls, [
 			updateShowControls,
@@ -70,7 +83,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			}
 			const timeoutId = setTimeout(() => {
 				if (videoRef?.current?.getInternalPlayer()) {
-					videoRef.current.getInternalPlayer().parentElement?.focus();
+					videoRef.current?.getInternalPlayer()?.parentElement?.focus();
 					hasAutoFocusedRef.current = true;
 				}
 			}, 100);
@@ -80,20 +93,24 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		useOnUnmount(() => {
 			// Bug: video is stuck browser memory, so even after dismount the OS play/pause controls work
 			// Clear src attribute so it's removed.
-			const videoEl = videoContainerRef.current?.querySelector('video');
+			const videoEl = videoContainerRef?.current?.querySelector('video');
 			if (videoEl) {
 				videoEl.setAttribute('src', '');
 			}
 		});
 
-		const { wrapper } = useVideoContainerStyles();
+		const { wrapper, pipText } = useVideoContainerStyles();
 
 		const togglePlay = useCallback(() => {
+			// PIP mode disables clicking on screen to toggle playing
+			if (api?.getPictureInPicture?.()) {
+				return;
+			}
 			if (api?.getPaused?.()) {
 				return api?.play?.();
 			}
 			return api?.pause?.();
-		}, [api?.play, api?.pause]);
+		}, [api?.play, api?.pause, api?.getPictureInPicture]);
 
 		const onMouseMove = useCallback(() => {
 			markActivity?.();
@@ -116,8 +133,45 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				markActivity?.();
 				updateShowControls();
 			},
-			videoContainerRef.current,
+			videoContainerRef?.current,
 			{ capture: true },
+		);
+
+		const calculateContainerSizes = useCallback(() => {
+			const width = videoContainerRef?.current?.offsetWidth;
+			const height = videoContainerRef?.current?.offsetHeight;
+			const rect = videoContainerRef?.current
+				? getElementOffset(videoContainerRef.current)
+				: undefined;
+			if (width && height && rect) {
+				containerSizeRef.current = { width, height, ...rect };
+			}
+		}, []);
+
+		// TODO: Open a issue for ReactPlayer on github
+		// Listening for pip events and updating currentTime for ProgressBar
+		// This is used for covering bugs with ReactPlayer
+		useEventListener(
+			'pipEnter',
+			() => {
+				const currentTime = api?.getCurrentRelativeTime?.();
+				calculateContainerSizes();
+				setTimeout(() => {
+					api?.setCurrentTime?.(currentTime);
+				}, PROGRESS_INTERVAL - 1);
+			},
+			api as any,
+		);
+
+		useEventListener(
+			'pipExit',
+			() => {
+				const currentTime = api?.getCurrentRelativeTime?.();
+				setTimeout(() => {
+					api?.setCurrentTime?.(currentTime);
+				}, PROGRESS_INTERVAL - 1);
+			},
+			api as any,
 		);
 
 		// Updating video players bottom control's panel after OVERLAY_HIDE_DELAY time period
@@ -157,25 +211,39 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				onMouseLeave={onMouseLeave}
 			>
 				{Boolean(videoUrl) && (
-					<ReactPlayer
-						url={videoUrl}
-						progressInterval={50}
-						width="100%"
-						height="100%"
-						className="react-player"
-						css={['position: relative;']}
-						config={{
-							file: {
-								attributes: {
-									crossOrigin: 'anonymous',
-									preload: 'false',
-								},
-							},
-						}}
-						{...reactPlayerProps}
-					/>
+					<>
+						<DraggablePopover
+							disablePortal={Boolean(!api?.getPictureInPicture?.())}
+						>
+							<ReactPlayer
+								url={videoUrl}
+								progressInterval={PROGRESS_INTERVAL}
+								width="100%"
+								height="100%"
+								className="react-player"
+								css={['position: relative']}
+								config={{
+									file: {
+										attributes: {
+											crossOrigin: 'anonymous',
+											preload: 'false',
+										},
+									},
+								}}
+								{...reactPlayerProps}
+							/>
+						</DraggablePopover>
+						{Boolean(api?.getPictureInPicture?.()) && (
+							<VideoPoster
+								width={containerSizeRef?.current?.width || 0}
+								height={containerSizeRef?.current?.height || 0}
+							>
+								<div className={pipText}>{intl.get('video.playing_pip')}</div>
+							</VideoPoster>
+						)}
+						<Controls isVisible={showControls} />
+					</>
 				)}
-				<Controls isVisible={showControls} />
 			</div>
 		);
 	},

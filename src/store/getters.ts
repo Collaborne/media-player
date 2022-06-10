@@ -1,5 +1,4 @@
 import { VideoGetters } from '../types';
-import { getVideoEl, pip } from '../utils';
 
 // Getters return a return value, no side effects.
 export const videoGetters: VideoGetters = {
@@ -19,8 +18,5 @@ export const videoGetters: VideoGetters = {
 	getReady: state => state.ready,
 	// NOTE: getHasPlayedOrSeeked does not work for autoplaying embeds
 	getHasPlayedOrSeeked: state => state.hasPlayedOrSeeked,
-	getPictureInPicture: state => {
-		const video = getVideoEl(state);
-		return Boolean(video && pip.supported && pip.isActive?.(video));
-	},
+	getPictureInPicture: state => state.pip,
 };

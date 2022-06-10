@@ -1,6 +1,6 @@
 import screenfull from 'screenfull';
 import { VideoActions } from '../types/actions';
-import { getVideoEl, pip } from '../utils';
+import { getVideoEl } from '../utils';
 
 export const videoActions: VideoActions = {
 	// all public actions (not prefixed with `_`)
@@ -12,11 +12,12 @@ export const videoActions: VideoActions = {
 		const video = getVideoEl(state);
 
 		if (
-			video.currentTime >= state.endTime ||
-			video.currentTime < state.startTime
+			video?.currentTime &&
+			(video.currentTime >= state.endTime ||
+				video.currentTime < state.startTime)
 		) {
 			video.currentTime = state.startTime;
-			state.playPromiseRef.current = video.play();
+			state.playPromiseRef.current = video?.play();
 			return {
 				playing: true,
 				currentTime: state.startTime,
@@ -31,13 +32,7 @@ export const videoActions: VideoActions = {
 
 		return { playing: true, hasPlayedOrSeeked: true };
 	},
-	setOneTimeStopPoint: (_state, seconds) => {
-		// "one time stop point" is a point that pauses the video once reached, then is erased.
-		// This is used within transcript to tell the player to pause once it reaches the end of a clip.
-		return {
-			oneTimeStopPoint: seconds,
-		};
-	},
+
 	setNewBounds: (state, { startTime, endTime }) => {
 		// Do nothing if time hasn't changed.
 		if (state.startTime === startTime && state.endTime === endTime) {
@@ -62,7 +57,7 @@ export const videoActions: VideoActions = {
 		state.emitter?.emit('pause');
 		const video = getVideoEl(state);
 
-		// playing a video is async operation
+		// Playing a video is async operation
 		// details: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play
 		// pausing a video is sync: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause
 		if (video && state.playPromiseRef?.current) {
@@ -90,13 +85,9 @@ export const videoActions: VideoActions = {
 		return { playbackRate };
 	},
 	setVolume: (_state, volume) => ({ volume: Math.min(Math.max(volume, 0), 1) }),
-	setCurrentTime: (state, relativeSeconds = 0) => {
-		relativeSeconds = Math.min(
-			state?.duration ?? 0,
-			Math.max(0, relativeSeconds),
-		);
+	setCurrentTime: (state, relativeSeconds) => {
+		relativeSeconds = Math.min(state?.duration, Math.max(0, relativeSeconds));
 		const videoEl = getVideoEl(state);
-
 		if (videoEl) {
 			const diffMs = (relativeSeconds - videoEl.currentTime) * 1000;
 			videoEl.currentTime = state.startTime + relativeSeconds;
@@ -114,21 +105,24 @@ export const videoActions: VideoActions = {
 		};
 	},
 	requestFullscreen: state => {
-		const video = getVideoEl(state);
-		if (!video) {
+		if (!state.videoContainerRef.current) {
 			return;
 		}
-		if (pip.supported && video && state.pip) {
-			// Ignore pip exit DOM errors (we are just trying to exit any open pip),
-			// if there is no open pip DOM will throw an error we ignore.
-			// eslint-disable-next-line promise/valid-params
-			void Promise.resolve(pip.exit?.(video)).catch();
+		// Closing PIP mode if it is enabled
+		if (state.pip) {
+			state.emitter.emit('pipExit');
 		}
 		state.emitter.emit('fullscreenEnter');
-		// requesting fullscreen for video player wrapper to include UI for the controls
-		if (screenfull.isEnabled && video.parentElement?.parentElement) {
-			void screenfull.request(video.parentElement?.parentElement);
+
+		// Requesting fullscreen for video player wrapper to include UI for the controls
+		if (screenfull.isEnabled) {
+			void screenfull.request(state?.videoContainerRef?.current);
 		}
+		// Returning pip state if we have pip enabled
+		if (state.pip) {
+			return { pip: false };
+		}
+		return undefined;
 	},
 
 	exitFullscreen: state => {
@@ -149,7 +143,7 @@ export const videoActions: VideoActions = {
 
 		return {
 			duration,
-			endTime: (state.startTime ?? 0) + duration,
+			endTime: state.startTime + duration,
 			currentRelativeTime: 0,
 			startTime: 0,
 			currentTime: 0,
@@ -158,19 +152,19 @@ export const videoActions: VideoActions = {
 
 	requestPip: state => {
 		state.emitter.emit('pipEnter');
-		const video = getVideoEl(state);
-		if (pip.supported && video) {
-			void pip.request?.(video);
+		// Closing fullscreen if it is enabled
+		if (screenfull.isEnabled) {
+			screenfull.exit().catch(console.error);
+			state.emitter.emit('fullscreenExit');
 		}
+		return {
+			pip: true,
+		};
 	},
 	exitPip: state => {
 		state.emitter.emit('pipExit');
-		const video = getVideoEl(state);
-		if (pip.supported && video) {
-			void pip.exit?.(video);
-		}
+		return { pip: false };
 	},
-
 	// Private Actions
 	_setReady: state => {
 		// In safari, any seeking that happens before a video is ready is canceled as soon
@@ -184,9 +178,10 @@ export const videoActions: VideoActions = {
 	},
 	_handleProgress: (state, currentTime) => {
 		const currentRelativeTime = Math.min(
-			state.endTime ?? 0,
-			Math.max(0, currentTime - (state.startTime ?? 0)),
+			state.endTime,
+			Math.max(0, currentTime - state.startTime),
 		);
+
 		if (state.playing) {
 			state.emitter?.emit('timeUpdate', {
 				seconds: currentRelativeTime,
@@ -197,26 +192,23 @@ export const videoActions: VideoActions = {
 				duration: state.duration,
 			});
 		}
-		if (currentTime >= (state.endTime ?? 0)) {
+		if (currentTime >= state.endTime) {
 			state.emitter?.emit('end');
 		}
-		let { playing, oneTimeStopPoint } = state;
+		let { playing } = state;
 
 		// If the currentTime is *approaching* the soft stop point but hasn't reached it yet,
 		// go ahead and stop. We only receive time updates every 50ms, so we want to stop once
 		// the video "almost" reaches the point.
-		if (oneTimeStopPoint && currentTime >= oneTimeStopPoint) {
-			playing = false;
-			oneTimeStopPoint = null;
-		} else if (currentTime >= (state.startTime ?? 0) + (state.duration ?? 0)) {
+		if (currentTime >= state.startTime + state.duration) {
 			playing = false;
 			state.emitter?.emit('relativeEnd');
 		}
+
 		return {
 			currentTime,
 			currentRelativeTime,
 			playing,
-			oneTimeStopPoint,
 		};
 	},
 };

@@ -7,6 +7,7 @@ import React, {
 	useEffect,
 	useLayoutEffect,
 	memo,
+	useRef,
 } from 'react';
 import {
 	ControlsConfig,
@@ -35,6 +36,7 @@ export interface VideoContext {
 	reactPlayerProps?: ReactPlayerProps;
 	state?: VideoState;
 	videoRef?: RefObject<ReactPlayer>;
+	videoContainerRef?: RefObject<HTMLDivElement>;
 }
 
 export const VideoContext = createContext<VideoContext | null>(null);
@@ -53,37 +55,13 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 			initialState,
 			lastActivityRef,
 			markActivity,
+			videoContainerRef,
 		} = useStateReducer({
 			firstInitialState,
 			persistedState,
 		});
-		const readyFiredRef = React.useRef(false);
+		const readyFiredRef = useRef(false);
 		const [hasAutoplayed, setAutoplayed] = React.useState(false);
-
-		const { oneTimeStopPoint } = state;
-		React.useEffect(() => {
-			// When one time stop point is set, start checking time every frame
-			// so we can stop video EXACTLY when user hits it.
-			if (!oneTimeStopPoint) return;
-
-			let frameId: number;
-			(function tick() {
-				const el = videoRef?.current?.getInternalPlayer();
-				if (!el) {
-					return;
-				}
-				// Stop within two frames of end of word (34ms)
-				if (el?.currentTime >= oneTimeStopPoint - 34 / 1000) {
-					el.currentTime = oneTimeStopPoint;
-					dispatch({
-						type: '_handleProgress',
-						payload: el.currentTime as any,
-					});
-				}
-				frameId = window.requestAnimationFrame(tick);
-			})();
-			return () => window.cancelAnimationFrame(frameId);
-		}, [oneTimeStopPoint, dispatch, videoRef]);
 
 		const updateContextValue = useCallback(
 			(currentValue?: Partial<VideoContext>) => {
@@ -103,7 +81,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 				for (const key in videoGetters) {
 					api[key] = () => videoGetters[key](state);
 				}
-
+				ctx.videoContainerRef = videoContainerRef;
 				ctx.lastActivityRef = lastActivityRef;
 				ctx.markActivity = markActivity;
 				ctx.state = state;
@@ -225,13 +203,10 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 
 		React.useEffect(() => {
 			const onFullscreenChange = () => {
-				document.body.classList[screenfull.isFullscreen ? 'add' : 'remove'](
-					'body-fullscreen',
-				);
 				const isFullscreen =
 					screenfull.isFullscreen &&
-					screenfull.element ===
-						videoRef.current?.getInternalPlayer().parentElement?.parentElement;
+					screenfull.element === videoContainerRef.current;
+
 				dispatch({
 					type: 'setFullscreen',
 					payload: isFullscreen as any,

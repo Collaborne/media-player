@@ -53,8 +53,10 @@ export interface VideoState {
 	volume: number;
 	ready: boolean;
 	hasPlayedOrSeeked: boolean;
-	pip?: boolean;
+	pip: boolean;
 	oneTimeStopPoint: number | null;
+	/** Storing wrapper ref of the videoPlayer */
+	videoContainerRef: RefObject<HTMLDivElement>;
 }
 
 export type VideoDispatchArgs = unknown[];

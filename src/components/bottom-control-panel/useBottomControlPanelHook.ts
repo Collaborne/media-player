@@ -111,7 +111,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 	);
 	return {
 		duration,
-		currentTime,
+		currentTime: relativeTime,
 		isFinished,
 		volume,
 		playbackRate,
