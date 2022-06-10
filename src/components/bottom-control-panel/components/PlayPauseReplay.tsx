@@ -50,13 +50,9 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 			onClick={handleClick}
 			{...props}
 		>
-			{isFinished ? (
-				<Replay className={svgClasses} />
-			) : isPlaying ? (
-				<Pause className={svgClasses} />
-			) : (
-				<Play className={svgClasses} />
-			)}
+			{isFinished && <Replay className={svgClasses} />}
+			{isPlaying && <Pause className={svgClasses} />}
+			{!isFinished && !isPlaying && <Play className={svgClasses} />}
 		</IconButton>
 	);
 };
