@@ -1,13 +1,15 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 
+import intl from 'react-intl-universal';
 import Grid from '@mui/material/Grid';
 import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import { Forward10, Replay10 } from '@mui/icons-material';
 
 import { usePipOverlayStyles } from './usePipOverlayStyles';
 import { useVideo } from '../../hooks';
-import { IconButton } from '@mui/material';
 import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
-import { Forward10, Replay10 } from '@mui/icons-material';
 
 import {
 	PlaybackRateButton,
@@ -31,6 +33,7 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 		centerIcon,
 		centerButtonIcon,
 		playBackRateWrapper,
+		playbackTypography,
 	} = usePipOverlayStyles();
 	const [showControls, setShowControls] = useState(true);
 	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
@@ -47,6 +50,11 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 		onSetPlaybackRate,
 		playbackRate,
 	} = useBottomControlPanelHook();
+
+	const onClose = useCallback(() => {
+		onStop();
+		api?.exitPip?.();
+	}, [api?.exitPip, onStop]);
 
 	const onMouseMove = useCallback(() => {
 		markActivity?.();
@@ -97,7 +105,7 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 						color="inherit"
 						size="small"
 						className={iconButton}
-						onClick={api?.exitPip}
+						onClick={onClose}
 					>
 						<CloseIcon />
 					</IconButton>
@@ -139,19 +147,24 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 					display="inline-flex"
 					className={iconRightWrapper}
 				>
-					<IconButton
-						size="small"
-						color="inherit"
-						className={iconButton}
-						onClick={api?.exitPip}
-					>
-						<PipExitButton />
-					</IconButton>
-
+					<Tooltip title={intl.get('video.back_to_tab')}>
+						<IconButton
+							size="small"
+							color="inherit"
+							className={iconButton}
+							onClick={api?.exitPip}
+						>
+							<PipExitButton />
+						</IconButton>
+					</Tooltip>
 					<PlaybackRateButton
 						playbackRate={playbackRate}
 						onChangeRate={onSetPlaybackRate}
 						className={playBackRateWrapper}
+						typographyProps={{
+							variant: 'caption',
+							className: playbackTypography,
+						}}
 					/>
 				</Grid>
 			</Grid>

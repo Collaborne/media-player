@@ -1,7 +1,7 @@
 import { FC, useCallback } from 'react';
 
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Typography, { TypographyProps } from '@mui/material/Typography';
 import { PLAYBACK_RATES } from '../../../utils/constants';
 import { MultiplySymbol } from '../../../utils/MultiplySymbol';
 
@@ -9,12 +9,14 @@ interface PlaybackRateButtonProps {
 	playbackRate: number;
 	onChangeRate: (newRate: number) => void;
 	className?: string;
+	typographyProps?: TypographyProps;
 }
 
 export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 	playbackRate,
 	onChangeRate,
 	className,
+	typographyProps,
 }) => {
 	const handleClick = useCallback(() => {
 		// Gets the next value of playback rate, otherwise get first one
@@ -33,9 +35,11 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 			onClick={handleClick}
 			className={className}
 		>
-			<Typography variant="body2" fontWeight={600}>
+			<Typography variant="body2" fontWeight={600} {...typographyProps}>
 				{playbackRate}
-				<MultiplySymbol />
+				<span>
+					<MultiplySymbol />
+				</span>
 			</Typography>
 		</Button>
 	);

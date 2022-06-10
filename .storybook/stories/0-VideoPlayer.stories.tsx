@@ -10,13 +10,20 @@ import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-
 export const VideoPlayer: Story<VideoPlayerProps> = args => (
 	<>
 		<VideoPlayerComponent {...args} />
-		<div
-			style={{
-				width: '100%',
-				height: '500px',
-				background: 'green',
-				margin: '10px',
-			}}
+		<br />
+		<VideoPlayerComponent
+			{...args}
+			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+		/>
+		<br />
+		<VideoPlayerComponent
+			{...args}
+			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
+		/>
+		<br />
+		<VideoPlayerComponent
+			{...args}
+			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
 		/>
 	</>
 );

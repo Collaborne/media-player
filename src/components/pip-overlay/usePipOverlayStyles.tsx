@@ -37,4 +37,12 @@ export const usePipOverlayStyles = makeStyles(theme => ({
 		height: theme.spacing(3),
 		minWidth: 'unset',
 	},
+	playbackTypography: {
+		// Styling the "x" symbol
+		'& span': {
+			fontSize: theme.spacing(1),
+			fontWeight: 800,
+			lineHeight: 1,
+		},
+	},
 }));
