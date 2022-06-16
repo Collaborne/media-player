@@ -60,7 +60,7 @@
 		"babel-loader": "^8.1.0",
 		"cross-env": "^7.0.2",
 		"eslint": "^8.0.0",
-		"eslint-config-collaborne": "^4.0.0",
+		"eslint-config-collaborne": "^4.1.2",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-config-standard-react": "^11.0.1",
 		"eslint-plugin-disable": "^2.0.1",
