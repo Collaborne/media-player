@@ -9,8 +9,6 @@ import {
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
 
-// Add width and height that is used for FileCard
-
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
 	const { wrapper } = useFilePlayerStyles();
 	return (
