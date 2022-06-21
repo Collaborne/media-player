@@ -35,7 +35,9 @@ export const useInViewport = (
 		const node = elementRef?.current;
 		const hasIOSupport = Boolean(window.IntersectionObserver);
 
-		if (!hasIOSupport || frozen || !node) return;
+		if (!hasIOSupport || frozen || !node) {
+			return;
+		}
 
 		const observerParams = { threshold, root, rootMargin };
 		const observer = new IntersectionObserver(updateEntry, observerParams);
