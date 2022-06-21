@@ -13,7 +13,7 @@ import ReactPlayer from 'react-player';
 import intl from 'react-intl-universal';
 
 import useEventListener from '@use-it/event-listener';
-import { useOnUnmount } from '../../hooks';
+import { useOnUnmount, useInViewport } from '../../hooks';
 import { useVideo } from '../../hooks/use-video';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
@@ -147,6 +147,25 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				containerSizeRef.current = { width, height, ...rect };
 			}
 		}, []);
+
+		// Check if is in viewport, switch to normal mode, otherwise we display pip mode
+		const entry = useInViewport(videoContainerRef, {});
+		const isVisible = useMemo(
+			() => Boolean(entry?.isIntersecting),
+			[entry?.isIntersecting],
+		);
+
+		// If the player is mounted, ready , playing and not in the viewport
+		// and not in pip mode => requesting for pip
+		useEffect(() => {
+			const videoEl = videoRef?.current?.getInternalPlayer();
+			if (!isPlaying || !isPlayerReady || isVisible || !videoEl) {
+				return;
+			}
+			if (!api?.getPictureInPicture?.()) {
+				api?.requestPip?.();
+			}
+		}, [isPlayerReady, isPlaying, isVisible]);
 
 		// TODO: Open a issue for ReactPlayer on github
 		// Listening for pip events and updating currentTime for ProgressBar
