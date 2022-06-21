@@ -147,7 +147,10 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 					display="inline-flex"
 					className={iconRightWrapper}
 				>
-					<Tooltip title={intl.get('video.back_to_tab')}>
+					<Tooltip
+						title={intl.get('video.back_to_tab')}
+						PopperProps={{ style: { zIndex: 9999 } }}
+					>
 						<IconButton
 							size="small"
 							color="inherit"
