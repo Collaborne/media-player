@@ -13,7 +13,7 @@ import ReactPlayer from 'react-player';
 import intl from 'react-intl-universal';
 
 import useEventListener from '@use-it/event-listener';
-import { useOnUnmount } from '../../hooks';
+import { useOnUnmount, useInViewport } from '../../hooks';
 import { useVideo } from '../../hooks/use-video';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
@@ -29,6 +29,8 @@ interface VideoContainerProps {
 	className?: string;
 	videoUrl?: string;
 }
+/** Defines root margin when scrolling to bottom */
+const BOTTOM_ROOT_MARGIN = '48px';
 
 const VideoContainer: FC<VideoContainerProps> = memo(
 	({ className, videoUrl }) => {
@@ -48,6 +50,22 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 
 		const hasAutoFocusedRef = useRef(false);
 		const containerSizeRef = useRef<ContainerSizePosition>();
+
+		// Checks if video container is in viewport when scrolling bottom
+		const entryTop = useInViewport(videoContainerRef, {
+			rootMargin: BOTTOM_ROOT_MARGIN,
+		});
+		const isVisibleFromScrollingTop = useMemo(
+			() => Boolean(entryTop?.isIntersecting),
+			[entryTop?.isIntersecting],
+		);
+
+		// Checks if video container is in viewport when scrolling top
+		const entryBottom = useInViewport(videoContainerRef, {});
+		const isVisibleFromScrollingBottom = useMemo(
+			() => Boolean(entryBottom?.isIntersecting),
+			[entryBottom?.isIntersecting],
+		);
 
 		const isPlaying = useMemo(
 			() => Boolean(api?.getPlaying?.()),
@@ -147,6 +165,27 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				containerSizeRef.current = { width, height, ...rect };
 			}
 		}, []);
+
+		// If the player is mounted, ready and playing then display/hide pip player
+		useEffect(() => {
+			const videoEl = videoRef?.current?.getInternalPlayer();
+			if (!isPlaying || !isPlayerReady || !videoEl) {
+				return;
+			}
+			if (!api?.getPictureInPicture?.() && !isVisibleFromScrollingTop) {
+				api?.requestPip?.();
+			}
+			if (api?.getPictureInPicture?.() && isVisibleFromScrollingBottom) {
+				api?.exitPip?.();
+			}
+		}, [
+			isPlayerReady,
+			isPlaying,
+			isVisibleFromScrollingTop,
+			isVisibleFromScrollingBottom,
+			videoRef,
+			api,
+		]);
 
 		// TODO: Open a issue for ReactPlayer on github
 		// Listening for pip events and updating currentTime for ProgressBar
