@@ -4,7 +4,7 @@ import { useOnUnmount } from '.';
 import { hasSameReactDeps } from '../utils/strict-equals';
 
 /**
- * @param effect Callbacks need to be runned in useLayoutEffect
+ * @param effect Callbacks need to be ran in useLayoutEffect
  * @param deps dependencies when to run useEffectLayout hook
  * @param target elements to be "targeted" in useEffectLayout hook
  */
@@ -39,7 +39,7 @@ export const useLayoutEffectWithTarget = (
 			!hasSameReactDeps(els, lastElementRef.current) ||
 			!hasSameReactDeps(deps, lastDepsRef.current)
 		) {
-			unLoadRef.current();
+			unLoadRef.current?.();
 
 			lastElementRef.current = els;
 			lastDepsRef.current = deps;
@@ -48,7 +48,7 @@ export const useLayoutEffectWithTarget = (
 	});
 
 	useOnUnmount(() => {
-		unLoadRef.current();
+		unLoadRef?.current?.();
 		hasInitRef.current = false;
 	});
 };

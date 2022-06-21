@@ -1,32 +1,40 @@
 import { Meta, Story } from '@storybook/react';
 
 import { withDemoCard, withIntl, withTheme } from '../decorators';
+
 import {
 	VideoPlayer as VideoPlayerComponent,
 	VideoPlayerProps,
 } from '../../src/components/video-player';
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
+import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
 
-export const VideoPlayer: Story<VideoPlayerProps> = args => (
-	<>
-		<VideoPlayerComponent {...args} />
-		<br />
-		<VideoPlayerComponent
-			{...args}
-			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
-		/>
-		<br />
-		<VideoPlayerComponent
-			{...args}
-			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
-		/>
-		<br />
-		<VideoPlayerComponent
-			{...args}
-			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
-		/>
-	</>
-);
+export const VideoPlayer: Story<VideoPlayerProps> = args => {
+	const { wrapper } = useFilePlayerStyles();
+	return (
+		<>
+			<VideoPlayerComponent {...args} className={wrapper} />
+			<br />
+			<VideoPlayerComponent
+				{...args}
+				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+				className={wrapper}
+			/>
+			<br />
+			<VideoPlayerComponent
+				{...args}
+				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
+				className={wrapper}
+			/>
+			<br />
+			<VideoPlayerComponent
+				{...args}
+				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
+				className={wrapper}
+			/>
+		</>
+	);
+};
 
 export default {
 	title: 'Video Player',
