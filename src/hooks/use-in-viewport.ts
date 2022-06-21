@@ -1,15 +1,10 @@
 import { RefObject, useEffect, useState } from 'react';
 
+/** Extended interface of IntersectionObserverInit with a param **freezeOnceVisible** that catches only the first appearance in viewport */
+
 interface ExtendedIntersectionObserverInit extends IntersectionObserverInit {
 	freezeOnceVisible?: boolean;
 }
-
-/**
- * Observe whether the element is in the visible area, and the visible area ratio of the element.
- * @param elementRef - ref element that needs to be observed
- * @param param1 - a object of Native IntersectionObserverInit record and with a freezeOnceVisible key
- * @returns boolean or undefined
- */
 
 export const useInViewport = (
 	elementRef: RefObject<Element> | undefined,

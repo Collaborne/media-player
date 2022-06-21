@@ -183,6 +183,8 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			isPlaying,
 			isVisibleFromScrollingTop,
 			isVisibleFromScrollingBottom,
+			videoRef,
+			api,
 		]);
 
 		// TODO: Open a issue for ReactPlayer on github
