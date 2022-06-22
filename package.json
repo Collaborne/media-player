@@ -26,7 +26,7 @@
 		"storybook:build": "npm run build:locales && build-storybook --quiet"
 	},
 	"peerDependencies": {
-		"@collaborne/carrot-styles": "^5.0.13-2",
+		"@collaborne/carrot-styles": "^5.0.13-4",
 		"@mui/icons-material": "^5.8.4",
 		"@mui/material": "^5.8.5",
 		"react": "^17.0.0 || ^18.0.0",
