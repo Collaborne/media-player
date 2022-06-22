@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
-export const useBottomControlPanelStyles = makeStyles(theme => ({
+export const useBottomControlPanelStyles = makeStyles()(theme => ({
 	wrapper: {
 		width: '100%',
 		height: theme.spacing(5.5),

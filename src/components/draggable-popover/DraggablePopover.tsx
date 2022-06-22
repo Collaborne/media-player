@@ -36,7 +36,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 
 		const { paper, progressBar, portalWrapper } = useDraggablePopoverStyles({
 			isExpanded: Boolean(props.disablePortal),
-		});
+		}).classes;
 
 		return (
 			<Portal {...props}>

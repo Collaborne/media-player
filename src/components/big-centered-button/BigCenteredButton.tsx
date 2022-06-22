@@ -22,7 +22,7 @@ export const BigCenteredButton: FC<BigCenteredButtonProps> = ({
 	iconButtonProps,
 	Icon,
 }) => {
-	const { controlsWrapper, svgStyle } = useBigCenteredButtonStyles();
+	const { controlsWrapper, svgStyle } = useBigCenteredButtonStyles().classes;
 	const handleClick = useCallback(() => {
 		onClick?.();
 	}, [onClick]);
