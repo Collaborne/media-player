@@ -39,7 +39,7 @@ export const FileActionPanel: FC<FileActionPanelProps> = ({
 	const [isOpened, setIsOpened] = useState(false);
 	const { wrapper, iconWrapper, textWrapper } = useFileActionPanelStyles({
 		isOpened,
-	});
+	}).classes;
 
 	const onMouseEnter = useCallback(() => setIsOpened(true), []);
 	const onMouseLeave = useCallback(() => setIsOpened(false), []);

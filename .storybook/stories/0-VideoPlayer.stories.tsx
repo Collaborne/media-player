@@ -10,7 +10,7 @@ import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
-	const { wrapper } = useFilePlayerStyles();
+	const { wrapper } = useFilePlayerStyles().classes;
 	return (
 		<>
 			<VideoPlayerComponent {...args} className={wrapper} />
