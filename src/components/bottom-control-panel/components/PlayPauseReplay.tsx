@@ -28,7 +28,7 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	Icons = { Pause: PauseOutlined, Play: PlayArrow, Replay: ReplayOutlined },
 	...props
 }) => {
-	const { mediumIconButtons, mediumIcons } = useBottomControlPanelStyles();
+	const { mediumIconButtons, mediumIcons } = useBottomControlPanelStyles().classes;
 	const { Pause, Play, Replay } = Icons;
 	const svgClasses = clsx(mediumIcons, svgClassName);
 

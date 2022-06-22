@@ -117,7 +117,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			}
 		});
 
-		const { wrapper, pipText } = useVideoContainerStyles();
+		const { wrapper, pipText } = useVideoContainerStyles().classes;
 
 		const togglePlay = useCallback(() => {
 			// PIP mode disables clicking on screen to toggle playing

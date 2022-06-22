@@ -72,7 +72,7 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	);
 
 	// Controls styles
-	const { bigCenteredIcon, wrapper, wrapperBottomPanel } = useControlsStyles();
+	const { bigCenteredIcon, wrapper, wrapperBottomPanel } = useControlsStyles().classes;
 
 	return (
 		<div className={wrapper}>

@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
-export const useCenteredBottomPlaybackStyles = makeStyles(theme => ({
+export const useCenteredBottomPlaybackStyles = makeStyles()(theme => ({
 	wrapper: {
 		position: 'absolute',
 		bottom: 0,
