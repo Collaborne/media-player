@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {
 	FC,
 	memo,
@@ -26,6 +27,8 @@ import { VideoPoster } from '../video-poster/VideoPoster';
 import { getElementOffset } from '../../utils/html-elements';
 
 interface VideoContainerProps {
+	hasPlayEnabled: boolean;
+	onPlay: VoidFunction;
 	className?: string;
 	videoUrl?: string;
 }
@@ -33,7 +36,7 @@ interface VideoContainerProps {
 const BOTTOM_ROOT_MARGIN = '48px';
 
 const VideoContainer: FC<VideoContainerProps> = memo(
-	({ className, videoUrl }) => {
+	({ className, videoUrl, hasPlayEnabled, onPlay }) => {
 		const {
 			videoRef,
 			api,
@@ -169,7 +172,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 		// If the player is mounted, ready and playing then display/hide pip player
 		useEffect(() => {
 			const videoEl = videoRef?.current?.getInternalPlayer();
-			if (!isPlaying || !isPlayerReady || !videoEl) {
+			if (!isPlaying || !isPlayerReady || !videoEl || !hasPlayEnabled) {
 				return;
 			}
 			if (!api?.getPictureInPicture?.() && !isVisibleFromScrollingTop) {
@@ -185,6 +188,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			isVisibleFromScrollingBottom,
 			videoRef,
 			api,
+			hasPlayEnabled,
 		]);
 
 		// TODO: Open a issue for ReactPlayer on github
@@ -195,6 +199,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			() => {
 				const currentTime = api?.getCurrentRelativeTime?.();
 				calculateContainerSizes();
+				onPlay();
 				setTimeout(() => {
 					api?.setCurrentTime?.(currentTime);
 				}, PROGRESS_INTERVAL - 1);
@@ -236,6 +241,18 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				setIsPlayerReady(true);
 			}
 		}, [videoUrl, isPlayerReady]);
+
+		// On multiple videos per page, play only one (last triggered)
+		useEffect(() => {
+			if (!hasPlayEnabled) {
+				api?.pause?.();
+			}
+			if (api?.getPictureInPicture?.()) {
+				api?.exitPip?.();
+			}
+		}, [api, hasPlayEnabled]);
+		// Call onPlay when we have play event(setCurrentPlayingUrl to current one)
+		useEventListener('play', onPlay, api as any);
 
 		// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
 		if (!videoUrl || !isPlayerReady) {

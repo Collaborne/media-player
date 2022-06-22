@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { withDemoCard, withIntl, withTheme } from '../decorators';
@@ -9,28 +10,49 @@ import {
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
 
+interface CurrentContextPlaying {
+	currentPlayingUrl: string;
+	setCurrentPlayingUrl: (videoUrl: string) => void;
+}
+
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
+	const [currentPlayingUrl, setPlayingUrl] = useState<string>('');
+	const setCurrentPlayingUrl = useCallback((videoUrl: string) => {
+		setPlayingUrl(() => videoUrl);
+	}, []);
+
 	const { wrapper } = useFilePlayerStyles();
 	return (
 		<>
-			<VideoPlayerComponent {...args} className={wrapper} />
+			<VideoPlayerComponent
+				{...args}
+				className={wrapper}
+				currentPlayingUrl={currentPlayingUrl}
+				setCurrentPlayingUrl={setCurrentPlayingUrl}
+			/>
 			<br />
 			<VideoPlayerComponent
 				{...args}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
 				className={wrapper}
+				currentPlayingUrl={currentPlayingUrl}
+				setCurrentPlayingUrl={setCurrentPlayingUrl}
 			/>
 			<br />
 			<VideoPlayerComponent
 				{...args}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 				className={wrapper}
+				currentPlayingUrl={currentPlayingUrl}
+				setCurrentPlayingUrl={setCurrentPlayingUrl}
 			/>
 			<br />
 			<VideoPlayerComponent
 				{...args}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
 				className={wrapper}
+				currentPlayingUrl={currentPlayingUrl}
+				setCurrentPlayingUrl={setCurrentPlayingUrl}
 			/>
 		</>
 	);
