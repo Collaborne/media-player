@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { withDemoCard, withIntl, withTheme } from '../decorators';
@@ -10,27 +11,40 @@ import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
+	const [currentPlayingUrl, setCurrentPlayingUrl] = useState<string>('');
+
 	const { wrapper } = useFilePlayerStyles().classes;
 	return (
 		<>
-			<VideoPlayerComponent {...args} className={wrapper} />
+			<VideoPlayerComponent
+				{...args}
+				className={wrapper}
+				currentPlayingUrl={currentPlayingUrl}
+				setCurrentPlayingUrl={setCurrentPlayingUrl}
+			/>
 			<br />
 			<VideoPlayerComponent
 				{...args}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
 				className={wrapper}
+				currentPlayingUrl={currentPlayingUrl}
+				setCurrentPlayingUrl={setCurrentPlayingUrl}
 			/>
 			<br />
 			<VideoPlayerComponent
 				{...args}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 				className={wrapper}
+				currentPlayingUrl={currentPlayingUrl}
+				setCurrentPlayingUrl={setCurrentPlayingUrl}
 			/>
 			<br />
 			<VideoPlayerComponent
 				{...args}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
 				className={wrapper}
+				currentPlayingUrl={currentPlayingUrl}
+				setCurrentPlayingUrl={setCurrentPlayingUrl}
 			/>
 		</>
 	);
