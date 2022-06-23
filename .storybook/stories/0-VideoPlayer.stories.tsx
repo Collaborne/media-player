@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 
 import { withDemoCard, withIntl, withTheme } from '../decorators';
@@ -9,11 +9,6 @@ import {
 } from '../../src/components/video-player';
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
-
-interface CurrentContextPlaying {
-	currentPlayingUrl: string;
-	setCurrentPlayingUrl: (videoUrl: string) => void;
-}
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
 	const [currentPlayingUrl, setCurrentPlayingUrl] = useState<string>('');
