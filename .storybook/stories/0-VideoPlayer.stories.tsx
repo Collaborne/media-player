@@ -16,10 +16,7 @@ interface CurrentContextPlaying {
 }
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
-	const [currentPlayingUrl, setPlayingUrl] = useState<string>('');
-	const setCurrentPlayingUrl = useCallback((videoUrl: string) => {
-		setPlayingUrl(() => videoUrl);
-	}, []);
+	const [currentPlayingUrl, setCurrentPlayingUrl] = useState<string>('');
 
 	const { wrapper } = useFilePlayerStyles();
 	return (
