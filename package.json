@@ -26,7 +26,7 @@
 		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" build-storybook --quiet"
 	},
 	"peerDependencies": {
-		"@collaborne/carrot-styles": "^5.0.13-4",
+		"@collaborne/carrot-styles": "^6.0.0",
 		"@mui/icons-material": "^5.8.4",
 		"@mui/material": "^5.8.5",
 		"react": "^17.0.0 || ^18.0.0",
@@ -61,7 +61,7 @@
 		"babel-loader": "^8.2.5",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.18.0",
-		"eslint-config-collaborne": "^4.1.4-0",
+		"eslint-config-collaborne": "^4.1.4-2",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-config-standard-react": "^11.0.1",
 		"eslint-plugin-disable": "^2.0.3",
