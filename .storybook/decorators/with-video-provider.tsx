@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 import { StoryContext } from '@storybook/addons';
 
 import { VideoProvider } from '../../src/context/video';
@@ -7,7 +9,10 @@ import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-
 // TODO: When all dump components will be added to storybook,
 // merge provider into with-video-wrapper decorator
 
-export const withVideoProvider = (Story: any, context: StoryContext) => {
+export const withVideoProvider = (
+	Story: FC<StoryContext>,
+	context: StoryContext,
+) => {
 	return (
 		<VideoProvider controlsConfig={DEFAULT_CONTROLS_CONFIG}>
 			<Story {...context} />
