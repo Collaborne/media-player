@@ -39,7 +39,6 @@ export interface VideoActions {
 
 export type VideoActionKeys = keyof VideoActions;
 
-// TODO: Remove any when creating VideoAction
 type VideoActionMap = {
 	[Key in keyof VideoActions]: VideoActions[Key] extends undefined
 		? {
