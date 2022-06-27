@@ -50,7 +50,7 @@ export const useStateReducer = ({
 			if (!fn) {
 				throw new Error(`Unhandled action type: ${action.type}`);
 			}
-			const changes = fn(state, action.payload);
+			const changes = fn(state, action.payload as never);
 
 			const newState = { ...state, ...changes };
 

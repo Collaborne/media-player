@@ -72,3 +72,4 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		);
 	},
 );
+DraggablePopover.displayName = 'DraggablePopover';

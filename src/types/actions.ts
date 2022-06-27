@@ -2,12 +2,6 @@ import { VideoState } from '.';
 
 export type PartialVideoState = Partial<VideoState> | void;
 
-export type VideoStateSetter = (
-	state: VideoState,
-	// TODO: Replace *any* with corresponding type structure
-	args: any,
-) => PartialVideoState;
-
 type NewBounds = Record<'startTime' | 'endTime', number>;
 
 export interface VideoActions {
@@ -46,14 +40,22 @@ export interface VideoActions {
 export type VideoActionKeys = keyof VideoActions;
 
 // TODO: Remove any when creating VideoAction
-type ActionMap<M extends { [index: string]: any }> = {
-	[Key in keyof M]: M[Key] extends undefined
+type VideoActionMap = {
+	[Key in keyof VideoActions]: VideoActions[Key] extends undefined
 		? {
 				type: Key;
 		  }
 		: {
 				type: Key;
-				payload?: M[Key];
+				payload?: Parameters<VideoActions[Key]>[1];
 		  };
 };
-export type VideoAction = ActionMap<VideoActions>[VideoActionKeys];
+export type VideoAction = VideoActionMap[VideoActionKeys];
+
+type VideoSettersMap = {
+	[Key in keyof VideoActions]: VideoActions[Key] extends unknown
+		? (...args: Parameters<VideoActions[Key]>) => ReturnType<VideoActions[Key]>
+		: unknown;
+};
+
+export type VideoStateSetter = VideoSettersMap[VideoActionKeys];

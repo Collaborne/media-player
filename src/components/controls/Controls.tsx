@@ -41,9 +41,12 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 		return duration > 0 && !isPlaying && relativeTime >= duration;
 	}, [api?.getDuration, api?.getPlaying, api?.getCurrentRelativeTime]);
 
-	// Added TS for api as any, because it is also a event listener,
-	// that this hook looks for
-	useEventListener('play', () => setHasStarted(true), api as any);
+	// useEventListener uses under the hood event listeners, that are also present in api, but do not correspond typings from the package
+	useEventListener(
+		'play',
+		() => setHasStarted(true),
+		api as unknown as HTMLElement,
+	);
 
 	// Play animation when video is paused
 	useEventListener(
@@ -55,7 +58,7 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 			setShowPauseAnimation(true);
 			setTimeout(() => setShowPauseAnimation(false), animationDuration);
 		},
-		api as any,
+		api as unknown as HTMLElement,
 	);
 
 	// Play animation when video is played(exception: prePlay state)
@@ -68,7 +71,7 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 			setShowPlayAnimation(true);
 			setTimeout(() => setShowPlayAnimation(false), animationDuration);
 		},
-		api as any,
+		api as unknown as HTMLElement,
 	);
 
 	// Controls styles
