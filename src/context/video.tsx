@@ -13,6 +13,7 @@ import {
 	ControlsConfig,
 	ReactPlayerProps,
 	VideoActionKeys,
+	VideoActions,
 	VideoApi,
 	VideoProviderProps,
 	VideoState,
@@ -74,8 +75,16 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 				});
 
 				for (const event in videoActions) {
-					api[event] = (payload: (...args: unknown[]) => VideoState | void) =>
-						dispatch({ type: event as VideoActionKeys, payload });
+					api[event] = (
+						payload: Parameters<VideoActions[VideoActionKeys]>[1],
+					) =>
+						dispatch({
+							// for...in loop is badly TS and needs here a Typeguard that can be too much,
+							// but we know already that all values are VideoActionsKey.
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							type: event as any,
+							payload,
+						});
 				}
 
 				for (const key in videoGetters) {
@@ -209,7 +218,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 
 				dispatch({
 					type: 'setFullscreen',
-					payload: isFullscreen as any,
+					payload: isFullscreen,
 				});
 			};
 
@@ -230,3 +239,5 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		);
 	},
 );
+
+VideoProvider.displayName = 'VideoProvider';

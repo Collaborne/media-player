@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 import { StoryContext } from '@storybook/addons';
 import { Paper, styled } from '@mui/material';
 
@@ -17,7 +19,10 @@ const WrappedStyled = styled(Paper)(({ theme }) => ({
  * Adds video wrapper for styles simulation
  * added borderColor and radiuses style={{ display: 'flex', height: '380px', width: '640px' }}
  */
-export const withVideoWrapper = (Story: any, context: StoryContext) => {
+export const withVideoWrapper = (
+	Story: FC<StoryContext>,
+	context: StoryContext,
+) => {
 	return (
 		<WrappedStyled title={context.name}>
 			<Story {...context} />

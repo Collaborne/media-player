@@ -1,10 +1,11 @@
-import intl from 'react-intl-universal';
+import { FC } from 'react';
 
 import { StoryContext } from '@storybook/addons';
+import intl from 'react-intl-universal';
 
 import EN from '../locales/en.json';
 
-export const withIntl = (Story: any, context: StoryContext) => {
+export const withIntl = (Story: FC<StoryContext>, context: StoryContext) => {
 	intl
 		.init({
 			currentLocale: context.globals.locale,

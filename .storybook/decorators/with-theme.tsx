@@ -1,3 +1,6 @@
+import { FC } from 'react';
+
+import { StoryContext } from '@storybook/addons';
 import { createThemeOptions } from '@collaborne/carrot-styles';
 import {
 	createTheme,
@@ -5,8 +8,6 @@ import {
 	ThemeProvider,
 	CssBaseline,
 } from '@mui/material';
-
-import { StoryContext } from '@storybook/addons';
 
 const lightTheme = createTheme(createThemeOptions(false));
 const darkTheme = createTheme(createThemeOptions(true));
@@ -19,7 +20,7 @@ const darkModeToTheme = {
 	light: lightTheme,
 };
 
-export const withTheme = (Story: any, context: StoryContext) => {
+export const withTheme = (Story: FC<StoryContext>, context: StoryContext) => {
 	const theme = darkModeToTheme[context.globals.theme];
 	return (
 		<ThemeProvider theme={theme}>

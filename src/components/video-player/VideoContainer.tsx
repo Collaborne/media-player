@@ -82,4 +82,6 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 	},
 );
 
+VideoContainer.displayName = 'VideoContainer';
+
 export default VideoContainer;
