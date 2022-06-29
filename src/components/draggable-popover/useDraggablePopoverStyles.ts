@@ -1,11 +1,11 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
 interface UseDraggablePopoverStylesProps {
 	isExpanded: boolean;
 }
 
-export const useDraggablePopoverStyles = makeStyles(theme => ({
-	paper: ({ isExpanded }: UseDraggablePopoverStylesProps) => ({
+export const useDraggablePopoverStyles = makeStyles<UseDraggablePopoverStylesProps>()((theme, {isExpanded}) => ({
+	paper: {
 		height: '100%',
 		width: '100%',
 		display: 'inline-block',
@@ -14,8 +14,8 @@ export const useDraggablePopoverStyles = makeStyles(theme => ({
 		pointerEvents: 'auto',
 		overflow: 'hidden',
 		margin: 0,
-	}),
-	portalWrapper: ({ isExpanded }: UseDraggablePopoverStylesProps) => ({
+	},
+	portalWrapper: {
 		height: isExpanded ? 'inherit' : `calc(100vh - ${theme.spacing(4)})`,
 		width: isExpanded ? '100%' : `calc(100vw - ${theme.spacing(4)})`,
 		zIndex: isExpanded ? 0 : 9999,
@@ -26,7 +26,7 @@ export const useDraggablePopoverStyles = makeStyles(theme => ({
 		pointerEvents: 'none',
 		padding: 0,
 		margin: 0,
-	}),
+	},
 	progressBar: {
 		position: 'absolute',
 		bottom: 0,

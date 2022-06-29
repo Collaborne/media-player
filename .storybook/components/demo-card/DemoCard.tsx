@@ -11,7 +11,12 @@ interface DemoCardProps {
  * A card that is used as decorator for every story container
  */
 export const DemoCard: FC<DemoCardProps> = ({ children, title }) => {
-	const { container, header, title: titleStyle, body } = useDemoCardStyles();
+	const {
+		container,
+		header,
+		title: titleStyle,
+		body,
+	} = useDemoCardStyles().classes;
 	return (
 		<article className={container}>
 			{title && (

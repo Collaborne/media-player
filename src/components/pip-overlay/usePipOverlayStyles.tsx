@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from 'tss-react/mui';
 
-export const usePipOverlayStyles = makeStyles(theme => ({
+export const usePipOverlayStyles = makeStyles()(theme => ({
 	wrapper: {
 		position: 'absolute',
 		width: '100%',

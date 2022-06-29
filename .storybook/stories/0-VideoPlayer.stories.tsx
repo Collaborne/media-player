@@ -13,7 +13,7 @@ import { useFilePlayerStyles } from '../../src/components/video-player/useVideoC
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
 	const [currentPlayingUrl, setCurrentPlayingUrl] = useState<string>('');
 
-	const { wrapper } = useFilePlayerStyles();
+	const { wrapper } = useFilePlayerStyles().classes;
 	return (
 		<>
 			<VideoPlayerComponent

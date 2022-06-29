@@ -12,7 +12,7 @@ interface VolumeIconProps extends IconProps {
 }
 
 export const VolumeIcon: FC<VolumeIconProps> = ({ volume }) => {
-	const { mediumIcons } = useBottomControlPanelStyles();
+	const { mediumIcons } = useBottomControlPanelStyles().classes;
 
 	if (volume === 0) {
 		return <VolumeMuted className={mediumIcons} />;
