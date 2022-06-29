@@ -28,7 +28,7 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 		[active, playbackRate],
 	);
 
-	const { playbackRateInner } = useCenteredBottomPlaybackStyles();
+	const { playbackRateInner } = useCenteredBottomPlaybackStyles().classes;
 
 	return (
 		<PlaybackRateButtonStyled
@@ -60,7 +60,8 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 		},
 		[api],
 	);
-	const { wrapper, playbackWrapper } = useCenteredBottomPlaybackStyles({});
+	const { wrapper, playbackWrapper } =
+		useCenteredBottomPlaybackStyles().classes;
 
 	return (
 		<div className={wrapper}>

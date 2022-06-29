@@ -21,7 +21,7 @@ interface VideoContainerProps {
 const VideoContainer: FC<VideoContainerProps> = memo(
 	({ className, videoUrl, hasPlayEnabled, onPlay }) => {
 		const { api, reactPlayerProps, videoContainerRef } = useVideo();
-		const { wrapper, pipText } = useVideoContainerStyles();
+		const { wrapper, pipText } = useVideoContainerStyles().classes;
 
 		const {
 			containerSizeRef,
