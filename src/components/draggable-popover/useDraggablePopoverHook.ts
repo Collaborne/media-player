@@ -1,35 +1,27 @@
-import { useCallback, useMemo, useState } from 'react';
-
-import { ResizableProps, ResizeCallback, Size } from 're-resizable';
-import {
-	ControlPosition,
-	DraggableBounds,
-	DraggableEventHandler,
-	DraggableProps,
-} from 'react-draggable';
+import { useMemo } from 'react';
 
 import { DEFAULT_PIP_SIZE } from '../../utils/constants';
-import {
-	Position,
-	ResizableDelta,
-	ResizeEnable,
-	RndResizeCallback,
-} from 'react-rnd';
+import { Position, ResizeEnable } from 'react-rnd';
 
+export type Size = {
+	width: string | number;
+	height: string | number;
+};
 interface UseDraggablePopoverHookProps {
 	disablePortal?: boolean;
 }
 
 interface UseDraggablePopoverHook {
+	/** Default player size */
 	defaultWidth: Size;
+	/** Default positioning on layout */
 	defaultPosition: Position;
+	/** "Corners"  where we allow to start resizing */
 	enableResizing: ResizeEnable;
 }
 
 /** Space from viewport borders(vertical and horizontal) */
 const POPOVER_MARGIN = 16;
-/** Scrollbar width may vary. Used 16px as a rounded value. More info: https://codepen.io/sambible/post/browser-scrollbar-widths */
-const SCROLLBAR_WIDTH = 16;
 
 export const useDraggablePopoverHook = ({
 	disablePortal,
@@ -46,13 +38,16 @@ export const useDraggablePopoverHook = ({
 		if (disablePortal) {
 			return { x: 0, y: 0 };
 		}
+
 		const vw = window.innerWidth;
 		const vh = window.innerHeight;
-		const pipWidth = DEFAULT_PIP_SIZE.width;
-		const pipHeight = DEFAULT_PIP_SIZE.height;
+		// Get player width + margin on 2 sides
+		const pipPlayerWidth = DEFAULT_PIP_SIZE.width + POPOVER_MARGIN * 2;
+		const pipPlayerHight = DEFAULT_PIP_SIZE.height + POPOVER_MARGIN * 2;
+
 		return {
-			y: vh - pipHeight,
-			x: vw - pipWidth,
+			y: vh - pipPlayerHight,
+			x: vw - pipPlayerWidth,
 		};
 	}, [disablePortal]);
 
