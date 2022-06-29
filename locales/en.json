@@ -13,8 +13,5 @@
 	},
 	"video.playing_pip": {
 		"message": "Playing in picture-in-picture"
-	},
-	"video.back_to_tab": {
-		"message": "Back to tab"
 	}
 }

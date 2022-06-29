@@ -1,10 +1,8 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 
-import intl from 'react-intl-universal';
 import Grid from '@mui/material/Grid';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import { Forward10, Replay10 } from '@mui/icons-material';
 
 import { usePipOverlayStyles } from './usePipOverlayStyles';
@@ -19,7 +17,6 @@ import { useBottomControlPanelHook } from '../bottom-control-panel/useBottomCont
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 import { BigReplayIcon } from '../icons/BigReplayIcon';
 import { BigPauseIcon } from '../icons/BigPauseIcon';
-import { PipExitButton } from '../icons/PipExitIcon';
 
 interface PipOverlayProps {}
 
@@ -100,16 +97,7 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 			onMouseLeave={onMouseLeave}
 		>
 			<Grid>
-				<div className={iconLeftWrapper}>
-					<IconButton
-						color="inherit"
-						size="small"
-						className={iconButton}
-						onClick={onClose}
-					>
-						<CloseIcon />
-					</IconButton>
-				</div>
+				<div className={iconLeftWrapper}></div>
 			</Grid>
 			<Grid
 				item
@@ -147,19 +135,14 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 					display="inline-flex"
 					className={iconRightWrapper}
 				>
-					<Tooltip
-						title={intl.get('video.back_to_tab')}
-						PopperProps={{ style: { zIndex: 9999 } }}
+					<IconButton
+						color="inherit"
+						size="small"
+						className={iconButton}
+						onClick={onClose}
 					>
-						<IconButton
-							size="small"
-							color="inherit"
-							className={iconButton}
-							onClick={api?.exitPip}
-						>
-							<PipExitButton />
-						</IconButton>
-					</Tooltip>
+						<CloseIcon />
+					</IconButton>
 					<PlaybackRateButton
 						playbackRate={playbackRate}
 						onChangeRate={onSetPlaybackRate}
