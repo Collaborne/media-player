@@ -146,7 +146,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 			if (!browser.satisfies({ safari: '*' })) return;
 			const videoEl = videoRef?.current?.getInternalPlayer();
 			if (videoEl) videoEl.load();
-		}, []);
+		});
 
 		// Autoplay @edwardbaeg
 		// 1. Load the video player and video
@@ -230,7 +230,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 					screenfull.off('change', onFullscreenChange);
 				}
 			};
-		}, []);
+		});
 
 		return (
 			<VideoContext.Provider value={videoContext}>
