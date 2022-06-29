@@ -58,7 +58,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 		pipIcon,
 		fullScreenIcon,
 		timeStampText,
-	} = useBottomControlPanelStyles();
+	} = useBottomControlPanelStyles().classes;
 
 	return (
 		<Grid
