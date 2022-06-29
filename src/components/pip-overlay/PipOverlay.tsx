@@ -30,7 +30,7 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 		centerButtonIcon,
 		playBackRateWrapper,
 		playbackTypography,
-	} = usePipOverlayStyles();
+	} = usePipOverlayStyles().classes;
 	const [showControls, setShowControls] = useState(true);
 	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 	const [lastMouseMove, setLastMouseMove] = useState<number>(0);
