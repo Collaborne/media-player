@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import clsx from 'clsx';
 import ReactPlayer from 'react-player';
 import intl from 'react-intl-universal';
@@ -31,6 +31,15 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			showControls,
 		} = useVideoContainerHook({ hasPlayEnabled, onPlay, videoUrl });
 
+		const playerInlineStyle = useMemo<
+			Record<'width' | 'height', string>
+		>(() => {
+			if (api?.getFullscreen?.()) {
+				return { width: '100%', height: '100%' };
+			}
+			return { width: 'fit-content', height: 'fit-content' };
+		}, [api?.getFullscreen]);
+
 		// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
 		if (!videoUrl || !isPlayerReady) {
 			return null;
@@ -51,8 +60,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 							<ReactPlayer
 								url={videoUrl}
 								progressInterval={PROGRESS_INTERVAL}
-								width="100%"
-								height="100%"
+								{...playerInlineStyle}
 								className="react-player"
 								css={['position: relative']}
 								config={{

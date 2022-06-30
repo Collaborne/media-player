@@ -1,8 +1,6 @@
 import { FC, memo } from 'react';
 
 import clsx from 'clsx';
-import { Resizable, ResizableProps } from 're-resizable';
-import Draggable, { DraggableProps } from 'react-draggable';
 import Paper from '@mui/material/Paper';
 
 import { useDraggablePopoverStyles } from './useDraggablePopoverStyles';
@@ -10,6 +8,7 @@ import { ProgressBar } from '../progress-bar/ProgressBar';
 import Portal, { PortalProps } from '@mui/material/Portal';
 import { PipOverlay } from '../pip-overlay/PipOverlay';
 import { useDraggablePopoverHook } from './useDraggablePopoverHook';
+import { Rnd, Props as RndProps } from 'react-rnd';
 
 export type ContainerSizePosition = {
 	width: number;
@@ -18,55 +17,51 @@ export type ContainerSizePosition = {
 	top: number;
 };
 export interface DraggablePopoverProps extends PortalProps {
-	resizableProps?: Partial<ResizableProps>;
-	draggableProps?: Partial<DraggableProps>;
+	rndProps?: RndProps;
 	className?: string;
 }
 
 export const DraggablePopover: FC<DraggablePopoverProps> = memo(
-	({ resizableProps, draggableProps, className, children, ...props }) => {
-		const {
-			bounds,
-			defaultPosition,
-			defaultSize,
-			enableResizing,
-			resizeStopHandler,
-			pipPlayerSize,
-		} = useDraggablePopoverHook({ disablePortal: props.disablePortal });
+	({ className, children, rndProps, ...props }) => {
+		const { defaultPosition, defaultWidth, enableResizing } =
+			useDraggablePopoverHook({ disablePortal: props.disablePortal });
 
-		const { paper, progressBar, portalWrapper } = useDraggablePopoverStyles({
-			isExpanded: Boolean(props.disablePortal),
-		});
+		const { paper, progressBar, portalWrapper, resizeSquares } =
+			useDraggablePopoverStyles({
+				isExpanded: Boolean(props.disablePortal),
+			});
 
 		return (
 			<Portal {...props}>
 				<div className={portalWrapper}>
-					<Draggable
-						{...draggableProps}
-						positionOffset={defaultPosition}
+					<Rnd
+						bounds="parent"
+						default={{
+							...defaultPosition,
+							...defaultWidth,
+						}}
+						disableDragging={props.disablePortal}
+						enableResizing={enableResizing}
+						lockAspectRatio
 						allowAnyClick
-						disabled={props.disablePortal}
-						bounds={bounds}
+						resizeHandleClasses={{
+							topLeft: resizeSquares,
+							topRight: resizeSquares,
+							bottomLeft: resizeSquares,
+							bottomRight: resizeSquares,
+						}}
+						{...rndProps}
 					>
 						<Paper elevation={0} className={clsx(paper, className)}>
-							<Resizable
-								{...resizableProps}
-								enable={enableResizing}
-								defaultSize={defaultSize}
-								lockAspectRatio
-								size={!enableResizing ? pipPlayerSize : undefined}
-								onResizeStop={resizeStopHandler}
-							>
-								{children}
-								{!props.disablePortal && (
-									<>
-										<PipOverlay />
-										<ProgressBar className={progressBar} />
-									</>
-								)}
-							</Resizable>
+							{children}
+							{!props.disablePortal && (
+								<>
+									<PipOverlay />
+									<ProgressBar className={progressBar} />
+								</>
+							)}
 						</Paper>
-					</Draggable>
+					</Rnd>
 				</div>
 			</Portal>
 		);

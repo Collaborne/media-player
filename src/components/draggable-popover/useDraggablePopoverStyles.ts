@@ -6,23 +6,23 @@ interface UseDraggablePopoverStylesProps {
 
 export const useDraggablePopoverStyles = makeStyles(theme => ({
 	paper: ({ isExpanded }: UseDraggablePopoverStylesProps) => ({
-		height: 'fit-content',
-		width: isExpanded ? '100%' : 'fit-content',
+		height: '100%',
+		width: '100%',
 		display: 'inline-block',
 		position: !isExpanded ? 'sticky' : 'initial',
-		bottom: theme.spacing(2),
 		zIndex: 9999,
 		pointerEvents: 'auto',
 		overflow: 'hidden',
+		margin: 0,
 	}),
 	portalWrapper: ({ isExpanded }: UseDraggablePopoverStylesProps) => ({
-		height: isExpanded ? 'initial' : '100vh',
-		width: isExpanded ? '100%' : '100vw',
+		height: isExpanded ? 'inherit' : `calc(100vh - ${theme.spacing(4)})`,
+		width: isExpanded ? '100%' : `calc(100vw - ${theme.spacing(4)})`,
 		zIndex: isExpanded ? 0 : 9999,
 		background: 'transparent',
 		position: isExpanded ? 'relative' : 'fixed',
-		top: 0,
-		left: 0,
+		top: isExpanded ? 0 : theme.spacing(2),
+		left: isExpanded ? 0 : theme.spacing(2),
 		pointerEvents: 'none',
 		padding: 0,
 		margin: 0,
@@ -36,5 +36,8 @@ export const useDraggablePopoverStyles = makeStyles(theme => ({
 			width: theme.spacing(0.75),
 			height: theme.spacing(0.75),
 		},
+	},
+	resizeSquares: {
+		pointerEvents: 'auto',
 	},
 }));
