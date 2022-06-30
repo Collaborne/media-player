@@ -24,7 +24,6 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 	const {
 		wrapper,
 		iconButton,
-		iconLeftWrapper,
 		iconRightWrapper,
 		iconMiddle,
 		centerIcon,
@@ -89,18 +88,13 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 	}
 
 	return (
-		<Grid
-			container
-			justifyContent="space-between"
+		<div
 			className={wrapper}
 			onMouseMove={onMouseMove}
 			onMouseLeave={onMouseLeave}
 		>
-			<Grid>
-				<div className={iconLeftWrapper}></div>
-			</Grid>
 			<Grid
-				item
+				container
 				alignItems="center"
 				justifyContent="center"
 				display="inline-flex"
@@ -128,32 +122,31 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 					</IconButton>
 				</div>
 			</Grid>
-			<Grid>
-				<Grid
-					item
-					direction="column"
-					display="inline-flex"
-					className={iconRightWrapper}
+			<Grid
+				container
+				direction="column"
+				display="inline-flex"
+				className={iconRightWrapper}
+				alignItems="end"
+			>
+				<IconButton
+					color="inherit"
+					size="small"
+					className={iconButton}
+					onClick={onClose}
 				>
-					<IconButton
-						color="inherit"
-						size="small"
-						className={iconButton}
-						onClick={onClose}
-					>
-						<CloseIcon />
-					</IconButton>
-					<PlaybackRateButton
-						playbackRate={playbackRate}
-						onChangeRate={onSetPlaybackRate}
-						className={playBackRateWrapper}
-						typographyProps={{
-							variant: 'caption',
-							className: playbackTypography,
-						}}
-					/>
-				</Grid>
+					<CloseIcon />
+				</IconButton>
+				<PlaybackRateButton
+					playbackRate={playbackRate}
+					onChangeRate={onSetPlaybackRate}
+					className={playBackRateWrapper}
+					typographyProps={{
+						variant: 'caption',
+						className: playbackTypography,
+					}}
+				/>
 			</Grid>
-		</Grid>
+		</div>
 	);
 };

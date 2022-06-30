@@ -12,14 +12,15 @@ export const usePipOverlayStyles = makeStyles(theme => ({
 	iconButton: {
 		background: theme.palette.background.paper,
 		borderRadius: theme.spacing(0.5),
-	},
-	iconLeftWrapper: {
-		marginLeft: theme.spacing(1),
-		marginTop: theme.spacing(1),
+		pointerEvents: 'auto',
 	},
 	iconRightWrapper: {
 		marginRight: theme.spacing(1),
 		marginTop: theme.spacing(1),
+		position: 'absolute',
+		top: 0,
+		right: 0,
+		pointerEvents: 'none',
 	},
 	iconMiddle: {
 		color: theme.palette.contrasts[4],
@@ -36,6 +37,7 @@ export const usePipOverlayStyles = makeStyles(theme => ({
 		width: theme.spacing(3),
 		height: theme.spacing(3),
 		minWidth: 'unset',
+		pointerEvents: 'auto',
 	},
 	playbackTypography: {
 		// Styling the "x" symbol
