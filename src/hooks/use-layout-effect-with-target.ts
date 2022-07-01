@@ -1,5 +1,10 @@
 import { DependencyList, EffectCallback, useLayoutEffect, useRef } from 'react';
-import { BasicTarget, getTargetElement } from '../utils';
+import {
+	BasicTarget,
+	getTargetElement,
+	TargetType,
+	TargetValue,
+} from '../utils';
 import { useOnUnmount } from '.';
 import { hasSameReactDeps } from '../utils/strict-equals';
 
@@ -11,14 +16,13 @@ import { hasSameReactDeps } from '../utils/strict-equals';
 export const useLayoutEffectWithTarget = (
 	effect: EffectCallback,
 	deps: DependencyList,
-	target: BasicTarget<any> | BasicTarget<any>[],
+	target: BasicTarget<TargetType> | BasicTarget<TargetType>[],
 ): void => {
 	const hasInitRef = useRef(false);
 
-	const lastElementRef = useRef<(Element | null)[]>([]);
+	const lastElementRef = useRef<TargetValue<TargetType>[]>([]);
 	const lastDepsRef = useRef<DependencyList>([]);
-	// EffectCallback not properly typized.
-	const unLoadRef = useRef<any>();
+	const unLoadRef = useRef<ReturnType<EffectCallback>>();
 
 	useLayoutEffect(() => {
 		const targets = Array.isArray(target) ? target : [target];
@@ -35,7 +39,7 @@ export const useLayoutEffectWithTarget = (
 		}
 
 		if (
-			els.length !== lastElementRef.current.length ||
+			els.length !== lastElementRef?.current?.length ||
 			!hasSameReactDeps(els, lastElementRef.current) ||
 			!hasSameReactDeps(deps, lastDepsRef.current)
 		) {
