@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import useEventListener from '@use-it/event-listener';
 
 import { useVideo } from '../../hooks';
@@ -18,7 +18,11 @@ type ControlProps = {
 };
 
 export const Controls: FC<ControlProps> = ({ isVisible }) => {
-	const { api, controlsConfig } = useVideo();
+	const [showPlayAnimation, setShowPlayAnimation] = useState(false);
+	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
+	const [isInitialRender, setIsInitialRender] = useState(true);
+
+	const { api, state, controlsConfig } = useVideo();
 
 	const animationDuration = useMemo(
 		() =>
@@ -27,13 +31,6 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 		[controlsConfig?.eventAnimationDurationMs],
 	);
 
-	// Show first controls screen
-	const [hasStarted, setHasStarted] = useState<boolean>(
-		Boolean(api?.getPlaying?.()),
-	);
-	const [showPlayAnimation, setShowPlayAnimation] = useState(false);
-	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
-
 	const isFinished = useMemo(() => {
 		const duration = Number(api?.getDuration?.());
 		const isPlaying = Boolean(api?.getPlaying?.());
@@ -41,21 +38,14 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 		return duration > 0 && !isPlaying && relativeTime >= duration;
 	}, [api?.getDuration, api?.getPlaying, api?.getCurrentRelativeTime]);
 
-	// useEventListener uses under the hood event listeners, that are also present in api, but do not correspond typings from the package
-	useEventListener(
-		'play',
-		() => setHasStarted(true),
-		api as unknown as HTMLElement,
-	);
-
 	// Play animation when video is paused
 	useEventListener(
 		'pause',
 		() => {
-			if (!hasStarted) {
+			if (!state?.hasPlayedOrSeeked) {
 				return;
 			}
-			setShowPauseAnimation(true);
+			setShowPauseAnimation(() => true);
 			setTimeout(() => setShowPauseAnimation(false), animationDuration);
 		},
 		api as unknown as HTMLElement,
@@ -65,7 +55,7 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	useEventListener(
 		'play',
 		() => {
-			if (!hasStarted) {
+			if (!state?.hasPlayedOrSeeked) {
 				return;
 			}
 			setShowPlayAnimation(true);
@@ -91,7 +81,7 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 				</AnimatedIconWrapper>
 			)}
 
-			{!hasStarted ? (
+			{!state?.hasPlayedOrSeeked ? (
 				<>
 					<CenteredPlayButton />
 					<CenteredBottomPlayback />
