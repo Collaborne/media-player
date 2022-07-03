@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import useEventListener from '@use-it/event-listener';
 
 import { useVideo } from '../../hooks';
@@ -20,7 +20,6 @@ type ControlProps = {
 export const Controls: FC<ControlProps> = ({ isVisible }) => {
 	const [showPlayAnimation, setShowPlayAnimation] = useState(false);
 	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
-	const [isInitialRender, setIsInitialRender] = useState(true);
 
 	const { api, state, controlsConfig } = useVideo();
 
