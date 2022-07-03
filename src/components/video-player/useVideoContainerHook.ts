@@ -20,7 +20,7 @@ interface UseVideoContainerHookProps {
 interface UseVideoContainerHook {
 	isPlayerReady: boolean;
 	onMouseLeave: () => void;
-	onMouseMove: () => void;
+	onMouseEnter: () => void;
 	containerSizeRef: React.MutableRefObject<ContainerSizePosition | undefined>;
 	showControls: boolean;
 }
@@ -126,7 +126,7 @@ export const useVideoContainerHook = ({
 		return api?.pause?.();
 	}, [api?.play, api?.pause, api?.getPictureInPicture]);
 
-	const onMouseMove = useCallback(() => {
+	const onMouseEnter = useCallback(() => {
 		markActivity?.();
 		setLastMouseMove(Date.now());
 	}, [markActivity]);
@@ -247,7 +247,7 @@ export const useVideoContainerHook = ({
 	return {
 		isPlayerReady,
 		onMouseLeave,
-		onMouseMove,
+		onMouseEnter,
 		containerSizeRef,
 		showControls,
 	};

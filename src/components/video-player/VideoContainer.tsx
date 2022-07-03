@@ -27,7 +27,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			containerSizeRef,
 			isPlayerReady,
 			onMouseLeave,
-			onMouseMove,
+			onMouseEnter,
 			showControls,
 		} = useVideoContainerHook({ hasPlayEnabled, onPlay, videoUrl });
 
@@ -49,7 +49,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			<div
 				ref={videoContainerRef}
 				className={clsx(wrapper, className)}
-				onMouseMove={onMouseMove}
+				onMouseEnter={onMouseEnter}
 				onMouseLeave={onMouseLeave}
 			>
 				{Boolean(videoUrl) && (
