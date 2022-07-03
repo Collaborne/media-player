@@ -49,7 +49,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			<div
 				ref={videoContainerRef}
 				className={clsx(wrapper, className)}
-				onMouseMove={onMouseMove}
+				onMouseEnter={onMouseMove}
 				onMouseLeave={onMouseLeave}
 			>
 				{Boolean(videoUrl) && (
