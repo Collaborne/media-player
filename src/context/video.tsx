@@ -1,12 +1,12 @@
 import React, {
-	createContext,
 	FC,
-	RefObject,
 	MutableRefObject,
+	RefObject,
+	createContext,
+	memo,
 	useCallback,
 	useEffect,
 	useLayoutEffect,
-	memo,
 	useRef,
 } from 'react';
 import {
@@ -62,7 +62,8 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 			persistedState,
 		});
 		const readyFiredRef = useRef(false);
-		const [hasAutoplayed, setAutoplayed] = React.useState(false);
+		const hasAutoplayedRef = useRef(false);
+		// const [hasAutoplayed, setAutoplayed] = React.useState(false);
 
 		const updateContextValue = useCallback(
 			(currentValue?: Partial<VideoContext>) => {
@@ -178,7 +179,11 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		}, [state.emitter, onReadyToPlay, videoContext]);
 
 		useLayoutEffect(() => {
-			if (!hasAutoplayed && videoRef?.current && initialState?.playing) {
+			if (
+				!hasAutoplayedRef.current &&
+				videoRef?.current &&
+				initialState?.playing
+			) {
 				const el = getVideoEl(state);
 				if (el && el.parentElement) {
 					el.parentElement?.focus();
@@ -188,15 +193,8 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 
 				state.emitter?.on('ready', onReadyToSeek);
 			}
-			setAutoplayed(true);
-		}, [
-			initialState,
-			hasAutoplayed,
-			setAutoplayed,
-			onReadyToSeek,
-			videoRef,
-			state,
-		]);
+			hasAutoplayedRef.current = true;
+		}, [initialState, onReadyToSeek, videoRef, state]);
 
 		const prevState = usePreviousDistinct(state);
 
