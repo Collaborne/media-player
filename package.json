@@ -27,8 +27,8 @@
 	},
 	"peerDependencies": {
 		"@collaborne/carrot-styles": "^6.0.0",
-		"@mui/icons-material": "^5.8.4",
-		"@mui/material": "^5.8.6",
+		"@mui/icons-material": "^5.8.0",
+		"@mui/material": "^5.8.0",
 		"react": "^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
