@@ -23,15 +23,15 @@ export const useBottomControlPanelStyles = makeStyles()(theme => ({
 		alignItems: 'center',
 	},
 	mediumIcons: {
-		width: theme.spacing(3.5),
-		height: 'auto',
+		// width: theme.spacing(3.5),
+		// height: 'auto',
 	},
 	pipIcon: {
-		width: theme.spacing(3),
-		height: 'auto',
+		// width: theme.spacing(3),
+		// height: 'auto',
 	},
 	fullScreenIcon: {
-		width: theme.spacing(3.75),
-		height: 'auto',
+		// width: theme.spacing(3.75),
+		// height: 'auto',
 	},
 }));

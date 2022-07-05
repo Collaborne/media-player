@@ -37,10 +37,10 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 			variant="text"
 			color="inherit"
 		>
-			<Typography variant="body2" className={playbackRateInner}>
-				{playbackRate}
-				<MultiplySymbol />
-			</Typography>
+			{/* <Typography variant="body2" className={playbackRateInner}> */}
+			{playbackRate}
+			<MultiplySymbol />
+			{/* </Typography> */}
 		</PlaybackRateButtonStyled>
 	);
 };
