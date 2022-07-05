@@ -31,7 +31,7 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 	return (
 		<Button
 			variant="text"
-			color="inherit"
+			color="primary"
 			onClick={handleClick}
 			className={className}
 		>

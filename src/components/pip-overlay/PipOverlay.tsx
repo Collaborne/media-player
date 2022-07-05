@@ -99,8 +99,8 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 				display="inline-flex"
 			>
 				<div>
-					<IconButton size="medium" className={iconMiddle} onClick={onRwd}>
-						<Replay10 />
+					<IconButton size="small" className={iconMiddle} onClick={onRwd}>
+						<Replay10 fontSize="small" />
 					</IconButton>
 					<PlayPauseReplay
 						isPlaying={isPlaying}
@@ -110,14 +110,16 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 						onStop={onStop}
 						className={centerButtonIcon}
 						svgClassName={centerIcon}
+						size="large"
 						Icons={{
 							Play: BigPlayIcon,
 							Replay: BigReplayIcon,
 							Pause: BigPauseIcon,
 						}}
+						svgIconSize="large"
 					/>
-					<IconButton size="medium" className={iconMiddle} onClick={onFwd}>
-						<Forward10 />
+					<IconButton size="small" className={iconMiddle} onClick={onFwd}>
+						<Forward10 fontSize="small" />
 					</IconButton>
 				</div>
 			</Grid>
@@ -134,7 +136,7 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 					className={iconButton}
 					onClick={onClose}
 				>
-					<CloseIcon />
+					<CloseIcon fontSize="small" />
 				</IconButton>
 				<PlaybackRateButton
 					playbackRate={playbackRate}

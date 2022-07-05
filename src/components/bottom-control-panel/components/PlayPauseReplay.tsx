@@ -1,10 +1,7 @@
 import { PauseOutlined, PlayArrow, ReplayOutlined } from '@mui/icons-material';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { SvgIconProps } from '@mui/material/SvgIcon';
-import clsx from 'clsx';
 import { ComponentType, FC, useCallback } from 'react';
-
-import { useBottomControlPanelStyles } from '../useBottomControlPanelStyles';
 
 interface PlayPauseReplayProps extends IconButtonProps {
 	isFinished: boolean;
@@ -14,6 +11,7 @@ interface PlayPauseReplayProps extends IconButtonProps {
 	onReplay: VoidFunction;
 	svgClassName?: string;
 	Icons?: Record<'Play' | 'Replay' | 'Pause', ComponentType<SvgIconProps>>;
+	svgIconSize?: SvgIconProps['fontSize'];
 }
 
 export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
@@ -25,12 +23,10 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	className,
 	svgClassName,
 	Icons = { Pause: PauseOutlined, Play: PlayArrow, Replay: ReplayOutlined },
+	svgIconSize = 'inherit',
 	...props
 }) => {
-	const { mediumIconButtons, mediumIcons } =
-		useBottomControlPanelStyles().classes;
 	const { Pause, Play, Replay } = Icons;
-	const svgClasses = clsx(mediumIcons, svgClassName);
 
 	const handleClick = useCallback(() => {
 		if (isFinished) {
@@ -46,13 +42,15 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	return (
 		<IconButton
 			size="medium"
-			className={clsx(mediumIconButtons, className)}
+			className={className}
 			onClick={handleClick}
 			{...props}
 		>
-			{isFinished && <Replay className={svgClasses} />}
-			{isPlaying && <Pause className={svgClasses} />}
-			{!isFinished && !isPlaying && <Play className={svgClasses} />}
+			{isFinished && <Replay className={svgClassName} fontSize={svgIconSize} />}
+			{isPlaying && <Pause className={svgClassName} fontSize={svgIconSize} />}
+			{!isFinished && !isPlaying && (
+				<Play className={svgClassName} fontSize={svgIconSize} />
+			)}
 		</IconButton>
 	);
 };

@@ -1,15 +1,13 @@
+import { Theme, ThemeProvider } from '@mui/material/styles';
+import { deepmerge } from '@mui/utils';
 import { FC, useCallback, useMemo } from 'react';
 
 import { VideoProvider } from '../../context/video';
+import { playerTheme } from '../../theme';
 import { ControlsConfig } from '../../types';
 import { DEFAULT_CONTROLS_CONFIG } from '../controls/controls-config';
 
 import VideoContainer from './VideoContainer';
-
-import { playerTheme } from '../../theme/theme';
-import { DefaultTheme, ThemeProvider } from '@mui/styles';
-import { deepmerge } from '@mui/utils';
-import { StyledEngineProvider } from '@mui/material';
 
 export interface VideoPlayerProps {
 	videoUrl: string;
@@ -17,7 +15,7 @@ export interface VideoPlayerProps {
 	controlsConfig?: ControlsConfig;
 	currentPlayingUrl?: string;
 	setCurrentPlayingUrl?: (videoUrl: string) => void;
-	theme?: DefaultTheme;
+	theme?: Theme;
 }
 
 export const VideoPlayer: FC<VideoPlayerProps> = ({
@@ -38,21 +36,21 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 		[setCurrentPlayingUrl, videoUrl],
 	);
 
-	const nestedThemes = useMemo(() => deepmerge(playerTheme, theme), [theme]);
+	const nestedThemes = useMemo(
+		() => deepmerge(playerTheme, theme || {}),
+		[theme],
+	);
 
-	// Nesting themes with the c-app theme! Without outer fails
 	return (
-		<ThemeProvider theme={outerTheme => deepmerge(outerTheme, playerTheme)}>
-			<StyledEngineProvider>
-				<VideoProvider controlsConfig={controlsConfig}>
-					<VideoContainer
-						className={className}
-						videoUrl={videoUrl}
-						hasPlayEnabled={hasPlayEnabled}
-						onPlay={onPlay}
-					/>
-				</VideoProvider>
-			</StyledEngineProvider>
+		<ThemeProvider theme={outerTheme => deepmerge(outerTheme, nestedThemes)}>
+			<VideoProvider controlsConfig={controlsConfig}>
+				<VideoContainer
+					className={className}
+					videoUrl={videoUrl}
+					hasPlayEnabled={hasPlayEnabled}
+					onPlay={onPlay}
+				/>
+			</VideoProvider>
 		</ThemeProvider>
 	);
 };

@@ -50,15 +50,8 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 	} = useBottomControlPanelHook();
 
 	// Bottom panel styles
-	const {
-		wrapper,
-		mediumIcons,
-		mediumIconButtons,
-		gridCentered,
-		pipIcon,
-		fullScreenIcon,
-		timeStampText,
-	} = useBottomControlPanelStyles().classes;
+	const { wrapper, gridCentered, timeStampText } =
+		useBottomControlPanelStyles().classes;
 
 	return (
 		<Grid
@@ -77,31 +70,20 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 						onPlay={onPlay}
 						onStop={onStop}
 						onReplay={onPlay}
+						svgIconSize="medium"
 					/>
 					{/* Rewind Button */}
-					<IconButton
-						size="medium"
-						className={mediumIconButtons}
-						onClick={onRwd}
-					>
-						<Replay10Outlined className={mediumIcons} />
+					<IconButton size="medium" onClick={onRwd}>
+						<Replay10Outlined fontSize="medium" />
 					</IconButton>
 					{/* Forward Button */}
-					<IconButton
-						size="medium"
-						className={mediumIconButtons}
-						onClick={onFwd}
-					>
-						<Forward10Outlined className={mediumIcons} />
+					<IconButton size="medium" onClick={onFwd}>
+						<Forward10Outlined fontSize="medium" />
 					</IconButton>
 					{/* Volume Slider */}
 					<Grid className={gridCentered}>
-						<IconButton
-							size="medium"
-							className={mediumIconButtons}
-							onClick={onToggleClick}
-						>
-							<VolumeIcon volume={isMuted ? 0 : volume} />
+						<IconButton size="medium" onClick={onToggleClick}>
+							<VolumeIcon fontSize="medium" volume={isMuted ? 0 : volume} />
 						</IconButton>
 						<VolumeBarStyled
 							min={0}
@@ -125,19 +107,14 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 				<PlaybackRateButton
 					playbackRate={playbackRate}
 					onChangeRate={onSetPlaybackRate}
-					className={mediumIconButtons}
 				/>
 				{/* Picture In Picture */}
-				<IconButton size="medium" className={mediumIconButtons} onClick={onPip}>
-					<PictureInPictureAltOutlined className={pipIcon} />
+				<IconButton size="medium" onClick={onPip}>
+					<PictureInPictureAltOutlined fontSize="medium" />
 				</IconButton>
 				{/* Fullscreen mode */}
-				<IconButton
-					size="medium"
-					className={mediumIconButtons}
-					onClick={onFullscreen}
-				>
-					<FullscreenOutlined className={fullScreenIcon} />
+				<IconButton size="medium" onClick={onFullscreen}>
+					<FullscreenOutlined fontSize="medium" />
 				</IconButton>
 			</Grid>
 		</Grid>
