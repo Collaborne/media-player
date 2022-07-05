@@ -1,5 +1,6 @@
 import { RefObject } from 'react';
 import type ReactPlayer from 'react-player';
+
 import { VideoState } from '.';
 
 /**

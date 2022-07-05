@@ -1,17 +1,18 @@
-import { FC, useMemo, useState } from 'react';
 import useEventListener from '@use-it/event-listener';
+import { FC, useMemo, useState } from 'react';
 
 import { useVideo } from '../../hooks';
+import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
+import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
+import { BottomControlPanel } from '../bottom-control-panel/BottomControlPanel';
 import { CenteredBottomPlayback } from '../centered-bottom-playback/CenteredBottomPlayback';
 import { CenteredPlayButton } from '../centered-play-button/CenteredPlayButton';
-import { useControlsStyles } from './useControlsStyles';
-import { ProgressBar } from '../progress-bar/ProgressBar';
-import { BottomControlPanel } from '../bottom-control-panel/BottomControlPanel';
+import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
 import { BigPauseIcon } from '../icons/BigPauseIcon';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
-import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
-import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
-import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
+import { ProgressBar } from '../progress-bar/ProgressBar';
+
+import { useControlsStyles } from './useControlsStyles';
 
 type ControlProps = {
 	isVisible?: boolean;

@@ -1,16 +1,18 @@
 import mitt from 'mitt';
 import {
-	useState,
-	useCallback,
-	useRef,
-	useReducer,
 	Dispatch,
-	RefObject,
-	useMemo,
 	MutableRefObject,
+	RefObject,
+	useCallback,
+	useMemo,
+	useReducer,
+	useRef,
+	useState,
 } from 'react';
 import ReactPlayer from 'react-player';
+
 import { VideoAction, VideoState, VideoStateSetter } from '../types';
+
 import { videoActions } from './actions';
 
 interface UseStateReducerProps {

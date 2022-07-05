@@ -1,10 +1,9 @@
+import { IconButtonProps } from '@mui/material/IconButton';
 import { FC, useCallback } from 'react';
 
-import { IconButtonProps } from '@mui/material/IconButton';
-
-import { BigPlayIcon } from '../icons/BigPlayIcon';
 import { useVideo } from '../../hooks/use-video';
 import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';
+import { BigPlayIcon } from '../icons/BigPlayIcon';
 
 export interface CenteredPlayButtonProps {
 	onClick?: VoidFunction;

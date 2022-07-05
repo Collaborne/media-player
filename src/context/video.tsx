@@ -1,3 +1,4 @@
+import Bowser from 'bowser';
 import React, {
 	FC,
 	MutableRefObject,
@@ -9,6 +10,13 @@ import React, {
 	useLayoutEffect,
 	useRef,
 } from 'react';
+import type ReactPlayer from 'react-player';
+import screenfull from 'screenfull';
+
+import usePreviousDistinct from '../hooks/use-previous-distinct';
+import { videoActions } from '../store/actions';
+import { videoGetters } from '../store/getters';
+import { useStateReducer } from '../store/reducer';
 import {
 	ControlsConfig,
 	ReactPlayerProps,
@@ -18,16 +26,9 @@ import {
 	VideoProviderProps,
 	VideoState,
 } from '../types';
-
-import { videoGetters } from '../store/getters';
-import { PROVIDER_INITIAL_STATE } from './constants';
-import { videoActions } from '../store/actions';
-import usePreviousDistinct from '../hooks/use-previous-distinct';
-import { useStateReducer } from '../store/reducer';
-import type ReactPlayer from 'react-player';
 import { getVideoEl } from '../utils';
-import Bowser from 'bowser';
-import screenfull from 'screenfull';
+
+import { PROVIDER_INITIAL_STATE } from './constants';
 
 export interface VideoContext {
 	api?: VideoApi;

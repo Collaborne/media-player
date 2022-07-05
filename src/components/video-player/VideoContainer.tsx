@@ -1,15 +1,16 @@
-import { FC, memo, useMemo } from 'react';
 import clsx from 'clsx';
-import ReactPlayer from 'react-player';
+import { FC, memo, useMemo } from 'react';
 import intl from 'react-intl-universal';
+import ReactPlayer from 'react-player';
 
 import { useVideo } from '../../hooks/use-video';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
-import { useVideoContainerStyles } from './useVideoContainerStyles';
 import { Controls } from '../controls/Controls';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { VideoPoster } from '../video-poster/VideoPoster';
+
 import { useVideoContainerHook } from './useVideoContainerHook';
+import { useVideoContainerStyles } from './useVideoContainerStyles';
 
 interface VideoContainerProps {
 	videoUrl: string;

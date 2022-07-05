@@ -1,12 +1,12 @@
 import { action } from '@storybook/addon-actions';
 
+import { ProgressBar as ProgressBarComponent } from '../../src/components/progress-bar/ProgressBar';
 import {
 	withDemoCard,
 	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
 } from '../decorators';
-import { ProgressBar as ProgressBarComponent } from '../../src/components/progress-bar/ProgressBar';
 
 export const ProgressBar = () => {
 	return (

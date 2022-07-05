@@ -1,14 +1,13 @@
-import { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
+import { useState } from 'react';
 
-import { withDemoCard, withIntl, withTheme } from '../decorators';
-
+import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import {
 	VideoPlayer as VideoPlayerComponent,
 	VideoPlayerProps,
 } from '../../src/components/video-player';
-import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
+import { withDemoCard, withIntl, withTheme } from '../decorators';
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
 	const [currentPlayingUrl, setCurrentPlayingUrl] = useState<string>('');

@@ -1,14 +1,14 @@
-import { FC, memo } from 'react';
-
-import clsx from 'clsx';
 import Paper from '@mui/material/Paper';
-
-import { useDraggablePopoverStyles } from './useDraggablePopoverStyles';
-import { ProgressBar } from '../progress-bar/ProgressBar';
 import Portal, { PortalProps } from '@mui/material/Portal';
-import { PipOverlay } from '../pip-overlay/PipOverlay';
-import { useDraggablePopoverHook } from './useDraggablePopoverHook';
+import clsx from 'clsx';
+import { FC, memo } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
+
+import { PipOverlay } from '../pip-overlay/PipOverlay';
+import { ProgressBar } from '../progress-bar/ProgressBar';
+
+import { useDraggablePopoverHook } from './useDraggablePopoverHook';
+import { useDraggablePopoverStyles } from './useDraggablePopoverStyles';
 
 export type ContainerSizePosition = {
 	width: number;

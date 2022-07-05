@@ -1,9 +1,10 @@
+import { SliderProps } from '@mui/material/Slider/Slider';
 import { FC, useCallback, useMemo } from 'react';
 
-import { SliderProps } from '@mui/material/Slider/Slider';
-import { ProgressBarStyled } from './ProgressBarStyled';
 import { useVideo } from '../../hooks';
 import { PROGRESS_BAR_DIVIDER } from '../../utils/constants';
+
+import { ProgressBarStyled } from './ProgressBarStyled';
 
 // TODO: Extend for highlights/tracks
 interface ProgressBarProps extends SliderProps {}

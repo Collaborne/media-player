@@ -1,19 +1,17 @@
-import { FC, useCallback, useState } from 'react';
-
-import clsx from 'clsx';
-import Grid from '@mui/material/Grid';
-import intl from 'react-intl-universal';
-
-import IconButton from '@mui/material/IconButton';
 import {
 	DeleteOutlineOutlined,
 	FileDownloadOutlined,
 	ImageNotSupportedOutlined,
 	ImageOutlined,
 } from '@mui/icons-material';
+import { Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import clsx from 'clsx';
+import { FC, useCallback, useState } from 'react';
+import intl from 'react-intl-universal';
 
 import { useFileActionPanelStyles } from './useFileActionPanelStyles';
-import { Typography } from '@mui/material';
 
 export interface FileActionPanelProps {
 	onDownload: VoidFunction;

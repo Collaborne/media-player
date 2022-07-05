@@ -1,7 +1,10 @@
 import ResizeObserver from 'resize-observer-polyfill';
-import { useRafState } from '.';
-import { useLayoutEffectWithTarget } from './use-layout-effect-with-target';
+
 import { BasicTarget, getTargetElement } from '../utils';
+
+import { useLayoutEffectWithTarget } from './use-layout-effect-with-target';
+
+import { useRafState } from '.';
 
 /**
  * Size of a Element.

@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
+import { FC } from 'react';
 
 // TODO: Integrate BigPlayIcon fill colors into main themes
 export const BigPlayIcon: FC<SvgIconProps> = props => {

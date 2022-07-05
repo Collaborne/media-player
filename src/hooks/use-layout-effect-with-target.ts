@@ -1,12 +1,14 @@
 import { DependencyList, EffectCallback, useLayoutEffect, useRef } from 'react';
+
 import {
 	BasicTarget,
-	getTargetElement,
 	TargetType,
 	TargetValue,
+	getTargetElement,
 } from '../utils';
-import { useOnUnmount } from '.';
 import { hasSameReactDeps } from '../utils/strict-equals';
+
+import { useOnUnmount } from '.';
 
 /**
  * @param effect Callbacks need to be ran in useLayoutEffect

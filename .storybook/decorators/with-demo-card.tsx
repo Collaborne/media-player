@@ -1,5 +1,6 @@
-import { FC } from 'react';
 import { StoryContext } from '@storybook/addons';
+import { FC } from 'react';
+
 import { DemoCard } from '../components/demo-card/DemoCard';
 
 /** Adds a nice DemoCard to story (template-wrapper for stories) */

@@ -1,10 +1,9 @@
+import { SvgIconProps } from '@mui/material';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import clsx from 'clsx';
 import { ComponentType, FC, useCallback } from 'react';
 
-import clsx from 'clsx';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-
 import { useBigCenteredButtonStyles } from './useBigCenteredButtonStyles';
-import { SvgIconProps } from '@mui/material';
 
 export interface BigCenteredButtonProps {
 	Icon: ComponentType<SvgIconProps>;

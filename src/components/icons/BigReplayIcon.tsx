@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
+import { FC } from 'react';
 
 // TODO: Integrate BigReplayIcon fill colors into main themes
 export const BigReplayIcon: FC<SvgIconProps> = props => {

@@ -1,16 +1,15 @@
 import { Meta, Story } from '@storybook/react';
 
 import {
-	withDemoCard,
-	withTheme,
-	withVideoWrapper,
-	withIntl,
-} from '../decorators';
-
-import {
 	DraggablePopover as DraggablePopoverComponent,
 	DraggablePopoverProps,
 } from '../../src/components/draggable-popover/DraggablePopover';
+import {
+	withDemoCard,
+	withIntl,
+	withTheme,
+	withVideoWrapper,
+} from '../decorators';
 
 export const DraggablePopover: Story<Partial<DraggablePopoverProps>> = args => {
 	return (
