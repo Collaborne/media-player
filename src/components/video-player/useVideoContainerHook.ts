@@ -2,12 +2,13 @@ import useEventListener from '@use-it/event-listener';
 import {
 	useCallback,
 	useEffect,
+	useLayoutEffect,
 	useMemo,
 	useRef,
 	useState,
-	useLayoutEffect,
 } from 'react';
-import { useOnUnmount, useInViewport, useVideo } from '../../hooks';
+
+import { useInViewport, useOnUnmount, useVideo } from '../../hooks';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { getElementOffset } from '../../utils/html-elements';
 import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';

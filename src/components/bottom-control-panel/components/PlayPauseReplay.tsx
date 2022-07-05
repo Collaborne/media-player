@@ -1,9 +1,8 @@
-import { ComponentType, FC, useCallback } from 'react';
-import clsx from 'clsx';
-
 import { PauseOutlined, PlayArrow, ReplayOutlined } from '@mui/icons-material';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { SvgIconProps } from '@mui/material/SvgIcon';
+import clsx from 'clsx';
+import { ComponentType, FC, useCallback } from 'react';
 
 import { useBottomControlPanelStyles } from '../useBottomControlPanelStyles';
 

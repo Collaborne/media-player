@@ -1,6 +1,5 @@
-import { FC, useCallback } from 'react';
-
 import { IconButtonProps } from '@mui/material/IconButton';
+import { FC, useCallback } from 'react';
 
 import { useVideo } from '../../hooks/use-video';
 import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';

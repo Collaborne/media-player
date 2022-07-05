@@ -1,16 +1,16 @@
-import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { Meta, Story } from '@storybook/react';
 
-import {
-	withDemoCard,
-	withTheme,
-	withVideoWrapper,
-	withIntl,
-} from '../decorators';
 import {
 	FileActionPanel as FileActionPanelComponent,
 	FileActionPanelProps,
 } from '../../src/components/file-action-panel/FileActionPanel';
+import {
+	withDemoCard,
+	withIntl,
+	withTheme,
+	withVideoWrapper,
+} from '../decorators';
 
 export const FileActionPanel: Story<Partial<FileActionPanelProps>> = args => {
 	return (

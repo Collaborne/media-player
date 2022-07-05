@@ -1,25 +1,25 @@
 import { Meta, Story } from '@storybook/react';
 
-import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/CenteredPlayButton';
-import {
-	CenteredBottomPlayback as CenteredBottomPlaybackComponent,
-	CenteredBottomPlaybackProps,
-} from '../../src/components/centered-bottom-playback/CenteredBottomPlayback';
-import {
-	withTheme,
-	withDemoCard,
-	withVideoWrapper,
-	withVideoProvider,
-} from '../decorators';
-
-import { ProgressBar } from '../../src/components/progress-bar/ProgressBar';
 import {
 	BottomControlPanel as BottomControlPanelComponent,
 	BottomControlPanelProps,
 } from '../../src/components/bottom-control-panel/BottomControlPanel';
 import {
-	bottomControlPanelStoryArgs,
+	CenteredBottomPlayback as CenteredBottomPlaybackComponent,
+	CenteredBottomPlaybackProps,
+} from '../../src/components/centered-bottom-playback/CenteredBottomPlayback';
+import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/CenteredPlayButton';
+import { ProgressBar } from '../../src/components/progress-bar/ProgressBar';
+import {
+	withDemoCard,
+	withTheme,
+	withVideoProvider,
+	withVideoWrapper,
+} from '../decorators';
+
+import {
 	bottomControlPanelStoryArgTypes,
+	bottomControlPanelStoryArgs,
 } from './shared/bottom-control-panel.args';
 
 interface AllPlayerControlsProps

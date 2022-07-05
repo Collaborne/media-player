@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+
 import { useVideo } from '../../hooks/use-video';
 
 const SECONDS_TO_SKIP = 10;

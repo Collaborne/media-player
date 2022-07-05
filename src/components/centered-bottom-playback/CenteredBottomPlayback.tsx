@@ -1,12 +1,12 @@
+import Typography from '@mui/material/Typography';
 import { FC, useCallback, useMemo, useState } from 'react';
 
-import Typography from '@mui/material/Typography';
-
-import { useCenteredBottomPlaybackStyles } from './useCenteredBottomPlaybackStyles';
-import { PlaybackRateButtonStyled } from './components/PlaybackRateButtonStyled';
+import { useVideo } from '../../hooks/use-video';
 import { PLAYBACK_RATES } from '../../utils/constants';
 import { MultiplySymbol } from '../../utils/MultiplySymbol';
-import { useVideo } from '../../hooks/use-video';
+
+import { PlaybackRateButtonStyled } from './components/PlaybackRateButtonStyled';
+import { useCenteredBottomPlaybackStyles } from './useCenteredBottomPlaybackStyles';
 
 interface PlayBackButtonProps {
 	onChangeRate: (playbackRate: number) => void;

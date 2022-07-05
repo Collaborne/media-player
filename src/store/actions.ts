@@ -1,4 +1,5 @@
 import screenfull from 'screenfull';
+
 import { VideoActions } from '../types/actions';
 import { getVideoEl } from '../utils';
 

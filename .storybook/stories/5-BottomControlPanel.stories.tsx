@@ -1,15 +1,15 @@
 import { Meta, Story } from '@storybook/react';
 
 import {
+	BottomControlPanel as BottomControlPanelComponent,
+	BottomControlPanelProps,
+} from '../../src/components/bottom-control-panel/BottomControlPanel';
+import {
 	withDemoCard,
 	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
 } from '../decorators';
-import {
-	BottomControlPanel as BottomControlPanelComponent,
-	BottomControlPanelProps,
-} from '../../src/components/bottom-control-panel/BottomControlPanel';
 
 import {
 	bottomControlPanelStoryArgTypes,

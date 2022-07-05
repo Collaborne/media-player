@@ -1,11 +1,10 @@
+import { VolumeDown, VolumeUp } from '@mui/icons-material';
+import { IconProps } from '@mui/material';
 import { FC } from 'react';
 
-import { IconProps } from '@mui/material';
-import { VolumeUp, VolumeDown } from '@mui/icons-material';
-
-import { useBottomControlPanelStyles } from '../useBottomControlPanelStyles';
-import { VolumeMuted } from '../../icons/VolumeMuted';
 import { MIN_VOLUME } from '../../../utils/constants';
+import { VolumeMuted } from '../../icons/VolumeMuted';
+import { useBottomControlPanelStyles } from '../useBottomControlPanelStyles';
 
 interface VolumeIconProps extends IconProps {
 	volume: number;

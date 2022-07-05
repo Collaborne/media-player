@@ -1,7 +1,9 @@
 import { FC, useCallback, useMemo } from 'react';
+
 import { VideoProvider } from '../../context/video';
 import { ControlsConfig } from '../../types';
 import { DEFAULT_CONTROLS_CONFIG } from '../controls/controls-config';
+
 import VideoContainer from './VideoContainer';
 
 export interface VideoPlayerProps {

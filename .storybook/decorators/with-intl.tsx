@@ -1,6 +1,5 @@
-import { FC } from 'react';
-
 import { StoryContext } from '@storybook/addons';
+import { FC } from 'react';
 import intl from 'react-intl-universal';
 
 import EN from '../locales/en.json';

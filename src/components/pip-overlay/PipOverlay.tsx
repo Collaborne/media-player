@@ -1,22 +1,21 @@
+import { Forward10, Replay10 } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 import { FC, useCallback, useEffect, useState } from 'react';
 
-import Grid from '@mui/material/Grid';
-import CloseIcon from '@mui/icons-material/Close';
-import IconButton from '@mui/material/IconButton';
-import { Forward10, Replay10 } from '@mui/icons-material';
-
-import { usePipOverlayStyles } from './usePipOverlayStyles';
 import { useVideo } from '../../hooks';
 import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
-
 import {
-	PlaybackRateButton,
 	PlayPauseReplay,
+	PlaybackRateButton,
 } from '../bottom-control-panel/components';
 import { useBottomControlPanelHook } from '../bottom-control-panel/useBottomControlPanelHook';
+import { BigPauseIcon } from '../icons/BigPauseIcon';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 import { BigReplayIcon } from '../icons/BigReplayIcon';
-import { BigPauseIcon } from '../icons/BigPauseIcon';
+
+import { usePipOverlayStyles } from './usePipOverlayStyles';
 
 interface PipOverlayProps {}
 

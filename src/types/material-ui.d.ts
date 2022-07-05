@@ -1,11 +1,10 @@
 import '@mui/styles/createTheme';
-import { Theme } from '@mui/material/styles';
 import type { CustomColor } from '@collaborne/carrot-styles';
-
 import type {
 	ProjectColors,
 	TagColors,
 } from '@collaborne/carrot-styles/src/types/material-ui';
+import { Theme } from '@mui/material/styles';
 
 /**
  * Define own color schema

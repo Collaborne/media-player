@@ -1,5 +1,7 @@
-import { Dispatch, RefObject, MutableRefObject, ReactNode } from 'react';
 import { Emitter } from 'mitt';
+import { Dispatch, MutableRefObject, ReactNode, RefObject } from 'react';
+import type ReactPlayer from 'react-player';
+
 import {
 	ControlsConfig,
 	EmitterAddRemoveListeners,
@@ -7,7 +9,7 @@ import {
 	VideoActions,
 	VideoGettersApi,
 } from '.';
-import type ReactPlayer from 'react-player';
+
 /**
  * Video Players initial state
  */

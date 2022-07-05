@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
+import { Position, ResizeEnable } from 'react-rnd';
 
 import { DEFAULT_PIP_SIZE } from '../../utils/constants';
-import { Position, ResizeEnable } from 'react-rnd';
 
 export type Size = {
 	width: string | number;

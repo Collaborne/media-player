@@ -1,15 +1,15 @@
 import { Meta, Story } from '@storybook/react';
 
 import {
+	CenteredBottomPlayback as CenteredBottomPlaybackComponent,
+	CenteredBottomPlaybackProps,
+} from '../../src/components/centered-bottom-playback/CenteredBottomPlayback';
+import {
 	withDemoCard,
 	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
 } from '../decorators';
-import {
-	CenteredBottomPlayback as CenteredBottomPlaybackComponent,
-	CenteredBottomPlaybackProps,
-} from '../../src/components/centered-bottom-playback/CenteredBottomPlayback';
 
 export const CenteredBottomPlayback: Story<
 	CenteredBottomPlaybackProps

@@ -1,13 +1,12 @@
-import { FC } from 'react';
-
-import { StoryContext } from '@storybook/addons';
 import { createThemeOptions } from '@collaborne/carrot-styles';
 import {
-	createTheme,
+	CssBaseline,
 	StyledEngineProvider,
 	ThemeProvider,
-	CssBaseline,
+	createTheme,
 } from '@mui/material';
+import { StoryContext } from '@storybook/addons';
+import { FC } from 'react';
 
 const lightTheme = createTheme(createThemeOptions(false));
 const darkTheme = createTheme(createThemeOptions(true));

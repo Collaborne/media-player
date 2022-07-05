@@ -1,25 +1,25 @@
-import { FC } from 'react';
-
-import clsx from 'clsx';
-import IconButton from '@mui/material/IconButton';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import {
 	Forward10Outlined,
 	FullscreenOutlined,
 	PictureInPictureAltOutlined,
 	Replay10Outlined,
 } from '@mui/icons-material';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import clsx from 'clsx';
+import { FC } from 'react';
 
-import { useBottomControlPanelStyles } from './useBottomControlPanelStyles';
+import { toTimestamp } from '../../utils/time';
+
 import {
-	PlaybackRateButton,
 	PlayPauseReplay,
+	PlaybackRateButton,
 	VolumeBarStyled,
 	VolumeIcon,
 } from './components';
-import { toTimestamp } from '../../utils/time';
 import { useBottomControlPanelHook } from './useBottomControlPanelHook';
+import { useBottomControlPanelStyles } from './useBottomControlPanelStyles';
 
 const SECONDS_MULTIPLIER = 1000;
 

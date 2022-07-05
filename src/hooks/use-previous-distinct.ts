@@ -1,6 +1,8 @@
 import { useRef } from 'react';
-import { useFirstMountState } from './use-first-mount-state';
+
 import { strictEquals } from '../utils';
+
+import { useFirstMountState } from './use-first-mount-state';
 
 export type Predicate<T> = (prev: T | undefined, next: T) => boolean;
 /**
