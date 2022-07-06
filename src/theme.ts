@@ -81,7 +81,7 @@ const createPlayerTheme = (): PlayerTheme => {
 			MuiButton: {
 				styleOverrides: {
 					root: ({ ownerState }) => ({
-						// ...actionStates,
+						...actionStates,
 						minWidth: 'unset',
 						// color="primary"
 						...(ownerState.color === 'primary' && {
