@@ -39,7 +39,6 @@ export const Button = () => {
 							</div>
 						</>
 					))}
-					,
 				</>
 			))}
 		</Card>
