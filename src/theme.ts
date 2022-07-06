@@ -1,18 +1,8 @@
-import {
-	Theme,
-	createTheme,
-	TypeBackground,
-	TypeText,
-	PaletteOptions,
-	TypeAction,
-} from '@mui/material/styles/';
+import { Theme, createTheme, PaletteOptions } from '@mui/material/styles/';
 
-interface PlayerPaletteOptions {
-	backdrop: string;
-	background: Pick<TypeBackground, 'default' | 'paper'>;
-	text: Pick<TypeText, 'primary' | 'secondary' | 'disabled'>;
+interface PlayerPaletteOptions extends PaletteOptions {
+	backdrop?: string;
 	common: Record<'black', string>;
-	action: TypeAction;
 }
 
 interface PlayerTheme extends Omit<Theme, 'palette'> {
@@ -42,7 +32,7 @@ const createPlayerTheme = (): PlayerTheme => {
 	};
 
 	const basePalette = createTheme({
-		palette: newPalette as unknown as PaletteOptions,
+		palette: newPalette as PaletteOptions,
 	}).palette;
 
 	const playerTheme = createTheme({
@@ -60,7 +50,7 @@ const createPlayerTheme = (): PlayerTheme => {
 				focusOpacity: 0.6,
 			},
 		},
-	}) as unknown as PlayerTheme;
+	});
 
 	// Active config for buttons
 	const actionStates = {
