@@ -41,6 +41,7 @@ export interface VideoContext {
 	videoContainerRef?: RefObject<HTMLDivElement>;
 }
 
+const EMPTY_CONST = 'EMPTY_CONST';
 export const VideoContext = createContext<VideoContext | null>(null);
 
 export const VideoProvider: FC<VideoProviderProps> = memo(
@@ -64,7 +65,6 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		});
 		const readyFiredRef = useRef(false);
 		const hasAutoplayedRef = useRef(false);
-		// const [hasAutoplayed, setAutoplayed] = React.useState(false);
 
 		const updateContextValue = useCallback(
 			(currentValue?: Partial<VideoContext>) => {
@@ -150,12 +150,6 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 			if (videoEl) videoEl.load();
 		});
 
-		// Autoplay @edwardbaeg
-		// 1. Load the video player and video
-		// 2. After 'ready' event, seek player to startTime
-		// 3. After 'seeked' event, start playback
-		// NOTE: For this to work in Safari, the video must start muted
-		// NOTE: This does not set hasPlayedOrSeeked in state
 		const onReadyToPlay = useCallback(() => {
 			const videoEl = reactPlayerRef?.current?.getInternalPlayer();
 			state?.emitter?.off('seeked', onReadyToPlay);
@@ -229,7 +223,8 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 					screenfull.off('change', onFullscreenChange);
 				}
 			};
-		});
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [EMPTY_CONST]);
 
 		return (
 			<VideoContext.Provider value={videoContext}>
