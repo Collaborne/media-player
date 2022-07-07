@@ -135,11 +135,14 @@ export const useVideoContainerHook = ({
 	const onMouseLeave = useCallback(() => setLastMouseLeave(Date.now()), []);
 
 	// Add stop/pause events on clicking to video-player
-	useEventListener(
-		'click',
-		togglePlay,
-		videoRef?.current?.getInternalPlayer() || undefined,
-	);
+	useEffect(() => {
+		const video = videoRef?.current?.getInternalPlayer?.();
+		if (!video) {
+			return;
+		}
+		video.addEventListener('click', togglePlay);
+		return () => video.removeEventListener('click', togglePlay);
+	}, [togglePlay, videoRef]);
 
 	// Show video controls when controls are focused
 	useEventListener(
