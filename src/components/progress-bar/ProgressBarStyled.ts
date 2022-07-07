@@ -41,7 +41,7 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 		'& .MuiSlider-rail': {
 			bottom: 0,
 			height: theme.spacing(0.75),
-			color: theme.palette.grey[300],
+			color: theme.palette.common.black,
 			transform: 'unset',
 			borderRadius: 0,
 			top: 'unset',

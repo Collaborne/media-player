@@ -12,7 +12,7 @@ export const useCenteredBottomPlaybackStyles = makeStyles()(theme => ({
 	},
 	playbackWrapper: {
 		padding: theme.spacing(0.5),
-		background: theme.palette.background.paper,
+		background: theme.palette.background.default,
 
 		height: theme.spacing(5),
 		borderRadius: `${theme.spacing(1)} ${theme.spacing(1)} 0 0`,

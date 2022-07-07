@@ -107,6 +107,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 				<PlaybackRateButton
 					playbackRate={playbackRate}
 					onChangeRate={onSetPlaybackRate}
+					variant="contained"
 				/>
 				{/* Picture In Picture */}
 				<IconButton size="medium" onClick={onPip}>

@@ -16,6 +16,7 @@ export const PlaybackRateButtonStyled = styled(Button, {
 	...(isActive && {
 		'&.MuiButton-root': {
 			background: theme.palette.action.selected,
+			color: theme.palette.text.primary,
 		},
 	}),
 }));
