@@ -28,7 +28,6 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 		centerIcon,
 		centerButtonIcon,
 		playBackRateWrapper,
-		playbackTypography,
 	} = usePipOverlayStyles().classes;
 	const [showControls, setShowControls] = useState(true);
 	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
@@ -100,7 +99,7 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 			>
 				<div>
 					<IconButton size="medium" className={iconMiddle} onClick={onRwd}>
-						<Replay10 />
+						<Replay10 fontSize="medium" />
 					</IconButton>
 					<PlayPauseReplay
 						isPlaying={isPlaying}
@@ -110,14 +109,16 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 						onStop={onStop}
 						className={centerButtonIcon}
 						svgClassName={centerIcon}
+						size="large"
 						Icons={{
 							Play: BigPlayIcon,
 							Replay: BigReplayIcon,
 							Pause: BigPauseIcon,
 						}}
+						svgIconSize="large"
 					/>
 					<IconButton size="medium" className={iconMiddle} onClick={onFwd}>
-						<Forward10 />
+						<Forward10 fontSize="medium" />
 					</IconButton>
 				</div>
 			</Grid>
@@ -129,21 +130,20 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 				alignItems="end"
 			>
 				<IconButton
-					color="inherit"
+					color="primary"
 					size="small"
 					className={iconButton}
 					onClick={onClose}
 				>
-					<CloseIcon />
+					<CloseIcon fontSize="small" />
 				</IconButton>
 				<PlaybackRateButton
 					playbackRate={playbackRate}
 					onChangeRate={onSetPlaybackRate}
 					className={playBackRateWrapper}
-					typographyProps={{
-						variant: 'caption',
-						className: playbackTypography,
-					}}
+					variant="contained"
+					size="small"
+					color="primary"
 				/>
 			</Grid>
 		</div>

@@ -12,6 +12,7 @@ import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/com
 import { ProgressBar } from '../../src/components/progress-bar/ProgressBar';
 import {
 	withDemoCard,
+	withPlayerTheme,
 	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
@@ -65,7 +66,13 @@ export const AllPlayerControls: Story<AllPlayerControlsProps> = args => {
 export default {
 	title: 'Video Player Controls',
 	component: AllPlayerControls,
-	decorators: [withVideoProvider, withVideoWrapper, withDemoCard, withTheme],
+	decorators: [
+		withVideoProvider,
+		withVideoWrapper,
+		withDemoCard,
+		withPlayerTheme,
+		withTheme,
+	],
 	args: {
 		isFirstView: true,
 		...bottomControlPanelStoryArgs,

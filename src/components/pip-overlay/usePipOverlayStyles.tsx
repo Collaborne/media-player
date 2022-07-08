@@ -10,7 +10,6 @@ export const usePipOverlayStyles = makeStyles()(theme => ({
 		background: 'rgba(0,0,0,0.4)',
 	},
 	iconButton: {
-		background: theme.palette.background.paper,
 		borderRadius: theme.spacing(0.5),
 		pointerEvents: 'auto',
 	},
@@ -29,22 +28,12 @@ export const usePipOverlayStyles = makeStyles()(theme => ({
 		width: theme.spacing(6),
 	},
 	centerButtonIcon: {
-		margin: theme.spacing(0, 2),
+		margin: theme.spacing(0, 1.5),
 	},
 	playBackRateWrapper: {
 		marginTop: theme.spacing(1),
-		background: theme.palette.background.paper,
-		width: theme.spacing(3),
-		height: theme.spacing(3),
+
 		minWidth: 'unset',
 		pointerEvents: 'auto',
-	},
-	playbackTypography: {
-		// Styling the "x" symbol
-		'& span': {
-			fontSize: theme.spacing(1),
-			fontWeight: 800,
-			lineHeight: 1,
-		},
 	},
 }));

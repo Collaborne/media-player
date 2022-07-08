@@ -1,4 +1,3 @@
-import Typography from '@mui/material/Typography';
 import { FC, useCallback, useMemo, useState } from 'react';
 
 import { useVideo } from '../../hooks/use-video';
@@ -28,19 +27,16 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 		[active, playbackRate],
 	);
 
-	const { playbackRateInner } = useCenteredBottomPlaybackStyles().classes;
-
 	return (
 		<PlaybackRateButtonStyled
 			isActive={isActive}
 			onClick={onClick}
 			variant="text"
-			color="inherit"
+			color="primary"
+			size="medium"
 		>
-			<Typography variant="body2" className={playbackRateInner}>
-				{playbackRate}
-				<MultiplySymbol />
-			</Typography>
+			{playbackRate}
+			<MultiplySymbol />
 		</PlaybackRateButtonStyled>
 	);
 };

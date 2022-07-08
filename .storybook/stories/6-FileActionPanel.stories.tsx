@@ -8,6 +8,7 @@ import {
 import {
 	withDemoCard,
 	withIntl,
+	withPlayerTheme,
 	withTheme,
 	withVideoWrapper,
 } from '../decorators';
@@ -37,7 +38,13 @@ export const FileActionPanel: Story<Partial<FileActionPanelProps>> = args => {
 export default {
 	title: 'Video Player Controls',
 	component: FileActionPanel,
-	decorators: [withVideoWrapper, withDemoCard, withTheme, withIntl],
+	decorators: [
+		withVideoWrapper,
+		withDemoCard,
+		withPlayerTheme,
+		withTheme,
+		withIntl,
+	],
 	args: {
 		isCover: false,
 		hasImageCover: false,

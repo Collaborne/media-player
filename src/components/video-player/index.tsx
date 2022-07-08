@@ -1,6 +1,9 @@
+import { Theme, ThemeProvider } from '@mui/material/styles';
+import { deepmerge } from '@mui/utils';
 import { FC, useCallback, useMemo } from 'react';
 
 import { VideoProvider } from '../../context/video';
+import { playerTheme } from '../../theme';
 import { ControlsConfig } from '../../types';
 import { DEFAULT_CONTROLS_CONFIG } from '../controls/controls-config';
 
@@ -12,6 +15,7 @@ export interface VideoPlayerProps {
 	controlsConfig?: ControlsConfig;
 	currentPlayingUrl?: string;
 	setCurrentPlayingUrl?: (videoUrl: string) => void;
+	theme?: Theme;
 }
 
 export const VideoPlayer: FC<VideoPlayerProps> = ({
@@ -20,6 +24,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 	controlsConfig = DEFAULT_CONTROLS_CONFIG,
 	currentPlayingUrl,
 	setCurrentPlayingUrl,
+	theme,
 }) => {
 	const hasPlayEnabled = useMemo(
 		() => videoUrl === currentPlayingUrl,
@@ -31,14 +36,21 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 		[setCurrentPlayingUrl, videoUrl],
 	);
 
+	const nestedThemes = useMemo(
+		() => deepmerge(playerTheme, theme || {}),
+		[theme],
+	);
+
 	return (
-		<VideoProvider controlsConfig={controlsConfig}>
-			<VideoContainer
-				className={className}
-				videoUrl={videoUrl}
-				hasPlayEnabled={hasPlayEnabled}
-				onPlay={onPlay}
-			/>
-		</VideoProvider>
+		<ThemeProvider theme={outerTheme => deepmerge(outerTheme, nestedThemes)}>
+			<VideoProvider controlsConfig={controlsConfig}>
+				<VideoContainer
+					className={className}
+					videoUrl={videoUrl}
+					hasPlayEnabled={hasPlayEnabled}
+					onPlay={onPlay}
+				/>
+			</VideoProvider>
+		</ThemeProvider>
 	);
 };

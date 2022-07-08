@@ -7,7 +7,7 @@ interface UseFileActionPanelStylesProps {
 export const useFileActionPanelStyles =
 	makeStyles<UseFileActionPanelStylesProps>()((theme, { isOpened }) => ({
 		wrapper: {
-			background: theme.palette.background.paper,
+			background: theme.palette.background.default,
 			pointerEvents: 'auto',
 			position: 'absolute',
 			top: theme.spacing(2),

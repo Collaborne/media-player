@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { ProgressBar as ProgressBarComponent } from '../../src/components/progress-bar/ProgressBar';
 import {
 	withDemoCard,
+	withPlayerTheme,
 	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
@@ -31,5 +32,11 @@ export const ProgressBar = () => {
 export default {
 	title: 'Video Player Controls',
 	component: ProgressBar,
-	decorators: [withVideoProvider, withVideoWrapper, withDemoCard, withTheme],
+	decorators: [
+		withVideoProvider,
+		withVideoWrapper,
+		withDemoCard,
+		withPlayerTheme,
+		withTheme,
+	],
 };

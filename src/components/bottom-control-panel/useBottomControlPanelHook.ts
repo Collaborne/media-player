@@ -12,6 +12,7 @@ interface UseBottomControlPanelHook {
 	isPlaying: boolean;
 	isFinished: boolean;
 	isMuted: boolean;
+	isFullscreen: boolean;
 	onPlay: VoidFunction;
 	onStop: VoidFunction;
 	onFwd: VoidFunction;
@@ -103,11 +104,13 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		[api?.exitPip, api?.requestPip, api?.getPictureInPicture],
 	);
 
+	const isFullscreen = useMemo(
+		() => Boolean(api?.getFullscreen?.()),
+		[api?.getFullscreen],
+	);
+
 	const onFullscreen = useCallback(
-		() =>
-			api?.getFullscreen?.()
-				? api?.exitFullscreen?.()
-				: api?.requestFullscreen?.(),
+		() => (isFullscreen ? api?.exitFullscreen?.() : api?.requestFullscreen?.()),
 		[api?.getFullscreen, api?.exitFullscreen, api?.requestFullscreen],
 	);
 	return {
@@ -118,6 +121,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		playbackRate,
 		isPlaying,
 		isMuted,
+		isFullscreen,
 		onFullscreen,
 		onPip,
 		onPlay,
