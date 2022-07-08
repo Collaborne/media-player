@@ -6,6 +6,7 @@ import {
 } from '../../src/components/bottom-control-panel/BottomControlPanel';
 import {
 	withDemoCard,
+	withPlayerTheme,
 	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
@@ -35,7 +36,13 @@ export const BottomControlPanel: Story<
 export default {
 	title: 'Video Player Controls',
 	component: BottomControlPanel,
-	decorators: [withVideoProvider, withVideoWrapper, withDemoCard, withTheme],
+	decorators: [
+		withVideoProvider,
+		withVideoWrapper,
+		withDemoCard,
+		withPlayerTheme,
+		withTheme,
+	],
 	args: {
 		...bottomControlPanelStoryArgs,
 	},

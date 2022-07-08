@@ -45,6 +45,7 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 			transform: 'unset',
 			borderRadius: 0,
 			top: 'unset',
+			opacity: 1,
 		},
 	}),
 );

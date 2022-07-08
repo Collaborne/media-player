@@ -17,7 +17,12 @@ import {
 } from '@mui/icons-material';
 import { Card, Grid, IconButton } from '@mui/material';
 
-import { VolumeMuted } from '../../src/components/icons';
+import {
+	FullscreenEnterIcon,
+	FullscreenExitIcon,
+	PiPIcon,
+	VolumeMutedIcon,
+} from '../../src/components/icons';
 import { withDemoCard, withTheme, withPlayerTheme } from '../decorators';
 
 const UPDATED_SIZES: Array<'large' | 'small' | 'medium'> = [
@@ -76,13 +81,16 @@ export const IconButtonsAndIcons = () => {
 							<Replay10Outlined fontSize={svgSize} />
 							<VolumeDown fontSize={svgSize} />
 							<VolumeUp fontSize={svgSize} />
-							<VolumeMuted fontSize={svgSize} />
 							<DeleteOutlineOutlined fontSize={svgSize} />
 							<FileDownloadOutlined fontSize={svgSize} />
 							<ImageNotSupportedOutlined fontSize={svgSize} />
 							<ImageOutlined fontSize={svgSize} />
 							<Forward10 fontSize={svgSize} />
 							<Replay10 fontSize={svgSize} />
+							<VolumeMutedIcon fontSize={svgSize} />
+							<FullscreenEnterIcon fontSize={svgSize} />
+							<FullscreenExitIcon fontSize={svgSize} />
+							<PiPIcon fontSize={svgSize} />
 						</div>
 					</Grid>
 				))}

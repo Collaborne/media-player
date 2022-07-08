@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/CenteredPlayButton';
 import {
 	withDemoCard,
+	withPlayerTheme,
 	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
@@ -23,5 +24,11 @@ export const CenteredPlayButton = () => {
 export default {
 	title: 'Video Player Controls',
 	component: CenteredPlayButton,
-	decorators: [withVideoProvider, withVideoWrapper, withDemoCard, withTheme],
+	decorators: [
+		withVideoProvider,
+		withVideoWrapper,
+		withDemoCard,
+		withPlayerTheme,
+		withTheme,
+	],
 };

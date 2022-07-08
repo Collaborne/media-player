@@ -6,6 +6,7 @@ import {
 } from '../../src/components/centered-bottom-playback/CenteredBottomPlayback';
 import {
 	withDemoCard,
+	withPlayerTheme,
 	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
@@ -20,7 +21,13 @@ export const CenteredBottomPlayback: Story<
 export default {
 	title: 'Video Player Controls',
 	component: CenteredBottomPlayback,
-	decorators: [withVideoProvider, withVideoWrapper, withDemoCard, withTheme],
+	decorators: [
+		withVideoProvider,
+		withVideoWrapper,
+		withDemoCard,
+		withPlayerTheme,
+		withTheme,
+	],
 	args: {},
 	argTypes: {},
 	parameters: {

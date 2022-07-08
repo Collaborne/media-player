@@ -1,9 +1,4 @@
-import {
-	Forward10Outlined,
-	FullscreenOutlined,
-	PictureInPictureAltOutlined,
-	Replay10Outlined,
-} from '@mui/icons-material';
+import { Forward10Outlined, Replay10Outlined } from '@mui/icons-material';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -11,6 +6,7 @@ import clsx from 'clsx';
 import { FC } from 'react';
 
 import { toTimestamp } from '../../utils/time';
+import { FullscreenEnterIcon, FullscreenExitIcon, PiPIcon } from '../icons';
 
 import {
 	PlayPauseReplay,
@@ -38,6 +34,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 		isFinished,
 		isMuted,
 		isPlaying,
+		isFullscreen,
 		onFwd,
 		onPlay,
 		onRwd,
@@ -50,7 +47,7 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 	} = useBottomControlPanelHook();
 
 	// Bottom panel styles
-	const { wrapper, gridCentered, timeStampText } =
+	const { wrapper, gridCentered, timeStampText, playBackRateBtn } =
 		useBottomControlPanelStyles().classes;
 
 	return (
@@ -107,15 +104,20 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 				<PlaybackRateButton
 					playbackRate={playbackRate}
 					onChangeRate={onSetPlaybackRate}
-					variant="contained"
+					variant="text"
+					className={playBackRateBtn}
 				/>
 				{/* Picture In Picture */}
 				<IconButton size="medium" onClick={onPip}>
-					<PictureInPictureAltOutlined fontSize="medium" />
+					<PiPIcon fontSize="medium" />
 				</IconButton>
 				{/* Fullscreen mode */}
 				<IconButton size="medium" onClick={onFullscreen}>
-					<FullscreenOutlined fontSize="medium" />
+					{isFullscreen ? (
+						<FullscreenExitIcon fontSize="medium" />
+					) : (
+						<FullscreenEnterIcon fontSize="medium" />
+					)}
 				</IconButton>
 			</Grid>
 		</Grid>

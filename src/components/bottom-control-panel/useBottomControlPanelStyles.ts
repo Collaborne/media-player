@@ -18,4 +18,7 @@ export const useBottomControlPanelStyles = makeStyles()(theme => ({
 		height: '100%',
 		alignItems: 'center',
 	},
+	playBackRateBtn: {
+		color: theme.palette.text.primary,
+	},
 }));
