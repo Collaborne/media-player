@@ -97,7 +97,7 @@ export const FileActionPanel: FC<FileActionPanelProps> = ({
 					disabled={!hasImageCover}
 					className={iconWrapper}
 				>
-					<ImageOutlined />
+					<ImageOutlined color="primary" />
 
 					<Typography variant="button" className={textWrapper}>
 						{intl.get('action.set_as_cover')}

@@ -126,6 +126,12 @@ const createPlayerTheme = (): PlayerTheme => {
 					colorPrimary: {
 						...actionStates,
 					},
+					colorInherit: {
+						color: playerTheme.palette?.text?.primary,
+						'&:disabled': {
+							color: playerTheme.palette?.text?.disabled,
+						},
+					},
 					root: ({ ownerState, theme }) => {
 						const outerTheme = theme as Theme;
 						return {
@@ -153,6 +159,9 @@ const createPlayerTheme = (): PlayerTheme => {
 			},
 			MuiSvgIcon: {
 				styleOverrides: {
+					colorPrimary: {
+						color: 'inherit',
+					},
 					root: ({ ownerState, theme }) => {
 						const outerTheme = theme as Theme;
 						return {
