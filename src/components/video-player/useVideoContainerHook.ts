@@ -50,6 +50,10 @@ export const useVideoContainerHook = ({
 	const hasAutoFocusedRef = useRef(false);
 	const containerSizeRef = useRef<ContainerSizePosition>();
 
+	const isPlaying = Boolean(api?.getPlaying?.());
+	const isFullscreen = Boolean(api?.getFullscreen?.());
+	const isPip = Boolean(api?.getPictureInPicture?.());
+
 	// Checks if video container is in viewport when scrolling bottom
 	const entryTop = useInViewport(videoContainerRef, {
 		rootMargin: BOTTOM_ROOT_MARGIN,
@@ -66,20 +70,23 @@ export const useVideoContainerHook = ({
 		[entryBottom?.isIntersecting],
 	);
 
-	const isPlaying = Boolean(api?.getPlaying?.());
-	const isFullscreen = Boolean(api?.getFullscreen?.());
-	const isPip = Boolean(api?.getPictureInPicture?.());
-
 	const updateShowControls = useCallback(() => {
 		if (controlsConfig?.alwaysShowConfig || isFullscreen) {
 			return setShowControls(true);
 		}
 		const lastActivity = lastActivityRef?.current || 0;
-		if (api?.getPaused?.()) {
+		if (!isPlaying) {
 			return setShowControls(true);
 		}
 		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
-	}, [controlsConfig?.alwaysShowConfig, isFullscreen, lastActivityRef, api]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [
+		controlsConfig?.alwaysShowConfig,
+		isFullscreen,
+		lastActivityRef,
+		api,
+		lastMouseLeave,
+	]);
 
 	useEffect(updateShowControls, [
 		updateShowControls,
