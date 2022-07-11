@@ -40,7 +40,7 @@ export interface VideoProviderProps {
 export interface VideoState {
 	lastActivityRef: MutableRefObject<number> | null;
 	emitter: Emitter<Record<EmitterEvents, unknown>>;
-	videoRef: RefObject<ReactPlayer>;
+	reactPlayerRef: RefObject<ReactPlayer>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
 	playbackRate: number;
 	fullscreen: boolean;

@@ -13,5 +13,6 @@ declare module '*.css' {
 declare module 'react-player' {
 	export default interface ReactPlayer extends ReactPlayer {
 		getInternalPlayer(): HTMLVideoElement | null;
+		get wrapper(): HTMLDivElement;
 	}
 }

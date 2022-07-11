@@ -35,7 +35,7 @@ export const useVideoContainerHook = ({
 	onPlay,
 }: UseVideoContainerHookProps): UseVideoContainerHook => {
 	const {
-		videoRef,
+		reactPlayerRef,
 		api,
 		lastActivityRef,
 		markActivity,
@@ -66,13 +66,12 @@ export const useVideoContainerHook = ({
 		[entryBottom?.isIntersecting],
 	);
 
-	const isPlaying = useMemo(
-		() => Boolean(api?.getPlaying?.()),
-		[api?.getPlaying],
-	);
+	const isPlaying = Boolean(api?.getPlaying?.());
+	const isFullscreen = Boolean(api?.getFullscreen?.());
+	const isPip = Boolean(api?.getPictureInPicture?.());
 
 	const updateShowControls = useCallback(() => {
-		if (controlsConfig?.alwaysShowConfig || api?.getPictureInPicture?.()) {
+		if (controlsConfig?.alwaysShowConfig || isFullscreen) {
 			return setShowControls(true);
 		}
 		const lastActivity = lastActivityRef?.current || 0;
@@ -80,12 +79,7 @@ export const useVideoContainerHook = ({
 			return setShowControls(true);
 		}
 		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
-	}, [
-		controlsConfig?.alwaysShowConfig,
-		lastMouseLeave,
-		api?.getPaused,
-		api?.getPictureInPicture,
-	]);
+	}, [controlsConfig?.alwaysShowConfig, isFullscreen, lastActivityRef, api]);
 
 	useEffect(updateShowControls, [
 		updateShowControls,
@@ -98,14 +92,18 @@ export const useVideoContainerHook = ({
 		if (!videoUrl || hasAutoFocusedRef.current) {
 			return;
 		}
+		const videoContainerElement = reactPlayerRef?.current?.wrapper;
+		if (!videoContainerElement) {
+			throw new Error(
+				'videoContainerElement can not be null after componentDidMount.',
+			);
+		}
 		const timeoutId = setTimeout(() => {
-			if (videoRef?.current?.getInternalPlayer()) {
-				videoRef.current?.getInternalPlayer()?.parentElement?.focus();
-				hasAutoFocusedRef.current = true;
-			}
+			videoContainerElement.focus();
+			hasAutoFocusedRef.current = true;
 		}, 100);
 		return () => clearTimeout(timeoutId);
-	}, [videoUrl, videoRef]);
+	}, [videoUrl, reactPlayerRef]);
 
 	useOnUnmount(() => {
 		// Bug: video is stuck browser memory, so even after dismount the OS play/pause controls work
@@ -118,14 +116,14 @@ export const useVideoContainerHook = ({
 
 	const togglePlay = useCallback(() => {
 		// PIP mode disables clicking on screen to toggle playing
-		if (api?.getPictureInPicture?.()) {
+		if (isPip) {
 			return;
 		}
-		if (api?.getPaused?.()) {
+		if (!isPlaying) {
 			return api?.play?.();
 		}
 		return api?.pause?.();
-	}, [api?.play, api?.pause, api?.getPictureInPicture]);
+	}, [isPip, isPlaying, api]);
 
 	const onMouseEnter = useCallback(() => {
 		markActivity?.();
@@ -136,13 +134,17 @@ export const useVideoContainerHook = ({
 
 	// Add stop/pause events on clicking to video-player
 	useEffect(() => {
-		const video = videoRef?.current?.getInternalPlayer?.();
-		if (!video) {
-			return;
+		const videoContainerElement = reactPlayerRef?.current?.wrapper;
+		if (videoContainerElement == null) {
+			return console.error(
+				'videoContainerElement can not be null after componentDidMount.',
+			);
 		}
-		video.addEventListener('click', togglePlay);
-		return () => video.removeEventListener('click', togglePlay);
-	}, [togglePlay, videoRef]);
+		videoContainerElement.addEventListener('click', togglePlay);
+		return () => {
+			videoContainerElement.removeEventListener('click', togglePlay);
+		};
+	}, [reactPlayerRef, togglePlay]);
 
 	// Show video controls when controls are focused
 	useEventListener(
@@ -168,14 +170,14 @@ export const useVideoContainerHook = ({
 
 	// If the player is mounted, ready and playing then display/hide pip player
 	useEffect(() => {
-		const videoEl = videoRef?.current?.getInternalPlayer();
+		const videoEl = reactPlayerRef?.current?.getInternalPlayer();
 		if (!isPlaying || !isPlayerReady || !videoEl || !hasPlayEnabled) {
 			return;
 		}
-		if (!api?.getPictureInPicture?.() && !isVisibleFromScrollingTop) {
+		if (!isPip && !isVisibleFromScrollingTop) {
 			api?.requestPip?.();
 		}
-		if (api?.getPictureInPicture?.() && isVisibleFromScrollingBottom) {
+		if (isPip && isVisibleFromScrollingBottom) {
 			api?.exitPip?.();
 		}
 	}, [
@@ -183,9 +185,10 @@ export const useVideoContainerHook = ({
 		isPlaying,
 		isVisibleFromScrollingTop,
 		isVisibleFromScrollingBottom,
-		videoRef,
+		reactPlayerRef,
 		api,
 		hasPlayEnabled,
+		isPip,
 	]);
 
 	// TODO: Open a issue for ReactPlayer on github
