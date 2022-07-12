@@ -53,6 +53,7 @@ export const useVideoContainerHook = ({
 	const isPlaying = Boolean(api?.getPlaying?.());
 	const isFullscreen = Boolean(api?.getFullscreen?.());
 	const isPip = Boolean(api?.getPictureInPicture?.());
+	const hasPipTriggeredByClick = Boolean(api?.getHasPipTriggeredByClick?.());
 
 	// Checks if video container is in viewport when scrolling bottom
 	const entryTop = useInViewport(videoContainerRef, {
@@ -175,8 +176,25 @@ export const useVideoContainerHook = ({
 		}
 	}, []);
 
+	// On wheel event - updating that pip isn't triggered by a click on pip icon button
+	// In this way we can evite overlapping of wheel vs click onPip
+	useEffect(() => {
+		const onWheel = () => {
+			if (!isVisibleFromScrollingBottom || !isVisibleFromScrollingTop) {
+				api?.setHasPipTriggeredByClick?.(false);
+			}
+		};
+		document.body.addEventListener('wheel', onWheel);
+		return () => document.body.removeEventListener('wheel', onWheel);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isVisibleFromScrollingBottom, isVisibleFromScrollingTop]);
+
 	// If the player is mounted, ready and playing then display/hide pip player
 	useEffect(() => {
+		// Allow to enter PIP mode, except clicks on pip icon button
+		if (hasPipTriggeredByClick) {
+			return;
+		}
 		const videoEl = reactPlayerRef?.current?.getInternalPlayer();
 		if (!isPlaying || !isPlayerReady || !videoEl || !hasPlayEnabled) {
 			return;
@@ -196,6 +214,7 @@ export const useVideoContainerHook = ({
 		api,
 		hasPlayEnabled,
 		isPip,
+		hasPipTriggeredByClick,
 	]);
 
 	// TODO: Open a issue for ReactPlayer on github

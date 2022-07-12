@@ -24,6 +24,7 @@ export interface VideoGetters {
 	getReady: VideoGetter<boolean>;
 	getHasPlayedOrSeeked: VideoGetter<boolean>;
 	getPictureInPicture: VideoGetter<boolean>;
+	getHasPipTriggeredByClick: VideoGetter<boolean>;
 }
 
 export type VideoGettersKey = keyof VideoGetters;

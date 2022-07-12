@@ -133,6 +133,9 @@ export const videoActions: VideoActions = {
 		}
 	},
 	setFullscreen: (_state, fullscreen) => ({ fullscreen }),
+	setHasPipTriggeredByClick: (_state, hasPipTriggeredByClick) => ({
+		hasPipTriggeredByClick,
+	}),
 
 	setStartTime: (_state, startTime) => ({ startTime }),
 	setEndTime: (_state, endTime) => ({ endTime }),

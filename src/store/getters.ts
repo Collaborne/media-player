@@ -19,4 +19,5 @@ export const videoGetters: VideoGetters = {
 	// NOTE: getHasPlayedOrSeeked does not work for autoplaying embeds
 	getHasPlayedOrSeeked: state => state.hasPlayedOrSeeked,
 	getPictureInPicture: state => state.pip,
+	getHasPipTriggeredByClick: state => state.hasPipTriggeredByClick,
 };

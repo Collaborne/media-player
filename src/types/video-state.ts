@@ -57,6 +57,8 @@ export interface VideoState {
 	hasPlayedOrSeeked: boolean;
 	pip: boolean;
 	oneTimeStopPoint: number | null;
+	/** Did pip mode was triggered by click event */
+	hasPipTriggeredByClick: boolean;
 	/** Storing wrapper ref of the videoPlayer */
 	videoContainerRef: RefObject<HTMLDivElement>;
 }

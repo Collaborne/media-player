@@ -88,6 +88,7 @@ export const useStateReducer = ({
 				hasPlayedOrSeeked: false,
 				pip: false,
 				videoContainerRef,
+				hasPipTriggeredByClick: true,
 			},
 			...persistedState,
 			...initialState,
