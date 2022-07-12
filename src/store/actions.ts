@@ -157,11 +157,11 @@ export const videoActions: VideoActions = {
 	requestPip: state => {
 		// TODO: Fix issue when accessing pip mode from fullscreen mode
 		// Closing fullscreen if it is enabled
-		if (state.fullscreen) {
-			screenfull.exit().catch(console.error);
-			state.emitter.emit('fullscreenExit');
-			return { fullscreen: false };
-		}
+		// if (state.fullscreen) {
+		// 	screenfull.exit().catch(console.error);
+		// 	state.emitter.emit('fullscreenExit');
+		// 	return { fullscreen: false };
+		// }
 
 		state.emitter.emit('pipEnter');
 		return {

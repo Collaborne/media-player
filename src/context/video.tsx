@@ -11,8 +11,8 @@ import React, {
 	useRef,
 } from 'react';
 import type ReactPlayer from 'react-player';
-import screenfull from 'screenfull';
 
+import { useFullscreen, UseFullscreen } from '../hooks/use-fullscreen';
 import usePreviousDistinct from '../hooks/use-previous-distinct';
 import { videoActions } from '../store/actions';
 import { videoGetters } from '../store/getters';
@@ -39,9 +39,9 @@ export interface VideoContext {
 	state?: VideoState;
 	reactPlayerRef?: RefObject<ReactPlayer>;
 	videoContainerRef?: RefObject<HTMLDivElement>;
+	fullScreenApi?: UseFullscreen;
 }
 
-const EMPTY_CONST = 'EMPTY_CONST';
 export const VideoContext = createContext<VideoContext | null>(null);
 
 export const VideoProvider: FC<VideoProviderProps> = memo(
@@ -65,7 +65,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		});
 		const readyFiredRef = useRef(false);
 		const hasAutoplayedRef = useRef(false);
-
+		const fullScreenApi = useFullscreen(videoContainerRef.current);
 		const updateContextValue = useCallback(
 			(currentValue?: Partial<VideoContext>) => {
 				const ctx = currentValue || {};
@@ -95,6 +95,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 				ctx.videoContainerRef = videoContainerRef;
 				ctx.lastActivityRef = lastActivityRef;
 				ctx.markActivity = markActivity;
+				ctx.fullScreenApi = fullScreenApi;
 				ctx.state = state;
 				ctx.controlsConfig = controlsConfig;
 				ctx.reactPlayerProps = {
@@ -202,29 +203,6 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 			}
 			setVideoContext(() => newValue);
 		}, [state, controlsConfig, initialState]);
-
-		React.useEffect(() => {
-			const onFullscreenChange = () => {
-				const isFullscreen =
-					screenfull.isFullscreen &&
-					screenfull.element === videoContainerRef.current;
-
-				dispatch({
-					type: 'setFullscreen',
-					payload: isFullscreen,
-				});
-			};
-
-			if (screenfull.isEnabled) {
-				screenfull.on('change', onFullscreenChange);
-			}
-			return () => {
-				if (screenfull.isEnabled) {
-					screenfull.off('change', onFullscreenChange);
-				}
-			};
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, [EMPTY_CONST]);
 
 		return (
 			<VideoContext.Provider value={videoContext}>

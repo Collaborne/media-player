@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FC, memo, useMemo } from 'react';
+import { FC, memo } from 'react';
 import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
 
@@ -22,7 +22,8 @@ interface VideoContainerProps {
 const VideoContainer: FC<VideoContainerProps> = memo(
 	({ className, videoUrl, hasPlayEnabled, onPlay }) => {
 		const { api, reactPlayerProps, videoContainerRef } = useVideo();
-		const { wrapper, pipText } = useVideoContainerStyles().classes;
+
+		const { wrapper, pipText, reactPlayer } = useVideoContainerStyles().classes;
 
 		const {
 			containerSizeRef,
@@ -31,15 +32,6 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 			onMouseEnter,
 			showControls,
 		} = useVideoContainerHook({ hasPlayEnabled, onPlay, videoUrl });
-
-		const playerInlineStyle = useMemo<
-			Record<'width' | 'height', string>
-		>(() => {
-			if (api?.getFullscreen?.()) {
-				return { width: '100%', height: '100%' };
-			}
-			return { width: 'fit-content', height: 'fit-content' };
-		}, [api?.getFullscreen]);
 
 		// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
 		if (!videoUrl || !isPlayerReady) {
@@ -58,22 +50,24 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 						<DraggablePopover
 							disablePortal={Boolean(!api?.getPictureInPicture?.())}
 						>
-							<ReactPlayer
-								url={videoUrl}
-								progressInterval={PROGRESS_INTERVAL}
-								{...playerInlineStyle}
-								className="react-player"
-								css={['position: relative']}
-								config={{
-									file: {
-										attributes: {
-											crossOrigin: 'anonymous',
-											preload: 'false',
+							<>
+								<ReactPlayer
+									url={videoUrl}
+									progressInterval={PROGRESS_INTERVAL}
+									width="100%"
+									height="100%"
+									className={reactPlayer}
+									config={{
+										file: {
+											attributes: {
+												crossOrigin: 'anonymous',
+												preload: 'false',
+											},
 										},
-									},
-								}}
-								{...reactPlayerProps}
-							/>
+									}}
+									{...reactPlayerProps}
+								/>
+							</>
 						</DraggablePopover>
 						{Boolean(api?.getPictureInPicture?.()) && (
 							<VideoPoster
