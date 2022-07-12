@@ -22,7 +22,7 @@ interface UseStateReducerProps {
 interface UseStateReducer {
 	state: VideoState;
 	initialState: Partial<VideoState>;
-	videoRef: RefObject<ReactPlayer>;
+	reactPlayerRef: RefObject<ReactPlayer>;
 	dispatch: Dispatch<VideoAction>;
 	lastActivityRef: MutableRefObject<number | undefined>;
 	markActivity: VoidFunction;
@@ -34,7 +34,7 @@ export const useStateReducer = ({
 	persistedState,
 }: UseStateReducerProps): UseStateReducer => {
 	const [initialState] = useState(firstInitialState);
-	const videoRef = useRef<ReactPlayer>(null);
+	const reactPlayerRef = useRef<ReactPlayer>(null);
 	const playPromiseRef = useRef<Promise<void>>();
 	const videoContainerRef = useRef<HTMLDivElement>(null);
 
@@ -77,7 +77,7 @@ export const useStateReducer = ({
 				volume: 1,
 				lastActivityRef: null,
 				emitter: mitt(),
-				videoRef,
+				reactPlayerRef,
 				oneTimeStopPoint: null,
 				ready: false,
 				loop: false,
@@ -88,11 +88,12 @@ export const useStateReducer = ({
 				hasPlayedOrSeeked: false,
 				pip: false,
 				videoContainerRef,
+				hasPipTriggeredByClick: true,
 			},
 			...persistedState,
 			...initialState,
 		}),
-		[initialState, persistedState, videoRef],
+		[initialState, persistedState, reactPlayerRef],
 	);
 
 	const [state, dispatch] = useReducer(stateReducer, initialReducerState);
@@ -100,7 +101,7 @@ export const useStateReducer = ({
 	return {
 		state,
 		initialState,
-		videoRef,
+		reactPlayerRef,
 		lastActivityRef,
 		dispatch,
 		markActivity,

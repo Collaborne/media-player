@@ -23,6 +23,10 @@ export interface VideoActions {
 	requestFullscreen: (state: VideoState) => PartialVideoState;
 	exitFullscreen: (state: VideoState) => PartialVideoState;
 	setFullscreen: (state: VideoState, fullscreen: boolean) => PartialVideoState;
+	setHasPipTriggeredByClick: (
+		state: VideoState,
+		hasPipTriggeredByClick: boolean,
+	) => PartialVideoState;
 	setStartTime: (state: VideoState, startTime: number) => PartialVideoState;
 	setEndTime: (state: VideoState, endTime: number) => PartialVideoState;
 	setDuration: (state: VideoState, duration: number) => PartialVideoState;

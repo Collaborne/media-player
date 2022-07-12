@@ -98,11 +98,10 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		[api?.setPlaybackRate],
 	);
 
-	const onPip = useCallback(
-		() =>
-			api?.getPictureInPicture?.() ? api?.exitPip?.() : api?.requestPip?.(),
-		[api?.exitPip, api?.requestPip, api?.getPictureInPicture],
-	);
+	const onPip = useCallback(() => {
+		api?.setHasPipTriggeredByClick?.(true);
+		api?.getPictureInPicture?.() ? api?.exitPip?.() : api?.requestPip?.();
+	}, [api?.exitPip, api?.requestPip, api?.getPictureInPicture]);
 
 	const isFullscreen = useMemo(
 		() => Boolean(api?.getFullscreen?.()),

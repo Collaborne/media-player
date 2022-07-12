@@ -40,7 +40,7 @@ export interface VideoProviderProps {
 export interface VideoState {
 	lastActivityRef: MutableRefObject<number> | null;
 	emitter: Emitter<Record<EmitterEvents, unknown>>;
-	videoRef: RefObject<ReactPlayer>;
+	reactPlayerRef: RefObject<ReactPlayer>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
 	playbackRate: number;
 	fullscreen: boolean;
@@ -57,6 +57,8 @@ export interface VideoState {
 	hasPlayedOrSeeked: boolean;
 	pip: boolean;
 	oneTimeStopPoint: number | null;
+	/** Did pip mode was triggered by click event */
+	hasPipTriggeredByClick: boolean;
 	/** Storing wrapper ref of the videoPlayer */
 	videoContainerRef: RefObject<HTMLDivElement>;
 }

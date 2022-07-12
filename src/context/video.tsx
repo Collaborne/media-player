@@ -37,7 +37,7 @@ export interface VideoContext {
 	controlsConfig?: ControlsConfig;
 	reactPlayerProps?: ReactPlayerProps;
 	state?: VideoState;
-	videoRef?: RefObject<ReactPlayer>;
+	reactPlayerRef?: RefObject<ReactPlayer>;
 	videoContainerRef?: RefObject<HTMLDivElement>;
 }
 
@@ -53,7 +53,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		const {
 			state,
 			dispatch,
-			videoRef,
+			reactPlayerRef,
 			initialState,
 			lastActivityRef,
 			markActivity,
@@ -69,7 +69,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		const updateContextValue = useCallback(
 			(currentValue?: Partial<VideoContext>) => {
 				const ctx = currentValue || {};
-				ctx.videoRef = videoRef;
+				ctx.reactPlayerRef = reactPlayerRef;
 
 				const api: VideoApi = (ctx.api = ctx.api || {
 					addEventListener: state.emitter?.on,
@@ -104,7 +104,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 					playing: state.playing,
 					muted: state.muted,
 					volume: state.volume,
-					ref: videoRef,
+					ref: reactPlayerRef,
 					onReady: () => {
 						state.emitter?.emit('ready');
 
@@ -128,7 +128,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 				initialState.playing,
 				markActivity,
 				state,
-				videoRef,
+				reactPlayerRef,
 				lastActivityRef,
 			],
 		);
@@ -145,8 +145,8 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		React.useEffect(() => {
 			const browser = Bowser.getParser(window.navigator.userAgent);
 
-			if (!browser.satisfies({ safari: '*' })) return;
-			const videoEl = videoRef?.current?.getInternalPlayer();
+			if (!browser.satisfies({ safari: '>1' })) return;
+			const videoEl = reactPlayerRef?.current?.getInternalPlayer();
 			if (videoEl) videoEl.load();
 		});
 
@@ -157,7 +157,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		// NOTE: For this to work in Safari, the video must start muted
 		// NOTE: This does not set hasPlayedOrSeeked in state
 		const onReadyToPlay = useCallback(() => {
-			const videoEl = videoRef?.current?.getInternalPlayer();
+			const videoEl = reactPlayerRef?.current?.getInternalPlayer();
 			state?.emitter?.off('seeked', onReadyToPlay);
 			videoEl
 				?.play()
@@ -166,7 +166,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 					console.info('Player failed to autoplay', error);
 					dispatch({ type: 'pause' });
 				});
-		}, [dispatch, state.emitter, videoRef]);
+		}, [dispatch, state.emitter, reactPlayerRef]);
 
 		// Play is a async operation. so when the player is ready to autoplay video,
 		// then we must be sure that first of all we solve setCurrentTime and after that the play method.
@@ -182,20 +182,20 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		useLayoutEffect(() => {
 			if (
 				!hasAutoplayedRef.current &&
-				videoRef?.current &&
+				reactPlayerRef?.current &&
 				initialState?.playing
 			) {
 				const el = getVideoEl(state);
 				if (el && el.parentElement) {
 					el.parentElement?.focus();
 				}
-				const videoEl = videoRef.current?.getInternalPlayer();
+				const videoEl = reactPlayerRef.current?.getInternalPlayer();
 				if (!videoEl) return;
 
 				state.emitter?.on('ready', onReadyToSeek);
 			}
 			hasAutoplayedRef.current = true;
-		}, [initialState, onReadyToSeek, videoRef, state]);
+		}, [initialState, onReadyToSeek, reactPlayerRef, state]);
 
 		const prevState = usePreviousDistinct(state);
 
