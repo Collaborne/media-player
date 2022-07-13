@@ -11,8 +11,8 @@ import React, {
 	useRef,
 } from 'react';
 import type ReactPlayer from 'react-player';
-import screenfull from 'screenfull';
 
+import { useFullscreen, UseFullscreen } from '../hooks/use-fullscreen';
 import usePreviousDistinct from '../hooks/use-previous-distinct';
 import { videoActions } from '../store/actions';
 import { videoGetters } from '../store/getters';
@@ -39,6 +39,7 @@ export interface VideoContext {
 	state?: VideoState;
 	reactPlayerRef?: RefObject<ReactPlayer>;
 	videoContainerRef?: RefObject<HTMLDivElement>;
+	fullScreenApi?: UseFullscreen;
 }
 
 export const VideoContext = createContext<VideoContext | null>(null);
@@ -64,8 +65,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		});
 		const readyFiredRef = useRef(false);
 		const hasAutoplayedRef = useRef(false);
-		// const [hasAutoplayed, setAutoplayed] = React.useState(false);
-
+		const fullScreenApi = useFullscreen(videoContainerRef.current);
 		const updateContextValue = useCallback(
 			(currentValue?: Partial<VideoContext>) => {
 				const ctx = currentValue || {};
@@ -95,6 +95,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 				ctx.videoContainerRef = videoContainerRef;
 				ctx.lastActivityRef = lastActivityRef;
 				ctx.markActivity = markActivity;
+				ctx.fullScreenApi = fullScreenApi;
 				ctx.state = state;
 				ctx.controlsConfig = controlsConfig;
 				ctx.reactPlayerProps = {
@@ -150,12 +151,6 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 			if (videoEl) videoEl.load();
 		});
 
-		// Autoplay @edwardbaeg
-		// 1. Load the video player and video
-		// 2. After 'ready' event, seek player to startTime
-		// 3. After 'seeked' event, start playback
-		// NOTE: For this to work in Safari, the video must start muted
-		// NOTE: This does not set hasPlayedOrSeeked in state
 		const onReadyToPlay = useCallback(() => {
 			const videoEl = reactPlayerRef?.current?.getInternalPlayer();
 			state?.emitter?.off('seeked', onReadyToPlay);
@@ -208,28 +203,6 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 			}
 			setVideoContext(() => newValue);
 		}, [state, controlsConfig, initialState]);
-
-		React.useEffect(() => {
-			const onFullscreenChange = () => {
-				const isFullscreen =
-					screenfull.isFullscreen &&
-					screenfull.element === videoContainerRef.current;
-
-				dispatch({
-					type: 'setFullscreen',
-					payload: isFullscreen,
-				});
-			};
-
-			if (screenfull.isEnabled) {
-				screenfull.on('change', onFullscreenChange);
-			}
-			return () => {
-				if (screenfull.isEnabled) {
-					screenfull.off('change', onFullscreenChange);
-				}
-			};
-		});
 
 		return (
 			<VideoContext.Provider value={videoContext}>

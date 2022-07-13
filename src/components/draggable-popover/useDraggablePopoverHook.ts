@@ -22,7 +22,8 @@ interface UseDraggablePopoverHook {
 
 /** Space from viewport borders(vertical and horizontal) */
 const POPOVER_MARGIN = 16;
-
+const vw = window.innerWidth;
+const vh = window.innerHeight;
 export const useDraggablePopoverHook = ({
 	disablePortal,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
@@ -39,8 +40,6 @@ export const useDraggablePopoverHook = ({
 			return { x: 0, y: 0 };
 		}
 
-		const vw = window.innerWidth;
-		const vh = window.innerHeight;
 		// Get player width + margin on 2 sides
 		const pipPlayerWidth = DEFAULT_PIP_SIZE.width + POPOVER_MARGIN * 2;
 		const pipPlayerHight = DEFAULT_PIP_SIZE.height + POPOVER_MARGIN * 2;
