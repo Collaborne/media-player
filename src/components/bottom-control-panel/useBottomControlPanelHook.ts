@@ -30,6 +30,7 @@ interface UseBottomControlPanelHook {
 export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 	const { api, fullScreenApi } = useVideo();
 	const isPip = Boolean(api?.getPictureInPicture?.());
+	const isFullscreen = Boolean(fullScreenApi?.isFullscreen);
 
 	const isPlaying = useMemo(
 		() => Boolean(api?.getPlaying?.()),
@@ -100,7 +101,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 	);
 
 	const onPip = useCallback(async () => {
-		if (fullScreenApi?.isFullscreen) {
+		if (isFullscreen) {
 			await fullScreenApi?.exitFullscreen();
 		}
 		api?.setHasPipTriggeredByClick?.(true);
@@ -108,13 +109,13 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 			return api?.exitPip?.();
 		}
 		return api?.requestPip?.();
-	}, [fullScreenApi, api, isPip]);
+	}, [isFullscreen, api, isPip, fullScreenApi]);
 
-	const onFullscreen = useCallback(() => {
+	const onFullscreen = useCallback(async () => {
 		if (isPip) {
 			api?.exitPip?.();
 		}
-		return fullScreenApi?.toggleFullscreen();
+		return await fullScreenApi?.toggleFullscreen();
 	}, [api, fullScreenApi, isPip]);
 
 	return {
@@ -125,7 +126,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		playbackRate,
 		isPlaying,
 		isMuted,
-		isFullscreen: Boolean(fullScreenApi?.isFullscreen),
+		isFullscreen,
 		onFullscreen,
 		onPip,
 		onPlay,
