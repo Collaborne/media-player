@@ -41,6 +41,7 @@ export const useVideoContainerHook = ({
 		markActivity,
 		controlsConfig,
 		videoContainerRef,
+		fullScreenApi,
 	} = useVideo();
 	const [showControls, setShowControls] = useState(true);
 	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
@@ -51,7 +52,7 @@ export const useVideoContainerHook = ({
 	const containerSizeRef = useRef<ContainerSizePosition>();
 
 	const isPlaying = Boolean(api?.getPlaying?.());
-	const isFullscreen = Boolean(api?.getFullscreen?.());
+	const isFullscreen = Boolean(fullScreenApi?.isFullscreen);
 	const isPip = Boolean(api?.getPictureInPicture?.());
 	const hasPipTriggeredByClick = Boolean(api?.getHasPipTriggeredByClick?.());
 
