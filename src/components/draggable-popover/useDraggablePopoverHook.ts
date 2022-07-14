@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Position, ResizeEnable } from 'react-rnd';
 
+import { useWindowSize } from '../../hooks/use-window-size';
 import { DEFAULT_PIP_SIZE } from '../../utils/constants';
 
 export type Size = {
@@ -27,6 +28,8 @@ const vh = window.innerHeight;
 export const useDraggablePopoverHook = ({
 	disablePortal,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
+	const windowSize = useWindowSize();
+
 	const defaultWidth = useMemo<Size>(
 		() =>
 			disablePortal
@@ -45,10 +48,10 @@ export const useDraggablePopoverHook = ({
 		const pipPlayerHight = DEFAULT_PIP_SIZE.height + POPOVER_MARGIN * 2;
 
 		return {
-			y: vh - pipPlayerHight,
-			x: vw - pipPlayerWidth,
+			y: (windowSize?.height || vh) - pipPlayerHight,
+			x: (windowSize?.width || vw) - pipPlayerWidth,
 		};
-	}, [disablePortal]);
+	}, [disablePortal, windowSize?.height, windowSize?.width]);
 
 	const enableResizing = useMemo<ResizeEnable>(
 		() =>

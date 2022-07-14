@@ -8,3 +8,5 @@ export * from './use-raf-state';
 export * from './use-size';
 export * from './use-video';
 export * from './use-in-viewport';
+export * from './use-fullscreen';
+export * from './use-window-size';

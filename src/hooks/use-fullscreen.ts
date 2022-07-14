@@ -73,10 +73,10 @@ export const useFullscreen = (
 
 	const toggleFullscreen = useCallback(async () => {
 		if (isFullscreen) {
-			return await exitFullscreen();
+			return exitFullscreen();
 		}
 
-		return await enterFullscreen();
+		return enterFullscreen();
 	}, [enterFullscreen, exitFullscreen, isFullscreen]);
 
 	useOnUnmount(() => {

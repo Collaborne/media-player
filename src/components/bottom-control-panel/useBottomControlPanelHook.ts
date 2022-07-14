@@ -115,7 +115,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		if (isPip) {
 			api?.exitPip?.();
 		}
-		return await fullScreenApi?.toggleFullscreen();
+		return fullScreenApi?.toggleFullscreen();
 	}, [api, fullScreenApi, isPip]);
 
 	return {
