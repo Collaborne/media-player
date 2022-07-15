@@ -4,7 +4,6 @@ import { VideoGetters } from '../types';
 export const videoGetters: VideoGetters = {
 	getLastActivity: state => state.lastActivityRef?.current || 0,
 	getPlaybackRate: state => state.playbackRate,
-	getFullscreen: state => state.fullscreen,
 	getPaused: state => !state.playing,
 	getPlaying: state => state.playing,
 	getMuted: state => state.muted,

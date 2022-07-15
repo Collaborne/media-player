@@ -10,7 +10,6 @@ export type VideoGetter<T> = (state: VideoState) => T;
 export interface VideoGetters {
 	getLastActivity: VideoGetter<number>;
 	getPlaybackRate: VideoGetter<number>;
-	getFullscreen: VideoGetter<boolean>;
 	getPaused: VideoGetter<boolean>;
 	getPlaying: VideoGetter<boolean>;
 	getMuted: VideoGetter<boolean>;

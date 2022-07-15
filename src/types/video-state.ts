@@ -43,7 +43,6 @@ export interface VideoState {
 	reactPlayerRef: RefObject<ReactPlayer>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
 	playbackRate: number;
-	fullscreen: boolean;
 	playing: boolean;
 	muted: boolean;
 	startTime: number;
