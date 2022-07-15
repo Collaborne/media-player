@@ -1,3 +1,4 @@
+import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
 import { useState } from 'react';
 
@@ -20,6 +21,10 @@ export const VideoPlayer: Story<VideoPlayerProps> = args => {
 				className={wrapper}
 				currentPlayingUrl={currentPlayingUrl}
 				setCurrentPlayingUrl={setCurrentPlayingUrl}
+				onDelete={action('onDelete')}
+				onDownload={action('onDownload')}
+				setAsCover={action('setAsCover')}
+				removeAsCover={action('removeAsCover')}
 			/>
 			<br />
 			<VideoPlayerComponent
@@ -28,6 +33,10 @@ export const VideoPlayer: Story<VideoPlayerProps> = args => {
 				className={wrapper}
 				currentPlayingUrl={currentPlayingUrl}
 				setCurrentPlayingUrl={setCurrentPlayingUrl}
+				onDelete={action('onDelete')}
+				onDownload={action('onDownload')}
+				setAsCover={action('setAsCover')}
+				removeAsCover={action('removeAsCover')}
 			/>
 			<br />
 			<VideoPlayerComponent
@@ -36,6 +45,10 @@ export const VideoPlayer: Story<VideoPlayerProps> = args => {
 				className={wrapper}
 				currentPlayingUrl={currentPlayingUrl}
 				setCurrentPlayingUrl={setCurrentPlayingUrl}
+				onDelete={action('onDelete')}
+				onDownload={action('onDownload')}
+				setAsCover={action('setAsCover')}
+				removeAsCover={action('removeAsCover')}
 			/>
 			<br />
 			<VideoPlayerComponent
@@ -44,6 +57,10 @@ export const VideoPlayer: Story<VideoPlayerProps> = args => {
 				className={wrapper}
 				currentPlayingUrl={currentPlayingUrl}
 				setCurrentPlayingUrl={setCurrentPlayingUrl}
+				onDelete={action('onDelete')}
+				onDownload={action('onDownload')}
+				setAsCover={action('setAsCover')}
+				removeAsCover={action('removeAsCover')}
 			/>
 		</>
 	);
@@ -57,6 +74,8 @@ export default {
 		videoUrl:
 			'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
 		controlsConfig: DEFAULT_CONTROLS_CONFIG,
+		hasImageCover: false,
+		isCover: false,
 	},
 	argTypes: {
 		videoUrl: {
@@ -74,6 +93,32 @@ export default {
 			table: {
 				type: { summary: 'ControlsConfig' },
 				defaultValue: { summary: DEFAULT_CONTROLS_CONFIG },
+			},
+		},
+		hasImageCover: {
+			name: 'props.hasImageCover',
+			description:
+				'Video has a cover image! Some video do not have thumbnails!',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: false },
+			},
+		},
+		isCover: {
+			name: 'props.isCover',
+			description: `If this video's thumbnails is set as a cover image`,
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: false },
+			},
+		},
+		actionPanelClassName: {
+			name: 'props.actionPanelClassName',
+			description:
+				'Class name applied to div*wrapper of the component FileActionPanel',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: undefined },
 			},
 		},
 	},

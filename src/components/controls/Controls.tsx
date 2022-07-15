@@ -8,17 +8,31 @@ import { BottomControlPanel } from '../bottom-control-panel/BottomControlPanel';
 import { CenteredBottomPlayback } from '../centered-bottom-playback/CenteredBottomPlayback';
 import { CenteredPlayButton } from '../centered-play-button/CenteredPlayButton';
 import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
+import {
+	FileActionPanel,
+	FileActionPanelProps,
+} from '../file-action-panel/FileActionPanel';
 import { BigPauseIcon } from '../icons/BigPauseIcon';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 
 import { useControlsStyles } from './useControlsStyles';
 
-type ControlProps = {
+export interface ControlProps extends Omit<FileActionPanelProps, 'className'> {
 	isVisible?: boolean;
-};
+	actionPanelClassName?: string;
+}
 
-export const Controls: FC<ControlProps> = ({ isVisible }) => {
+export const Controls: FC<ControlProps> = ({
+	isVisible,
+	onDelete,
+	onDownload,
+	removeAsCover,
+	setAsCover,
+	actionPanelClassName,
+	hasImageCover,
+	isCover,
+}) => {
 	const { api, controlsConfig } = useVideo();
 
 	const animationDuration = useMemo(
@@ -91,6 +105,17 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 					<BigPlayIcon className={bigCenteredIcon} />
 				</AnimatedIconWrapper>
 			)}
+			{isVisible && (
+				<FileActionPanel
+					onDelete={onDelete}
+					onDownload={onDownload}
+					removeAsCover={removeAsCover}
+					setAsCover={setAsCover}
+					className={actionPanelClassName}
+					hasImageCover={hasImageCover}
+					isCover={isCover}
+				/>
+			)}
 
 			{!hasStarted ? (
 				<>
@@ -100,6 +125,7 @@ export const Controls: FC<ControlProps> = ({ isVisible }) => {
 			) : (
 				<>
 					{isFinished && <CenteredReplayButton />}
+
 					<div className={wrapperBottomPanel}>
 						<ProgressBar />
 						{isVisible && <BottomControlPanel />}

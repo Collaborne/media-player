@@ -6,16 +6,19 @@ import { VideoProvider } from '../../context/video';
 import { playerTheme } from '../../theme';
 import { ControlsConfig } from '../../types';
 import { DEFAULT_CONTROLS_CONFIG } from '../controls/controls-config';
+import { FileActionPanelProps } from '../file-action-panel/FileActionPanel';
 
 import VideoContainer from './VideoContainer';
 
-export interface VideoPlayerProps {
+export interface VideoPlayerProps
+	extends Omit<FileActionPanelProps, 'className'> {
 	videoUrl: string;
 	className?: string;
 	controlsConfig?: ControlsConfig;
 	currentPlayingUrl?: string;
 	setCurrentPlayingUrl?: (videoUrl: string) => void;
 	theme?: Theme;
+	actionPanelClassName?: string;
 }
 
 export const VideoPlayer: FC<VideoPlayerProps> = ({
@@ -25,6 +28,13 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 	currentPlayingUrl,
 	setCurrentPlayingUrl,
 	theme,
+	onDelete,
+	onDownload,
+	removeAsCover,
+	setAsCover,
+	hasImageCover,
+	isCover,
+	actionPanelClassName,
 }) => {
 	const hasPlayEnabled = useMemo(
 		() => videoUrl === currentPlayingUrl,
@@ -49,6 +59,13 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 					videoUrl={videoUrl}
 					hasPlayEnabled={hasPlayEnabled}
 					onPlay={onPlay}
+					onDelete={onDelete}
+					onDownload={onDownload}
+					removeAsCover={removeAsCover}
+					setAsCover={setAsCover}
+					actionPanelClassName={actionPanelClassName}
+					hasImageCover={hasImageCover}
+					isCover={isCover}
 				/>
 			</VideoProvider>
 		</ThemeProvider>

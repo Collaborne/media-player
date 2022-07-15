@@ -12,10 +12,10 @@ export type Predicate<T> = (prev: T | undefined, next: T) => boolean;
  * @param compare optional compare function. by default - strict compare
  * @returns previous distinct value
  */
-export default function usePreviousDistinct<T>(
+export const usePreviousDistinct = <T>(
 	value: T,
 	compare: Predicate<T> = strictEquals,
-): T | undefined {
+): T | undefined => {
 	const prevRef = useRef<T>();
 	const curRef = useRef<T>(value);
 	const isFirstMount = useFirstMountState();
@@ -26,4 +26,4 @@ export default function usePreviousDistinct<T>(
 	}
 
 	return prevRef.current;
-}
+};
