@@ -17,10 +17,11 @@ interface VideoContainerProps {
 	hasPlayEnabled: boolean;
 	onPlay: VoidFunction;
 	className?: string;
+	testId?: string;
 }
 
 const VideoContainer: FC<VideoContainerProps> = memo(
-	({ className, videoUrl, hasPlayEnabled, onPlay }) => {
+	({ className, videoUrl, hasPlayEnabled, onPlay, testId }) => {
 		const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
 			useVideo();
 		const { wrapper, pipText, reactPlayer } = useVideoContainerStyles().classes;
@@ -48,6 +49,7 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 				{Boolean(videoUrl) && (
 					<>
 						<DraggablePopover
+							testId={testId}
 							disablePortal={Boolean(!api?.getPictureInPicture?.())}
 						>
 							<ReactPlayer
