@@ -5,14 +5,14 @@ import ReactPlayer from 'react-player';
 
 import { useVideo } from '../../hooks/use-video';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
-import { Controls } from '../controls/Controls';
+import { ControlProps, Controls } from '../controls/Controls';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { VideoPoster } from '../video-poster/VideoPoster';
 
 import { useVideoContainerHook } from './useVideoContainerHook';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
 
-interface VideoContainerProps {
+interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
 	videoUrl: string;
 	hasPlayEnabled: boolean;
 	onPlay: VoidFunction;
@@ -20,7 +20,19 @@ interface VideoContainerProps {
 }
 
 const VideoContainer: FC<VideoContainerProps> = memo(
-	({ className, videoUrl, hasPlayEnabled, onPlay }) => {
+	({
+		className,
+		videoUrl,
+		hasPlayEnabled,
+		onPlay,
+		onDelete,
+		onDownload,
+		removeAsCover,
+		setAsCover,
+		actionPanelClassName,
+		hasImageCover,
+		isCover,
+	}) => {
 		const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
 			useVideo();
 		const { wrapper, pipText, reactPlayer } = useVideoContainerStyles().classes;
@@ -75,7 +87,16 @@ const VideoContainer: FC<VideoContainerProps> = memo(
 								<div className={pipText}>{intl.get('video.playing_pip')}</div>
 							</VideoPoster>
 						)}
-						<Controls isVisible={showControls} />
+						<Controls
+							isVisible={showControls}
+							onDelete={onDelete}
+							onDownload={onDownload}
+							removeAsCover={removeAsCover}
+							setAsCover={setAsCover}
+							actionPanelClassName={actionPanelClassName}
+							hasImageCover={hasImageCover}
+							isCover={isCover}
+						/>
 					</>
 				)}
 			</div>

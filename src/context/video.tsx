@@ -12,8 +12,7 @@ import React, {
 } from 'react';
 import type ReactPlayer from 'react-player';
 
-import { useFullscreen, UseFullscreen } from '../hooks/use-fullscreen';
-import usePreviousDistinct from '../hooks/use-previous-distinct';
+import { usePreviousDistinct, useFullscreen, UseFullscreen } from '../hooks/';
 import { videoActions } from '../store/actions';
 import { videoGetters } from '../store/getters';
 import { useStateReducer } from '../store/reducer';
