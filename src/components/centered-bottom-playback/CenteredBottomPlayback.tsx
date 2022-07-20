@@ -1,3 +1,4 @@
+import { ButtonProps } from '@mui/material';
 import { FC, useCallback, useMemo, useState } from 'react';
 
 import { useVideo } from '../../hooks/use-video';
@@ -7,7 +8,7 @@ import { MultiplySymbol } from '../../utils/MultiplySymbol';
 import { PlaybackRateButtonStyled } from './components/PlaybackRateButtonStyled';
 import { useCenteredBottomPlaybackStyles } from './useCenteredBottomPlaybackStyles';
 
-interface PlayBackButtonProps {
+interface PlayBackButtonProps extends ButtonProps {
 	onChangeRate: (playbackRate: number) => void;
 	playbackRate: number;
 	active: number;
@@ -17,6 +18,7 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 	playbackRate,
 	onChangeRate,
 	active,
+	...props
 }) => {
 	const onClick = useCallback(() => {
 		onChangeRate(playbackRate);
@@ -34,6 +36,8 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 			variant="text"
 			color="primary"
 			size="medium"
+			data-is-active={isActive}
+			{...props}
 		>
 			{playbackRate}
 			<MultiplySymbol />
@@ -60,7 +64,7 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 		useCenteredBottomPlaybackStyles().classes;
 
 	return (
-		<div className={wrapper}>
+		<div className={wrapper} data-testid="c-playbackRate">
 			<div className={playbackWrapper}>
 				{PLAYBACK_RATES.map(playbackRate => (
 					<PlayBackButton
@@ -68,6 +72,7 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 						active={activePlaybackRate}
 						onChangeRate={onChangePlaybackRate}
 						playbackRate={playbackRate}
+						data-testid={`c-playbackRate-${playbackRate}`}
 					/>
 				))}
 			</div>
