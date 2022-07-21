@@ -29,7 +29,8 @@
 		"@collaborne/carrot-styles": "^6.0.0",
 		"@mui/icons-material": "^5.8.0",
 		"@mui/material": "^5.8.0",
-		"react": "^17.0.0 || ^18.0.0"
+		"react": "^17.0.0 || ^18.0.0",
+		"react-use": "^17.4.0"
 	},
 	"devDependencies": {
 		"@emotion/react": "^11.9.3",

@@ -100,24 +100,24 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		[api?.setPlaybackRate],
 	);
 
-	const onPip = useCallback(async () => {
+	const onPip = useCallback(() => {
 		if (isFullscreen) {
-			await fullScreenApi?.exitFullscreen();
+			fullScreenApi?.exitFullscreen();
 		}
 		api?.setHasPipTriggeredByClick?.(true);
 		if (isPip) {
 			return api?.exitPip?.();
 		}
-		return api?.requestPip?.();
+		// Calling with a delay pip => otherwise styles and position for pip are inconsistent
+		setTimeout(() => api?.requestPip?.(), 10);
 	}, [isFullscreen, api, isPip, fullScreenApi]);
 
-	const onFullscreen = useCallback(async () => {
+	const onFullscreen = useCallback(() => {
 		if (isPip) {
 			api?.exitPip?.();
 		}
-		return fullScreenApi?.toggleFullscreen();
+		fullScreenApi?.toggleFullscreen();
 	}, [api, fullScreenApi, isPip]);
-
 	return {
 		duration,
 		currentTime: relativeTime,
