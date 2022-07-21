@@ -109,7 +109,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 			return api?.exitPip?.();
 		}
 		// Calling with a delay pip => otherwise styles and position for pip are inconsistent
-		setTimeout(() => api?.requestPip?.(), 10);
+		return setTimeout(() => api?.requestPip?.(), 10);
 	}, [isFullscreen, api, isPip, fullScreenApi]);
 
 	const onFullscreen = useCallback(() => {
