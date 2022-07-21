@@ -3,7 +3,6 @@ import {
 	useCallback,
 	useEffect,
 	useLayoutEffect,
-	useMemo,
 	useRef,
 	useState,
 } from 'react';
@@ -62,17 +61,11 @@ export const useVideoContainerHook = ({
 	const entryTop = useIntersection(videoContainerRef, {
 		rootMargin: BOTTOM_ROOT_MARGIN,
 	});
-	const isVisibleFromScrollingTop = useMemo(
-		() => Boolean(entryTop?.isIntersecting),
-		[entryTop?.isIntersecting],
-	);
+	const isVisibleFromScrollingTop = Boolean(entryTop?.isIntersecting);
 
 	// Checks if video container is in viewport when scrolling top
 	const entryBottom = useIntersection(videoContainerRef, {});
-	const isVisibleFromScrollingBottom = useMemo(
-		() => Boolean(entryBottom?.isIntersecting),
-		[entryBottom?.isIntersecting],
-	);
+	const isVisibleFromScrollingBottom = Boolean(entryBottom?.isIntersecting);
 
 	const updateShowControls = useCallback(() => {
 		if (controlsConfig?.alwaysShowConfig || isFullscreen) {

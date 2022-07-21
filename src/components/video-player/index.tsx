@@ -1,6 +1,6 @@
 import { Theme, ThemeProvider } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
-import { FC, useCallback, useMemo } from 'react';
+import { FC } from 'react';
 
 import { VideoProvider } from '../../context/video';
 import { playerTheme } from '../../theme';
@@ -36,20 +36,11 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 	isCover,
 	actionPanelClassName,
 }) => {
-	const hasPlayEnabled = useMemo(
-		() => videoUrl === currentPlayingUrl,
-		[currentPlayingUrl, videoUrl],
-	);
+	const hasPlayEnabled = videoUrl === currentPlayingUrl;
 
-	const onPlay = useCallback(
-		() => setCurrentPlayingUrl?.(videoUrl),
-		[setCurrentPlayingUrl, videoUrl],
-	);
+	const onPlay = () => setCurrentPlayingUrl?.(videoUrl);
 
-	const nestedThemes = useMemo(
-		() => deepmerge(playerTheme, theme || {}),
-		[theme],
-	);
+	const nestedThemes = deepmerge(playerTheme, theme || {});
 
 	return (
 		<ThemeProvider theme={outerTheme => deepmerge(outerTheme, nestedThemes)}>

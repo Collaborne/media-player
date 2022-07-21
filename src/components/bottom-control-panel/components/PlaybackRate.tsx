@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from '@mui/material/Button';
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import { PLAYBACK_RATES } from '../../../utils/constants';
 import { MultiplySymbol } from '../../../utils/MultiplySymbol';
@@ -17,7 +17,7 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 	variant = 'text',
 	...props
 }) => {
-	const handleClick = useCallback(() => {
+	const handleClick = () => {
 		// Gets the next value of playback rate, otherwise get first one
 		const playbackLength = PLAYBACK_RATES.length;
 		const currentIndex = PLAYBACK_RATES.findIndex(el => el === playbackRate);
@@ -25,7 +25,7 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 			return onChangeRate(PLAYBACK_RATES[0]);
 		}
 		return onChangeRate(PLAYBACK_RATES[currentIndex + 1]);
-	}, [onChangeRate, playbackRate]);
+	};
 
 	return (
 		<Button
