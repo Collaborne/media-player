@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { useVideo } from '../../hooks/use-video';
 import { PLAYBACK_RATES } from '../../utils/constants';
@@ -18,14 +18,11 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 	onChangeRate,
 	active,
 }) => {
-	const onClick = useCallback(() => {
+	const onClick = () => {
 		onChangeRate(playbackRate);
-	}, [onChangeRate, playbackRate]);
+	};
 
-	const isActive = useMemo(
-		() => active === playbackRate,
-		[active, playbackRate],
-	);
+	const isActive = active === playbackRate;
 
 	return (
 		<PlaybackRateButtonStyled
@@ -49,13 +46,11 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 		api?.getPlaybackRate?.() || 1,
 	);
 
-	const onChangePlaybackRate = useCallback(
-		(rate: number) => {
-			setActivePlaybackRate(rate);
-			api?.setPlaybackRate?.(rate);
-		},
-		[api],
-	);
+	const onChangePlaybackRate = (rate: number) => {
+		setActivePlaybackRate(rate);
+		api?.setPlaybackRate?.(rate);
+	};
+
 	const { wrapper, playbackWrapper } =
 		useCenteredBottomPlaybackStyles().classes;
 

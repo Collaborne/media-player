@@ -1,5 +1,5 @@
 import { SliderProps } from '@mui/material/Slider/Slider';
-import { FC, useCallback, useMemo } from 'react';
+import { FC } from 'react';
 
 import { useVideo } from '../../hooks';
 import { PROGRESS_BAR_DIVIDER } from '../../utils/constants';
@@ -12,21 +12,22 @@ interface ProgressBarProps extends SliderProps {}
 export const ProgressBar: FC<ProgressBarProps> = props => {
 	const { api } = useVideo();
 
-	const onCurrentTimeUpdate = useCallback(
-		(e: Event, newValue: number | number[], _activeThumb: number) => {
-			e.preventDefault();
-			if (Array.isArray(newValue)) {
-				return;
-			}
-			// Get new time according to played time from the total video duration
-			const seekTime =
-				(newValue / PROGRESS_BAR_DIVIDER) * (api?.getDuration?.() || 0);
-			api?.setCurrentTime?.(seekTime);
-		},
-		[api?.setCurrentTime, api?.getDuration],
-	);
+	const onCurrentTimeUpdate = (
+		e: Event,
+		newValue: number | number[],
+		_activeThumb: number,
+	) => {
+		e.preventDefault();
+		if (Array.isArray(newValue)) {
+			return;
+		}
+		// Get new time according to played time from the total video duration
+		const seekTime =
+			(newValue / PROGRESS_BAR_DIVIDER) * (api?.getDuration?.() || 0);
+		api?.setCurrentTime?.(seekTime);
+	};
 
-	const value = useMemo(() => {
+	const value = (() => {
 		const videoDuration = api?.getDuration?.();
 		const currentTime = api?.getCurrentTime?.();
 
@@ -36,7 +37,7 @@ export const ProgressBar: FC<ProgressBarProps> = props => {
 			return (currentTime / videoDuration) * PROGRESS_BAR_DIVIDER;
 		}
 		return 0;
-	}, [api?.getDuration, api?.getCurrentTime]);
+	})();
 
 	return (
 		<ProgressBarStyled

@@ -1,5 +1,5 @@
 import useEventListener from '@use-it/event-listener';
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { useVideo } from '../../hooks';
 import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
@@ -35,12 +35,9 @@ export const Controls: FC<ControlProps> = ({
 }) => {
 	const { api, controlsConfig } = useVideo();
 
-	const animationDuration = useMemo(
-		() =>
-			controlsConfig?.eventAnimationDurationMs ||
-			DEFAULT_EVENT_ANIMATION_DURATION,
-		[controlsConfig?.eventAnimationDurationMs],
-	);
+	const animationDuration =
+		controlsConfig?.eventAnimationDurationMs ||
+		DEFAULT_EVENT_ANIMATION_DURATION;
 
 	// Show first controls screen
 	const [hasStarted, setHasStarted] = useState<boolean>(
@@ -49,12 +46,12 @@ export const Controls: FC<ControlProps> = ({
 	const [showPlayAnimation, setShowPlayAnimation] = useState(false);
 	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
 
-	const isFinished = useMemo(() => {
+	const isFinished = (() => {
 		const duration = Number(api?.getDuration?.());
 		const isPlaying = Boolean(api?.getPlaying?.());
 		const relativeTime = Number(api?.getCurrentRelativeTime?.());
 		return duration > 0 && !isPlaying && relativeTime >= duration;
-	}, [api?.getDuration, api?.getPlaying, api?.getCurrentRelativeTime]);
+	})();
 
 	// useEventListener uses under the hood event listeners, that are also present in api, but do not correspond typings from the package
 	useEventListener(

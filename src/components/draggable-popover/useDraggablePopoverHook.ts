@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { Position, ResizeEnable } from 'react-rnd';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
@@ -30,15 +29,11 @@ export const useDraggablePopoverHook = ({
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
 	const windowSize = useWindowSize();
 
-	const defaultWidth = useMemo<Size>(
-		() =>
-			disablePortal
-				? { width: '100%', height: '100%' }
-				: { ...DEFAULT_PIP_SIZE },
-		[disablePortal],
-	);
+	const defaultWidth = disablePortal
+		? { width: '100%', height: '100%' }
+		: { ...DEFAULT_PIP_SIZE };
 
-	const defaultPosition = useMemo<Position>(() => {
+	const defaultPosition = (() => {
 		if (disablePortal) {
 			return { x: 0, y: 0 };
 		}
@@ -51,20 +46,16 @@ export const useDraggablePopoverHook = ({
 			y: (windowSize?.height || vh) - pipPlayerHight,
 			x: (windowSize?.width || vw) - pipPlayerWidth,
 		};
-	}, [disablePortal, windowSize?.height, windowSize?.width]);
+	})();
 
-	const enableResizing = useMemo<ResizeEnable>(
-		() =>
-			disablePortal
-				? false
-				: {
-						topLeft: true,
-						topRight: true,
-						bottomLeft: true,
-						bottomRight: true,
-				  },
-		[disablePortal],
-	);
+	const enableResizing = disablePortal
+		? false
+		: {
+				topLeft: true,
+				topRight: true,
+				bottomLeft: true,
+				bottomRight: true,
+		  };
 
 	return { defaultPosition, defaultWidth, enableResizing };
 };

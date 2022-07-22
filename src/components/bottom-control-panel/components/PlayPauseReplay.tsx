@@ -1,7 +1,7 @@
 import { PauseOutlined, PlayArrow, ReplayOutlined } from '@mui/icons-material';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { SvgIconProps } from '@mui/material/SvgIcon';
-import { ComponentType, FC, useCallback } from 'react';
+import { ComponentType, FC } from 'react';
 
 interface PlayPauseReplayProps extends IconButtonProps {
 	isFinished: boolean;
@@ -28,7 +28,7 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 }) => {
 	const { Pause, Play, Replay } = Icons;
 
-	const handleClick = useCallback(() => {
+	const handleClick = () => {
 		if (isFinished) {
 			return onReplay();
 		}
@@ -37,7 +37,7 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 			return onStop();
 		}
 		return onPlay();
-	}, [isFinished, isPlaying, onPlay, onReplay, onStop]);
+	};
 
 	return (
 		<IconButton

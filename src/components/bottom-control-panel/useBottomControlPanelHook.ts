@@ -1,5 +1,3 @@
-import { useCallback, useMemo } from 'react';
-
 import { useVideo } from '../../hooks/use-video';
 
 const SECONDS_TO_SKIP = 10;
@@ -31,76 +29,46 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 	const { api, fullScreenApi } = useVideo();
 	const isPip = Boolean(api?.getPictureInPicture?.());
 	const isFullscreen = Boolean(fullScreenApi?.isFullscreen);
+	const isPlaying = Boolean(api?.getPlaying?.());
 
-	const isPlaying = useMemo(
-		() => Boolean(api?.getPlaying?.()),
-		[api?.getPlaying],
-	);
-	const duration = useMemo(
-		() => Number(api?.getDuration?.()),
-		[api?.getDuration],
-	);
+	const duration = Number(api?.getDuration?.());
+	const relativeTime = Number(api?.getCurrentRelativeTime?.());
+	const currentTime = Number(api?.getCurrentTime?.());
+	const isFinished = duration > 0 && !isPlaying && relativeTime >= duration;
 
-	const relativeTime = useMemo(
-		() => Number(api?.getCurrentRelativeTime?.()),
-		[api?.getCurrentRelativeTime],
-	);
-	const currentTime = useMemo(
-		() => Number(api?.getCurrentTime?.()),
-		[api?.getCurrentTime],
-	);
-	const isFinished = useMemo(
-		() => duration > 0 && !isPlaying && relativeTime >= duration,
-		[duration, isPlaying, relativeTime],
-	);
+	const onPlay = () => api?.play?.();
+	const onStop = () => api?.pause?.();
+	const onRwd = () => api?.setCurrentTime?.(currentTime - SECONDS_TO_SKIP);
+	const onFwd = () => api?.setCurrentTime?.(currentTime + SECONDS_TO_SKIP);
 
-	const onPlay = useCallback(() => api?.play?.(), [api?.play]);
-	const onStop = useCallback(() => api?.pause?.(), [api?.pause]);
-	const onRwd = useCallback(
-		() => api?.setCurrentTime?.(currentTime - SECONDS_TO_SKIP),
-		[api?.setCurrentTime, currentTime],
-	);
-	const onFwd = useCallback(
-		() => api?.setCurrentTime?.(currentTime + SECONDS_TO_SKIP),
-		[api?.setCurrentTime, currentTime],
-	);
+	const volume = (Number(api?.getVolume?.()) || 0) * 100;
+	const isMuted = Boolean(api?.getMuted?.());
+	const playbackRate = api?.getPlaybackRate?.() || 1;
 
-	const volume = useMemo(
-		() => (Number(api?.getVolume?.()) || 0) * 100,
-		[api?.getVolume],
-	);
-	const isMuted = useMemo(() => Boolean(api?.getMuted?.()), [api?.getMuted]);
-	const playbackRate = useMemo(
-		() => api?.getPlaybackRate?.() || 1,
-		[api?.getPlaybackRate],
-	);
-
-	const onToggleClick = useCallback(() => {
+	const onToggleClick = () => {
 		if (isMuted) {
 			return api?.unmute?.();
 		}
 		return api?.mute?.();
-	}, [api?.mute, api?.unmute, isMuted]);
+	};
 
-	const onVolumeChange = useCallback(
-		(event: Event, value: number | number[], _activeThumb: number) => {
-			event.preventDefault();
-			if (Array.isArray(value)) {
-				return;
-			}
-			api?.setVolume?.(value / VOLUME_DIVIDER);
-		},
-		[api?.setVolume, volume],
-	);
+	const onVolumeChange = (
+		event: Event,
+		value: number | number[],
+		_activeThumb: number,
+	) => {
+		event.preventDefault();
+		if (Array.isArray(value)) {
+			return;
+		}
+		api?.setVolume?.(value / VOLUME_DIVIDER);
+	};
 
-	const onSetPlaybackRate = useCallback(
-		(playbackRate: number) => {
-			api?.setPlaybackRate?.(playbackRate);
-		},
-		[api?.setPlaybackRate],
-	);
+	const onSetPlaybackRate = (playbackRate: number) => {
+		api?.setPlaybackRate?.(playbackRate);
+	};
 
-	const onPip = useCallback(() => {
+	const onPip = () => {
 		if (isFullscreen) {
 			fullScreenApi?.exitFullscreen();
 		}
@@ -110,14 +78,14 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		}
 		// Calling with a delay pip => otherwise styles and position for pip are inconsistent
 		return setTimeout(() => api?.requestPip?.(), 10);
-	}, [isFullscreen, api, isPip, fullScreenApi]);
+	};
 
-	const onFullscreen = useCallback(() => {
+	const onFullscreen = () => {
 		if (isPip) {
 			api?.exitPip?.();
 		}
 		fullScreenApi?.toggleFullscreen();
-	}, [api, fullScreenApi, isPip]);
+	};
 	return {
 		duration,
 		currentTime: relativeTime,
