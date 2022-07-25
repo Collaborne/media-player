@@ -12,7 +12,4 @@ describe('<BottomControlPanel />', () => {
 		fireEvent.click(getByTestId('icon-play'));
 		expect(getByTestId('icon-pause')).toBeInTheDocument();
 	});
-	it('On forward', () => {
-		const { getByTestId } = renderWithProviders(<BottomControlPanel />);
-	});
 });
