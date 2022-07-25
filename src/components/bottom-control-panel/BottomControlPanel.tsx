@@ -80,7 +80,11 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 					</IconButton>
 					{/* Volume Slider */}
 					<Grid className={gridCentered}>
-						<IconButton size="medium" onClick={onToggleClick}>
+						<IconButton
+							size="medium"
+							onClick={onToggleClick}
+							data-testid="icon-volume"
+						>
 							<VolumeIcon fontSize="medium" volume={isMuted ? 0 : volume} />
 						</IconButton>
 						<VolumeBarStyled
@@ -107,9 +111,10 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 					onChangeRate={onSetPlaybackRate}
 					variant="text"
 					className={playBackRateBtn}
+					data-testid="playback-rate"
 				/>
 				{/* Picture In Picture */}
-				<IconButton size="medium" onClick={onPip}>
+				<IconButton size="medium" onClick={onPip} data-testid="icon-pip">
 					<PiPIcon fontSize="medium" />
 				</IconButton>
 				{/* Fullscreen mode */}
