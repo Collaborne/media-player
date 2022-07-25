@@ -16,7 +16,6 @@ export interface VideoPlayerProps {
 	currentPlayingUrl?: string;
 	setCurrentPlayingUrl?: (videoUrl: string) => void;
 	theme?: Theme;
-	testId?: string;
 }
 
 export const VideoPlayer: FC<VideoPlayerProps> = ({
@@ -26,7 +25,6 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 	currentPlayingUrl,
 	setCurrentPlayingUrl,
 	theme,
-	testId = 'testID',
 }) => {
 	const hasPlayEnabled = useMemo(
 		() => videoUrl === currentPlayingUrl,
@@ -51,7 +49,6 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 					videoUrl={videoUrl}
 					hasPlayEnabled={hasPlayEnabled}
 					onPlay={onPlay}
-					testId={testId}
 				/>
 			</VideoProvider>
 		</ThemeProvider>

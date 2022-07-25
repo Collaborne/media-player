@@ -19,11 +19,10 @@ export type ContainerSizePosition = {
 export interface DraggablePopoverProps extends PortalProps {
 	rndProps?: RndProps;
 	className?: string;
-	testId?: string;
 }
 
 export const DraggablePopover: FC<DraggablePopoverProps> = memo(
-	({ className, children, rndProps, testId, ...props }) => {
+	({ className, children, rndProps, ...props }) => {
 		const { defaultPosition, defaultWidth, enableResizing } =
 			useDraggablePopoverHook({ disablePortal: props.disablePortal });
 
@@ -34,7 +33,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 
 		return (
 			<Portal {...props}>
-				<div className={portalWrapper} data-test-id={testId}>
+				<div className={portalWrapper}>
 					<Rnd
 						bounds="parent"
 						default={{
