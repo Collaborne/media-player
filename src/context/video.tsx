@@ -11,14 +11,16 @@ import React, {
 	useRef,
 } from 'react';
 import type ReactPlayer from 'react-player';
+import useFullscreen from 'react-use/lib/useFullscreen';
+import usePreviousDistinct from 'react-use/lib/usePreviousDistinct';
+import useToggle from 'react-use/lib/useToggle';
 
-import { useFullscreen, UseFullscreen } from '../hooks/use-fullscreen';
-import usePreviousDistinct from '../hooks/use-previous-distinct';
 import { videoActions } from '../store/actions';
 import { videoGetters } from '../store/getters';
 import { useStateReducer } from '../store/reducer';
 import {
 	ControlsConfig,
+	FullscreenApi,
 	ReactPlayerProps,
 	VideoActionKeys,
 	VideoActions,
@@ -38,8 +40,8 @@ export interface VideoContext {
 	reactPlayerProps?: ReactPlayerProps;
 	state?: VideoState;
 	reactPlayerRef?: RefObject<ReactPlayer>;
-	videoContainerRef?: RefObject<HTMLDivElement>;
-	fullScreenApi?: UseFullscreen;
+	videoContainerRef: RefObject<HTMLDivElement>;
+	fullScreenApi?: FullscreenApi;
 }
 
 export const VideoContext = createContext<VideoContext | null>(null);
@@ -65,9 +67,13 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		});
 		const readyFiredRef = useRef(false);
 		const hasAutoplayedRef = useRef(false);
-		const fullScreenApi = useFullscreen(videoContainerRef.current);
+		const [showFullscreen, toggleFullscreen] = useToggle(false);
+		const isFullscreen = useFullscreen(videoContainerRef, showFullscreen, {
+			onClose: () => toggleFullscreen(false),
+		});
+
 		const updateContextValue = useCallback(
-			(currentValue?: Partial<VideoContext>) => {
+			(currentValue?: Partial<VideoContext>): VideoContext => {
 				const ctx = currentValue || {};
 				ctx.reactPlayerRef = reactPlayerRef;
 
@@ -95,7 +101,12 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 				ctx.videoContainerRef = videoContainerRef;
 				ctx.lastActivityRef = lastActivityRef;
 				ctx.markActivity = markActivity;
-				ctx.fullScreenApi = fullScreenApi;
+				ctx.fullScreenApi = {
+					isFullscreen,
+					enterFullscreen: () => toggleFullscreen(true),
+					exitFullscreen: () => toggleFullscreen(false),
+					toggleFullscreen,
+				};
 				ctx.state = state;
 				ctx.controlsConfig = controlsConfig;
 				ctx.reactPlayerProps = {
@@ -121,7 +132,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 						api?._handleProgress?.(playedSeconds),
 				};
 
-				return ctx;
+				return ctx as VideoContext;
 			},
 			[
 				controlsConfig,
@@ -140,7 +151,7 @@ export const VideoProvider: FC<VideoProviderProps> = memo(
 		 * https://kentcdodds.com/blog/use-state-lazy-initialization-and-function-updates
 		 */
 		const [videoContext, setVideoContext] =
-			React.useState<Partial<VideoContext>>(updateContextValue);
+			React.useState<VideoContext>(updateContextValue);
 
 		// Force a ready event for safari when the video has been loaded
 		React.useEffect(() => {

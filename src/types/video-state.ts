@@ -10,6 +10,15 @@ import {
 	VideoGettersApi,
 } from '.';
 
+interface FullscreenHandlers {
+	enterFullscreen: () => void;
+	exitFullscreen: () => void;
+	toggleFullscreen: () => void;
+}
+
+export interface FullscreenApi extends FullscreenHandlers {
+	isFullscreen: boolean;
+}
 /**
  * Video Players initial state
  */

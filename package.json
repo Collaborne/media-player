@@ -1,6 +1,6 @@
 {
 	"name": "@collaborne/video-player",
-	"version": "0.1.6",
+	"version": "0.1.8",
 	"description": "Video player for carrot-app",
 	"author": "Collaborne",
 	"license": "UNLICENSED",
@@ -29,7 +29,8 @@
 		"@collaborne/carrot-styles": "^6.0.0",
 		"@mui/icons-material": "^5.8.0",
 		"@mui/material": "^5.8.0",
-		"react": "^17.0.0 || ^18.0.0"
+		"react": "^17.0.0 || ^18.0.0",
+		"react-use": "^17.4.0"
 	},
 	"devDependencies": {
 		"@emotion/react": "^11.9.3",

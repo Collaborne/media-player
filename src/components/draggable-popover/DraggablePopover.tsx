@@ -51,6 +51,8 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 							bottomRight: resizeSquares,
 						}}
 						{...rndProps}
+						minWidth={241}
+						minHeight={146}
 					>
 						<Paper elevation={0} className={clsx(paper, className)}>
 							{children}

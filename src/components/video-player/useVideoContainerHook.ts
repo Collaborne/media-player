@@ -7,8 +7,10 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import useIntersection from 'react-use/lib/useIntersection';
+import useUnmount from 'react-use/lib/useUnmount';
 
-import { useInViewport, useOnUnmount, useVideo } from '../../hooks';
+import { useVideo } from '../../hooks';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { getElementOffset } from '../../utils/html-elements';
 import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';
@@ -57,7 +59,7 @@ export const useVideoContainerHook = ({
 	const hasPipTriggeredByClick = Boolean(api?.getHasPipTriggeredByClick?.());
 
 	// Checks if video container is in viewport when scrolling bottom
-	const entryTop = useInViewport(videoContainerRef, {
+	const entryTop = useIntersection(videoContainerRef, {
 		rootMargin: BOTTOM_ROOT_MARGIN,
 	});
 	const isVisibleFromScrollingTop = useMemo(
@@ -66,7 +68,7 @@ export const useVideoContainerHook = ({
 	);
 
 	// Checks if video container is in viewport when scrolling top
-	const entryBottom = useInViewport(videoContainerRef, {});
+	const entryBottom = useIntersection(videoContainerRef, {});
 	const isVisibleFromScrollingBottom = useMemo(
 		() => Boolean(entryBottom?.isIntersecting),
 		[entryBottom?.isIntersecting],
@@ -114,7 +116,7 @@ export const useVideoContainerHook = ({
 		return () => clearTimeout(timeoutId);
 	}, [videoUrl, reactPlayerRef]);
 
-	useOnUnmount(() => {
+	useUnmount(() => {
 		// Bug: video is stuck browser memory, so even after dismount the OS play/pause controls work
 		// Clear src attribute so it's removed.
 		const videoEl = videoContainerRef?.current?.querySelector('video');
