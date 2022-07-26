@@ -130,6 +130,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 
 			return ctx as VideoContext;
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[
 			controlsConfig,
 			dispatch,
@@ -209,6 +210,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			newValue = { ...newValue };
 		}
 		setVideoContext(() => newValue);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [state, controlsConfig, initialState]);
 
 	return (

@@ -170,6 +170,7 @@ export const useVideoContainerHook = ({
 		if (width && height && rect) {
 			containerSizeRef.current = { width, height, ...rect };
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// On wheel event - updating that pip isn't triggered by a click on pip icon button

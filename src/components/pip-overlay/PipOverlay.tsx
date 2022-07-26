@@ -63,6 +63,7 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 			return setShowControls(true);
 		}
 		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [lastMouseLeave, api?.getPaused, api?.getPictureInPicture]);
 
 	useEffect(updateShowControls, [
