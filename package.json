@@ -11,8 +11,9 @@
 		"node": ">=10"
 	},
 	"scripts": {
-		"build": "tsc --noEmit false",
+		"build": "npm run build:ts --",
 		"build:locales": "cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/prepare-locales.ts .storybook/locales",
+		"build:ts": "tsc -p tsconfig.dist.json --noEmit false",
 		"build:watch": "npm run build -- --watch",
 		"lint": "npm run lint:ts",
 		"lint:ts": "eslint --report-unused-disable-directives $(node -p 'require(\"./tsconfig.test.json\").include.map(include => `'\\${include}.\\{js,ts,tsx\\}'`).join(\" \")')",
