@@ -4,6 +4,7 @@ import {
 	DraggablePopover as DraggablePopoverComponent,
 	DraggablePopoverProps,
 } from '../../src/components/draggable-popover/DraggablePopover';
+import { VideoProvider } from '../../src/context/video';
 import {
 	withDemoCard,
 	withIntl,
@@ -14,17 +15,19 @@ import {
 
 export const DraggablePopover: Story<Partial<DraggablePopoverProps>> = args => {
 	return (
-		<div
-			style={{
-				display: 'flex',
-				width: '100%',
-				flexDirection: 'column-reverse',
-			}}
-		>
-			<DraggablePopoverComponent disablePortal={args.disablePortal}>
-				<div style={{ background: 'red', width: '100%', height: '100%' }} />
-			</DraggablePopoverComponent>
-		</div>
+		<VideoProvider>
+			<div
+				style={{
+					display: 'flex',
+					width: '100%',
+					flexDirection: 'column-reverse',
+				}}
+			>
+				<DraggablePopoverComponent disablePortal={args.disablePortal}>
+					<div style={{ background: 'red', width: '100%', height: '100%' }} />
+				</DraggablePopoverComponent>
+			</div>
+		</VideoProvider>
 	);
 };
 

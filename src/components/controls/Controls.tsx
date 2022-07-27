@@ -102,7 +102,7 @@ export const Controls: FC<ControlProps> = ({
 					<BigPlayIcon className={bigCenteredIcon} />
 				</AnimatedIconWrapper>
 			)}
-			{isVisible && (
+			{isVisible && controlsConfig?.fileActionsPanel && (
 				<FileActionPanel
 					onDelete={onDelete}
 					onDownload={onDownload}
@@ -124,8 +124,10 @@ export const Controls: FC<ControlProps> = ({
 					{isFinished && <CenteredReplayButton />}
 
 					<div className={wrapperBottomPanel}>
-						<ProgressBar />
-						{isVisible && <BottomControlPanel />}
+						{controlsConfig?.progressBar && <ProgressBar />}
+						{isVisible && controlsConfig?.bottomControls && (
+							<BottomControlPanel />
+						)}
 					</div>
 				</>
 			)}

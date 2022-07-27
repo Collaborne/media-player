@@ -14,8 +14,8 @@ import { useVideoContainerStyles } from './useVideoContainerStyles';
 
 interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
 	videoUrl: string;
-	hasPlayEnabled: boolean;
-	onPlay: VoidFunction;
+	hasPlayEnabled?: boolean;
+	onPlay?: VoidFunction;
 	className?: string;
 }
 

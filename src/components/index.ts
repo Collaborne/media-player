@@ -1,3 +1,2 @@
-export * from './video-player';
-export * from './controls/Controls';
+export * from './video-player/VideoPlayer';
 export * from './video-player/VideoContainer';

@@ -6,12 +6,13 @@ import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
  */
 
 export const DEFAULT_CONTROLS_CONFIG: ControlsConfig = {
+	fileActionsPanel: true,
 	bottomControls: true,
 	pip: true,
 	fullscreen: true,
 	volume: true,
 	speed: true,
-	showVolumeSlider: true,
+	progressBar: true,
 	alwaysShowConfig: false,
 	eventAnimationDurationMs: DEFAULT_EVENT_ANIMATION_DURATION,
 };

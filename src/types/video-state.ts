@@ -36,7 +36,7 @@ interface VideoPlayerInitialState {
  */
 
 export interface VideoProviderProps {
-	controlsConfig: ControlsConfig;
+	controlsConfig?: ControlsConfig;
 	initialState?: VideoPlayerInitialState;
 	children: ReactNode;
 	persistedState?: VideoState;

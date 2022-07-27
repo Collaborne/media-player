@@ -11,6 +11,10 @@ interface UseBottomControlPanelHook {
 	isFinished: boolean;
 	isMuted: boolean;
 	isFullscreen: boolean;
+	showPipIcon?: boolean;
+	showFullscreenIcon?: boolean;
+	showVolume?: boolean;
+	showPlaybackRate?: boolean;
 	onPlay: VoidFunction;
 	onStop: VoidFunction;
 	onFwd: VoidFunction;
@@ -26,7 +30,7 @@ interface UseBottomControlPanelHook {
 	onToggleClick: VoidFunction;
 }
 export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
-	const { api, fullScreenApi } = useVideo();
+	const { api, fullScreenApi, controlsConfig } = useVideo();
 	const isPip = Boolean(api?.getPictureInPicture?.());
 	const isFullscreen = Boolean(fullScreenApi?.isFullscreen);
 	const isPlaying = Boolean(api?.getPlaying?.());
@@ -104,5 +108,9 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		onSetPlaybackRate,
 		onVolumeChange,
 		onToggleClick,
+		showFullscreenIcon: controlsConfig?.fullscreen,
+		showPipIcon: controlsConfig?.pip,
+		showPlaybackRate: controlsConfig?.speed,
+		showVolume: controlsConfig?.volume,
 	};
 };

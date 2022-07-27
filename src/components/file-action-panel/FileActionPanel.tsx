@@ -14,10 +14,10 @@ import intl from 'react-intl-universal';
 import { useFileActionPanelStyles } from './useFileActionPanelStyles';
 
 export interface FileActionPanelProps {
-	onDownload: VoidFunction;
-	onDelete: VoidFunction;
-	setAsCover: VoidFunction;
-	removeAsCover: VoidFunction;
+	onDownload?: VoidFunction;
+	onDelete?: VoidFunction;
+	setAsCover?: VoidFunction;
+	removeAsCover?: VoidFunction;
 	// If video's thumbnail is current set as cover
 	isCover?: boolean;
 	// Note: not all videos can have thumbnails: "Old uploaded videos do not have"
