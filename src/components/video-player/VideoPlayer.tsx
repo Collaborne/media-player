@@ -12,15 +12,23 @@ import VideoContainer from './VideoContainer';
 
 export interface VideoPlayerProps
 	extends Omit<FileActionPanelProps, 'className'> {
+	/** The url of the video file to be played */
 	videoUrl: string;
+	/** CSS class name applied to component  */
 	className?: string;
+	/** Configuration that enables/disables some parts of the overlay on top of the video player */
 	controlsConfig?: ControlsConfig;
+	/**  Used when you have multiple videos, and only one video is played at same time. *Ex: Video 1 plays, and video 2 is on pause. Playing video 2, pauses video 1*   */
 	currentPlayingUrl?: string;
+	/** A function that handles changing of the currentPlayingUrl */
 	setCurrentPlayingUrl?: (videoUrl: string) => void;
+	/** A MUI theme to control the stylization of the player . */
 	theme?: Theme;
+	/** CSS class name applied to the file action panel */
 	actionPanelClassName?: string;
 }
 
+/** A "video-player" from the box. A result of VideoProvider and VideoContainer */
 export const VideoPlayer: FC<VideoPlayerProps> = ({
 	videoUrl,
 	className,

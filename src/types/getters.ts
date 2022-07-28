@@ -2,11 +2,7 @@ import { VideoState } from '.';
 
 export type VideoGetter<T> = (state: VideoState) => T;
 
-/**
- * Video Getters for controlling video player
- * TODO: check necessity of getCurrentRelativeTime
- */
-
+/** List of getters for the VideoState */
 export interface VideoGetters {
 	getLastActivity: VideoGetter<number>;
 	getPlaybackRate: VideoGetter<number>;

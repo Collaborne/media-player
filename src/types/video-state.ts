@@ -10,24 +10,29 @@ import {
 	VideoGettersApi,
 } from '.';
 
-interface FullscreenHandlers {
+/** State setter/holder for the FullscreenApi.On the hood uses the `fullscreen` package */
+export interface FullscreenApi {
+	/** Is player in fullscreen mode */
+	isFullscreen: boolean;
+	/** Enter the fullscreen mode */
 	enterFullscreen: () => void;
+	/** Exit the fullscreen mode */
 	exitFullscreen: () => void;
+	/** Toggler for the fullscreen mode */
 	toggleFullscreen: () => void;
 }
 
-export interface FullscreenApi extends FullscreenHandlers {
-	isFullscreen: boolean;
-}
-/**
- * Video Players initial state
- */
-
+/** Provider's initialization state */
 interface VideoPlayerInitialState {
+	/** If the video start playing from start */
 	playing?: boolean;
+	/** Time (in ms) that video will start to play */
 	startTime: number;
+	/** Time (in ms) that video should pause */
 	endTime: number;
+	/** Video duration */
 	duration: number;
+	/** Current played time */
 	currentTime: number;
 }
 
@@ -36,9 +41,13 @@ interface VideoPlayerInitialState {
  */
 
 export interface VideoProviderProps {
+	/** Configuration that enables/disables some parts of the overlay on top of the video player */
 	controlsConfig?: ControlsConfig;
+	/** Provider's initialization state */
 	initialState?: VideoPlayerInitialState;
+	/** ReactNode that will consume the context */
 	children: ReactNode;
+	/** State that needs to be stored in localStorage */
 	persistedState?: VideoState;
 }
 

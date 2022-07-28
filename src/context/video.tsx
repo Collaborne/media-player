@@ -32,19 +32,30 @@ import { getVideoEl } from '../utils';
 import { PROVIDER_INITIAL_STATE } from './constants';
 
 export interface VideoContext {
+	/** A collection of getters, setters, emitters for the video  */
 	api?: VideoApi;
+	/** Last activity ref(triggered by mouse move) */
 	lastActivityRef?: MutableRefObject<number | undefined>;
+	/** Setter for the lastActivityRef */
 	markActivity?: VoidFunction;
+	/** Configuration that enables/disables some parts of the overlay on top of the video player */
 	controlsConfig?: ControlsConfig;
+	/** Props that will be provided to ReactPlayer */
 	reactPlayerProps?: ReactPlayerProps;
+	/** Video state */
 	state?: VideoState;
+	/** Instance ref for the ReactPlayer */
 	reactPlayerRef?: RefObject<ReactPlayer>;
+	/** Ref to the container of the <video>. Used mostly for fullscreen */
 	videoContainerRef: RefObject<HTMLDivElement>;
+	/** Fullscreen API getter and setters */
 	fullScreenApi?: FullscreenApi;
 }
 
+/** A React Context - to share video api through components */
 export const VideoContext = createContext<VideoContext | null>(null);
 
+/** A provider that should wrap VideoContainer for context consuming */
 export const VideoProvider: FC<VideoProviderProps> = ({
 	initialState: firstInitialState = PROVIDER_INITIAL_STATE,
 	children,
@@ -130,6 +141,13 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 
 			return ctx as VideoContext;
 		},
+		// Creating a new lazy state function - to renew state should ne only:
+		// we change controlsConfig(responsible to display video controls),
+		// dispatch - if the dispatcher is changed,
+		// state changes(user triggered it, or by events listeners),
+		// initialState.playing - to trigger autoplay,
+		// markActivity + lastActivityRef - setter and it's value to detect user interactions with the player(mouse move),
+		// reactPlayerRef - ReactPlayer instance ref,
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[
 			controlsConfig,
@@ -210,6 +228,9 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			newValue = { ...newValue };
 		}
 		setVideoContext(() => newValue);
+		// VideoContext should be refreshed only when state changes(user triggered it, or by events listeners),
+		// on changing configuration for controlsConfig(responsible to display video controls)
+		// or we change initialState to avoid rerenders
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [state, controlsConfig, initialState]);
 
