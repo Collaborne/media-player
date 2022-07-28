@@ -9,56 +9,86 @@ import {
 import { BottomControlPanel } from '../BottomControlPanel';
 
 describe('<BottomControlPanel />', () => {
-	it('When first mounted, display play button from the <PlayPauseReplay /> and play/pause events', async () => {
+	const api: VideoContext['api'] = {
+		play: jest.fn(),
+		pause: jest.fn(),
+		mute: jest.fn(),
+		setCurrentTime: jest.fn(),
+		setPlaybackRate: jest.fn(),
+		getPictureInPicture: jest.fn(),
+	};
+	it('displays play button on first mount', async () => {
 		const { getByTestId } = renderWithProviders(<BottomControlPanel />);
-		// On first load, we show play button
 		expect(getByTestId('icon-play')).toBeInTheDocument();
+	});
 
-		// If play button is pressed, then we show play button
+	it('displays pause button while the video plays', async () => {
+		const { getByTestId } = renderWithProviders(<BottomControlPanel />);
 		await userEvent.click(getByTestId('icon-play'));
 		expect(getByTestId('icon-pause')).toBeInTheDocument();
 	});
-});
-describe('<Check the button fired events />', () => {
-	it('api setters correspond to icon buttons', async () => {
-		const api: VideoContext['api'] = {
-			play: jest.fn(),
-			pause: jest.fn(),
-			mute: jest.fn(),
-			setCurrentTime: jest.fn(),
-			setPlaybackRate: jest.fn(),
-			getPictureInPicture: jest.fn(),
-		};
 
+	it('click on play icon', async () => {
 		const { getByTestId } = render(
 			<TestingVideoProvider api={api}>
 				<BottomControlPanel />
 			</TestingVideoProvider>,
 		);
-		// Click on play icon button
 		const playButton = getByTestId('icon-play');
 		await userEvent.click(playButton);
 		expect(api.play).toHaveBeenCalledTimes(1);
+	});
 
-		// Click on volume icon button - muting
+	it('click on mute icon', async () => {
+		const { getByTestId } = render(
+			<TestingVideoProvider api={api}>
+				<BottomControlPanel />
+			</TestingVideoProvider>,
+		);
 		const volumeButton = getByTestId('icon-volume');
 		await userEvent.click(volumeButton);
 		expect(api.mute).toHaveBeenCalledTimes(1);
+	});
 
-		// Click on forward-rewind icon button
+	it('click on fwd icon', async () => {
+		const { getByTestId } = render(
+			<TestingVideoProvider api={api}>
+				<BottomControlPanel />
+			</TestingVideoProvider>,
+		);
 		const fwdButton = getByTestId('icon-fwd');
-		const rwdButton = getByTestId('icon-rwd');
 		await userEvent.click(fwdButton);
 		expect(api.setCurrentTime).toHaveBeenCalledTimes(1);
-		await userEvent.click(rwdButton);
-		expect(api.setCurrentTime).toHaveBeenCalledTimes(2);
+	});
 
-		// Click on playbackRate
+	it('click on rwd icon', async () => {
+		const { getByTestId } = render(
+			<TestingVideoProvider api={api}>
+				<BottomControlPanel />
+			</TestingVideoProvider>,
+		);
+		const rwdButton = getByTestId('icon-rwd');
+		await userEvent.click(rwdButton);
+		expect(api.setCurrentTime).toHaveBeenCalledTimes(1);
+	});
+
+	it('click on playbackRate icon', async () => {
+		const { getByTestId } = render(
+			<TestingVideoProvider api={api}>
+				<BottomControlPanel />
+			</TestingVideoProvider>,
+		);
 		const rateBtn = getByTestId('playback-rate');
 		await userEvent.click(rateBtn);
 		expect(api.setPlaybackRate).toHaveBeenCalledTimes(1);
+	});
 
-		// Click on pip icon button
+	it('click on pip icon', async () => {
+		const { getByTestId } = render(
+			<TestingVideoProvider api={api}>
+				<BottomControlPanel />
+			</TestingVideoProvider>,
+		);
 		const pip = getByTestId('icon-pip');
 		await userEvent.click(pip);
 		// TODO: FIX-> api.requestPip wont be called (state setter wont work in jest)

@@ -20,7 +20,7 @@ const makeSut = (props: Partial<FileActionPanelProps>) => {
 };
 
 describe('<FileActionPanel />', () => {
-	it('check onDelete prop', async () => {
+	it('calls onDelete callback', async () => {
 		const onDelete = jest.fn();
 		const { getByTestId } = makeSut({
 			onDelete,
@@ -29,7 +29,7 @@ describe('<FileActionPanel />', () => {
 		await userEvent.click(onDeleteBtn);
 		expect(onDelete).toHaveBeenCalled();
 	});
-	it('check onDownload prop', async () => {
+	it('calls onDownload callback', async () => {
 		const onDownload = jest.fn();
 		const { getByTestId } = makeSut({
 			onDownload,
@@ -38,7 +38,7 @@ describe('<FileActionPanel />', () => {
 		await userEvent.click(onDownloadBtn);
 		expect(onDownload).toHaveBeenCalled();
 	});
-	it('check setAsCover prop when do not have a video thumbnail', async () => {
+	it('disables set-cover-image button if the video has no thumbnail', async () => {
 		const setAsCover = jest.fn();
 		const { getByTestId } = makeSut({
 			setAsCover,
@@ -47,11 +47,9 @@ describe('<FileActionPanel />', () => {
 		const onSetAsCoverBtn = getByTestId(
 			`${FILE_ACTION_TEST_SUFFIX}-setAsCover`,
 		);
-		// await userEvent.click(onSetAsCoverBtn);
-		console.log(onSetAsCoverBtn);
 		expect(onSetAsCoverBtn).toBeDisabled();
 	});
-	it('check setAsCover prop when we have a video thumbnail', async () => {
+	it('calls set-cover-image callback', async () => {
 		const setAsCover = jest.fn();
 		const { getByTestId } = makeSut({
 			setAsCover,
@@ -64,7 +62,7 @@ describe('<FileActionPanel />', () => {
 		expect(setAsCover).toHaveBeenCalledTimes(1);
 	});
 
-	it('check removeAsCover props when is cover', async () => {
+	it('calls remove-cover-image callback', async () => {
 		const removeAsCover = jest.fn();
 		const { getByTestId } = makeSut({
 			removeAsCover,

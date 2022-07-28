@@ -3,7 +3,7 @@ import { userEvent, renderWithProviders } from '../../../utils/testing-render';
 import { CenteredBottomPlayback } from '../CenteredBottomPlayback';
 
 describe('<CenteredBottomPlayback />', () => {
-	it('check onDelete prop', async () => {
+	it('activates the playback rate button that was clicked last', async () => {
 		const { getByTestId } = renderWithProviders(<CenteredBottomPlayback />);
 		const firstPlaybackRate = getByTestId('c-playbackRate-1');
 		const secondPlaybackRate = getByTestId('c-playbackRate-2');
