@@ -12,6 +12,7 @@ import { FC, useState } from 'react';
 import intl from 'react-intl-universal';
 
 import { useFileActionPanelStyles } from './useFileActionPanelStyles';
+export const FILE_ACTION_TEST_SUFFIX = 'data-test-file-action';
 
 export interface FileActionPanelProps {
 	onDownload: VoidFunction;
@@ -50,12 +51,14 @@ export const FileActionPanel: FC<FileActionPanelProps> = ({
 			className={clsx(wrapper, className)}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
+			data-testid={`${FILE_ACTION_TEST_SUFFIX}-wrapper`}
 		>
 			<IconButton
 				color="inherit"
 				size="medium"
 				onClick={onDownload}
 				className={iconWrapper}
+				data-testid={`${FILE_ACTION_TEST_SUFFIX}-download`}
 			>
 				<FileDownloadOutlined />
 
@@ -68,6 +71,7 @@ export const FileActionPanel: FC<FileActionPanelProps> = ({
 				size="medium"
 				onClick={onDelete}
 				className={iconWrapper}
+				data-testid={`${FILE_ACTION_TEST_SUFFIX}-delete`}
 			>
 				<DeleteOutlineOutlined />
 
@@ -82,6 +86,7 @@ export const FileActionPanel: FC<FileActionPanelProps> = ({
 					size="medium"
 					onClick={removeAsCover}
 					className={iconWrapper}
+					data-testid={`${FILE_ACTION_TEST_SUFFIX}-removeAsCover`}
 				>
 					<ImageNotSupportedOutlined />
 
@@ -96,6 +101,7 @@ export const FileActionPanel: FC<FileActionPanelProps> = ({
 					onClick={setAsCover}
 					disabled={!hasImageCover}
 					className={iconWrapper}
+					data-testid={`${FILE_ACTION_TEST_SUFFIX}-setAsCover`}
 				>
 					<ImageOutlined color="primary" />
 
