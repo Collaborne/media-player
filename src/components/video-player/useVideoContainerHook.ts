@@ -171,7 +171,7 @@ export const useVideoContainerHook = ({
 		if (width && height && rect) {
 			containerSizeRef.current = { width, height, ...rect };
 		}
-		// Calculates only on mount, and passes this size to <VideoPoster/>
+		// Calculates only on mounting the VideoContainer and passes this size to <VideoPoster/>
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

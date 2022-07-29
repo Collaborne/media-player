@@ -30,7 +30,7 @@ export interface FileActionPanelProps {
 	/** CSS class name applied to component */
 	className?: string;
 }
-/** A ReactComponent that provides functionality for downloading, deleting, remove or set as cover  */
+/** A ReactComponent that provides functionality for downloading, deleting, remove or set as cover */
 export const FileActionPanel: FC<FileActionPanelProps> = ({
 	onDownload,
 	onDelete,

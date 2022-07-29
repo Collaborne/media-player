@@ -228,7 +228,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			newValue = { ...newValue };
 		}
 		setVideoContext(() => newValue);
-		// VideoContext should be refreshed only when state changes(user triggered it, or by events listeners),
+		// VideoContext should only be refreshed when state changes(user triggered it, or by events listeners),
 		// on changing configuration for controlsConfig(responsible to display video controls)
 		// or we change initialState to avoid rerenders
 		// eslint-disable-next-line react-hooks/exhaustive-deps

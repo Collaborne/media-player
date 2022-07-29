@@ -18,7 +18,7 @@ npm install --save @collaborne/video-player
 ## How to use
  - **Simplified** or *out of the box* - if you don't need to manage any states by your own, or usage of the api, you can just use VideoPlayer
 
-```
+```ts
 import React from 'react';
 import { VideoPlayer } from '@collaborne/video-player';
 
@@ -31,7 +31,7 @@ export const MyComponent: React.FC = () => {
 -  **Composed**  or *individual*-  This case recommended is when you want to control video state (playing, pausing, muting...). 
 You need to wrap your components in `VideoProvider` and add `VideoContainer` as a children too. 
 Then you can consume `VideoContext` via `useVideo` hook.
-```
+```ts
 import React from 'react';
 import { useVideo, VideoProvider, VideoContainer } from '@collaborne/video-player';
 
