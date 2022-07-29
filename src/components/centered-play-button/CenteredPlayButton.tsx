@@ -1,5 +1,5 @@
 import { IconButtonProps } from '@mui/material/IconButton';
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import { useVideo } from '../../hooks/use-video';
 import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';
@@ -17,10 +17,10 @@ export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 	iconButtonProps,
 }) => {
 	const { api } = useVideo();
-	const onPlay = useCallback(() => {
+	const onPlay = () => {
 		api?.play?.();
 		onClick?.();
-	}, [api, onClick]);
+	};
 
 	return (
 		<BigCenteredButton

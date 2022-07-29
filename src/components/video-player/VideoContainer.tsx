@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
 
@@ -19,91 +19,89 @@ interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
 	className?: string;
 }
 
-const VideoContainer: FC<VideoContainerProps> = memo(
-	({
-		className,
-		videoUrl,
-		hasPlayEnabled,
-		onPlay,
-		onDelete,
-		onDownload,
-		removeAsCover,
-		setAsCover,
-		actionPanelClassName,
-		hasImageCover,
-		isCover,
-	}) => {
-		const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
-			useVideo();
-		const { wrapper, pipText, reactPlayer } = useVideoContainerStyles().classes;
+const VideoContainer: FC<VideoContainerProps> = ({
+	className,
+	videoUrl,
+	hasPlayEnabled,
+	onPlay,
+	onDelete,
+	onDownload,
+	removeAsCover,
+	setAsCover,
+	actionPanelClassName,
+	hasImageCover,
+	isCover,
+}) => {
+	const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
+		useVideo();
+	const { wrapper, pipText, reactPlayer } = useVideoContainerStyles().classes;
 
-		const {
-			containerSizeRef,
-			isPlayerReady,
-			onMouseLeave,
-			onMouseEnter,
-			showControls,
-		} = useVideoContainerHook({ hasPlayEnabled, onPlay, videoUrl });
+	const {
+		containerSizeRef,
+		isPlayerReady,
+		onMouseLeave,
+		onMouseEnter,
+		showControls,
+	} = useVideoContainerHook({ hasPlayEnabled, onPlay, videoUrl });
 
-		// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
-		if (!videoUrl || !isPlayerReady) {
-			return null;
-		}
+	// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
+	if (!videoUrl || !isPlayerReady) {
+		return null;
+	}
 
-		return (
-			<div
-				ref={videoContainerRef}
-				className={clsx(wrapper, className)}
-				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}
-			>
-				{Boolean(videoUrl) && (
-					<>
-						<DraggablePopover
-							disablePortal={Boolean(!api?.getPictureInPicture?.())}
-						>
-							<ReactPlayer
-								url={videoUrl}
-								progressInterval={PROGRESS_INTERVAL}
-								width="100%"
-								height={fullScreenApi?.isFullscreen ? '100%' : 'unset'}
-								className={reactPlayer}
-								data-testid="video-player"
-								config={{
-									file: {
-										attributes: {
-											crossOrigin: 'anonymous',
-											preload: 'false',
-										},
+	return (
+		<div
+			ref={videoContainerRef}
+			className={clsx(wrapper, className)}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+		>
+			{Boolean(videoUrl) && (
+				<>
+					<DraggablePopover
+						disablePortal={Boolean(!api?.getPictureInPicture?.())}
+					>
+						<ReactPlayer
+							url={videoUrl}
+							progressInterval={PROGRESS_INTERVAL}
+							width="100%"
+							height={fullScreenApi?.isFullscreen ? '100%' : 'unset'}
+							className={reactPlayer}
+							data-testid="video-player"
+							config={{
+								file: {
+									attributes: {
+										crossOrigin: 'anonymous',
+										preload: 'false',
 									},
-								}}
-								{...reactPlayerProps}
-							/>
-						</DraggablePopover>
-						{Boolean(api?.getPictureInPicture?.()) && (
-							<VideoPoster
-								width={containerSizeRef?.current?.width || 0}
-								height={containerSizeRef?.current?.height || 0}
-							>
-								<div className={pipText}>{intl.get('video.playing_pip')}</div>
-							</VideoPoster>
-						)}
-						<Controls
-							isVisible={showControls}
-							onDelete={onDelete}
-							onDownload={onDownload}
-							removeAsCover={removeAsCover}
-							setAsCover={setAsCover}
-							actionPanelClassName={actionPanelClassName}
-							hasImageCover={hasImageCover}
-							isCover={isCover}
+								},
+							}}
+							{...reactPlayerProps}
 						/>
-					</>
-				)}
-			</div>
-		);
-	},
-);
+					</DraggablePopover>
+					{Boolean(api?.getPictureInPicture?.()) && (
+						<VideoPoster
+							width={containerSizeRef?.current?.width || 0}
+							height={containerSizeRef?.current?.height || 0}
+						>
+							<div className={pipText}>{intl.get('video.playing_pip')}</div>
+						</VideoPoster>
+					)}
+					<Controls
+						isVisible={showControls}
+						onDelete={onDelete}
+						onDownload={onDownload}
+						removeAsCover={removeAsCover}
+						setAsCover={setAsCover}
+						actionPanelClassName={actionPanelClassName}
+						hasImageCover={hasImageCover}
+						isCover={isCover}
+					/>
+				</>
+			)}
+		</div>
+	);
+};
 
 VideoContainer.displayName = 'VideoContainer';
 

@@ -8,7 +8,7 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import clsx from 'clsx';
-import { FC, useCallback, useState } from 'react';
+import { FC, useState } from 'react';
 import intl from 'react-intl-universal';
 
 import { useFileActionPanelStyles } from './useFileActionPanelStyles';
@@ -40,8 +40,8 @@ export const FileActionPanel: FC<FileActionPanelProps> = ({
 		isOpened,
 	}).classes;
 
-	const onMouseEnter = useCallback(() => setIsOpened(true), []);
-	const onMouseLeave = useCallback(() => setIsOpened(false), []);
+	const onMouseEnter = () => setIsOpened(true);
+	const onMouseLeave = () => setIsOpened(false);
 
 	return (
 		<Grid

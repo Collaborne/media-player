@@ -1,7 +1,7 @@
 import Paper from '@mui/material/Paper';
 import Portal, { PortalProps } from '@mui/material/Portal';
 import clsx from 'clsx';
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
 import { PipOverlay } from '../pip-overlay/PipOverlay';
@@ -21,52 +21,56 @@ export interface DraggablePopoverProps extends PortalProps {
 	className?: string;
 }
 
-export const DraggablePopover: FC<DraggablePopoverProps> = memo(
-	({ className, children, rndProps, ...props }) => {
-		const { defaultPosition, defaultWidth, enableResizing } =
-			useDraggablePopoverHook({ disablePortal: props.disablePortal });
+export const DraggablePopover: FC<DraggablePopoverProps> = ({
+	className,
+	children,
+	rndProps,
+	...props
+}) => {
+	const { defaultPosition, defaultWidth, enableResizing } =
+		useDraggablePopoverHook({ disablePortal: props.disablePortal });
 
-		const { paper, progressBar, portalWrapper, resizeSquares } =
-			useDraggablePopoverStyles({
-				isExpanded: Boolean(props.disablePortal),
-			}).classes;
+	const { paper, progressBar, portalWrapper, resizeSquares } =
+		useDraggablePopoverStyles({
+			isExpanded: Boolean(props.disablePortal),
+		}).classes;
 
-		return (
-			<Portal {...props}>
-				<div className={portalWrapper}>
-					<Rnd
-						bounds="parent"
-						default={{
-							...defaultPosition,
-							...defaultWidth,
-						}}
-						disableDragging={props.disablePortal}
-						enableResizing={enableResizing}
-						lockAspectRatio
-						allowAnyClick
-						resizeHandleClasses={{
-							topLeft: resizeSquares,
-							topRight: resizeSquares,
-							bottomLeft: resizeSquares,
-							bottomRight: resizeSquares,
-						}}
-						{...rndProps}
-						minWidth={241}
-						minHeight={146}
-					>
-						<Paper elevation={0} className={clsx(paper, className)}>
-							{children}
-							{!props.disablePortal && (
-								<>
-									<PipOverlay />
-									<ProgressBar className={progressBar} />
-								</>
-							)}
-						</Paper>
-					</Rnd>
-				</div>
-			</Portal>
-		);
-	},
-);
+	return (
+		<Portal {...props}>
+			<div className={portalWrapper}>
+				<Rnd
+					bounds="parent"
+					default={{
+						...defaultPosition,
+						...defaultWidth,
+					}}
+					disableDragging={props.disablePortal}
+					enableResizing={enableResizing}
+					lockAspectRatio
+					allowAnyClick
+					resizeHandleClasses={{
+						topLeft: resizeSquares,
+						topRight: resizeSquares,
+						bottomLeft: resizeSquares,
+						bottomRight: resizeSquares,
+					}}
+					{...rndProps}
+					minWidth={241}
+					minHeight={146}
+				>
+					<Paper elevation={0} className={clsx(paper, className)}>
+						{children}
+						{!props.disablePortal && (
+							<>
+								<PipOverlay />
+								<ProgressBar className={progressBar} />
+							</>
+						)}
+					</Paper>
+				</Rnd>
+			</div>
+		</Portal>
+	);
+};
+
 DraggablePopover.displayName = 'DraggablePopover';

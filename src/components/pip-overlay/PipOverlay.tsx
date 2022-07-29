@@ -45,17 +45,17 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 		playbackRate,
 	} = useBottomControlPanelHook();
 
-	const onClose = useCallback(() => {
+	const onClose = () => {
 		onStop();
 		api?.exitPip?.();
-	}, [api?.exitPip, onStop]);
+	};
 
-	const onMouseMove = useCallback(() => {
+	const onMouseMove = () => {
 		markActivity?.();
 		setLastMouseMove(Date.now());
-	}, [markActivity]);
+	};
 
-	const onMouseLeave = useCallback(() => setLastMouseLeave(Date.now()), []);
+	const onMouseLeave = () => setLastMouseLeave(Date.now());
 
 	const updateShowControls = useCallback(() => {
 		const lastActivity = lastActivityRef?.current || 0;

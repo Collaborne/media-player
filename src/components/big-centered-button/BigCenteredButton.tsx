@@ -1,7 +1,7 @@
 import { SvgIconProps } from '@mui/material';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import clsx from 'clsx';
-import { ComponentType, FC, useCallback } from 'react';
+import { ComponentType, FC } from 'react';
 
 import { useBigCenteredButtonStyles } from './useBigCenteredButtonStyles';
 
@@ -22,12 +22,9 @@ export const BigCenteredButton: FC<BigCenteredButtonProps> = ({
 	Icon,
 }) => {
 	const { controlsWrapper, svgStyle } = useBigCenteredButtonStyles().classes;
-	const handleClick = useCallback(() => {
-		onClick?.();
-	}, [onClick]);
 
 	return (
-		<div className={clsx(controlsWrapper, classNames)} onClick={handleClick}>
+		<div className={clsx(controlsWrapper, classNames)} onClick={onClick}>
 			<IconButton {...iconButtonProps}>
 				<Icon className={svgStyle} />
 			</IconButton>
