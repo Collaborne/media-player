@@ -12,13 +12,19 @@ import { VideoPoster } from '../video-poster/VideoPoster';
 import { useVideoContainerHook } from './useVideoContainerHook';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
 
-interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
+/** VideoContainer Props */
+export interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
+	/** The url of the video file to be played */
 	videoUrl: string;
-	hasPlayEnabled: boolean;
-	onPlay: VoidFunction;
+	/** Boolean that represents if the play is enabled. */
+	hasPlayEnabled?: boolean;
+	/** Callback triggered by play event */
+	onPlay?: VoidFunction;
+	/** CSS class name applied to component  */
 	className?: string;
 }
 
+/** A React Component that consumes VideoContext's API and adds UI for the player and video controls  */
 const VideoContainer: FC<VideoContainerProps> = ({
 	className,
 	videoUrl,

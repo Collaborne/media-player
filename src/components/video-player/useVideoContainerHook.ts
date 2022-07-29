@@ -16,8 +16,8 @@ import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';
 
 interface UseVideoContainerHookProps {
 	videoUrl: string;
-	hasPlayEnabled: boolean;
-	onPlay: VoidFunction;
+	hasPlayEnabled?: boolean;
+	onPlay?: VoidFunction;
 }
 interface UseVideoContainerHook {
 	isPlayerReady: boolean;
@@ -66,6 +66,7 @@ export const useVideoContainerHook = ({
 	// Checks if video container is in viewport when scrolling top
 	const entryBottom = useIntersection(videoContainerRef, {});
 	const isVisibleFromScrollingBottom = Boolean(entryBottom?.isIntersecting);
+	const onPlayCb = () => onPlay?.();
 
 	const updateShowControls = useCallback(() => {
 		if (controlsConfig?.alwaysShowConfig || isFullscreen) {
@@ -170,6 +171,8 @@ export const useVideoContainerHook = ({
 		if (width && height && rect) {
 			containerSizeRef.current = { width, height, ...rect };
 		}
+		// Calculates only on mounting the VideoContainer and passes this size to <VideoPoster/>
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// On wheel event - updating that pip isn't triggered by a click on pip icon button
@@ -221,7 +224,7 @@ export const useVideoContainerHook = ({
 		() => {
 			const currentTime = api?.getCurrentRelativeTime?.();
 			calculateContainerSizes();
-			onPlay();
+			onPlayCb();
 			setTimeout(() => {
 				api?.setCurrentTime?.(currentTime);
 			}, PROGRESS_INTERVAL - 1);
@@ -271,7 +274,7 @@ export const useVideoContainerHook = ({
 		}
 	}, [api, hasPlayEnabled]);
 	// Call onPlay when we have play event(setCurrentPlayingUrl to current one)
-	useEventListener('play', onPlay, api as unknown as HTMLElement);
+	useEventListener('play', onPlayCb, api as unknown as HTMLElement);
 
 	return {
 		isPlayerReady,

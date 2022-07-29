@@ -3,9 +3,7 @@ import type ReactPlayer from 'react-player';
 
 import { VideoState } from '.';
 
-/**
- * Additional React-Player props for controlling video state
- */
+/** Props that will be provided to ReactPlayer */
 export interface ReactPlayerProps {
 	autoPlay: boolean;
 	playsinline: boolean;

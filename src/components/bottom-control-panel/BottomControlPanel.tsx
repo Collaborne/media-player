@@ -35,6 +35,10 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 		isMuted,
 		isPlaying,
 		isFullscreen,
+		showFullscreenIcon,
+		showPipIcon,
+		showPlaybackRate,
+		showVolume,
 		onFwd,
 		onPlay,
 		onRwd,
@@ -79,22 +83,20 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 						<Forward10Outlined fontSize="medium" />
 					</IconButton>
 					{/* Volume Slider */}
-					<Grid className={gridCentered}>
-						<IconButton
-							size="medium"
-							onClick={onToggleClick}
-							data-testid="icon-volume"
-						>
-							<VolumeIcon fontSize="medium" volume={isMuted ? 0 : volume} />
-						</IconButton>
-						<VolumeBarStyled
-							min={0}
-							max={100}
-							value={volume}
-							size="small"
-							onChange={onVolumeChange}
-						/>
-					</Grid>
+					{showVolume && (
+						<Grid className={gridCentered}>
+							<IconButton size="medium" onClick={onToggleClick}>
+								<VolumeIcon fontSize="medium" volume={isMuted ? 0 : volume} />
+							</IconButton>
+							<VolumeBarStyled
+								min={0}
+								max={100}
+								value={volume}
+								size="small"
+								onChange={onVolumeChange}
+							/>
+						</Grid>
+					)}
 				</Grid>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="center">
@@ -106,25 +108,30 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="flex-end">
 				{/* Playback Rate */}
-				<PlaybackRateButton
-					playbackRate={playbackRate}
-					onChangeRate={onSetPlaybackRate}
-					variant="text"
-					className={playBackRateBtn}
-					data-testid="playback-rate"
-				/>
+				{showPlaybackRate && (
+					<PlaybackRateButton
+						playbackRate={playbackRate}
+						onChangeRate={onSetPlaybackRate}
+						variant="text"
+						className={playBackRateBtn}
+					/>
+				)}
 				{/* Picture In Picture */}
-				<IconButton size="medium" onClick={onPip} data-testid="icon-pip">
-					<PiPIcon fontSize="medium" />
-				</IconButton>
+				{showPipIcon && (
+					<IconButton size="medium" onClick={onPip}>
+						<PiPIcon fontSize="medium" />
+					</IconButton>
+				)}
 				{/* Fullscreen mode */}
-				<IconButton size="medium" onClick={onFullscreen}>
-					{isFullscreen ? (
-						<FullscreenExitIcon fontSize="medium" />
-					) : (
-						<FullscreenEnterIcon fontSize="medium" />
-					)}
-				</IconButton>
+				{showFullscreenIcon && (
+					<IconButton size="medium" onClick={onFullscreen}>
+						{isFullscreen ? (
+							<FullscreenExitIcon fontSize="medium" />
+						) : (
+							<FullscreenEnterIcon fontSize="medium" />
+						)}
+					</IconButton>
+				)}
 			</Grid>
 		</Grid>
 	);

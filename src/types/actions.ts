@@ -4,6 +4,7 @@ export type PartialVideoState = Partial<VideoState> | void;
 
 type NewBounds = Record<'startTime' | 'endTime', number>;
 
+/** List of setters for the VideoState */
 export interface VideoActions {
 	play: (state: VideoState) => PartialVideoState;
 	setNewBounds: (state: VideoState, duration: NewBounds) => PartialVideoState;

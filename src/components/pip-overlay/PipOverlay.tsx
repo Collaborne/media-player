@@ -63,6 +63,10 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 			return setShowControls(true);
 		}
 		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
+		// Updating showControls should be on mouse move(stored here as a lastMouseLeave),
+		// the video is paused(paused video has always controls on top)
+		// or entering in PIP mode(we need to trigger creation of the new function)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [lastMouseLeave, api?.getPaused, api?.getPictureInPicture]);
 
 	useEffect(updateShowControls, [

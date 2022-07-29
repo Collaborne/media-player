@@ -3,11 +3,11 @@ import { Meta, Story } from '@storybook/react';
 import { useState } from 'react';
 
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
+import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
 import {
 	VideoPlayer as VideoPlayerComponent,
 	VideoPlayerProps,
-} from '../../src/components/video-player';
-import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
+} from '../../src/components/video-player/VideoPlayer';
 import { withDemoCard, withIntl, withTheme } from '../decorators';
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
@@ -80,7 +80,7 @@ export default {
 	argTypes: {
 		videoUrl: {
 			name: 'props.videoUrl',
-			description: 'A video URL. Any ReactPlayer type supported',
+			description: 'A video URL. Only file type supported',
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: undefined },
