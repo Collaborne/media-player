@@ -73,6 +73,7 @@ const VideoContainer: FC<VideoContainerProps> = ({
 							width="100%"
 							height={fullScreenApi?.isFullscreen ? '100%' : 'unset'}
 							className={reactPlayer}
+							data-testid="video-player"
 							config={{
 								file: {
 									attributes: {
