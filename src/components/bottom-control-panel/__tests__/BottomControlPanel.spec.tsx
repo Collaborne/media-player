@@ -6,6 +6,7 @@ import {
 	TestingVideoProvider,
 	userEvent,
 } from '../../../utils/testing-render';
+import { DEFAULT_CONTROLS_CONFIG } from '../../controls/controls-config';
 import { BottomControlPanel } from '../BottomControlPanel';
 
 describe('<BottomControlPanel />', () => {
@@ -30,7 +31,7 @@ describe('<BottomControlPanel />', () => {
 
 	it('click on play icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingVideoProvider api={api} controlsConfig={DEFAULT_CONTROLS_CONFIG}>
 				<BottomControlPanel />
 			</TestingVideoProvider>,
 		);
@@ -41,7 +42,7 @@ describe('<BottomControlPanel />', () => {
 
 	it('click on mute icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingVideoProvider api={api} controlsConfig={DEFAULT_CONTROLS_CONFIG}>
 				<BottomControlPanel />
 			</TestingVideoProvider>,
 		);
@@ -52,10 +53,11 @@ describe('<BottomControlPanel />', () => {
 
 	it('click on fwd icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingVideoProvider api={api} controlsConfig={DEFAULT_CONTROLS_CONFIG}>
 				<BottomControlPanel />
 			</TestingVideoProvider>,
 		);
+
 		const fwdButton = getByTestId('icon-fwd');
 		await userEvent.click(fwdButton);
 		expect(api.setCurrentTime).toHaveBeenCalledTimes(1);
@@ -63,7 +65,7 @@ describe('<BottomControlPanel />', () => {
 
 	it('click on rwd icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingVideoProvider api={api} controlsConfig={DEFAULT_CONTROLS_CONFIG}>
 				<BottomControlPanel />
 			</TestingVideoProvider>,
 		);
@@ -74,24 +76,25 @@ describe('<BottomControlPanel />', () => {
 
 	it('click on playbackRate icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingVideoProvider api={api} controlsConfig={DEFAULT_CONTROLS_CONFIG}>
 				<BottomControlPanel />
 			</TestingVideoProvider>,
 		);
-		const rateBtn = getByTestId('playback-rate');
+		const rateBtn = getByTestId('icon-playback-rate');
 		await userEvent.click(rateBtn);
 		expect(api.setPlaybackRate).toHaveBeenCalledTimes(1);
 	});
 
 	it('click on pip icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingVideoProvider api={api} controlsConfig={DEFAULT_CONTROLS_CONFIG}>
 				<BottomControlPanel />
 			</TestingVideoProvider>,
 		);
 		const pip = getByTestId('icon-pip');
 		await userEvent.click(pip);
-		// TODO: FIX-> api.requestPip wont be called (state setter wont work in jest)
+		// NOTE: we should test `api.setPictureInPicture` - setter for PIP mode, but it wont be called
+		// because first we check if it runs in PIP mode(api.getPictureInPicture), after that we change "video-state" + calling `api.setPictureInPicture`
 		expect(api.getPictureInPicture).toHaveBeenCalledTimes(1);
 	});
 });
