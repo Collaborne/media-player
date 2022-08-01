@@ -9,7 +9,6 @@ export const useVideoContainerStyles = makeStyles()(theme => ({
 		backgroundSize: 'cover',
 	},
 	pipText: {
-		// color: theme.palette.contrasts[4],
 		margin: theme.spacing(1, 0, 0, 2),
 	},
 	reactPlayer: {

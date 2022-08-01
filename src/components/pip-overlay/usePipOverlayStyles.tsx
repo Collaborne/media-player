@@ -21,9 +21,7 @@ export const usePipOverlayStyles = makeStyles()(theme => ({
 		right: 0,
 		pointerEvents: 'none',
 	},
-	iconMiddle: {
-		color: theme.palette.contrasts[4],
-	},
+
 	centerIcon: {
 		width: theme.spacing(6),
 	},

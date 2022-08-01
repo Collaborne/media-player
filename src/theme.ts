@@ -1,39 +1,5 @@
-/* eslint-disable max-lines */
 import { createTheme } from '@mui/material/';
 import { ThemeOptions } from '@mui/material/styles/createTheme';
-
-// TODO: Check the necessity to update with tags color:
-// https://github.com/Collaborne/backlog/issues/896
-export const TAG_COLORS = [
-	'turquoise',
-	'yellow',
-	'green',
-	'red',
-	'orange',
-	'purple',
-	'brown',
-	'pink',
-	'blue',
-	'raspberry',
-	'navy',
-	'lime',
-] as const;
-
-// TODO: Check the necessity to update with tags color:
-// https://github.com/Collaborne/backlog/issues/896
-export type TagColor = typeof TAG_COLORS[number];
-const grey = {
-	50: '#FAFAFA',
-	100: '#F4F5F5',
-	200: '#ECEDED',
-	300: '#CBCCCD',
-	400: '#999C9E',
-	500: '#6E7377',
-	600: '#4C5052',
-	700: '#3D4143',
-	800: '#1D1F21',
-	900: '#0F1010',
-};
 
 export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 	const basePalette = createTheme({
@@ -57,16 +23,8 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 				secondary: 'rgba(252,252,252,0.7)',
 				disabled: 'rgba(252,252,252,0.4)',
 			},
-			backdrop: 'rgba(0, 0, 0, 0.4)',
 			common: {
 				black: '#000',
-			},
-			contrasts: {
-				1: darkmode ? grey[500] : grey[300],
-				2: darkmode ? grey[700] : grey[200],
-				3: grey[400],
-				4: darkmode ? grey[200] : grey[100],
-				5: darkmode ? grey[100] : grey[600],
 			},
 		},
 	}).palette;
