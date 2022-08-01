@@ -1,6 +1,6 @@
-import { Button as MUIButton, Card, Grid } from '@mui/material';
+import { Button as MUIButton, Paper, Grid } from '@mui/material';
 
-import { withDemoCard, withTheme } from '../decorators';
+import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
 
 const UPDATED_SIZES: Array<'small' | 'medium'> = ['medium', 'small'];
@@ -9,7 +9,7 @@ const UPDATED_COLOR: Array<'primary'> = ['primary'];
 
 export const Button = () => {
 	return (
-		<Card sx={{ background: 'rgba(0, 0, 0, 0.72)', padding: 2 }}>
+		<Paper sx={{ padding: 2 }}>
 			{UPDATED_COLOR.map(color => (
 				<>
 					<div>
@@ -30,7 +30,7 @@ export const Button = () => {
 											<div>
 												<div>size: {size}</div>
 												<MUIButton size={size} variant={variant} color={color}>
-													I'm a button
+													{size === 'small' ? 'x' : 'Button text'}
 												</MUIButton>
 											</div>
 										</div>
@@ -41,12 +41,12 @@ export const Button = () => {
 					))}
 				</>
 			))}
-		</Card>
+		</Paper>
 	);
 };
 
 export default {
 	title: 'UI Kit',
 	component: Button,
-	decorators: [withDemoCard, withPlayerTheme, withTheme],
+	decorators: [withDemoCard, withPlayerTheme],
 };

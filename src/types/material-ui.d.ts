@@ -1,17 +1,19 @@
 import '@mui/styles/createTheme';
-import type { CustomColor } from '@collaborne/carrot-styles';
-import type {
-	ProjectColors,
-	TagColors,
-} from '@collaborne/carrot-styles/src/types/material-ui';
 import { Theme } from '@mui/material/styles';
+
+import { TagColor as CustomColor } from '../theme';
 
 /**
  * Define own color schema
- * @see https://material-ui.com/customization/palette/#adding-new-colors
+ @see https://material-ui.com/customization/palette/#adding-new-colors
  */
 declare module '@mui/material/styles/createPalette' {
 	type CustomColorMap = Record<CustomColor, string>;
+
+	interface Palette extends Partial<CustomColorMap> {
+		backdrop: string;
+		contrasts: Partial<ContrastColors>;
+	}
 
 	interface ContrastColors {
 		1: string;
@@ -20,61 +22,14 @@ declare module '@mui/material/styles/createPalette' {
 		4: string;
 		5: string;
 	}
-	export interface Palette extends Partial<CustomColorMap> {
-		/** Color for indicator icons */
-		icon: string;
-
-		comment: string;
-
-		primaryVeryLight: string;
-		primaryVeryDark: string;
-		selection: string;
-
-		tags: TagColors;
-		project: ProjectColors;
-
-		contrasts: Partial<ContrastColors>;
-	}
-
+	// TODO: Check the necessity to update with tags color:
+	// https://github.com/Collaborne/backlog/issues/896
 	interface PaletteOptions extends Partial<CustomColorMap> {
-		icon: string;
-		comment: string;
-		primaryVeryLight: string;
-		primaryVeryDark: string;
-		selection: string;
-
-		tags: TagColors;
-		project: ProjectColors;
-
+		backdrop: string;
 		contrasts: Partial<ContrastColors>;
 	}
 
-	interface TypeBackground {
-		/**
-		 * Paper on elevation 2
-		 */
-		paper2: string;
-		/**
-		 * Paper on elevation 3
-		 */
-		paper3: string;
-	}
-
-	interface TypeText {
-		error: string;
-		warning: string;
-		success: string;
-		link: string;
-		hint: string;
-	}
-}
-
-declare module '@mui/material/styles/components' {
-	interface Components {
-		MuiDataGrid: any;
-		MuiPickersCalendarHeader: any;
-		MuiTabScrollButton: any;
-	}
+	interface TypeBackground {}
 }
 
 declare module '@mui/styles' {

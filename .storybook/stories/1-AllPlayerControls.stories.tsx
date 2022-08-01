@@ -13,7 +13,6 @@ import { ProgressBar } from '../../src/components/progress-bar/ProgressBar';
 import {
 	withDemoCard,
 	withPlayerTheme,
-	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
 } from '../decorators';
@@ -71,7 +70,6 @@ export default {
 		withVideoWrapper,
 		withDemoCard,
 		withPlayerTheme,
-		withTheme,
 	],
 	args: {
 		isFirstView: true,

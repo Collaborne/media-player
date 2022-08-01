@@ -1,9 +1,17 @@
+import CssBaseline from '@mui/material/CssBaseline';
+import {
+	StyledEngineProvider,
+	Theme,
+	ThemeProvider,
+} from '@mui/material/styles';
+import { deepmerge } from '@mui/utils';
 import clsx from 'clsx';
 import { FC } from 'react';
 import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
 
 import { useVideo } from '../../hooks/use-video';
+import { createPlayerTheme } from '../../theme';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
 import { ControlProps, Controls } from '../controls/Controls';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
@@ -22,6 +30,8 @@ export interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
 	onPlay?: VoidFunction;
 	/** CSS class name applied to component  */
 	className?: string;
+	/** A MUI theme to customize theme overriding */
+	theme?: Theme;
 }
 
 /** A React Component that consumes VideoContext's API and adds UI for the player and video controls  */
@@ -37,6 +47,7 @@ const VideoContainer: FC<VideoContainerProps> = ({
 	actionPanelClassName,
 	hasImageCover,
 	isCover,
+	theme,
 }) => {
 	const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
 		useVideo();
@@ -50,62 +61,69 @@ const VideoContainer: FC<VideoContainerProps> = ({
 		showControls,
 	} = useVideoContainerHook({ hasPlayEnabled, onPlay, videoUrl });
 
+	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
+
 	// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
 	if (!videoUrl || !isPlayerReady) {
 		return null;
 	}
 
 	return (
-		<div
-			ref={videoContainerRef}
-			className={clsx(wrapper, className)}
-			onMouseEnter={onMouseEnter}
-			onMouseLeave={onMouseLeave}
-		>
-			{Boolean(videoUrl) && (
-				<>
-					<DraggablePopover
-						disablePortal={Boolean(!api?.getPictureInPicture?.())}
-					>
-						<ReactPlayer
-							url={videoUrl}
-							progressInterval={PROGRESS_INTERVAL}
-							width="100%"
-							height={fullScreenApi?.isFullscreen ? '100%' : 'unset'}
-							className={reactPlayer}
-							data-testid="video-player"
-							config={{
-								file: {
-									attributes: {
-										crossOrigin: 'anonymous',
-										preload: 'false',
-									},
-								},
-							}}
-							{...reactPlayerProps}
-						/>
-					</DraggablePopover>
-					{Boolean(api?.getPictureInPicture?.()) && (
-						<VideoPoster
-							width={containerSizeRef?.current?.width || 0}
-							height={containerSizeRef?.current?.height || 0}
-						>
-							<div className={pipText}>{intl.get('video.playing_pip')}</div>
-						</VideoPoster>
+		<ThemeProvider theme={nestedThemes}>
+			<StyledEngineProvider injectFirst>
+				<CssBaseline />
+				<div
+					ref={videoContainerRef}
+					className={clsx(wrapper, className)}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
+				>
+					{Boolean(videoUrl) && (
+						<>
+							<DraggablePopover
+								disablePortal={Boolean(!api?.getPictureInPicture?.())}
+							>
+								<ReactPlayer
+									url={videoUrl}
+									progressInterval={PROGRESS_INTERVAL}
+									width="100%"
+									height={fullScreenApi?.isFullscreen ? '100%' : 'unset'}
+									className={reactPlayer}
+									data-testid="video-player"
+									config={{
+										file: {
+											attributes: {
+												crossOrigin: 'anonymous',
+												preload: 'false',
+											},
+										},
+									}}
+									{...reactPlayerProps}
+								/>
+							</DraggablePopover>
+							{Boolean(api?.getPictureInPicture?.()) && (
+								<VideoPoster
+									width={containerSizeRef?.current?.width || 0}
+									height={containerSizeRef?.current?.height || 0}
+								>
+									<div className={pipText}>{intl.get('video.playing_pip')}</div>
+								</VideoPoster>
+							)}
+							<Controls
+								isVisible={showControls}
+								onDelete={onDelete}
+								onDownload={onDownload}
+								removeAsCover={removeAsCover}
+								setAsCover={setAsCover}
+								actionPanelClassName={actionPanelClassName}
+								hasImageCover={hasImageCover}
+								isCover={isCover}
+							/>
+						</>
 					)}
-					<Controls
-						isVisible={showControls}
-						onDelete={onDelete}
-						onDownload={onDownload}
-						removeAsCover={removeAsCover}
-						setAsCover={setAsCover}
-						actionPanelClassName={actionPanelClassName}
-						hasImageCover={hasImageCover}
-						isCover={isCover}
-					/>
-				</>
-			)}
-		</div>
+				</div>
+			</StyledEngineProvider>
+		</ThemeProvider>
 	);
 };
 

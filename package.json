@@ -29,7 +29,6 @@
 		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" build-storybook --quiet"
 	},
 	"peerDependencies": {
-		"@collaborne/carrot-styles": "^6.0.0",
 		"@mui/icons-material": "^5.8.0",
 		"@mui/material": "^5.8.0",
 		"react": "^17.0.0 || ^18.0.0",
