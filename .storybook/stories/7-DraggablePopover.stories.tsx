@@ -9,7 +9,6 @@ import {
 	withDemoCard,
 	withIntl,
 	withPlayerTheme,
-	withTheme,
 	withVideoWrapper,
 } from '../decorators';
 
@@ -34,13 +33,7 @@ export const DraggablePopover: Story<Partial<DraggablePopoverProps>> = args => {
 export default {
 	title: 'Video Player Controls',
 	component: DraggablePopover,
-	decorators: [
-		withVideoWrapper,
-		withDemoCard,
-		withPlayerTheme,
-		withTheme,
-		withIntl,
-	],
+	decorators: [withVideoWrapper, withDemoCard, withPlayerTheme, withIntl],
 	args: {
 		disablePortal: false,
 		className: '',

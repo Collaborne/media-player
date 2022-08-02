@@ -4,7 +4,6 @@ import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/com
 import {
 	withDemoCard,
 	withPlayerTheme,
-	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
 } from '../decorators';
@@ -29,6 +28,5 @@ export default {
 		withVideoWrapper,
 		withDemoCard,
 		withPlayerTheme,
-		withTheme,
 	],
 };

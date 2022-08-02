@@ -4,9 +4,8 @@ import {
 	ImageNotSupportedOutlined,
 	ImageOutlined,
 } from '@mui/icons-material';
-import { Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
 import clsx from 'clsx';
 import { FC, useState } from 'react';
 import intl from 'react-intl-universal';
@@ -42,7 +41,7 @@ export const FileActionPanel: FC<FileActionPanelProps> = ({
 	className,
 }) => {
 	const [isOpened, setIsOpened] = useState(false);
-	const { wrapper, iconWrapper, textWrapper } = useFileActionPanelStyles({
+	const { wrapper, buttonWrapper, gridWrapper } = useFileActionPanelStyles({
 		isOpened,
 	}).classes;
 
@@ -50,72 +49,66 @@ export const FileActionPanel: FC<FileActionPanelProps> = ({
 	const onMouseLeave = () => setIsOpened(false);
 
 	return (
-		<Grid
-			container
-			direction="column"
-			justifyContent="flex-start"
-			className={clsx(wrapper, className)}
-			onMouseEnter={onMouseEnter}
-			onMouseLeave={onMouseLeave}
-			data-testid={`${FILE_ACTION_TEST_SUFFIX}-wrapper`}
-		>
-			<IconButton
-				color="inherit"
-				size="medium"
-				onClick={onDownload}
-				className={iconWrapper}
-				data-testid={`${FILE_ACTION_TEST_SUFFIX}-download`}
+		<div className={clsx(wrapper, className)}>
+			<Grid
+				container
+				direction="column"
+				justifyContent="flex-start"
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+				data-testid={`${FILE_ACTION_TEST_SUFFIX}-wrapper`}
+				className={gridWrapper}
 			>
-				<FileDownloadOutlined />
-
-				<Typography variant="button" className={textWrapper}>
+				<Button
+					variant="contained"
+					color="inherit"
+					size="medium"
+					onClick={onDownload}
+					className={buttonWrapper}
+					data-testid={`${FILE_ACTION_TEST_SUFFIX}-download`}
+					startIcon={<FileDownloadOutlined />}
+				>
 					{intl.get('action.download')}
-				</Typography>
-			</IconButton>
-			<IconButton
-				color="inherit"
-				size="medium"
-				onClick={onDelete}
-				className={iconWrapper}
-				data-testid={`${FILE_ACTION_TEST_SUFFIX}-delete`}
-			>
-				<DeleteOutlineOutlined />
-
-				<Typography variant="button" className={textWrapper}>
+				</Button>
+				<Button
+					variant="contained"
+					color="inherit"
+					size="medium"
+					onClick={onDelete}
+					className={buttonWrapper}
+					data-testid={`${FILE_ACTION_TEST_SUFFIX}-delete`}
+					startIcon={<DeleteOutlineOutlined />}
+				>
 					{intl.get('action.delete')}
-				</Typography>
-			</IconButton>
+				</Button>
 
-			{isCover ? (
-				<IconButton
-					color="inherit"
-					size="medium"
-					onClick={removeAsCover}
-					className={iconWrapper}
-					data-testid={`${FILE_ACTION_TEST_SUFFIX}-removeAsCover`}
-				>
-					<ImageNotSupportedOutlined />
-
-					<Typography variant="button" className={textWrapper}>
+				{isCover ? (
+					<Button
+						variant="contained"
+						color="inherit"
+						size="medium"
+						onClick={removeAsCover}
+						className={buttonWrapper}
+						data-testid={`${FILE_ACTION_TEST_SUFFIX}-removeAsCover`}
+						startIcon={<ImageNotSupportedOutlined />}
+					>
 						{intl.get('action.remove_as_cover')}
-					</Typography>
-				</IconButton>
-			) : (
-				<IconButton
-					color="inherit"
-					size="medium"
-					onClick={setAsCover}
-					disabled={!hasImageCover}
-					className={iconWrapper}
-					data-testid={`${FILE_ACTION_TEST_SUFFIX}-setAsCover`}
-				>
-					<ImageOutlined color="primary" />
-
-					<Typography variant="button" className={textWrapper}>
+					</Button>
+				) : (
+					<Button
+						variant="contained"
+						color="inherit"
+						size="medium"
+						onClick={setAsCover}
+						disabled={!hasImageCover}
+						className={buttonWrapper}
+						data-testid={`${FILE_ACTION_TEST_SUFFIX}-setAsCover`}
+						startIcon={<ImageOutlined color="primary" />}
+					>
 						{intl.get('action.set_as_cover')}
-					</Typography>
-				</IconButton>
-			)}
-		</Grid>
+					</Button>
+				)}
+			</Grid>
+		</div>
 	);
 };

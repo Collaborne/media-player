@@ -24,7 +24,6 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 		wrapper,
 		iconButton,
 		iconRightWrapper,
-		iconMiddle,
 		centerIcon,
 		centerButtonIcon,
 		playBackRateWrapper,
@@ -102,7 +101,7 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 				display="inline-flex"
 			>
 				<div>
-					<IconButton size="medium" className={iconMiddle} onClick={onRwd}>
+					<IconButton size="medium" onClick={onRwd}>
 						<Replay10 fontSize="medium" />
 					</IconButton>
 					<PlayPauseReplay
@@ -121,7 +120,7 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 						}}
 						svgIconSize="large"
 					/>
-					<IconButton size="medium" className={iconMiddle} onClick={onFwd}>
+					<IconButton size="medium" onClick={onFwd}>
 						<Forward10 fontSize="medium" />
 					</IconButton>
 				</div>

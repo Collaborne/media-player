@@ -8,7 +8,7 @@ import {
 	VideoPlayer as VideoPlayerComponent,
 	VideoPlayerProps,
 } from '../../src/components/video-player/VideoPlayer';
-import { withDemoCard, withIntl, withTheme } from '../decorators';
+import { withDemoCard, withIntl } from '../decorators';
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
 	const [currentPlayingUrl, setCurrentPlayingUrl] = useState<string>('');
@@ -69,7 +69,7 @@ export const VideoPlayer: Story<VideoPlayerProps> = args => {
 export default {
 	title: 'Video Player',
 	component: VideoPlayer,
-	decorators: [withDemoCard, withTheme, withIntl],
+	decorators: [withDemoCard, withIntl],
 	args: {
 		videoUrl:
 			'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',

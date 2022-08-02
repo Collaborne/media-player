@@ -1,9 +1,14 @@
-import { Theme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import {
+	StyledEngineProvider,
+	Theme,
+	ThemeProvider,
+} from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
 import { FC } from 'react';
 
 import { VideoProvider } from '../../context/video';
-import { playerTheme } from '../../theme';
+import { createPlayerTheme } from '../../theme';
 import { ControlsConfig } from '../../types';
 import { DEFAULT_CONTROLS_CONFIG } from '../controls/controls-config';
 import { FileActionPanelProps } from '../file-action-panel/FileActionPanel';
@@ -47,26 +52,28 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 	const hasPlayEnabled = videoUrl === currentPlayingUrl;
 
 	const onPlay = () => setCurrentPlayingUrl?.(videoUrl);
-
-	const nestedThemes = deepmerge(playerTheme, theme || {});
+	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
 
 	return (
-		<ThemeProvider theme={outerTheme => deepmerge(outerTheme, nestedThemes)}>
-			<VideoProvider controlsConfig={controlsConfig}>
-				<VideoContainer
-					className={className}
-					videoUrl={videoUrl}
-					hasPlayEnabled={hasPlayEnabled}
-					onPlay={onPlay}
-					onDelete={onDelete}
-					onDownload={onDownload}
-					removeAsCover={removeAsCover}
-					setAsCover={setAsCover}
-					actionPanelClassName={actionPanelClassName}
-					hasImageCover={hasImageCover}
-					isCover={isCover}
-				/>
-			</VideoProvider>
+		<ThemeProvider theme={nestedThemes}>
+			<StyledEngineProvider injectFirst>
+				<CssBaseline />
+				<VideoProvider controlsConfig={controlsConfig}>
+					<VideoContainer
+						className={className}
+						videoUrl={videoUrl}
+						hasPlayEnabled={hasPlayEnabled}
+						onPlay={onPlay}
+						onDelete={onDelete}
+						onDownload={onDownload}
+						removeAsCover={removeAsCover}
+						setAsCover={setAsCover}
+						actionPanelClassName={actionPanelClassName}
+						hasImageCover={hasImageCover}
+						isCover={isCover}
+					/>
+				</VideoProvider>
+			</StyledEngineProvider>
 		</ThemeProvider>
 	);
 };

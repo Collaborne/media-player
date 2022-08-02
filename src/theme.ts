@@ -1,41 +1,37 @@
-import { PaletteOptions, Components, Theme } from '@mui/material/styles/';
+import { createTheme } from '@mui/material/';
+import { ThemeOptions } from '@mui/material/styles/createTheme';
 
-interface PlayerPaletteOptions
-	extends Pick<PaletteOptions, 'background' | 'text'> {
-	backdrop?: string;
-	common?: Record<'black', string>;
-}
-
-interface PlayerComponents
-	extends Pick<Components, 'MuiSvgIcon' | 'MuiButton' | 'MuiIconButton'> {}
-
-/** Player theme, that should be merged into mui Theme */
-interface PlayerTheme {
-	palette: PlayerPaletteOptions;
-	components: PlayerComponents;
-}
-
-const createPlayerTheme = (): PlayerTheme => {
-	const newPalette: Partial<PlayerPaletteOptions> = {
-		background: {
-			default: 'rgba(0, 0, 0, 0.72)',
-			paper: 'rgba(252,252,252, 0.28)',
-		},
-
-		text: {
-			primary: '#fff',
-			secondary: 'rgba(252,252,252,0.7)',
-			disabled: 'rgba(252,252,252,0.4)',
-		},
-		backdrop: 'rgba(0, 0, 0, 0.4)',
-		common: {
-			black: '#000',
-		},
-	};
-
-	const playerTheme = {
+export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
+	const basePalette = createTheme({
 		palette: {
-			...newPalette,
+			background: {
+				default: 'rgba(0, 0, 0, 0.72)',
+				paper: 'rgba(252,252,252, 0.28)',
+			},
+			primary: {
+				light: '#EA99FF',
+				main: '#CB01FF',
+				dark: '#A200CC',
+			},
+			secondary: {
+				light: '#CC99FF',
+				main: '#7F00FF',
+				dark: '#5900B2',
+			},
+			text: {
+				primary: '#fff',
+				secondary: 'rgba(252,252,252,0.7)',
+				disabled: 'rgba(252,252,252,0.4)',
+			},
+			common: {
+				black: '#000',
+			},
+		},
+	}).palette;
+
+	const baseTheme = createTheme({
+		palette: {
+			...basePalette,
 
 			action: {
 				hover: 'rgba(252,252,252,0.16)',
@@ -48,112 +44,196 @@ const createPlayerTheme = (): PlayerTheme => {
 				focusOpacity: 0.6,
 			},
 		},
-	};
+		typography: {
+			fontFamily: ['Inter', 'Arial', 'sans-serif'].join(','),
+			button: {
+				textTransform: 'none',
+			},
+		},
+	});
 
 	// Active config for buttons
 	const actionStates = {
 		'&:hover': {
-			backgroundColor: playerTheme.palette.action.hover,
-		},
-		'&:focus': {
-			backgroundColor: playerTheme.palette.action.focus,
+			backgroundColor: baseTheme.palette.action.hover,
 		},
 		'&:active': {
-			backgroundColor: playerTheme.palette.action.active,
+			backgroundColor: baseTheme.palette.action.active,
 		},
 	};
 
 	return {
-		...playerTheme,
+		...baseTheme,
 		components: {
 			MuiButton: {
+				defaultProps: {
+					disableElevation: true,
+					// Workaround for https://github.com/mui-org/material-ui/issues/29598
+					// Global disableRipple isn't applied to buttons
+					disableRipple: true,
+					color: 'inherit',
+				},
 				styleOverrides: {
-					// Overriding https://github.com/Collaborne/carrot-styles/blob/35ec01752f68d1504c10b7a9dbb7eabc2004641b/src/theme.ts#L380-L396
-					containedPrimary: {
+					root: ({ ownerState }) => ({
 						...actionStates,
-					},
-					root: ({ ownerState, theme }) => {
-						const outerTheme = theme as Theme;
-						return {
-							...actionStates,
-							minWidth: 'unset',
-							// color="primary"
+						minWidth: 'unset',
+						transition:
+							// * Necessary to avoid transition on border but keep the others
+							'background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+						lineHeight: baseTheme.spacing(2.75),
+						fontSize: 14,
+						fontWeight: 500,
+						padding: baseTheme.spacing(0.625, 1),
+						whiteSpace: 'nowrap',
+						'&.Mui-disabled': {
+							color: baseTheme.palette.text.primary,
+							opacity: baseTheme.palette.action.disabledOpacity,
+						},
+
+						// color="primary"
+						...(ownerState.color === 'primary' && {
+							color: baseTheme.palette.text.secondary,
+						}),
+						// variant="text"
+						...(ownerState.variant === 'text' && {
+							borderRadius: baseTheme.spacing(0.5),
+
+							// variant="text" && size
+							...(ownerState.size === 'small' && {
+								borderRadius: baseTheme.spacing(0.5),
+								...baseTheme.typography.caption,
+								fontWeight: 600,
+							}),
+							...(ownerState.size === 'medium' && {
+								...baseTheme.typography.subtitle2,
+								fontWeight: 600,
+								padding: baseTheme.spacing(0.625, 1),
+							}),
+
+							// variant="text" && color
 							...(ownerState.color === 'primary' && {
-								color: playerTheme.palette.text?.secondary,
+								actionStates,
+								'&.Mui-disabled, & .MuiButton-label': {
+									color: baseTheme.palette.text.primary,
+								},
 							}),
-							// variant="text"
-							...(ownerState.variant === 'text' && {
-								borderRadius: outerTheme.spacing(0.5),
+						}),
 
-								...(ownerState.size === 'small' && {
-									borderRadius: outerTheme.spacing(0.5),
-									...outerTheme.typography.caption,
-									padding: outerTheme.spacing(0.5, 0),
-									fontWeight: 600,
-								}),
-								...(ownerState.size === 'medium' && {
-									...outerTheme.typography.subtitle2,
-									fontWeight: 600,
-									padding: outerTheme.spacing(0.625, 1),
-								}),
+						// variant="contained"
+						...(ownerState.variant === 'contained' && {
+							...actionStates,
+							...(ownerState.color === 'primary' && {
+								color: baseTheme.palette.common.white,
 							}),
+							background: baseTheme.palette?.background?.default,
+							...(ownerState.size === 'small' && {
+								...baseTheme.typography.caption,
+								padding: baseTheme.spacing(0.5, 0),
+								fontWeight: 600,
+								borderRadius: baseTheme.spacing(0.5),
+								height: baseTheme.spacing(3),
+								width: baseTheme.spacing(3),
+							}),
+							...(ownerState.size === 'medium' && {
+								...baseTheme.typography.subtitle2,
+								fontWeight: 400,
+								height: baseTheme.spacing(4.5),
+								padding: baseTheme.spacing(0.625, 1),
+							}),
+						}),
+					}),
+					startIcon: {
+						marginLeft: 0,
+						marginRight: baseTheme.spacing(0.5),
+					},
+				},
+			},
+			MuiButtonBase: {
+				defaultProps: {
+					// Remove ripples in the whole application
+					disableRipple: true,
+				},
+			},
+			MuiButtonGroup: {
+				defaultProps: {
+					disableRipple: true,
+					variant: 'text',
+				},
+				styleOverrides: {
+					groupedTextHorizontal: {
+						'&:not(:last-child)': {
+							borderRightColor: 'transparent',
+							// Ensure that the background isn't behind the transparent border
+							backgroundClip: 'padding-box',
+						},
+					},
+				},
+			},
 
-							// variant="contained"
-							...(ownerState.variant === 'contained' && {
-								background: playerTheme.palette?.background?.default,
-								...(ownerState.size === 'small' && {
-									...outerTheme.typography.caption,
-									padding: outerTheme.spacing(0.5, 0),
-									fontWeight: 600,
-									borderRadius: outerTheme.spacing(0.5),
-									height: outerTheme.spacing(3),
-									width: outerTheme.spacing(3),
-								}),
-								...(ownerState.size === 'medium' && {
-									...outerTheme.typography.subtitle2,
-									fontWeight: 600,
-									height: outerTheme.spacing(4.5),
-									padding: outerTheme.spacing(0.625, 1),
-								}),
-							}),
-						};
+			MuiIcon: {
+				styleOverrides: {
+					root: {
+						fontSize: 'initial',
+						color: darkmode ? '#BFBFBF' : '#616161',
+						// Match size of SvgIcon
+						height: baseTheme.spacing(2.5),
+						width: baseTheme.spacing(2.5),
+					},
+					colorPrimary: {
+						color: baseTheme.palette.primary.main,
 					},
 				},
 			},
 			MuiIconButton: {
+				defaultProps: {
+					color: 'inherit',
+				},
 				styleOverrides: {
-					// Overriding https://github.com/Collaborne/carrot-styles/blob/35ec01752f68d1504c10b7a9dbb7eabc2004641b/src/theme.ts#L786-L788
 					colorPrimary: {
 						...actionStates,
 					},
 					colorInherit: {
-						color: playerTheme.palette?.text?.primary,
+						color: baseTheme.palette.text.primary,
 						'&:disabled': {
-							color: playerTheme.palette?.text?.disabled,
+							color: baseTheme.palette.text.disabled,
 						},
 					},
-					root: ({ ownerState, theme }) => {
-						const outerTheme = theme as Theme;
-						return {
-							...actionStates,
-							borderRadius: outerTheme.spacing(0.5),
-							color: playerTheme.palette?.text?.primary,
-							...(ownerState.size === 'small' && {
-								width: outerTheme.spacing(3),
-								height: outerTheme.spacing(3),
-							}),
-							...(ownerState.size === 'medium' && {
-								height: outerTheme.spacing(4.5),
-								width: outerTheme.spacing(4.5),
-							}),
-							...(ownerState.size === 'large' && {
-								height: outerTheme.spacing(7),
-								width: outerTheme.spacing(7),
-							}),
-							...(ownerState.color === 'primary' && {
-								background: playerTheme.palette.background?.default,
-							}),
-						};
+					root: ({ ownerState }) => ({
+						...actionStates,
+						padding: baseTheme.spacing(0.75, 0.75),
+						borderRadius: baseTheme.spacing(0.5),
+						color: baseTheme.palette.text.primary,
+
+						height: 32,
+						width: 32,
+						...(ownerState.size === 'small' && {
+							width: baseTheme.spacing(3),
+							height: baseTheme.spacing(3),
+							padding: baseTheme.spacing(0.5, 0.5),
+						}),
+						...(ownerState.size === 'medium' && {
+							height: baseTheme.spacing(4.5),
+							width: baseTheme.spacing(4.5),
+						}),
+						...(ownerState.size === 'large' && {
+							height: baseTheme.spacing(7),
+							width: baseTheme.spacing(7),
+						}),
+						...(ownerState.color === 'primary' && {
+							background: baseTheme.palette.background.default,
+						}),
+					}),
+				},
+			},
+
+			MuiPaper: {
+				styleOverrides: {
+					root: {
+						backgroundImage: 'unset',
+					},
+					elevation1: {
+						// No border for elevation 1
+						backgroundColor: baseTheme.palette.background.paper,
 					},
 				},
 			},
@@ -162,21 +242,20 @@ const createPlayerTheme = (): PlayerTheme => {
 					colorPrimary: {
 						color: 'inherit',
 					},
-					root: ({ ownerState, theme }) => {
-						const outerTheme = theme as Theme;
+					root: ({ ownerState }) => {
 						return {
-							color: outerTheme.palette.text.primary,
+							color: baseTheme.palette.text.primary,
 							...(ownerState.fontSize === 'small' && {
-								width: outerTheme.spacing(2.5),
-								height: outerTheme.spacing(2.5),
+								width: baseTheme.spacing(2.5),
+								height: baseTheme.spacing(2.5),
 							}),
 							...(ownerState.fontSize === 'medium' && {
 								height: 'auto',
-								width: outerTheme.spacing(3.5),
+								width: baseTheme.spacing(3.5),
 							}),
 							...(ownerState.fontSize === 'large' && {
-								height: outerTheme.spacing(6),
-								width: outerTheme.spacing(6),
+								height: baseTheme.spacing(6),
+								width: baseTheme.spacing(6),
 							}),
 						};
 					},
@@ -185,5 +264,3 @@ const createPlayerTheme = (): PlayerTheme => {
 		},
 	};
 };
-
-export const playerTheme = createPlayerTheme();

@@ -15,7 +15,7 @@ import {
 	Forward10,
 	Replay10,
 } from '@mui/icons-material';
-import { Card, Grid, IconButton } from '@mui/material';
+import { Paper, Grid, IconButton } from '@mui/material';
 
 import {
 	FullscreenEnterIcon,
@@ -23,7 +23,7 @@ import {
 	PiPIcon,
 	VolumeMutedIcon,
 } from '../../src/components/icons';
-import { withDemoCard, withTheme, withPlayerTheme } from '../decorators';
+import { withDemoCard, withPlayerTheme } from '../decorators';
 
 const UPDATED_SIZES: Array<'large' | 'small' | 'medium'> = [
 	'large',
@@ -34,7 +34,7 @@ const UPDATED_SIZES: Array<'large' | 'small' | 'medium'> = [
 export const IconButtonsAndIcons = () => {
 	return (
 		<>
-			<Card sx={{ background: 'rgba(0, 0, 0, 0.72)', padding: 2 }}>
+			<Paper sx={{ padding: 2 }}>
 				{UPDATED_SIZES.map(iconButtonSize => (
 					<div style={{ padding: 8 }}>
 						IconButton size: {iconButtonSize}
@@ -59,8 +59,8 @@ export const IconButtonsAndIcons = () => {
 						</Grid>
 					</div>
 				))}
-			</Card>
-			<Card sx={{ background: 'rgba(0, 0, 0, 0.72)', padding: 2 }}>
+			</Paper>
+			<Paper sx={{ padding: 2, marginTop: 2 }}>
 				{UPDATED_SIZES.map(svgSize => (
 					<Grid
 						container
@@ -94,7 +94,7 @@ export const IconButtonsAndIcons = () => {
 						</div>
 					</Grid>
 				))}
-			</Card>
+			</Paper>
 		</>
 	);
 };
@@ -102,5 +102,5 @@ export const IconButtonsAndIcons = () => {
 export default {
 	title: 'UI Kit',
 	component: IconButtonsAndIcons,
-	decorators: [withDemoCard, withPlayerTheme, withTheme],
+	decorators: [withDemoCard, withPlayerTheme],
 };

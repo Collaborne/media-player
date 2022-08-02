@@ -4,7 +4,6 @@ import { ProgressBar as ProgressBarComponent } from '../../src/components/progre
 import {
 	withDemoCard,
 	withPlayerTheme,
-	withTheme,
 	withVideoProvider,
 	withVideoWrapper,
 } from '../decorators';
@@ -37,6 +36,5 @@ export default {
 		withVideoWrapper,
 		withDemoCard,
 		withPlayerTheme,
-		withTheme,
 	],
 };
