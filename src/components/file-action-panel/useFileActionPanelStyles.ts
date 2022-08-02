@@ -7,26 +7,27 @@ interface UseFileActionPanelStylesProps {
 export const useFileActionPanelStyles =
 	makeStyles<UseFileActionPanelStylesProps>()((theme, { isOpened }) => ({
 		wrapper: {
-			background: theme.palette.background.default,
+			pointerEvents: 'unset',
+			position: 'relative',
+		},
+		gridWrapper: {
 			pointerEvents: 'auto',
+			background: theme.palette.background.default,
 			position: 'absolute',
 			top: theme.spacing(2),
-			right: 0,
+
+			left: `calc(100% - ${theme.spacing(4.5)})`,
 			width: 'fit-content',
 			padding: theme.spacing(0.5, 0),
 			borderRadius: theme.spacing(0.5, 0, 0, 0.5),
+			transform: 'all 0.5s ease-out',
+			...(isOpened && {
+				transform: `translateX(calc(${theme.spacing(4.5)} - 100%))`,
+			}),
+			transition: 'transform 0.3s ease-out',
 		},
-		iconWrapper: {
+		buttonWrapper: {
 			justifyContent: 'flex-start',
-			width: 'auto',
-			overflow: 'hidden',
-		},
-		textWrapper: {
-			overflow: 'hidden',
-			padding: isOpened
-				? theme.spacing(0.5, 1, 0.5, 0.5)
-				: theme.spacing(0, 0, 0, 0.5),
-			width: isOpened ? 'auto' : 0,
-			transition: 'all 0.5s ease-out',
+			padding: theme.spacing(0.5, 1, 0.5, 0.5),
 		},
 	}));

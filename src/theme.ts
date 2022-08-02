@@ -139,7 +139,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 							}),
 							...(ownerState.size === 'medium' && {
 								...baseTheme.typography.subtitle2,
-								fontWeight: 600,
+								fontWeight: 400,
 								height: baseTheme.spacing(4.5),
 								padding: baseTheme.spacing(0.625, 1),
 							}),
@@ -147,7 +147,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 					}),
 					startIcon: {
 						marginLeft: 0,
-						marginRight: baseTheme.spacing(1),
+						marginRight: baseTheme.spacing(0.5),
 					},
 				},
 			},
