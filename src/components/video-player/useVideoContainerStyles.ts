@@ -7,6 +7,7 @@ export const useVideoContainerStyles = makeStyles()(theme => ({
 		display: 'flex',
 		justifyContent: 'center',
 		backgroundSize: 'cover',
+		overflow: 'hidden',
 	},
 	pipText: {
 		margin: theme.spacing(1, 0, 0, 2),

@@ -57,9 +57,6 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 		'&:hover': {
 			backgroundColor: baseTheme.palette.action.hover,
 		},
-		'&:focus': {
-			backgroundColor: baseTheme.palette.action.focus,
-		},
 		'&:active': {
 			backgroundColor: baseTheme.palette.action.active,
 		},
