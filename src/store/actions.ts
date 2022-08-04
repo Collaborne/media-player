@@ -135,6 +135,9 @@ export const videoActions: VideoActions = {
 		return { pip: false };
 	},
 	setHighlights: (_state, highlights) => ({ highlights }),
+	setHighlight: (state, highlight) => ({
+		highlights: [...state.highlights, highlight],
+	}),
 	// Private Actions
 	_setReady: state => {
 		// In safari, any seeking that happens before a video is ready is canceled as soon

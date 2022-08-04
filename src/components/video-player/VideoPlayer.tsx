@@ -13,7 +13,7 @@ import { VideoProviderProps } from '../../types';
 import { DEFAULT_CONTROLS_CONFIG } from '../controls/controls-config';
 import { FileActionPanelProps } from '../file-action-panel/FileActionPanel';
 
-import VideoContainer from './VideoContainer';
+import { VideoContainer } from './VideoContainer';
 
 export interface VideoPlayerProps
 	extends Omit<FileActionPanelProps, 'className'>,
