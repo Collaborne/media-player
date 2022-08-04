@@ -14,15 +14,17 @@ interface RailProps {}
 
 export const Rail: FC<RailProps> = () => {
 	const { api, getHighlightColorBlended } = useVideo();
+
 	const highlights = api?.getHighlights?.();
+	// If we do not have highlights, then display a simple Rail
+	if (!highlights || highlights.length === 0) {
+		return <RailStyled />;
+	}
+
 	const videoDuration = api?.getDuration?.() || 0;
 
 	const blendColors = getHighlightColorBlended || blend;
 
-	// If we do not have highlights, then display a simple Rail
-	if (!highlights) {
-		return <RailStyled />;
-	}
 	// Create Rail from highlight segments
 	const railSegments = getRailSegments(highlights, videoDuration);
 	const createSegments = railSegments.map(([from, to]) => {

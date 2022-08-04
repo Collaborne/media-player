@@ -10,28 +10,39 @@ export const getRailSegments = (
 	if (!highlights.length) {
 		return [];
 	}
+
 	const startArr = highlights.map(({ startTime }) => startTime);
 	const endArr = highlights.map(({ endTime }) => endTime);
 
-	const getSmallestRange = (startWith = 0) => {
-		const smallestStart = Math.min(
-			...startArr.filter(item => item > startWith),
-		);
-		const smallestEnd = Math.min(...endArr.filter(item => item > startWith));
-		return Math.min(smallestStart, smallestEnd);
-	};
+	// Creating a unique array with startTime and endTime values
+	const uniqueStartEndArr = [...new Set([...startArr, ...endArr])];
 
-	const result: [number, number][] = [];
-	let startWith = 0;
-	while (startWith <= videoDuration) {
-		result.push([startWith, getSmallestRange(startWith)]);
-		startWith = getSmallestRange(startWith);
+	// Sorting for creating segments
+	const arrayOfAscendingSegmentPoints = uniqueStartEndArr.sort((a, b) => a - b);
+
+	// Add to the tail videoDuration(in case if missing)
+	if (!arrayOfAscendingSegmentPoints.includes(videoDuration)) {
+		arrayOfAscendingSegmentPoints.push(videoDuration);
 	}
-	// Adding last segment - from last segment to the video end
-	if (startWith !== videoDuration) {
-		result.push([startWith, videoDuration]);
-	}
-	return result;
+
+	// Splitting array of unique segment points into segments. Ex: [A,B,C,D]=> [[A,B], [B,C],[C,D]]
+	const arrayOfSegments: [number, number][] =
+		arrayOfAscendingSegmentPoints.reduce(
+			(acc: [number, number][], currentValue, index, array) => {
+				if (acc.length === 0) {
+					return [
+						[0, currentValue],
+						[currentValue, array[index + 1]],
+					];
+				}
+				if (index === array.length - 1) {
+					return acc;
+				}
+				return [...acc, [currentValue, array[index + 1]]];
+			},
+			[],
+		);
+	return arrayOfSegments;
 };
 
 /** Get percentage of a video duration */
