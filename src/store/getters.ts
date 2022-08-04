@@ -19,4 +19,5 @@ export const videoGetters: VideoGetters = {
 	getHasPlayedOrSeeked: state => state.hasPlayedOrSeeked,
 	getPictureInPicture: state => state.pip,
 	getHasPipTriggeredByClick: state => state.hasPipTriggeredByClick,
+	getHighlights: state => state.highlights,
 };

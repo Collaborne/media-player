@@ -4,9 +4,9 @@ import { FC } from 'react';
 import { useVideo } from '../../hooks';
 import { PROGRESS_BAR_DIVIDER } from '../../utils/constants';
 
-import { ProgressBarStyled } from './ProgressBarStyled';
+import { ProgressBarStyled } from './components/ProgressBarStyled';
+import { Rail } from './components/Rail';
 
-// TODO: Extend for highlights/tracks
 interface ProgressBarProps extends SliderProps {}
 
 export const ProgressBar: FC<ProgressBarProps> = props => {
@@ -45,6 +45,7 @@ export const ProgressBar: FC<ProgressBarProps> = props => {
 			max={PROGRESS_BAR_DIVIDER}
 			onChange={onCurrentTimeUpdate}
 			value={value}
+			components={{ Rail }}
 			{...props}
 		/>
 	);

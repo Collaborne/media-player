@@ -31,8 +31,10 @@
 	"peerDependencies": {
 		"@mui/icons-material": "^5.8.0",
 		"@mui/material": "^5.8.0",
+		"color-blend": "^4.0.0",
 		"react": "^17.0.0 || ^18.0.0",
-		"react-use": "^17.4.0"
+		"react-use": "^17.4.0",
+		"uuidv4": "^6.2.13"
 	},
 	"devDependencies": {
 		"@emotion/react": "^11.9.3",

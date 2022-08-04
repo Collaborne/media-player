@@ -22,6 +22,17 @@ export interface FullscreenApi {
 	toggleFullscreen: () => void;
 }
 
+export interface Highlight {
+	/** Id of the highlight */
+	id: string;
+	/** Starting time of a highlight */
+	startTime: number;
+	/** End time of a highlight */
+	endTime: number;
+	/** Color highlight(HEX) */
+	color: string;
+}
+
 /** Provider's initialization state */
 interface VideoPlayerInitialState {
 	/** If the video start playing from start */
@@ -49,6 +60,8 @@ export interface VideoProviderProps {
 	children: ReactNode;
 	/** State that needs to be stored in localStorage */
 	persistedState?: VideoState;
+	/** Blending colors for highlights presented in `<ProgressBar` */
+	getHighlightColorBlended?: (colors: string[]) => string;
 }
 
 /**
@@ -78,6 +91,7 @@ export interface VideoState {
 	hasPipTriggeredByClick: boolean;
 	/** Storing wrapper ref of the videoPlayer */
 	videoContainerRef: RefObject<HTMLDivElement>;
+	highlights: Highlight[];
 }
 
 export type VideoDispatchArgs = unknown[];

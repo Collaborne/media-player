@@ -50,6 +50,8 @@ export interface VideoContext {
 	videoContainerRef: RefObject<HTMLDivElement>;
 	/** Fullscreen API getter and setters */
 	fullScreenApi?: FullscreenApi;
+	/** Blending colors for highlights presented in `<ProgressBar` */
+	getHighlightColorBlended?: (colors: string[]) => string;
 }
 
 /** A React Context - to share video api through components */
@@ -61,6 +63,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	children,
 	controlsConfig,
 	persistedState,
+	getHighlightColorBlended,
 }) => {
 	const {
 		state,
@@ -108,6 +111,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			ctx.videoContainerRef = videoContainerRef;
 			ctx.lastActivityRef = lastActivityRef;
 			ctx.markActivity = markActivity;
+			ctx.getHighlightColorBlended = getHighlightColorBlended;
 			ctx.fullScreenApi = {
 				isFullscreen,
 				enterFullscreen: () => toggleFullscreen(true),
@@ -138,7 +142,6 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 				onProgress: ({ playedSeconds }) =>
 					api?._handleProgress?.(playedSeconds),
 			};
-
 			return ctx as VideoContext;
 		},
 		// Creating a new lazy state function - to renew state should ne only:
