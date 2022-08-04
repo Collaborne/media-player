@@ -52,3 +52,15 @@ export const getPercentFromDuration = (videoDuration: number, time: number) => {
 	}
 	return 0;
 };
+
+/** Get the current active segment in an array of segments */
+export const getCurrentSegment = (
+	segments: [number, number][],
+	currentTime: number,
+) => segments.find(([from, to]) => from < currentTime && currentTime < to);
+
+/** Get the passed segments in an array of segments */
+export const getPassedSegments = (
+	segments: [number, number][],
+	currentTime: number,
+) => segments.filter(([_from, to]) => to < currentTime);

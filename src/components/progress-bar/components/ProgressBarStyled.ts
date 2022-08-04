@@ -28,24 +28,5 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 				boxShadow: `0px 0px 0px ${theme.spacing(0.375)} rgb(203 1 255 / 16%)`,
 			},
 		},
-
-		'& .MuiSlider-track': {
-			height: theme.spacing(0.75),
-			border: 0,
-			color: theme.palette.primary.main,
-			borderRadius: 0,
-			transform: 'unset',
-			top: 'unset',
-			bottom: 0,
-		},
-		'& .MuiSlider-rail': {
-			bottom: 0,
-			height: theme.spacing(0.75),
-			color: theme.palette.common.black,
-			transform: 'unset',
-			borderRadius: 0,
-			top: 'unset',
-			opacity: 1,
-		},
 	}),
 );
