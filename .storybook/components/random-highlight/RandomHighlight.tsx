@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
-import React from 'react';
+import { FC } from 'react';
 import { uuid } from 'uuidv4';
+
 import { useVideo } from '../../../src';
 
 const highlightColors = [
@@ -19,7 +20,7 @@ const highlightColors = [
 	'#EA99FF',
 ];
 
-export const RandomHighlight: React.FC = () => {
+export const RandomHighlight: FC = () => {
 	const { api } = useVideo();
 	const videoDuration = api?.getDuration?.() || 0;
 	const endTime = Math.random() * videoDuration;

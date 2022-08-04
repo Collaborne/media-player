@@ -1,11 +1,10 @@
-import React from 'react';
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
+import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
+import { VideoContainer } from '../../src/components/video-player/VideoContainer';
 import { VideoProvider } from '../../src/context/video';
+import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
-import { VideoContainer } from '../../src/components/video-player/VideoContainer';
-import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
-import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
 
 export const VideoHighlights = () => {
 	const { wrapper } = useFilePlayerStyles().classes;
