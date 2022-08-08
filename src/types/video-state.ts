@@ -22,6 +22,7 @@ export interface FullscreenApi {
 	toggleFullscreen: () => void;
 }
 
+/** An interval of timestamps in seconds, that will be "highlighted" in the scrub bar. Useful when you want to split video duration into small segments/chunks */
 export interface Highlight {
 	/** Id of the highlight */
 	id: string;

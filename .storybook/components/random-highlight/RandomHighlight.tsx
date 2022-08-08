@@ -20,8 +20,10 @@ const highlightColors = [
 	'#EA99FF',
 ];
 
-const pickRandomItem = () =>
-	highlightColors[Math.round(Math.random() * (highlightColors.length - 1))];
+type PickRandomItem<T> = (array: T[]) => T;
+
+const pickRandomItem: PickRandomItem<string> = array =>
+	array[Math.round(Math.random() * (array.length - 1))];
 
 export const RandomHighlight: FC = () => {
 	const { api } = useVideo();
@@ -33,7 +35,7 @@ export const RandomHighlight: FC = () => {
 		api?.addHighlightToStart?.({
 			startTime,
 			endTime,
-			color: pickRandomItem(),
+			color: pickRandomItem(highlightColors),
 			id: uuid(),
 		});
 	};

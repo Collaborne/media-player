@@ -1,4 +1,5 @@
-import { styled } from '@mui/material';
+import { styled, Theme } from '@mui/material';
+import { CSSProperties } from '@mui/styled-engine';
 
 interface RailStyledProps {
 	startPoint?: number;
@@ -16,6 +17,21 @@ const IGNORE_PROPS: PropertyKey[] = [
 	'startColorSegment',
 	'endColorSegment',
 ];
+
+const segmentBorderStyles = (
+	theme: Theme,
+	backgroundColor: string,
+): CSSProperties => ({
+	position: 'absolute',
+	top: 0,
+	display: 'block',
+	content: '""',
+	height: '100%',
+	width: theme.spacing(0.25),
+	borderRadius: theme.spacing(0.125),
+	background: backgroundColor,
+	zIndex: 1,
+});
 
 export const RailStyled = styled('span', {
 	shouldForwardProp: props => !IGNORE_PROPS.includes(props),
@@ -40,30 +56,14 @@ export const RailStyled = styled('span', {
 		opacity: 1,
 		...(startColorSegment && {
 			'&:before': {
-				position: 'absolute',
 				left: 0,
-				top: 0,
-				display: 'block',
-				content: '""',
-				height: '100%',
-				width: theme.spacing(0.25),
-				borderRadius: theme.spacing(0.125),
-				background: startColorSegment,
-				zIndex: 1,
+				...segmentBorderStyles(theme, startColorSegment),
 			},
 		}),
 		...(endColorSegment && {
 			'&:after': {
-				position: 'absolute',
 				right: 0,
-				top: 0,
-				display: 'block',
-				content: '""',
-				height: '100%',
-				width: theme.spacing(0.25),
-				borderRadius: theme.spacing(0.125),
-				background: endColorSegment,
-				zIndex: 1,
+				...segmentBorderStyles(theme, endColorSegment),
 			},
 		}),
 	}),

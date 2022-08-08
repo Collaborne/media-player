@@ -24,17 +24,17 @@ export const Rail: FC<RailProps> = () => {
 
 	// Create Rail from highlight segments
 	const railSegments = getRailSegments(highlights, videoDuration);
-	const createSegments = railSegments.map(([from, to]) => {
-		const start = getPercentFromDuration(videoDuration, from);
-		const width = getPercentFromDuration(videoDuration, to - from);
+	const segments = railSegments.map(({ start, end }) => {
+		const startPoint = getPercentFromDuration(start, videoDuration);
+		const width = getPercentFromDuration(end - start, videoDuration);
 		const intersectedSegments = highlights.filter(
-			highlight => from >= highlight.startTime && to <= highlight.endTime,
+			highlight => start >= highlight.startTime && end <= highlight.endTime,
 		);
 		const startColorSegment = highlights.find(
-			({ startTime }) => startTime === from,
+			({ startTime }) => startTime === start,
 		)?.color;
 		const endColorSegment = highlights.find(
-			({ endTime }) => endTime === to,
+			({ endTime }) => endTime === end,
 		)?.color;
 		const colors = intersectedSegments.map(({ color }) => color);
 
@@ -45,7 +45,7 @@ export const Rail: FC<RailProps> = () => {
 		return (
 			<RailStyled
 				key={uuid()}
-				startPoint={start}
+				startPoint={startPoint}
 				width={width}
 				color={color}
 				startColorSegment={startColorSegment}
@@ -54,5 +54,5 @@ export const Rail: FC<RailProps> = () => {
 		);
 	});
 
-	return <>{createSegments}</>;
+	return <>{segments}</>;
 };

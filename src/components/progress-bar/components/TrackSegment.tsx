@@ -29,7 +29,7 @@ export const TrackSegment: FC<TrackSegmentProps> = ({
 	);
 
 	const colors = intersectedSegments.map(({ color }) => color);
-	// If segment is without highlight, then "blend" it with primary color(default color for track)
+	// If there are no colors, it picks no color (undefined) = not the primary color.
 	const color = colors.length
 		? getHighlightColorBlended?.([...colors, defaultColor])
 		: undefined;

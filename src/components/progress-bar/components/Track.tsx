@@ -21,8 +21,7 @@ export const Track: FC<TrackProps> = () => {
 	const theme = useTheme();
 	const highlights = api?.getHighlights?.();
 
-	// Value in seconds
-	const valueSeconds = api?.getCurrentTime?.() || 0;
+	const valueInSeconds = api?.getCurrentTime?.() || 0;
 
 	// Value in ProgressBar metric (defined by PROGRESS_BAR_DIVIDER)
 	const value = (() => {
@@ -45,44 +44,45 @@ export const Track: FC<TrackProps> = () => {
 	const railSegments = getRailSegments(highlights, videoDuration);
 
 	// Passed segments - the complete parts of the track that have been passed
-	const createPassedSegments = () =>
-		getPassedSegments(railSegments, valueSeconds).map(([from, to]) => {
-			const start = getPercentFromDuration(videoDuration, from);
-			const width = getPercentFromDuration(videoDuration, to - from);
+	const passedSegments = getPassedSegments(railSegments, valueInSeconds).map(
+		({ start, end }) => {
+			const startPoint = getPercentFromDuration(start, videoDuration);
+			const width = getPercentFromDuration(end - start, videoDuration);
 
 			return (
 				<TrackSegment
 					highlights={highlights}
-					start={start}
+					start={startPoint}
 					width={width}
-					from={from}
-					to={to}
+					from={start}
+					to={end}
 					defaultColor={theme.palette.primary.main}
 					key={uuid()}
 					getHighlightColorBlended={getHighlightColorBlended}
 				/>
 			);
-		});
+		},
+	);
 
 	// Active segment - the current active segment where video fits between
 	const createActiveSegment = () => {
-		const activeSegment = getCurrentSegment(railSegments, valueSeconds);
+		const activeSegment = getCurrentSegment(railSegments, valueInSeconds);
 
 		if (!activeSegment) {
 			return null;
 		}
 
-		const [from, to] = activeSegment;
-		const start = getPercentFromDuration(videoDuration, from);
-		const width = getPercentFromDuration(videoDuration, valueSeconds - from);
+		const { start, end } = activeSegment;
+		const startPoint = getPercentFromDuration(start, videoDuration);
+		const width = getPercentFromDuration(valueInSeconds - start, videoDuration);
 
 		return (
 			<TrackSegment
 				highlights={highlights}
-				start={start}
+				start={startPoint}
 				width={width}
-				from={from}
-				to={to}
+				from={start}
+				to={end}
 				defaultColor={theme.palette.primary.main}
 				key={uuid()}
 				getHighlightColorBlended={getHighlightColorBlended}
@@ -92,7 +92,7 @@ export const Track: FC<TrackProps> = () => {
 
 	return (
 		<>
-			{createPassedSegments()}
+			{passedSegments}
 			{createActiveSegment()}
 		</>
 	);
