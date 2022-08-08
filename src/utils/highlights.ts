@@ -30,6 +30,9 @@ export const getRailSegments = (
 		arrayOfAscendingSegmentPoints.reduce(
 			(acc: [number, number][], currentValue, index, array) => {
 				if (acc.length === 0) {
+					if (currentValue === 0) {
+						return [[currentValue, array[index + 1]]];
+					}
 					return [
 						[0, currentValue],
 						[currentValue, array[index + 1]],
