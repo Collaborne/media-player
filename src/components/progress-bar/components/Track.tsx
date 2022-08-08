@@ -11,6 +11,7 @@ import {
 	getRailSegments,
 } from '../../../utils/highlights';
 
+import { TrackSegment } from './TrackSegment';
 import { TrackStyled } from './TrackStyled';
 
 interface TrackProps {}
@@ -43,31 +44,27 @@ export const Track: FC<TrackProps> = () => {
 	// Create rail segments from highlights
 	const railSegments = getRailSegments(highlights, videoDuration);
 
-	// Creates and blends already passed segments
+	// Passed segments - the complete parts of the track that have been passed
 	const createPassedSegments = () =>
 		getPassedSegments(railSegments, valueSeconds).map(([from, to]) => {
 			const start = getPercentFromDuration(videoDuration, from);
 			const width = getPercentFromDuration(videoDuration, to - from);
-			const intersectedSegments = highlights.filter(
-				highlight => from >= highlight.startTime && to <= highlight.endTime,
-			);
 
-			const colors = intersectedSegments.map(({ color }) => color);
-			// If segment is without highlight, then "blend" it with primary color(default color for track)
-			const color = colors.length
-				? getHighlightColorBlended?.([...colors, theme.palette.primary.main])
-				: undefined;
 			return (
-				<TrackStyled
-					key={uuid()}
-					startPoint={start}
+				<TrackSegment
+					highlights={highlights}
+					start={start}
 					width={width}
-					color={color}
+					from={from}
+					to={to}
+					defaultColor={theme.palette.primary.main}
+					key={uuid()}
+					getHighlightColorBlended={getHighlightColorBlended}
 				/>
 			);
 		});
 
-	// Create active segment with it's own blend colors
+	// Active segment - the current active segment where video fits between
 	const createActiveSegment = () => {
 		const activeSegment = getCurrentSegment(railSegments, valueSeconds);
 
@@ -78,21 +75,17 @@ export const Track: FC<TrackProps> = () => {
 		const [from, to] = activeSegment;
 		const start = getPercentFromDuration(videoDuration, from);
 		const width = getPercentFromDuration(videoDuration, valueSeconds - from);
-		const intersectedSegments = highlights.filter(
-			highlight => from >= highlight.startTime && to <= highlight.endTime,
-		);
 
-		const colors = intersectedSegments.map(({ color }) => color);
-		// If segment is without highlight, then "blend" it with primary color(default color for track)
-		const color = colors.length
-			? blendColors([...colors, theme.palette.primary.main])
-			: undefined;
 		return (
-			<TrackStyled
-				key={uuid()}
-				startPoint={start}
+			<TrackSegment
+				highlights={highlights}
+				start={start}
 				width={width}
-				color={color}
+				from={from}
+				to={to}
+				defaultColor={theme.palette.primary.main}
+				key={uuid()}
+				getHighlightColorBlended={getHighlightColorBlended}
 			/>
 		);
 	};

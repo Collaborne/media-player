@@ -29,7 +29,7 @@ export interface Highlight {
 	startTime: number;
 	/** End time of a highlight */
 	endTime: number;
-	/** Color highlight(HEX) */
+	/** Color of the highlight. This must be a HEX color code */
 	color: string;
 }
 
