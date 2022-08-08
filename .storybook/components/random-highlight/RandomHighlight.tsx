@@ -20,19 +20,20 @@ const highlightColors = [
 	'#EA99FF',
 ];
 
+const pickRandomItem = () =>
+	highlightColors[Math.round(Math.random() * (highlightColors.length - 1))];
+
 export const RandomHighlight: FC = () => {
 	const { api } = useVideo();
 	const videoDuration = api?.getDuration?.() || 0;
 	const endTime = Math.random() * videoDuration;
 	const startTime = Math.random() * endTime;
-	const randomColor =
-		highlightColors[Math.round(Math.random() * (highlightColors.length - 1))];
 
 	const handleSaveHighlight = () => {
-		api?.setHighlight?.({
+		api?.addHighlightToStart?.({
 			startTime,
 			endTime,
-			color: randomColor,
+			color: pickRandomItem(),
 			id: uuid(),
 		});
 	};

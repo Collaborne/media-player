@@ -60,7 +60,7 @@ export interface VideoProviderProps {
 	children: ReactNode;
 	/** State that needs to be stored in localStorage */
 	persistedState?: VideoState;
-	/** Blending colors for highlights presented in `<ProgressBar` */
+	/** Blending colors for highlights presented in `<ProgressBar>` */
 	getHighlightColorBlended?: (colors: string[]) => string;
 }
 

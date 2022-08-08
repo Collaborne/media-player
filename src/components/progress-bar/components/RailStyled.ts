@@ -8,13 +8,17 @@ interface RailStyledProps {
 	endColorSegment?: string;
 }
 
+// Array of props that should not be forwarded to the root node(`span`). https://stackoverflow.com/a/69341672
+const IGNORE_PROPS: PropertyKey[] = [
+	'startPoint',
+	'width',
+	'color',
+	'startColorSegment',
+	'endColorSegment',
+];
+
 export const RailStyled = styled('span', {
-	shouldForwardProp: props =>
-		props !== 'startPoint' &&
-		props !== 'width' &&
-		props !== 'color' &&
-		props !== 'startColorSegment' &&
-		props !== 'endColorSegment',
+	shouldForwardProp: props => !IGNORE_PROPS.includes(props),
 })<RailStyledProps>(
 	({
 		theme,

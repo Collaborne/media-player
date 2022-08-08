@@ -134,8 +134,8 @@ export const videoActions: VideoActions = {
 		state.emitter.emit('pipExit');
 		return { pip: false };
 	},
-	setHighlights: (_state, highlights) => ({ highlights }),
-	setHighlight: (state, highlight) => ({
+	replaceHighlights: (_state, highlights) => ({ highlights }),
+	addHighlightToStart: (state, highlight) => ({
 		highlights: [...state.highlights, highlight],
 	}),
 	// Private Actions
