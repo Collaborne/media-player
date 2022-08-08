@@ -28,6 +28,7 @@ import {
 	VideoState,
 } from '../types';
 import { getVideoEl } from '../utils';
+import { blend } from '../utils/colors';
 
 import { PROVIDER_INITIAL_STATE } from './constants';
 
@@ -51,7 +52,7 @@ export interface VideoContext {
 	/** Fullscreen API getter and setters */
 	fullScreenApi?: FullscreenApi;
 	/** Blending colors for highlights presented in `<ProgressBar` */
-	getHighlightColorBlended?: (colors: string[]) => string;
+	getHighlightColorBlended?: (colors: string[]) => string | undefined;
 }
 
 /** A React Context - to share video api through components */
@@ -63,7 +64,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	children,
 	controlsConfig,
 	persistedState,
-	getHighlightColorBlended,
+	getHighlightColorBlended = blend,
 }) => {
 	const {
 		state,

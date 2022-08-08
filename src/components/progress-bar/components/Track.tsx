@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { uuid } from 'uuidv4';
 
 import { useVideo } from '../../../hooks/use-video';
-import { blend } from '../../../utils/colors';
 import { PROGRESS_BAR_DIVIDER } from '../../../utils/constants';
 import {
 	getCurrentSegment,
@@ -41,8 +40,6 @@ export const Track: FC<TrackProps> = () => {
 
 	const videoDuration = api?.getDuration?.() || 0;
 
-	const blendColors = getHighlightColorBlended || blend;
-
 	// Create rail segments from highlights
 	const railSegments = getRailSegments(highlights, videoDuration);
 
@@ -58,7 +55,7 @@ export const Track: FC<TrackProps> = () => {
 			const colors = intersectedSegments.map(({ color }) => color);
 			// If segment is without highlight, then "blend" it with primary color(default color for track)
 			const color = colors.length
-				? blendColors([...colors, theme.palette.primary.main])
+				? getHighlightColorBlended?.([...colors, theme.palette.primary.main])
 				: undefined;
 			return (
 				<TrackStyled

@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { uuid } from 'uuidv4';
 
 import { useVideo } from '../../../hooks';
-import { blend } from '../../../utils/colors';
 import {
 	getPercentFromDuration,
 	getRailSegments,
@@ -23,8 +22,6 @@ export const Rail: FC<RailProps> = () => {
 
 	const videoDuration = api?.getDuration?.() || 0;
 
-	const blendColors = getHighlightColorBlended || blend;
-
 	// Create Rail from highlight segments
 	const railSegments = getRailSegments(highlights, videoDuration);
 	const createSegments = railSegments.map(([from, to]) => {
@@ -41,7 +38,9 @@ export const Rail: FC<RailProps> = () => {
 		)?.color;
 		const colors = intersectedSegments.map(({ color }) => color);
 
-		const color = colors.length ? blendColors(colors) : undefined;
+		const color = colors.length
+			? getHighlightColorBlended?.(colors)
+			: undefined;
 
 		return (
 			<RailStyled
