@@ -27,6 +27,6 @@
 		"noEmit": true,
 		"noFallthroughCasesInSwitch": true
 	},
-	"include": ["src/**/*", ".storybook/components/demo-card"],
+	"include": ["src/**/*", ".storybook/components/**/*"],
 	"exclude": ["node_modules/**/*", "dist/**/*"]
 }

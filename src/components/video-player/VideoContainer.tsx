@@ -25,7 +25,7 @@ export interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
 }
 
 /** A React Component that consumes VideoContext's API and adds UI for the player and video controls  */
-const VideoContainer: FC<VideoContainerProps> = ({
+export const VideoContainer: FC<VideoContainerProps> = ({
 	className,
 	videoUrl,
 	hasPlayEnabled,
@@ -110,5 +110,3 @@ const VideoContainer: FC<VideoContainerProps> = ({
 };
 
 VideoContainer.displayName = 'VideoContainer';
-
-export default VideoContainer;

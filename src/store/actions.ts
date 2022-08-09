@@ -134,6 +134,10 @@ export const videoActions: VideoActions = {
 		state.emitter.emit('pipExit');
 		return { pip: false };
 	},
+	replaceHighlights: (_state, highlights) => ({ highlights }),
+	addHighlightToStart: (state, highlight) => ({
+		highlights: [...state.highlights, highlight],
+	}),
 	// Private Actions
 	_setReady: state => {
 		// In safari, any seeking that happens before a video is ready is canceled as soon

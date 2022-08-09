@@ -1,4 +1,4 @@
-import { VideoState } from '.';
+import { Highlight, VideoState } from '.';
 
 export type PartialVideoState = Partial<VideoState> | void;
 
@@ -31,6 +31,14 @@ export interface VideoActions {
 
 	requestPip: (state: VideoState) => PartialVideoState;
 	exitPip: (state: VideoState) => PartialVideoState;
+	replaceHighlights: (
+		state: VideoState,
+		highlights: Highlight[],
+	) => PartialVideoState;
+	addHighlightToStart: (
+		state: VideoState,
+		highlights: Highlight,
+	) => PartialVideoState;
 	// Private Methods
 	_setReady: (state: VideoState) => PartialVideoState;
 	_handleProgress: (
