@@ -1,65 +1,66 @@
+import { uuid } from 'uuidv4';
+
 import { Highlight } from '../../types';
 import { getRailSegments } from '../highlights';
 
+function createHighlight(startTime: number, endTime: number): Highlight {
+	return {
+		startTime,
+		endTime,
+		color: '#fff',
+		id: uuid(),
+	};
+}
+
 describe('getRailSegments', () => {
-	it('create segments when a highlight has an interval that starts with 0(zero)', () => {
-		const highlights: Highlight[] = [
-			{
-				startTime: 10,
-				endTime: 40,
-				color: '##fff',
-				id: 'highlight-1',
-			},
-			{
-				startTime: 0,
-				endTime: 20,
-				color: '#f00',
-				id: 'highlight-2',
-			},
-			{
-				startTime: 60,
-				endTime: 100,
-				color: '##f11',
-				id: 'highlight-3',
-			},
-		];
-		const segments = [
+	it('creates segments for overlapping highlights', () => {
+		const highlights = [createHighlight(0, 20), createHighlight(10, 30)];
+
+		const segments = getRailSegments(highlights, 30);
+
+		expect(segments).toStrictEqual([
 			{ start: 0, end: 10 },
 			{ start: 10, end: 20 },
-			{ start: 20, end: 40 },
-			{ start: 40, end: 60 },
-			{ start: 60, end: 100 },
-			{ start: 100, end: 110 },
-		];
-		expect(getRailSegments(highlights, 110)).toStrictEqual(segments);
+			{ start: 20, end: 30 },
+		]);
 	});
 
-	it('create segments when a highlight has an interval that ends at video duration', () => {
-		const highlights: Highlight[] = [
-			{
-				startTime: 20,
-				endTime: 30,
-				color: '#aaf',
-				id: 'highlight-1',
-			},
-			{
-				startTime: 30,
-				endTime: 40,
-				color: '#ffa',
-				id: 'highlight-2',
-			},
-		];
+	it('creates segments before/after the highlight', () => {
+		const highlights = [createHighlight(10, 20)];
 
-		const segments = [
+		const segments = getRailSegments(highlights, 30);
+
+		expect(segments).toStrictEqual([
+			{ start: 0, end: 10 },
+			{ start: 10, end: 20 },
+			{ start: 20, end: 30 },
+		]);
+	});
+
+	it('creates segments for a highlight that starts at the beginning of the video', () => {
+		const highlights = [createHighlight(0, 20)];
+
+		const segments = getRailSegments(highlights, 30);
+
+		expect(segments).toStrictEqual([
 			{ start: 0, end: 20 },
 			{ start: 20, end: 30 },
-			{ start: 30, end: 40 },
-		];
+		]);
+	});
 
-		expect(getRailSegments(highlights, 40)).toStrictEqual(segments);
+	it('creates segments for a highlight that spans to the end of the video', () => {
+		const highlights = [createHighlight(20, 30)];
+
+		const segments = getRailSegments(highlights, 30);
+
+		expect(segments).toStrictEqual([
+			{ start: 0, end: 20 },
+			{ start: 20, end: 30 },
+		]);
 	});
 
 	it('returns no segments if there are no highlights', () => {
-		expect(getRailSegments([], 367)).toStrictEqual([]);
+		const segments = getRailSegments([], 30);
+		expect(segments).toStrictEqual([]);
 	});
 });
