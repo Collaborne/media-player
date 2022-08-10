@@ -21,18 +21,17 @@ const injectEnv = definitions => {
 	const env = 'process.env';
 
 	if (!definitions[env]) {
+		const definitionsEntries = Object.entries(definitions);
+		const envValues = definitionsEntries
+			.filter(([key]) => key.startsWith(env))
+			.map(([key, value]) => [
+				key.substring(env.length + 1),
+				JSON.parse(value),
+			]);
+
 		return {
 			...definitions,
-			[env]: JSON.stringify(
-				Object.fromEntries(
-					Object.entries(definitions)
-						.filter(([key]) => key.startsWith(env))
-						.map(([key, value]) => [
-							key.substring(env.length + 1),
-							JSON.parse(value),
-						]),
-				),
-			),
+			[env]: JSON.stringify(Object.fromEntries(envValues)),
 		};
 	}
 	return definitions;
@@ -75,6 +74,7 @@ module.exports = {
 				})
 				// Inject vars from .env file into webpack.DefinePlugin
 				// https://github.com/storybookjs/storybook/issues/12270
+				// Note: `debug` package needs injecting into process.env a parameter of `DEBUG=*`, that will allow debugging in storybook
 				.map(plugin => {
 					if (plugin instanceof webpack.DefinePlugin) {
 						return new webpack.DefinePlugin(

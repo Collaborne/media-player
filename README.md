@@ -64,6 +64,12 @@ const MyComponent2: React.FC = () => {
 
 ## Documentation
 
+## Debugging
+
+We use [debug](https://github.com/debug-js/debug) package for logging events. As you can see in our [live demo](https://collaborne.github.io/video-player/),
+player provides you logs for native `<video>` play and pause events, and also when state is changed. To use it in any your environment(we used in our storybook environment)
+you need to add to yours `process.env` a parameter of `DEBUG=*`, that will print all these logs in browser's DevTools.
+
 ## FAQ  
 
 - **Q:** How about timing? If we need to stop a video at 1026ms?  
