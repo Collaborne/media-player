@@ -31,7 +31,7 @@ import { getVideoEl } from '../utils';
 import { blend } from '../utils/colors';
 
 import { PROVIDER_INITIAL_STATE } from './constants';
-import useVideoDebug from './useVideoDebug';
+import { useVideoDebug } from './useVideoDebug';
 
 export interface VideoContext {
 	/** A collection of getters, setters, emitters for the video  */

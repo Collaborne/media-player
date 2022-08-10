@@ -30,7 +30,7 @@ const listenToEvents: VideoNativeEvent[] = [
 	'waiting',
 ];
 
-const useVideoDebug = ({ reactPlayerRef }: UseVideoDebugProps) => {
+export const useVideoDebug = ({ reactPlayerRef }: UseVideoDebugProps) => {
 	useLayoutEffect(() => {
 		if (!debug.enabled(DEBUG_PREFIX)) {
 			return;
@@ -70,5 +70,3 @@ const useVideoDebug = ({ reactPlayerRef }: UseVideoDebugProps) => {
 		};
 	}, [reactPlayerRef]);
 };
-
-export default useVideoDebug;
