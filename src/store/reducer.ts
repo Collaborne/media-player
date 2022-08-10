@@ -1,3 +1,4 @@
+import debug from 'debug';
 import mitt from 'mitt';
 import {
 	Dispatch,
@@ -28,6 +29,8 @@ interface UseStateReducer {
 	markActivity: VoidFunction;
 	videoContainerRef: RefObject<HTMLDivElement>;
 }
+const DEBUG_PREFIX = 'useStateReducer';
+const log = debug(DEBUG_PREFIX);
 
 export const useStateReducer = ({
 	firstInitialState,
@@ -54,6 +57,10 @@ export const useStateReducer = ({
 			}
 			const changes = fn(state, action.payload as never);
 
+			log(DEBUG_PREFIX, action.type, action.payload, {
+				oldState: state,
+				changes,
+			});
 			const newState = { ...state, ...changes };
 
 			// Non-private actions mark new activity date.

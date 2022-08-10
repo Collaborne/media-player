@@ -1,4 +1,6 @@
+/* eslint-disable max-lines */
 import Bowser from 'bowser';
+import debug from 'debug';
 import React, {
 	FC,
 	MutableRefObject,
@@ -24,6 +26,7 @@ import {
 	VideoActionKeys,
 	VideoActions,
 	VideoApi,
+	VideoNativeEvent,
 	VideoProviderProps,
 	VideoState,
 } from '../types';
@@ -31,6 +34,9 @@ import { getVideoEl } from '../utils';
 import { blend } from '../utils/colors';
 
 import { PROVIDER_INITIAL_STATE } from './constants';
+
+const DEBUG_PREFIX = 'video-context';
+const log = debug(DEBUG_PREFIX);
 
 export interface VideoContext {
 	/** A collection of getters, setters, emitters for the video  */
@@ -221,6 +227,63 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 		}
 		hasAutoplayedRef.current = true;
 	}, [initialState, onReadyToSeek, reactPlayerRef, state]);
+
+	useLayoutEffect(() => {
+		if (!debug.enabled(DEBUG_PREFIX)) {
+			return;
+		}
+		const unlisteners: VoidFunction[] = [];
+
+		const initLogging = () => {
+			const videoEl = reactPlayerRef.current?.getInternalPlayer();
+			if (!videoEl) {
+				return;
+			}
+
+			const wrapMethods = ['play', 'pause'];
+			wrapMethods.forEach(key => {
+				const nativeMethod = videoEl[key].bind(videoEl);
+				videoEl[key] = (...args: unknown[]) => {
+					log(`nativeElement.${key}()`, ...args);
+					return nativeMethod(...args);
+				};
+			});
+
+			const listenToEvents: VideoNativeEvent[] = [
+				'abort',
+				'canplay',
+				'canplaythrough',
+				'durationchange',
+				'ended',
+				'error',
+				'loadstart',
+				'pause',
+				'play',
+				'playing',
+				'seeked',
+				'seeking',
+				'stalled',
+				'suspend',
+				'volumechange',
+				'waiting',
+			];
+			listenToEvents.forEach(eventName => {
+				const onEvent = (event: Event) => {
+					log(`nativeElement.on('${eventName}')`, event);
+				};
+				videoEl.addEventListener(eventName, onEvent);
+				unlisteners.push(() => videoEl.removeEventListener(eventName, onEvent));
+			});
+		};
+
+		// Give 100ms for video element to initialize...
+		const timeoutId = setTimeout(initLogging, 100);
+
+		return () => {
+			clearTimeout(timeoutId);
+			unlisteners.forEach(fn => fn());
+		};
+	}, [reactPlayerRef]);
 
 	const prevState = usePreviousDistinct(state);
 
