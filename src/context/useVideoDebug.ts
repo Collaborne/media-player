@@ -11,7 +11,7 @@ interface UseVideoDebugProps {
 	reactPlayerRef: RefObject<ReactPlayer>;
 }
 const LISTEN_TO_NATIVE_ELEMENT = ['play', 'pause'];
-const listenToEvents: VideoNativeEvent[] = [
+const LISTEN_TO_EVENTS: VideoNativeEvent[] = [
 	'abort',
 	'canplay',
 	'canplaythrough',
@@ -52,7 +52,7 @@ export const useVideoDebug = ({ reactPlayerRef }: UseVideoDebugProps) => {
 				};
 			});
 
-			listenToEvents.forEach(eventName => {
+			LISTEN_TO_EVENTS.forEach(eventName => {
 				const onEvent = (event: Event) => {
 					log(`nativeElement.on('${eventName}')`, event);
 				};
