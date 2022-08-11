@@ -31,7 +31,9 @@
 	"peerDependencies": {
 		"@mui/icons-material": "^5.8.0",
 		"@mui/material": "^5.8.0",
+		"@types/debug": "^4.1.7",
 		"color-blend": "^4.0.0",
+		"debug": "^4.3.4",
 		"react": "^17.0.0 || ^18.0.0",
 		"react-use": "^17.4.0",
 		"uuidv4": "^6.2.13"
@@ -64,6 +66,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.30.0",
 		"babel-loader": "^8.2.5",
 		"cross-env": "^7.0.3",
+		"dotenv": "^16.0.1",
 		"eslint": "^8.18.0",
 		"eslint-config-collaborne": "^5.2.1",
 		"eslint-config-prettier": "^8.5.0",
