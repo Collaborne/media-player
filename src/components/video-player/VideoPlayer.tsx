@@ -17,7 +17,10 @@ import { VideoContainer } from './VideoContainer';
 
 export interface VideoPlayerProps
 	extends Omit<FileActionPanelProps, 'className'>,
-		Pick<VideoProviderProps, 'controlsConfig' | 'getHighlightColorBlended'> {
+		Pick<
+			VideoProviderProps,
+			'controlsConfig' | 'getHighlightColorBlended' | 'onContext'
+		> {
 	/** The url of the video file to be played */
 	videoUrl: string;
 	/** CSS class name applied to component  */
@@ -47,6 +50,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 	hasImageCover,
 	isCover,
 	actionPanelClassName,
+	onContext,
 }) => {
 	const hasPlayEnabled = videoUrl === currentPlayingUrl;
 
@@ -57,7 +61,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>
 				<CssBaseline />
-				<VideoProvider controlsConfig={controlsConfig}>
+				<VideoProvider controlsConfig={controlsConfig} onContext={onContext}>
 					<VideoContainer
 						className={className}
 						videoUrl={videoUrl}

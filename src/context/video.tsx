@@ -1,4 +1,5 @@
 import Bowser from 'bowser';
+import debug from 'debug';
 import React, {
 	FC,
 	MutableRefObject,
@@ -33,6 +34,8 @@ import { blend } from '../utils/colors';
 import { PROVIDER_INITIAL_STATE } from './constants';
 import { useVideoDebug } from './useVideoDebug';
 
+const DEBUG_PREFIX = 'VideoProvider';
+const log = debug(DEBUG_PREFIX);
 export interface VideoContext {
 	/** A collection of getters, setters, emitters for the video  */
 	api?: VideoApi;
@@ -54,6 +57,8 @@ export interface VideoContext {
 	fullScreenApi?: FullscreenApi;
 	/** Blending colors for highlights presented in `<ProgressBar` */
 	getHighlightColorBlended?: (colors: string[]) => string | undefined;
+	/** Blending colors for highlights presented in `<ProgressBar` */
+	onContext?: (context: VideoContext) => void;
 }
 
 /** A React Context - to share video api through components */
@@ -66,6 +71,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	controlsConfig,
 	persistedState,
 	getHighlightColorBlended = blend,
+	onContext,
 }) => {
 	const {
 		state,
@@ -177,9 +183,13 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	React.useEffect(() => {
 		const browser = Bowser.getParser(window.navigator.userAgent);
 
-		if (!browser.satisfies({ safari: '>1' })) return;
+		if (!browser.satisfies({ safari: '>1' })) {
+			return;
+		}
 		const videoEl = reactPlayerRef?.current?.getInternalPlayer();
-		if (videoEl) videoEl.load();
+		if (videoEl) {
+			videoEl.load();
+		}
 	});
 
 	const onReadyToPlay = useCallback(() => {
@@ -235,11 +245,15 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			newValue = { ...newValue };
 		}
 		setVideoContext(() => newValue);
+		if (onContext) {
+			log('onContext()', newValue);
+			onContext(newValue);
+		}
 		// VideoContext should only be refreshed when state changes(user triggered it, or by events listeners),
 		// on changing configuration for controlsConfig(responsible to display video controls)
 		// or we change initialState to avoid rerenders
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [state, controlsConfig, initialState]);
+	}, [state, dispatch, controlsConfig, initialState, onContext]);
 
 	return (
 		<VideoContext.Provider value={videoContext}>

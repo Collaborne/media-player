@@ -2,6 +2,8 @@ import { Emitter } from 'mitt';
 import { Dispatch, MutableRefObject, ReactNode, RefObject } from 'react';
 import type ReactPlayer from 'react-player';
 
+import { VideoContext } from '../context';
+
 import {
 	ControlsConfig,
 	EmitterAddRemoveListeners,
@@ -63,6 +65,8 @@ export interface VideoProviderProps {
 	persistedState?: VideoState;
 	/** Blending colors for highlights presented in `<ProgressBar>` */
 	getHighlightColorBlended?: (colors: string[]) => string;
+	/** A callback that can updates VideoContext outside of the VideoProvider */
+	onContext?: (context: VideoContext) => void;
 }
 
 /**

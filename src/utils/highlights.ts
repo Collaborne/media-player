@@ -2,7 +2,7 @@ import { Highlight } from '../types/video-state';
 
 import { PROGRESS_BAR_DIVIDER } from './constants';
 
-interface Segment {
+export interface Segment {
 	start: number;
 	end: number;
 }
