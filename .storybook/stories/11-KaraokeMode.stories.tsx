@@ -20,6 +20,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	const { wrapper } = useFilePlayerStyles().classes;
 
 	const [videoDuration, setVideoDuration] = React.useState<number>(0);
+	const [isPlaying, setIsPlaying] = React.useState(false);
 	const [transcript, setTranscript] = React.useState<Transcript[]>([]);
 
 	const videoContextRef = React.useRef<VideoContext>();
@@ -53,6 +54,16 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		}
 	}, [getCurrentTimePart, setCurrentPart]);
 
+	useEventListener(
+		'play',
+		() => setIsPlaying(true),
+		videoContextApi as unknown as HTMLElement,
+	);
+	useEventListener(
+		'pause',
+		() => setIsPlaying(false),
+		videoContextApi as unknown as HTMLElement,
+	);
 	useEventListener('seeked', onSeek, videoContextApi as unknown as HTMLElement);
 
 	useEventListener(
@@ -88,6 +99,8 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 				onContext={setVideoContext}
 			/>
 			<Karaoke
+				isPlaying={isPlaying}
+				requestPip={videoContextRef.current?.api?.requestPip}
 				setCurrentTime={videoContextRef.current?.api?.setCurrentTime}
 				transcripts={transcript}
 				activeTranscript={currentPart}
