@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  ci:
+  deploy-storybook:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,4 +16,5 @@ jobs:
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
+      - run: npm predeploy
       - run: npm run deploy
