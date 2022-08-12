@@ -31,7 +31,7 @@ describe('getRailSegments', () => {
 		const segments = getRailSegments(highlights, 30);
 
 		expect(segments).toStrictEqual([
-			{ start: 0, end: 10 },
+			{ start: 0, end: 1 },
 			{ start: 10, end: 20 },
 			{ start: 20, end: 30 },
 		]);
