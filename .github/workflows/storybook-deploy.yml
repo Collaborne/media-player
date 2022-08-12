@@ -20,3 +20,5 @@ jobs:
       - run: git config --global user.email "storybook@nextapp.co"
       - run: git config --global user.name "StoryBook"
       - run: npm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
