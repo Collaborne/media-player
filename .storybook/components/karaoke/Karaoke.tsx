@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Transcript } from '../../../src/utils/transcript';
+import { Transcript } from '../../stories/shared/transcript';
 
 import { Timestamp } from './Timestamp';
 

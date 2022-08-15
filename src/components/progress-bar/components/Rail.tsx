@@ -28,13 +28,13 @@ export const Rail: FC<RailProps> = () => {
 		const startPoint = getPercentFromDuration(start, videoDuration);
 		const width = getPercentFromDuration(end - start, videoDuration);
 		const intersectedSegments = highlights.filter(
-			highlight => start >= highlight.startTime && end <= highlight.endTime,
+			highlight => start >= highlight.start && end <= highlight.end,
 		);
 		const startColorSegment = highlights.find(
-			({ startTime }) => startTime === start,
+			({ start: startTime }) => startTime === start,
 		)?.color;
 		const endColorSegment = highlights.find(
-			({ endTime }) => endTime === end,
+			({ end: endTime }) => endTime === end,
 		)?.color;
 		const colors = intersectedSegments.map(({ color }) => color);
 

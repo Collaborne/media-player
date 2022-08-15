@@ -1,4 +1,4 @@
-import { Transcript } from '../../../src/utils/transcript';
+import { Transcript } from '../../stories/shared/transcript';
 
 /** A utility tool that is used for building `Transcript[]` until `stopPoint` limiter */
 export const createTimestamps = (

@@ -5,11 +5,12 @@ import { ExtendedTimeUpdateEvent, VideoPlayer } from '../../src';
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
 import { VideoContext } from '../../src/context/video';
-import { findMatchingPartOrNext, Transcript } from '../../src/utils/transcript';
 import { Karaoke } from '../components/karaoke/Karaoke';
 import { createTimestamps } from '../components/karaoke/utils';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
+
+import { findMatchingPartOrNext, Transcript } from './shared/transcript';
 
 interface KaraokeModeProps {
 	secondsDivider: number;

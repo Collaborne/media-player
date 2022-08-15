@@ -3,10 +3,10 @@ import { uuid } from 'uuidv4';
 import { Highlight } from '../../types';
 import { getRailSegments } from '../highlights';
 
-function createHighlight(startTime: number, endTime: number): Highlight {
+function createHighlight(start: number, end: number): Highlight {
 	return {
-		startTime,
-		endTime,
+		start,
+		end,
 		color: '#fff',
 		id: uuid(),
 	};

@@ -25,7 +25,7 @@ export const TrackSegment: FC<TrackSegmentProps> = ({
 	getHighlightColorBlended,
 }) => {
 	const intersectedSegments = highlights.filter(
-		highlight => from >= highlight.startTime && to <= highlight.endTime,
+		highlight => from >= highlight.start && to <= highlight.end,
 	);
 
 	const colors = intersectedSegments.map(({ color }) => color);

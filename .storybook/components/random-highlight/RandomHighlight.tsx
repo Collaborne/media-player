@@ -28,13 +28,13 @@ const pickRandomItem: PickRandomItem<string> = array =>
 export const RandomHighlight: FC = () => {
 	const { api } = useVideo();
 	const videoDuration = api?.getDuration?.() || 0;
-	const endTime = Math.random() * videoDuration;
-	const startTime = Math.random() * endTime;
+	const end = Math.random() * videoDuration;
+	const start = Math.random() * end;
 
 	const handleSaveHighlight = () => {
 		api?.addHighlightToStart?.({
-			startTime,
-			endTime,
+			start,
+			end,
 			color: pickRandomItem(highlightColors),
 			id: uuid(),
 		});
