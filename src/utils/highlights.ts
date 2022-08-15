@@ -1,11 +1,6 @@
-import { Highlight } from '../types/video-state';
+import { Highlight, Segment } from '../types/video-state';
 
 import { PROGRESS_BAR_DIVIDER } from './constants';
-
-interface Segment {
-	start: number;
-	end: number;
-}
 
 /** Splitting <ProgressBar/> Rail's into segments from highlights */
 export const getRailSegments = (
@@ -16,8 +11,8 @@ export const getRailSegments = (
 		return [];
 	}
 
-	const startTimes = highlights.map(({ startTime }) => startTime);
-	const endTimes = highlights.map(({ endTime }) => endTime);
+	const startTimes = highlights.map(({ start }) => start);
+	const endTimes = highlights.map(({ end }) => end);
 
 	// Creating a unique array with startTime and endTime values
 	const segmentSplitPoints = [

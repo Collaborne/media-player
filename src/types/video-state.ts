@@ -2,6 +2,8 @@ import { Emitter } from 'mitt';
 import { Dispatch, MutableRefObject, ReactNode, RefObject } from 'react';
 import type ReactPlayer from 'react-player';
 
+import { VideoContext } from '../context';
+
 import {
 	ControlsConfig,
 	EmitterAddRemoveListeners,
@@ -22,14 +24,18 @@ export interface FullscreenApi {
 	toggleFullscreen: () => void;
 }
 
+/** An interval that has required `start` and `end` point  */
+export interface Segment {
+	/** Starting time of a segment */
+	start: number;
+	/** End time of a segment */
+	end: number;
+}
+
 /** An interval of timestamps in seconds, that will be "highlighted" in the scrub bar. Useful when you want to split video duration into small segments/chunks */
-export interface Highlight {
+export interface Highlight extends Segment {
 	/** Id of the highlight */
 	id: string;
-	/** Starting time of a highlight */
-	startTime: number;
-	/** End time of a highlight */
-	endTime: number;
 	/** Color of the highlight. This must be a HEX color code */
 	color: string;
 }
@@ -63,6 +69,8 @@ export interface VideoProviderProps {
 	persistedState?: VideoState;
 	/** Blending colors for highlights presented in `<ProgressBar>` */
 	getHighlightColorBlended?: (colors: string[]) => string;
+	/** A callback that can updates VideoContext outside of the VideoProvider */
+	onContext?: (context: VideoContext) => void;
 }
 
 /**

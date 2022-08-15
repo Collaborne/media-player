@@ -27,6 +27,10 @@
 		"noEmit": true,
 		"noFallthroughCasesInSwitch": true
 	},
-	"include": ["src/**/*", ".storybook/components/**/*"],
+	"include": [
+		"src/**/*",
+		".storybook/components/**/*",
+		".storybook/stories/shared/*"
+	],
 	"exclude": ["node_modules/**/*", "dist/**/*"]
 }

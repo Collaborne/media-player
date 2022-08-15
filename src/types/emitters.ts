@@ -27,7 +27,7 @@ export type EmitterEvents =
 	| 'unnmute'
 	| 'captionsHide'
 	| 'setPlaybackRate'
-	| 'timeUpdate'
+	| 'timeupdate'
 	| 'fullscreenEnter'
 	| 'fullscreenExit'
 	| 'progress'
@@ -44,3 +44,8 @@ export interface EmitterAddRemoveListeners {
 	removeEventListener?: AddRemoveListener<boolean | number | undefined>;
 	addEventListener?: AddRemoveListener<boolean | number | undefined>;
 }
+
+/** DOM event `timeupdate` has seconds and duration properties, that are not present in `Event` typings */
+export interface ExtendedTimeUpdateEvent
+	extends Event,
+		Record<'seconds' | 'duration', number> {}

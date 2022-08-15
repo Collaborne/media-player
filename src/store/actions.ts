@@ -91,11 +91,12 @@ export const videoActions: VideoActions = {
 			const diffMs = (relativeSeconds - videoEl.currentTime) * 1000;
 			videoEl.currentTime = state.startTime + relativeSeconds;
 			state.emitter?.emit('seeked', { diffMs });
-			state.emitter?.emit('timeUpdate', {
+			state.emitter?.emit('timeupdate', {
 				seconds: relativeSeconds,
 				duration: state.duration,
 			});
 		}
+
 		return {
 			currentTime: state.startTime + relativeSeconds,
 			currentRelativeTime: relativeSeconds,
@@ -156,7 +157,7 @@ export const videoActions: VideoActions = {
 		);
 
 		if (state.playing) {
-			state.emitter?.emit('timeUpdate', {
+			state.emitter?.emit('timeupdate', {
 				seconds: currentRelativeTime,
 				duration: state.duration,
 			});
