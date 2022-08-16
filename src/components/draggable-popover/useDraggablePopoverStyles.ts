@@ -17,7 +17,7 @@ export const useDraggablePopoverStyles =
 			margin: 0,
 		},
 		portalWrapper: {
-			height: isExpanded ? 'inherit' : `calc(100vh - ${theme.spacing(4)})`,
+			height: isExpanded ? '100%' : `calc(100vh - ${theme.spacing(4)})`,
 			width: isExpanded ? '100%' : `calc(100vw - ${theme.spacing(4)})`,
 			zIndex: isExpanded ? 0 : 9999,
 			background: 'transparent',
