@@ -19,10 +19,6 @@ export const useVideoContainerStyles = makeStyles()(theme => ({
 	},
 }));
 
-/**
- * A style that simulate video's FileCard sizes used in stories
- * https://github.com/Collaborne/carrot-app-ui/blob/66f02a36cb9182b139a5f701867e8bd8b6ddb9ca/src/components/cards/FileCard.tsx#L148
- * */
 export const useFilePlayerStyles = makeStyles()({
 	wrapper: {
 		aspectRatio: '16 / 9',
