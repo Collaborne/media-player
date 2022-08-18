@@ -1,18 +1,18 @@
 import { VideoState } from '../types';
 
 /**
- * HTMLVideoElement typeguard
+ * HTMLMediaElement typeguard
  */
-export const isHTMLVideoElement = (e: unknown): e is HTMLVideoElement =>
-	e instanceof HTMLVideoElement;
+export const isHTMLMediaElement = (e: unknown): e is HTMLMediaElement =>
+	e instanceof HTMLMediaElement;
 
 /**
- * Gets the HTMLVideoElement from a VideoState
+ * Gets the HTMLMediaElement from a VideoState
  */
-export const getVideoEl = (state: VideoState): HTMLVideoElement | undefined => {
+export const getVideoEl = (state: VideoState): HTMLMediaElement | undefined => {
 	const internalPlayer = state?.reactPlayerRef?.current?.getInternalPlayer();
 
-	if (isHTMLVideoElement(internalPlayer)) {
+	if (isHTMLMediaElement(internalPlayer)) {
 		return internalPlayer;
 	}
 	return undefined;
