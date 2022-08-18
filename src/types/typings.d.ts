@@ -12,7 +12,7 @@ declare module '*.css' {
 // TS for only video player that plays video files
 declare module 'react-player' {
 	export default interface ReactPlayer extends ReactPlayer {
-		getInternalPlayer(): HTMLVideoElement | null;
+		getInternalPlayer(): HTMLMediaElement | null;
 		get wrapper(): HTMLDivElement;
 	}
 }
