@@ -1,6 +1,5 @@
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
-import * as React from 'react';
 
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
