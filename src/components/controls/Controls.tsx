@@ -1,5 +1,5 @@
 import useEventListener from '@use-it/event-listener';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useVideo } from '../../hooks';
 import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
@@ -34,6 +34,7 @@ export const Controls: FC<ControlProps> = ({
 	isCover,
 }) => {
 	const { api, controlsConfig } = useVideo();
+	const isPlaying = Boolean(api?.getPlaying?.());
 
 	const animationDuration =
 		controlsConfig?.eventAnimationDurationMs ||
@@ -54,37 +55,44 @@ export const Controls: FC<ControlProps> = ({
 	})();
 
 	// useEventListener uses under the hood event listeners, that are also present in api, but do not correspond typings from the package
+	// Play animation on `play` event
 	useEventListener(
 		'play',
-		() => setHasStarted(true),
+		() => {
+			setHasStarted(true);
+			if (!hasStarted) {
+				return;
+			}
+			if (!isPlaying) {
+				setShowPlayAnimation(true);
+			}
+		},
 		api as unknown as HTMLElement,
 	);
 
-	// Play animation when video is paused
+	// Play animation on `pause` event
 	useEventListener(
 		'pause',
 		() => {
 			if (!hasStarted) {
 				return;
 			}
-			setShowPauseAnimation(true);
-			setTimeout(() => setShowPauseAnimation(false), animationDuration);
+			if (isPlaying) {
+				setShowPauseAnimation(true);
+			}
 		},
 		api as unknown as HTMLElement,
 	);
 
-	// Play animation when video is played(exception: prePlay state)
-	useEventListener(
-		'play',
-		() => {
-			if (!hasStarted) {
-				return;
-			}
-			setShowPlayAnimation(true);
-			setTimeout(() => setShowPlayAnimation(false), animationDuration);
-		},
-		api as unknown as HTMLElement,
-	);
+	// Rerender when animation is has been triggered
+	useEffect(() => {
+		if (showPlayAnimation) {
+			setShowPlayAnimation(false);
+		}
+		if (showPauseAnimation) {
+			setShowPauseAnimation(false);
+		}
+	}, [showPauseAnimation, showPlayAnimation]);
 
 	// Controls styles
 	const { bigCenteredIcon, wrapper, wrapperBottomPanel } =
@@ -92,16 +100,18 @@ export const Controls: FC<ControlProps> = ({
 
 	return (
 		<div className={wrapper}>
-			{showPauseAnimation && (
-				<AnimatedIconWrapper durationMs={animationDuration}>
-					<BigPauseIcon className={bigCenteredIcon} />
-				</AnimatedIconWrapper>
-			)}
-			{showPlayAnimation && (
-				<AnimatedIconWrapper durationMs={animationDuration}>
-					<BigPlayIcon className={bigCenteredIcon} />
-				</AnimatedIconWrapper>
-			)}
+			<AnimatedIconWrapper
+				durationMs={animationDuration}
+				hasAnimationStarted={showPauseAnimation}
+			>
+				<BigPauseIcon className={bigCenteredIcon} />
+			</AnimatedIconWrapper>
+			<AnimatedIconWrapper
+				durationMs={animationDuration}
+				hasAnimationStarted={showPlayAnimation}
+			>
+				<BigPlayIcon className={bigCenteredIcon} />
+			</AnimatedIconWrapper>
 			{isVisible && controlsConfig?.fileActionsPanel && (
 				<FileActionPanel
 					onDelete={onDelete}
