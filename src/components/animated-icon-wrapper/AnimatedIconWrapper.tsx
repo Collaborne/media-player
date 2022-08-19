@@ -9,19 +9,18 @@ import {
 
 interface AnimatedIconWrapperProps extends PropsWithChildren {
 	durationMs: number;
-	hasAnimationStarted?: boolean;
+	startAnimation?: boolean;
 }
 export const AnimatedIconWrapper: FC<AnimatedIconWrapperProps> = ({
 	durationMs,
 	children,
-	hasAnimationStarted,
+	startAnimation,
 }) => {
 	const { root } = useAnimatedIconWrapperStyles().classes;
 
 	return (
-		<Transition in={hasAnimationStarted} timeout={durationMs}>
+		<Transition in={startAnimation} timeout={durationMs}>
 			{state => {
-				console.log(state);
 				return (
 					<div
 						className={root}

@@ -41,9 +41,7 @@ export const Controls: FC<ControlProps> = ({
 		DEFAULT_EVENT_ANIMATION_DURATION;
 
 	// Show first controls screen
-	const [hasStarted, setHasStarted] = useState<boolean>(
-		Boolean(api?.getPlaying?.()),
-	);
+	const hasStarted = api?.getHasPlayedOrSeeked?.();
 	const [showPlayAnimation, setShowPlayAnimation] = useState(false);
 	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
 
@@ -59,7 +57,6 @@ export const Controls: FC<ControlProps> = ({
 	useEventListener(
 		'play',
 		() => {
-			setHasStarted(true);
 			if (!hasStarted) {
 				return;
 			}
@@ -84,7 +81,7 @@ export const Controls: FC<ControlProps> = ({
 		api as unknown as HTMLElement,
 	);
 
-	// Rerender when animation is has been triggered
+	// Rerender when animation has been triggered
 	useEffect(() => {
 		if (showPlayAnimation) {
 			setShowPlayAnimation(false);
@@ -102,13 +99,13 @@ export const Controls: FC<ControlProps> = ({
 		<div className={wrapper}>
 			<AnimatedIconWrapper
 				durationMs={animationDuration}
-				hasAnimationStarted={showPauseAnimation}
+				startAnimation={showPauseAnimation}
 			>
 				<BigPauseIcon className={bigCenteredIcon} />
 			</AnimatedIconWrapper>
 			<AnimatedIconWrapper
 				durationMs={animationDuration}
-				hasAnimationStarted={showPlayAnimation}
+				startAnimation={showPlayAnimation}
 			>
 				<BigPlayIcon className={bigCenteredIcon} />
 			</AnimatedIconWrapper>
