@@ -9,17 +9,16 @@ import { ControlProps, Controls } from '../controls/Controls';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { VideoPoster } from '../video-poster/VideoPoster';
 
-import { useVideoContainerHook } from './useVideoContainerHook';
+import {
+	useVideoContainerHook,
+	UseVideoContainerHookProps,
+} from './useVideoContainerHook';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
 
 /** VideoContainer Props */
-export interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
-	/** The url of the video file to be played */
-	videoUrl: string;
-	/** Boolean that represents if the play is enabled. */
-	hasPlayEnabled?: boolean;
-	/** Callback triggered by play event */
-	onPlay?: VoidFunction;
+export interface VideoContainerProps
+	extends Omit<ControlProps, 'isVisible'>,
+		UseVideoContainerHookProps {
 	/** CSS class name applied to component  */
 	className?: string;
 }
@@ -37,6 +36,7 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 	actionPanelClassName,
 	hasImageCover,
 	isCover,
+	onTimeUpdate,
 }) => {
 	const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
 		useVideo();
@@ -48,7 +48,7 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 		onMouseLeave,
 		onMouseEnter,
 		showControls,
-	} = useVideoContainerHook({ hasPlayEnabled, onPlay, videoUrl });
+	} = useVideoContainerHook({ hasPlayEnabled, onPlay, videoUrl, onTimeUpdate });
 
 	// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
 	if (!videoUrl || !isPlayerReady) {

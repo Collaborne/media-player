@@ -67,16 +67,10 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	);
 	useEventListener('seeked', onSeek, videoContextApi as unknown as HTMLElement);
 
-	useEventListener(
-		'timeupdate',
-		e => {
-			const event = e as Event as ExtendedTimeUpdateEvent;
-			const res = findMatchingPartOrNext(transcript, event.seconds);
-
-			setCurrentPart(() => res);
-		},
-		videoContextApi as unknown as HTMLElement,
-	);
+	const handleTimeUpdate = (event: ExtendedTimeUpdateEvent) => {
+		const res = findMatchingPartOrNext(transcript, event.seconds);
+		setCurrentPart(res);
+	};
 
 	// Wait to mount 1sec and then depending on video duration populate with transcripts
 	React.useEffect(() => {
@@ -98,6 +92,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 				controlsConfig={{ ...DEFAULT_CONTROLS_CONFIG, fileActionsPanel: false }}
 				className={wrapper}
 				onContext={setVideoContext}
+				onTimeUpdate={handleTimeUpdate}
 			/>
 			<Karaoke
 				isPlaying={isPlaying}

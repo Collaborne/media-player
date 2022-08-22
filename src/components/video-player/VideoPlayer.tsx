@@ -13,18 +13,15 @@ import { VideoProviderProps } from '../../types';
 import { DEFAULT_CONTROLS_CONFIG } from '../controls/controls-config';
 import { FileActionPanelProps } from '../file-action-panel/FileActionPanel';
 
-import { VideoContainer } from './VideoContainer';
+import { VideoContainer, VideoContainerProps } from './VideoContainer';
 
 export interface VideoPlayerProps
 	extends Omit<FileActionPanelProps, 'className'>,
 		Pick<
 			VideoProviderProps,
 			'controlsConfig' | 'getHighlightColorBlended' | 'onContext'
-		> {
-	/** The url of the video file to be played */
-	videoUrl: string;
-	/** CSS class name applied to component  */
-	className?: string;
+		>,
+		Pick<VideoContainerProps, 'videoUrl' | 'className' | 'onTimeUpdate'> {
 	/**  Used when you have multiple videos, and only one video is played at same time. *Ex: Video 1 plays, and video 2 is on pause. Playing video 2, pauses video 1*   */
 	currentPlayingUrl?: string;
 	/** A function that handles changing of the currentPlayingUrl */
@@ -51,6 +48,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 	isCover,
 	actionPanelClassName,
 	onContext,
+	onTimeUpdate,
 }) => {
 	const hasPlayEnabled = videoUrl === currentPlayingUrl;
 
@@ -74,6 +72,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 						actionPanelClassName={actionPanelClassName}
 						hasImageCover={hasImageCover}
 						isCover={isCover}
+						onTimeUpdate={onTimeUpdate}
 					/>
 				</VideoProvider>
 			</StyledEngineProvider>

@@ -10,14 +10,17 @@ import useIntersection from 'react-use/lib/useIntersection';
 import useUnmount from 'react-use/lib/useUnmount';
 
 import { useVideo } from '../../hooks';
+import { ExtendedTimeUpdateEvent } from '../../types';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { getElementOffset } from '../../utils/html-elements';
 import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';
 
-interface UseVideoContainerHookProps {
+export interface UseVideoContainerHookProps {
 	videoUrl: string;
+	/** Boolean that represents if the play is enabled. */
 	hasPlayEnabled?: boolean;
 	onPlay?: VoidFunction;
+	onTimeUpdate?: (event: ExtendedTimeUpdateEvent) => void;
 }
 interface UseVideoContainerHook {
 	isPlayerReady: boolean;
@@ -34,6 +37,7 @@ export const useVideoContainerHook = ({
 	videoUrl,
 	hasPlayEnabled,
 	onPlay,
+	onTimeUpdate,
 }: UseVideoContainerHookProps): UseVideoContainerHook => {
 	const {
 		reactPlayerRef,
@@ -239,6 +243,16 @@ export const useVideoContainerHook = ({
 			setTimeout(() => {
 				api?.setCurrentTime?.(currentTime);
 			}, PROGRESS_INTERVAL - 1);
+		},
+		api as unknown as HTMLElement,
+	);
+
+	useEventListener(
+		'timeupdate',
+		e => {
+			const event = e as Event as ExtendedTimeUpdateEvent;
+
+			onTimeUpdate?.(event);
 		},
 		api as unknown as HTMLElement,
 	);
