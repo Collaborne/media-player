@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / context/video
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / context/video
 
 # Module: context/video
 
@@ -30,9 +30,9 @@ A React Context - to share video api through components
 
 #### Defined in
 
-[src/context/video.tsx:34](https://github.com/Collaborne/video-player/blob/5338fe4/src/context/video.tsx#L34)
+[src/context/video.tsx:39](https://github.com/Collaborne/video-player/blob/803dfdf/src/context/video.tsx#L39)
 
-[src/context/video.tsx:56](https://github.com/Collaborne/video-player/blob/5338fe4/src/context/video.tsx#L56)
+[src/context/video.tsx:65](https://github.com/Collaborne/video-player/blob/803dfdf/src/context/video.tsx#L65)
 
 ## Functions
 

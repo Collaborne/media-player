@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / [components/video-player/VideoContainer](/docs/modules/components_video_player_VideoContainer.md) / VideoContainerProps
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [components/video-player/VideoContainer](/docs/modules/components_video_player_VideoContainer.md) / VideoContainerProps
 
 # Interface: VideoContainerProps
 
@@ -40,7 +40,7 @@ Omit.actionPanelClassName
 
 #### Defined in
 
-[src/components/controls/Controls.tsx:23](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/controls/Controls.tsx#L23)
+[src/components/controls/Controls.tsx:23](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/controls/Controls.tsx#L23)
 
 ___
 
@@ -52,7 +52,7 @@ CSS class name applied to component
 
 #### Defined in
 
-[src/components/video-player/VideoContainer.tsx:24](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoContainer.tsx#L24)
+[src/components/video-player/VideoContainer.tsx:24](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoContainer.tsx#L24)
 
 ___
 
@@ -68,7 +68,7 @@ Omit.hasImageCover
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:29](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L29)
+[src/components/file-action-panel/FileActionPanel.tsx:29](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L29)
 
 ___
 
@@ -80,7 +80,7 @@ Boolean that represents if the play is enabled.
 
 #### Defined in
 
-[src/components/video-player/VideoContainer.tsx:20](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoContainer.tsx#L20)
+[src/components/video-player/VideoContainer.tsx:20](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoContainer.tsx#L20)
 
 ___
 
@@ -96,7 +96,7 @@ Omit.isCover
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:27](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L27)
+[src/components/file-action-panel/FileActionPanel.tsx:27](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L27)
 
 ___
 
@@ -112,7 +112,7 @@ Omit.onDelete
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:21](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L21)
+[src/components/file-action-panel/FileActionPanel.tsx:21](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L21)
 
 ___
 
@@ -128,7 +128,7 @@ Omit.onDownload
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:19](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L19)
+[src/components/file-action-panel/FileActionPanel.tsx:19](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L19)
 
 ___
 
@@ -140,7 +140,7 @@ Callback triggered by play event
 
 #### Defined in
 
-[src/components/video-player/VideoContainer.tsx:22](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoContainer.tsx#L22)
+[src/components/video-player/VideoContainer.tsx:22](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoContainer.tsx#L22)
 
 ___
 
@@ -156,7 +156,7 @@ Omit.removeAsCover
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:25](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L25)
+[src/components/file-action-panel/FileActionPanel.tsx:25](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L25)
 
 ___
 
@@ -172,7 +172,7 @@ Omit.setAsCover
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:23](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L23)
+[src/components/file-action-panel/FileActionPanel.tsx:23](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L23)
 
 ___
 
@@ -184,4 +184,4 @@ The url of the video file to be played
 
 #### Defined in
 
-[src/components/video-player/VideoContainer.tsx:18](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoContainer.tsx#L18)
+[src/components/video-player/VideoContainer.tsx:18](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoContainer.tsx#L18)

@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / types/getters
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / types/getters
 
 # Module: types/getters
 
@@ -42,7 +42,7 @@
 
 #### Defined in
 
-[src/types/getters.ts:3](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L3)
+[src/types/getters.ts:3](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L3)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:27](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L27)
+[src/types/getters.ts:28](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L28)
 
 ___
 
@@ -62,4 +62,4 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:25](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L25)
+[src/types/getters.ts:26](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L26)

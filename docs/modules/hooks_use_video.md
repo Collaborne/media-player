@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / hooks/use-video
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / hooks/use-video
 
 # Module: hooks/use-video
 
@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[src/hooks/use-video.ts:5](https://github.com/Collaborne/video-player/blob/5338fe4/src/hooks/use-video.ts#L5)
+[src/hooks/use-video.ts:5](https://github.com/Collaborne/video-player/blob/803dfdf/src/hooks/use-video.ts#L5)

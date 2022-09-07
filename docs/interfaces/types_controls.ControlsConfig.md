@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / [types/controls](/docs/modules/types_controls.md) / ControlsConfig
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [types/controls](/docs/modules/types_controls.md) / ControlsConfig
 
 # Interface: ControlsConfig
 
@@ -30,7 +30,7 @@ Always show action panel on top right side(without hiding)
 
 #### Defined in
 
-[src/types/controls.ts:20](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/controls.ts#L20)
+[src/types/controls.ts:20](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/controls.ts#L20)
 
 ___
 
@@ -42,7 +42,7 @@ Show bottom control panel
 
 #### Defined in
 
-[src/types/controls.ts:8](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/controls.ts#L8)
+[src/types/controls.ts:8](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/controls.ts#L8)
 
 ___
 
@@ -54,7 +54,7 @@ The duration of play/pause animation events
 
 #### Defined in
 
-[src/types/controls.ts:22](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/controls.ts#L22)
+[src/types/controls.ts:22](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/controls.ts#L22)
 
 ___
 
@@ -66,7 +66,7 @@ Shows action panel on top right side
 
 #### Defined in
 
-[src/types/controls.ts:6](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/controls.ts#L6)
+[src/types/controls.ts:6](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/controls.ts#L6)
 
 ___
 
@@ -78,7 +78,7 @@ Shows fullscreen button in the bottom control panel
 
 #### Defined in
 
-[src/types/controls.ts:12](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/controls.ts#L12)
+[src/types/controls.ts:12](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/controls.ts#L12)
 
 ___
 
@@ -90,7 +90,7 @@ Shows pip button in the bottom control panel
 
 #### Defined in
 
-[src/types/controls.ts:10](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/controls.ts#L10)
+[src/types/controls.ts:10](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/controls.ts#L10)
 
 ___
 
@@ -102,7 +102,7 @@ Shows video's progress bar
 
 #### Defined in
 
-[src/types/controls.ts:18](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/controls.ts#L18)
+[src/types/controls.ts:18](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/controls.ts#L18)
 
 ___
 
@@ -114,7 +114,7 @@ Shows playback rate in the bottom control panel
 
 #### Defined in
 
-[src/types/controls.ts:16](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/controls.ts#L16)
+[src/types/controls.ts:16](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/controls.ts#L16)
 
 ___
 
@@ -126,4 +126,4 @@ Shows volume controls in the bottom control panel
 
 #### Defined in
 
-[src/types/controls.ts:14](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/controls.ts#L14)
+[src/types/controls.ts:14](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/controls.ts#L14)

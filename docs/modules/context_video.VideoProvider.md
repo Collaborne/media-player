@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / [context/video](/docs/modules/context_video.md) / VideoProvider
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [context/video](/docs/modules/context_video.md) / VideoProvider
 
 # Namespace: VideoProvider
 
@@ -18,4 +18,4 @@
 
 #### Defined in
 
-[src/context/video.tsx:244](https://github.com/Collaborne/video-player/blob/5338fe4/src/context/video.tsx#L244)
+[src/context/video.tsx:265](https://github.com/Collaborne/video-player/blob/803dfdf/src/context/video.tsx#L265)

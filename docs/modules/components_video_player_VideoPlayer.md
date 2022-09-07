@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / components/video-player/VideoPlayer
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / components/video-player/VideoPlayer
 
 # Module: components/video-player/VideoPlayer
 

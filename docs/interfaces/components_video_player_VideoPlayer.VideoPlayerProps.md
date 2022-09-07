@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / [components/video-player/VideoPlayer](/docs/modules/components_video_player_VideoPlayer.md) / VideoPlayerProps
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [components/video-player/VideoPlayer](/docs/modules/components_video_player_VideoPlayer.md) / VideoPlayerProps
 
 # Interface: VideoPlayerProps
 
@@ -7,6 +7,8 @@
 ## Hierarchy
 
 - `Omit`<`FileActionPanelProps`, ``"className"``\>
+
+- `Pick`<[`VideoProviderProps`](/docs/interfaces/types_video_state.VideoProviderProps.md), ``"controlsConfig"`` \| ``"getHighlightColorBlended"`` \| ``"onContext"``\>
 
   ↳ **`VideoPlayerProps`**
 
@@ -18,8 +20,10 @@
 - [className](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#classname)
 - [controlsConfig](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#controlsconfig)
 - [currentPlayingUrl](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#currentplayingurl)
+- [getHighlightColorBlended](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#gethighlightcolorblended)
 - [hasImageCover](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#hasimagecover)
 - [isCover](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#iscover)
+- [onContext](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#oncontext)
 - [onDelete](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#ondelete)
 - [onDownload](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#ondownload)
 - [removeAsCover](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#removeascover)
@@ -38,7 +42,7 @@ CSS class name applied to the file action panel
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:28](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoPlayer.tsx#L28)
+[src/components/video-player/VideoPlayer.tsx:35](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L35)
 
 ___
 
@@ -50,7 +54,7 @@ CSS class name applied to component
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:18](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoPlayer.tsx#L18)
+[src/components/video-player/VideoPlayer.tsx:27](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L27)
 
 ___
 
@@ -60,9 +64,13 @@ ___
 
 Configuration that enables/disables some parts of the overlay on top of the video player
 
+#### Inherited from
+
+Pick.controlsConfig
+
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:20](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoPlayer.tsx#L20)
+[src/types/video-state.ts:63](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L63)
 
 ___
 
@@ -74,7 +82,37 @@ Used when you have multiple videos, and only one video is played at same time. *
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:22](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoPlayer.tsx#L22)
+[src/components/video-player/VideoPlayer.tsx:29](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L29)
+
+___
+
+### getHighlightColorBlended
+
+• `Optional` **getHighlightColorBlended**: (`colors`: `string`[]) => `string`
+
+#### Type declaration
+
+▸ (`colors`): `string`
+
+Blending colors for highlights presented in `<ProgressBar>`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `colors` | `string`[] |
+
+##### Returns
+
+`string`
+
+#### Inherited from
+
+Pick.getHighlightColorBlended
+
+#### Defined in
+
+[src/types/video-state.ts:71](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L71)
 
 ___
 
@@ -90,7 +128,7 @@ Omit.hasImageCover
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:29](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L29)
+[src/components/file-action-panel/FileActionPanel.tsx:29](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L29)
 
 ___
 
@@ -106,7 +144,37 @@ Omit.isCover
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:27](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L27)
+[src/components/file-action-panel/FileActionPanel.tsx:27](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L27)
+
+___
+
+### onContext
+
+• `Optional` **onContext**: (`context`: [`VideoContext`](/docs/modules/context_video.md#videocontext)) => `void`
+
+#### Type declaration
+
+▸ (`context`): `void`
+
+A callback that can updates VideoContext outside of the VideoProvider
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `context` | [`VideoContext`](/docs/modules/context_video.md#videocontext) |
+
+##### Returns
+
+`void`
+
+#### Inherited from
+
+Pick.onContext
+
+#### Defined in
+
+[src/types/video-state.ts:73](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L73)
 
 ___
 
@@ -122,7 +190,7 @@ Omit.onDelete
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:21](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L21)
+[src/components/file-action-panel/FileActionPanel.tsx:21](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L21)
 
 ___
 
@@ -138,7 +206,7 @@ Omit.onDownload
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:19](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L19)
+[src/components/file-action-panel/FileActionPanel.tsx:19](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L19)
 
 ___
 
@@ -154,7 +222,7 @@ Omit.removeAsCover
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:25](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L25)
+[src/components/file-action-panel/FileActionPanel.tsx:25](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L25)
 
 ___
 
@@ -170,7 +238,7 @@ Omit.setAsCover
 
 #### Defined in
 
-[src/components/file-action-panel/FileActionPanel.tsx:23](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/file-action-panel/FileActionPanel.tsx#L23)
+[src/components/file-action-panel/FileActionPanel.tsx:23](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/file-action-panel/FileActionPanel.tsx#L23)
 
 ___
 
@@ -196,7 +264,7 @@ A function that handles changing of the currentPlayingUrl
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:24](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoPlayer.tsx#L24)
+[src/components/video-player/VideoPlayer.tsx:31](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L31)
 
 ___
 
@@ -208,7 +276,7 @@ A MUI theme to control the stylization of the player .
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:26](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoPlayer.tsx#L26)
+[src/components/video-player/VideoPlayer.tsx:33](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L33)
 
 ___
 
@@ -220,4 +288,4 @@ The url of the video file to be played
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:16](https://github.com/Collaborne/video-player/blob/5338fe4/src/components/video-player/VideoPlayer.tsx#L16)
+[src/components/video-player/VideoPlayer.tsx:25](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L25)

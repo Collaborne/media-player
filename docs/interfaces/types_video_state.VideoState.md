@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / [types/video-state](/docs/modules/types_video_state.md) / VideoState
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [types/video-state](/docs/modules/types_video_state.md) / VideoState
 
 # Interface: VideoState
 
@@ -17,6 +17,7 @@ State for video. Keeping info about current video player behavior
 - [endTime](/docs/interfaces/types_video_state.VideoState.md#endtime)
 - [hasPipTriggeredByClick](/docs/interfaces/types_video_state.VideoState.md#haspiptriggeredbyclick)
 - [hasPlayedOrSeeked](/docs/interfaces/types_video_state.VideoState.md#hasplayedorseeked)
+- [highlights](/docs/interfaces/types_video_state.VideoState.md#highlights)
 - [lastActivityRef](/docs/interfaces/types_video_state.VideoState.md#lastactivityref)
 - [loop](/docs/interfaces/types_video_state.VideoState.md#loop)
 - [muted](/docs/interfaces/types_video_state.VideoState.md#muted)
@@ -39,7 +40,7 @@ State for video. Keeping info about current video player behavior
 
 #### Defined in
 
-[src/types/video-state.ts:70](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L70)
+[src/types/video-state.ts:92](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L92)
 
 ___
 
@@ -49,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:69](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L69)
+[src/types/video-state.ts:91](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L91)
 
 ___
 
@@ -59,7 +60,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:68](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L68)
+[src/types/video-state.ts:90](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L90)
 
 ___
 
@@ -69,7 +70,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:60](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L60)
+[src/types/video-state.ts:82](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L82)
 
 ___
 
@@ -79,7 +80,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:67](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L67)
+[src/types/video-state.ts:89](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L89)
 
 ___
 
@@ -91,7 +92,7 @@ Did pip mode was triggered by click event
 
 #### Defined in
 
-[src/types/video-state.ts:78](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L78)
+[src/types/video-state.ts:100](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L100)
 
 ___
 
@@ -101,7 +102,17 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:74](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L74)
+[src/types/video-state.ts:96](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L96)
+
+___
+
+### highlights
+
+• **highlights**: [`Highlight`](/docs/interfaces/types_video_state.Highlight.md)[]
+
+#### Defined in
+
+[src/types/video-state.ts:103](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L103)
 
 ___
 
@@ -111,7 +122,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:59](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L59)
+[src/types/video-state.ts:81](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L81)
 
 ___
 
@@ -121,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:71](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L71)
+[src/types/video-state.ts:93](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L93)
 
 ___
 
@@ -131,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:65](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L65)
+[src/types/video-state.ts:87](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L87)
 
 ___
 
@@ -141,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:76](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L76)
+[src/types/video-state.ts:98](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L98)
 
 ___
 
@@ -151,7 +162,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:75](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L75)
+[src/types/video-state.ts:97](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L97)
 
 ___
 
@@ -161,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:62](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L62)
+[src/types/video-state.ts:84](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L84)
 
 ___
 
@@ -171,7 +182,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:63](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L63)
+[src/types/video-state.ts:85](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L85)
 
 ___
 
@@ -181,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:64](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L64)
+[src/types/video-state.ts:86](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L86)
 
 ___
 
@@ -191,7 +202,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:61](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L61)
+[src/types/video-state.ts:83](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L83)
 
 ___
 
@@ -201,7 +212,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:73](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L73)
+[src/types/video-state.ts:95](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L95)
 
 ___
 
@@ -211,7 +222,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:66](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L66)
+[src/types/video-state.ts:88](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L88)
 
 ___
 
@@ -223,7 +234,7 @@ Storing wrapper ref of the videoPlayer
 
 #### Defined in
 
-[src/types/video-state.ts:80](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L80)
+[src/types/video-state.ts:102](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L102)
 
 ___
 
@@ -233,4 +244,4 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:72](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L72)
+[src/types/video-state.ts:94](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L94)

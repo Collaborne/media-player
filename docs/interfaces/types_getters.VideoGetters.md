@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / [types/getters](/docs/modules/types_getters.md) / VideoGetters
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [types/getters](/docs/modules/types_getters.md) / VideoGetters
 
 # Interface: VideoGetters
 
@@ -16,6 +16,7 @@ List of getters for the VideoState
 - [getEndTime](/docs/interfaces/types_getters.VideoGetters.md#getendtime)
 - [getHasPipTriggeredByClick](/docs/interfaces/types_getters.VideoGetters.md#gethaspiptriggeredbyclick)
 - [getHasPlayedOrSeeked](/docs/interfaces/types_getters.VideoGetters.md#gethasplayedorseeked)
+- [getHighlights](/docs/interfaces/types_getters.VideoGetters.md#gethighlights)
 - [getLastActivity](/docs/interfaces/types_getters.VideoGetters.md#getlastactivity)
 - [getLoop](/docs/interfaces/types_getters.VideoGetters.md#getloop)
 - [getMuted](/docs/interfaces/types_getters.VideoGetters.md#getmuted)
@@ -35,7 +36,7 @@ List of getters for the VideoState
 
 #### Defined in
 
-[src/types/getters.ts:16](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L16)
+[src/types/getters.ts:16](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L16)
 
 ___
 
@@ -45,7 +46,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:15](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L15)
+[src/types/getters.ts:15](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L15)
 
 ___
 
@@ -55,7 +56,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:14](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L14)
+[src/types/getters.ts:14](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L14)
 
 ___
 
@@ -65,7 +66,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:13](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L13)
+[src/types/getters.ts:13](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L13)
 
 ___
 
@@ -75,7 +76,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:22](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L22)
+[src/types/getters.ts:22](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L22)
 
 ___
 
@@ -85,7 +86,17 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:20](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L20)
+[src/types/getters.ts:20](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L20)
+
+___
+
+### getHighlights
+
+• **getHighlights**: [`VideoGetter`](/docs/modules/types_getters.md#videogetter)<[`Highlight`](/docs/interfaces/types_video_state.Highlight.md)[]\>
+
+#### Defined in
+
+[src/types/getters.ts:23](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L23)
 
 ___
 
@@ -95,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:7](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L7)
+[src/types/getters.ts:7](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L7)
 
 ___
 
@@ -105,7 +116,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:17](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L17)
+[src/types/getters.ts:17](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L17)
 
 ___
 
@@ -115,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:11](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L11)
+[src/types/getters.ts:11](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L11)
 
 ___
 
@@ -125,7 +136,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:9](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L9)
+[src/types/getters.ts:9](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L9)
 
 ___
 
@@ -135,7 +146,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:21](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L21)
+[src/types/getters.ts:21](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L21)
 
 ___
 
@@ -145,7 +156,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:8](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L8)
+[src/types/getters.ts:8](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L8)
 
 ___
 
@@ -155,7 +166,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:10](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L10)
+[src/types/getters.ts:10](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L10)
 
 ___
 
@@ -165,7 +176,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:19](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L19)
+[src/types/getters.ts:19](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L19)
 
 ___
 
@@ -175,7 +186,7 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:12](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L12)
+[src/types/getters.ts:12](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L12)
 
 ___
 
@@ -185,4 +196,4 @@ ___
 
 #### Defined in
 
-[src/types/getters.ts:18](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/getters.ts#L18)
+[src/types/getters.ts:18](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/getters.ts#L18)

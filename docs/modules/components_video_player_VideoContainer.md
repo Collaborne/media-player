@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / components/video-player/VideoContainer
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / components/video-player/VideoContainer
 
 # Module: components/video-player/VideoContainer
 
@@ -6,7 +6,7 @@
 
 ### Namespaces
 
-- [default](/docs/modules/components_video_player_VideoContainer.default.md)
+- [VideoContainer](/docs/modules/components_video_player_VideoContainer.VideoContainer.md)
 
 ### Interfaces
 
@@ -14,13 +14,13 @@
 
 ### Functions
 
-- [default](/docs/modules/components_video_player_VideoContainer.md#default)
+- [VideoContainer](/docs/modules/components_video_player_VideoContainer.md#videocontainer)
 
 ## Functions
 
-### default
+### VideoContainer
 
-▸ **default**(`props`, `context?`): ``null`` \| `ReactElement`<`any`, `any`\>
+▸ **VideoContainer**(`props`, `context?`): ``null`` \| `ReactElement`<`any`, `any`\>
 
 A React Component that consumes VideoContext's API and adds UI for the player and video controls
 

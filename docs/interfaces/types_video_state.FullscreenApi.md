@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / [types/video-state](/docs/modules/types_video_state.md) / FullscreenApi
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [types/video-state](/docs/modules/types_video_state.md) / FullscreenApi
 
 # Interface: FullscreenApi
 
@@ -33,7 +33,7 @@ Enter the fullscreen mode
 
 #### Defined in
 
-[src/types/video-state.ts:18](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L18)
+[src/types/video-state.ts:20](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L20)
 
 ___
 
@@ -53,7 +53,7 @@ Exit the fullscreen mode
 
 #### Defined in
 
-[src/types/video-state.ts:20](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L20)
+[src/types/video-state.ts:22](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L22)
 
 ___
 
@@ -65,7 +65,7 @@ Is player in fullscreen mode
 
 #### Defined in
 
-[src/types/video-state.ts:16](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L16)
+[src/types/video-state.ts:18](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L18)
 
 ___
 
@@ -85,4 +85,4 @@ Toggler for the fullscreen mode
 
 #### Defined in
 
-[src/types/video-state.ts:22](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L22)
+[src/types/video-state.ts:24](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L24)

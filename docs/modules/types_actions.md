@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / types/actions
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / types/actions
 
 # Module: types/actions
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/types/actions.ts:3](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L3)
+[src/types/actions.ts:3](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L3)
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:54](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L54)
+[src/types/actions.ts:62](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L62)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:42](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L42)
+[src/types/actions.ts:50](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L50)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:62](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L62)
+[src/types/actions.ts:70](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L70)

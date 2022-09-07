@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / [types/actions](/docs/modules/types_actions.md) / VideoActions
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [types/actions](/docs/modules/types_actions.md) / VideoActions
 
 # Interface: VideoActions
 
@@ -12,10 +12,12 @@ List of setters for the VideoState
 
 - [\_handleProgress](/docs/interfaces/types_actions.VideoActions.md#_handleprogress)
 - [\_setReady](/docs/interfaces/types_actions.VideoActions.md#_setready)
+- [addHighlightToStart](/docs/interfaces/types_actions.VideoActions.md#addhighlighttostart)
 - [exitPip](/docs/interfaces/types_actions.VideoActions.md#exitpip)
 - [mute](/docs/interfaces/types_actions.VideoActions.md#mute)
 - [pause](/docs/interfaces/types_actions.VideoActions.md#pause)
 - [play](/docs/interfaces/types_actions.VideoActions.md#play)
+- [replaceHighlights](/docs/interfaces/types_actions.VideoActions.md#replacehighlights)
 - [requestPip](/docs/interfaces/types_actions.VideoActions.md#requestpip)
 - [setCurrentTime](/docs/interfaces/types_actions.VideoActions.md#setcurrenttime)
 - [setDuration](/docs/interfaces/types_actions.VideoActions.md#setduration)
@@ -51,7 +53,7 @@ List of setters for the VideoState
 
 #### Defined in
 
-[src/types/actions.ts:36](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L36)
+[src/types/actions.ts:44](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L44)
 
 ___
 
@@ -75,7 +77,32 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:35](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L35)
+[src/types/actions.ts:43](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L43)
+
+___
+
+### addHighlightToStart
+
+• **addHighlightToStart**: (`state`: [`VideoState`](/docs/interfaces/types_video_state.VideoState.md), `highlights`: [`Highlight`](/docs/interfaces/types_video_state.Highlight.md)) => [`PartialVideoState`](/docs/modules/types_actions.md#partialvideostate)
+
+#### Type declaration
+
+▸ (`state`, `highlights`): [`PartialVideoState`](/docs/modules/types_actions.md#partialvideostate)
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`VideoState`](/docs/interfaces/types_video_state.VideoState.md) |
+| `highlights` | [`Highlight`](/docs/interfaces/types_video_state.Highlight.md) |
+
+##### Returns
+
+[`PartialVideoState`](/docs/modules/types_actions.md#partialvideostate)
+
+#### Defined in
+
+[src/types/actions.ts:38](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L38)
 
 ___
 
@@ -99,7 +126,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:33](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L33)
+[src/types/actions.ts:33](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L33)
 
 ___
 
@@ -123,7 +150,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:12](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L12)
+[src/types/actions.ts:12](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L12)
 
 ___
 
@@ -147,7 +174,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:11](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L11)
+[src/types/actions.ts:11](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L11)
 
 ___
 
@@ -171,7 +198,32 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:9](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L9)
+[src/types/actions.ts:9](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L9)
+
+___
+
+### replaceHighlights
+
+• **replaceHighlights**: (`state`: [`VideoState`](/docs/interfaces/types_video_state.VideoState.md), `highlights`: [`Highlight`](/docs/interfaces/types_video_state.Highlight.md)[]) => [`PartialVideoState`](/docs/modules/types_actions.md#partialvideostate)
+
+#### Type declaration
+
+▸ (`state`, `highlights`): [`PartialVideoState`](/docs/modules/types_actions.md#partialvideostate)
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `state` | [`VideoState`](/docs/interfaces/types_video_state.VideoState.md) |
+| `highlights` | [`Highlight`](/docs/interfaces/types_video_state.Highlight.md)[] |
+
+##### Returns
+
+[`PartialVideoState`](/docs/modules/types_actions.md#partialvideostate)
+
+#### Defined in
+
+[src/types/actions.ts:34](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L34)
 
 ___
 
@@ -195,7 +247,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:32](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L32)
+[src/types/actions.ts:32](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L32)
 
 ___
 
@@ -220,7 +272,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:20](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L20)
+[src/types/actions.ts:20](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L20)
 
 ___
 
@@ -245,7 +297,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:30](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L30)
+[src/types/actions.ts:30](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L30)
 
 ___
 
@@ -270,7 +322,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:29](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L29)
+[src/types/actions.ts:29](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L29)
 
 ___
 
@@ -295,7 +347,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:24](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L24)
+[src/types/actions.ts:24](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L24)
 
 ___
 
@@ -320,7 +372,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:14](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L14)
+[src/types/actions.ts:14](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L14)
 
 ___
 
@@ -345,7 +397,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:10](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L10)
+[src/types/actions.ts:10](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L10)
 
 ___
 
@@ -370,7 +422,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:15](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L15)
+[src/types/actions.ts:15](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L15)
 
 ___
 
@@ -395,7 +447,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:28](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L28)
+[src/types/actions.ts:28](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L28)
 
 ___
 
@@ -420,7 +472,7 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:19](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L19)
+[src/types/actions.ts:19](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L19)
 
 ___
 
@@ -444,4 +496,4 @@ ___
 
 #### Defined in
 
-[src/types/actions.ts:13](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/actions.ts#L13)
+[src/types/actions.ts:13](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/actions.ts#L13)

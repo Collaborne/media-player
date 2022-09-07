@@ -1,4 +1,4 @@
-[@collaborne/video-player - v0.1.8](/docs/../README.md) / [Modules](/docs/modules.md) / types/video-state
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / types/video-state
 
 # Module: types/video-state
 
@@ -7,6 +7,8 @@
 ### Interfaces
 
 - [FullscreenApi](/docs/interfaces/types_video_state.FullscreenApi.md)
+- [Highlight](/docs/interfaces/types_video_state.Highlight.md)
+- [Segment](/docs/interfaces/types_video_state.Segment.md)
 - [VideoProviderProps](/docs/interfaces/types_video_state.VideoProviderProps.md)
 - [VideoState](/docs/interfaces/types_video_state.VideoState.md)
 
@@ -24,7 +26,7 @@
 
 #### Defined in
 
-[src/types/video-state.ts:85](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L85)
+[src/types/video-state.ts:108](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L108)
 
 ___
 
@@ -34,7 +36,7 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:92](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L92)
+[src/types/video-state.ts:115](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L115)
 
 ___
 
@@ -44,4 +46,4 @@ ___
 
 #### Defined in
 
-[src/types/video-state.ts:83](https://github.com/Collaborne/video-player/blob/5338fe4/src/types/video-state.ts#L83)
+[src/types/video-state.ts:106](https://github.com/Collaborne/video-player/blob/803dfdf/src/types/video-state.ts#L106)
