@@ -17,9 +17,8 @@ import { TrackStyled } from './TrackStyled';
 interface TrackProps {}
 
 export const Track: FC<TrackProps> = () => {
-	const { api, getHighlightColorBlended } = useVideo();
+	const { api, highlights, getHighlightColorBlended } = useVideo();
 	const theme = useTheme();
-	const highlights = api?.getHighlights?.();
 
 	const valueInSeconds = api?.getCurrentTime?.() || 0;
 

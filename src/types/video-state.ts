@@ -52,6 +52,8 @@ interface VideoPlayerInitialState {
 	duration: number;
 	/** Current played time */
 	currentTime: number;
+
+	highlights: Highlight[];
 }
 
 /**
@@ -71,6 +73,7 @@ export interface VideoProviderProps {
 	getHighlightColorBlended?: (colors: string[]) => string;
 	/** A callback that can updates VideoContext outside of the VideoProvider */
 	onContext?: (context: VideoContext) => void;
+	highlights?: Highlight[];
 }
 
 /**
@@ -100,7 +103,6 @@ export interface VideoState {
 	hasPipTriggeredByClick: boolean;
 	/** Storing wrapper ref of the videoPlayer */
 	videoContainerRef: RefObject<HTMLDivElement>;
-	highlights: Highlight[];
 }
 
 export type VideoDispatchArgs = unknown[];

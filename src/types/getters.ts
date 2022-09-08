@@ -1,4 +1,4 @@
-import { Highlight, VideoState } from '.';
+import { VideoState } from '.';
 
 export type VideoGetter<T> = (state: VideoState) => T;
 
@@ -20,7 +20,6 @@ export interface VideoGetters {
 	getHasPlayedOrSeeked: VideoGetter<boolean>;
 	getPictureInPicture: VideoGetter<boolean>;
 	getHasPipTriggeredByClick: VideoGetter<boolean>;
-	getHighlights: VideoGetter<Highlight[]>;
 }
 
 export type VideoGettersKey = keyof VideoGetters;

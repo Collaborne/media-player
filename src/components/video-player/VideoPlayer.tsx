@@ -9,7 +9,7 @@ import { FC } from 'react';
 
 import { VideoProvider } from '../../context/video';
 import { createPlayerTheme } from '../../theme';
-import { VideoProviderProps } from '../../types';
+import { Highlight, VideoProviderProps } from '../../types';
 import { DEFAULT_CONTROLS_CONFIG } from '../controls/controls-config';
 import { FileActionPanelProps } from '../file-action-panel/FileActionPanel';
 
@@ -33,6 +33,8 @@ export interface VideoPlayerProps
 	theme?: Theme;
 	/** CSS class name applied to the file action panel */
 	actionPanelClassName?: string;
+	/** CSS class name applied to the file action panel */
+	highlights?: Highlight[];
 }
 
 /** A "video-player" from the box. A result of VideoProvider and VideoContainer */
@@ -51,6 +53,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 	isCover,
 	actionPanelClassName,
 	onContext,
+	highlights,
 }) => {
 	const hasPlayEnabled = videoUrl === currentPlayingUrl;
 
@@ -61,7 +64,11 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>
 				<CssBaseline />
-				<VideoProvider controlsConfig={controlsConfig} onContext={onContext}>
+				<VideoProvider
+					controlsConfig={controlsConfig}
+					onContext={onContext}
+					highlights={highlights}
+				>
 					<VideoContainer
 						className={className}
 						videoUrl={videoUrl}

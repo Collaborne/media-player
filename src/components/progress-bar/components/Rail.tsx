@@ -12,9 +12,8 @@ import { RailStyled } from './RailStyled';
 interface RailProps {}
 
 export const Rail: FC<RailProps> = () => {
-	const { api, getHighlightColorBlended } = useVideo();
+	const { api, highlights, getHighlightColorBlended } = useVideo();
 
-	const highlights = api?.getHighlights?.();
 	// If we do not have highlights, then display a simple Rail
 	if (!highlights || highlights.length === 0) {
 		return <RailStyled />;
