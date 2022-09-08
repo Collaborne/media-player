@@ -42,7 +42,7 @@ export const VideoHighlights = () => {
 			<VideoPlayer
 				highlights={highlights}
 				onContext={setVideoContext}
-				controlsConfig={DEFAULT_CONTROLS_CONFIG}
+				controlsConfig={{ ...DEFAULT_CONTROLS_CONFIG, fileActionsPanel: false }}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 				className={wrapper}
 			/>
