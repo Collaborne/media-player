@@ -1,9 +1,10 @@
 import React from 'react';
+import { uuid } from 'uuidv4';
+
 import { Highlight, VideoPlayer } from '../../src';
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
-import { VideoContainer } from '../../src/components/video-player/VideoContainer';
-import { VideoContext, VideoProvider } from '../../src/context/video';
+import { VideoContext } from '../../src/context/video';
 import {
 	highlightColors,
 	pickRandomItem,
@@ -11,7 +12,6 @@ import {
 } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
-import { uuid } from 'uuidv4';
 
 export const VideoHighlights = () => {
 	const { wrapper } = useFilePlayerStyles().classes;
