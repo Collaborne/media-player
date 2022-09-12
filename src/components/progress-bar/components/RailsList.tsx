@@ -36,16 +36,16 @@ export const RailsList: FC<RailListProps> = memo(
 				highlight => start >= highlight.start && end <= highlight.end,
 			);
 			const startColorSegment = createSegmentColor(
-				highlights.find(({ start: startTime }) => startTime === start)?.color,
+				highlights.find(({ start: startTime }) => startTime === start)?.colors,
 				getHighlightColorBlended,
 			);
 			const endColorSegment = createSegmentColor(
-				highlights.find(({ end: endTime }) => endTime === end)?.color,
+				highlights.find(({ end: endTime }) => endTime === end)?.colors,
 				getHighlightColorBlended,
 			);
-			const colors = intersectedSegments.map(({ color }) => color).flat();
+			const colors = intersectedSegments.map(({ colors }) => colors).flat();
 
-			const color = colors.length
+			const blendedColor = colors.length
 				? getHighlightColorBlended?.(colors)
 				: undefined;
 			return (
@@ -53,7 +53,7 @@ export const RailsList: FC<RailListProps> = memo(
 					key={uuid()}
 					startPoint={startPoint}
 					width={width}
-					color={color}
+					color={blendedColor}
 					startColorSegment={startColorSegment}
 					endColorSegment={endColorSegment}
 				/>

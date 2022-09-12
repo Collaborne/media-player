@@ -38,7 +38,7 @@ export interface Highlight extends Segment {
 	/** Id of the highlight */
 	id: string;
 	/** Color of the highlight. This must be a HEX color code */
-	color: string[];
+	colors: string[];
 }
 
 /** Provider's initialization state */

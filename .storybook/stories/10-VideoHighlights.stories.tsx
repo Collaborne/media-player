@@ -5,13 +5,10 @@ import { Highlight, VideoPlayer } from '../../src';
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
 import { VideoContext } from '../../src/context/video';
-import {
-	highlightColors,
-	pickRandomItem,
-	RandomHighlight,
-} from '../components/random-highlight/RandomHighlight';
+import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
+import { highlightColors, pickRandomItem } from '../utils/highlights';
 
 export const VideoHighlights = () => {
 	const { wrapper } = useFilePlayerStyles().classes;
@@ -32,7 +29,7 @@ export const VideoHighlights = () => {
 			{
 				start,
 				end,
-				color: [
+				colors: [
 					pickRandomItem(highlightColors),
 					pickRandomItem(highlightColors),
 					pickRandomItem(highlightColors),

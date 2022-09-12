@@ -33,7 +33,7 @@ export interface VideoPlayerProps
 	theme?: Theme;
 	/** CSS class name applied to the file action panel */
 	actionPanelClassName?: string;
-	/** CSS class name applied to the file action panel */
+	/** Highlights to be displayed in scrub bar */
 	highlights?: Highlight[];
 }
 

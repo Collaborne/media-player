@@ -7,7 +7,7 @@ function createHighlight(start: number, end: number): Highlight {
 	return {
 		start,
 		end,
-		color: ['#fff', '#ffa'],
+		colors: ['#fff', '#ffa'],
 		id: uuid(),
 	};
 }

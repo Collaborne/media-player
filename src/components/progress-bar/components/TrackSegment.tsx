@@ -28,10 +28,10 @@ export const TrackSegment: FC<TrackSegmentProps> = ({
 		highlight => from >= highlight.start && to <= highlight.end,
 	);
 
-	const colors = intersectedSegments.map(({ color }) => color);
+	const colors = intersectedSegments.map(({ colors }) => colors);
 	// If there are no colors, it picks no color (undefined) = not the primary color.
-	const color = colors.length
+	const blendedColor = colors.length
 		? getHighlightColorBlended?.([...colors, defaultColor].flat())
 		: undefined;
-	return <TrackStyled startPoint={start} width={width} color={color} />;
+	return <TrackStyled startPoint={start} width={width} color={blendedColor} />;
 };
