@@ -22,7 +22,7 @@ export const VideoHighlights = () => {
 	const setVideoContext = React.useCallback((context: VideoContext) => {
 		videoContextRef.current = context;
 	}, []);
-	const maximumSecondsForHighlights = 600;
+	const maximumSecondsForHighlights = 560;
 	const end = Math.random() * maximumSecondsForHighlights;
 	const start = Math.random() * end;
 
@@ -32,7 +32,11 @@ export const VideoHighlights = () => {
 			{
 				start,
 				end,
-				color: pickRandomItem(highlightColors),
+				color: [
+					pickRandomItem(highlightColors),
+					pickRandomItem(highlightColors),
+					pickRandomItem(highlightColors),
+				],
 				id: uuid(),
 			},
 		]);

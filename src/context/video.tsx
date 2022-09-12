@@ -57,7 +57,7 @@ export interface VideoContext {
 	/** Fullscreen API getter and setters */
 	fullScreenApi?: FullscreenApi;
 	/** Blending colors for highlights presented in `<ProgressBar` */
-	getHighlightColorBlended?: (colors: string[]) => string | undefined;
+	getHighlightColorBlended?: VideoProviderProps['getHighlightColorBlended'];
 	/** Blending colors for highlights presented in `<ProgressBar` */
 	onContext?: (context: VideoContext) => void;
 	highlights?: Highlight[];

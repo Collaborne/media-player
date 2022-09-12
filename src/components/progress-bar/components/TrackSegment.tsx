@@ -31,7 +31,7 @@ export const TrackSegment: FC<TrackSegmentProps> = ({
 	const colors = intersectedSegments.map(({ color }) => color);
 	// If there are no colors, it picks no color (undefined) = not the primary color.
 	const color = colors.length
-		? getHighlightColorBlended?.([...colors, defaultColor])
+		? getHighlightColorBlended?.([...colors, defaultColor].flat())
 		: undefined;
 	return <TrackStyled startPoint={start} width={width} color={color} />;
 };

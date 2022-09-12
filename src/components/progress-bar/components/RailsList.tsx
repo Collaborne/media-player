@@ -1,6 +1,7 @@
 import { FC, memo } from 'react';
 import { uuid } from 'uuidv4';
 
+import { VideoContext } from '../../../context';
 import { Highlight } from '../../../types';
 import {
 	getPercentFromDuration,
@@ -12,8 +13,18 @@ import { RailStyled } from './RailStyled';
 interface RailListProps {
 	highlights: Highlight[];
 	videoDuration: number;
-	getHighlightColorBlended?: (colors: string[]) => string | undefined;
+	getHighlightColorBlended?: VideoContext['getHighlightColorBlended'];
 }
+
+export const createSegmentColor = (
+	colors?: string[],
+	getHighlightColorBlended?: VideoContext['getHighlightColorBlended'],
+) => {
+	if (colors && colors?.length > 0 && getHighlightColorBlended) {
+		return getHighlightColorBlended(colors);
+	}
+	return undefined;
+};
 
 export const RailsList: FC<RailListProps> = memo(
 	({ highlights, videoDuration, getHighlightColorBlended }) => {
@@ -24,13 +35,15 @@ export const RailsList: FC<RailListProps> = memo(
 			const intersectedSegments = highlights.filter(
 				highlight => start >= highlight.start && end <= highlight.end,
 			);
-			const startColorSegment = highlights.find(
-				({ start: startTime }) => startTime === start,
-			)?.color;
-			const endColorSegment = highlights.find(
-				({ end: endTime }) => endTime === end,
-			)?.color;
-			const colors = intersectedSegments.map(({ color }) => color);
+			const startColorSegment = createSegmentColor(
+				highlights.find(({ start: startTime }) => startTime === start)?.color,
+				getHighlightColorBlended,
+			);
+			const endColorSegment = createSegmentColor(
+				highlights.find(({ end: endTime }) => endTime === end)?.color,
+				getHighlightColorBlended,
+			);
+			const colors = intersectedSegments.map(({ color }) => color).flat();
 
 			const color = colors.length
 				? getHighlightColorBlended?.(colors)

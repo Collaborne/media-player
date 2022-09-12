@@ -68,10 +68,14 @@ interface BlendConfig {
  * @param config Specifies intensity configuration to use for blending
  * @visibleForTesting
  */
-export function blend(
+export type BlendColors = (
 	colors: string[],
-	{ intensifyIndex, intensifyAll, discountFactor = 1 }: BlendConfig = {},
-): string | undefined {
+	params?: BlendConfig,
+) => string | undefined;
+export const blend: BlendColors = (
+	colors,
+	{ intensifyIndex, intensifyAll, discountFactor = 1 } = {},
+) => {
 	if (colors.length === 0) {
 		return undefined;
 	}
@@ -90,4 +94,4 @@ export function blend(
 	}, initial);
 
 	return rgbaToHexA(mixed);
-}
+};
