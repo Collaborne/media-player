@@ -1,7 +1,7 @@
 import { styled, Theme } from '@mui/material';
 import { CSSProperties } from '@mui/styled-engine';
 
-interface RailStyledProps {
+export interface RailStyledProps {
 	startPoint?: number;
 	width?: number;
 	color?: string;
