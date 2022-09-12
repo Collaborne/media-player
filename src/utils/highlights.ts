@@ -1,3 +1,5 @@
+import { uuid } from 'uuidv4';
+
 import { Highlight, Segment } from '../types/video-state';
 
 import { PROGRESS_BAR_DIVIDER } from './constants';
@@ -28,6 +30,7 @@ export const getRailSegments = (
 		segments.push({
 			start: segmentSplitPoints[index],
 			end: segmentSplitPoints[index + 1],
+			id: uuid(),
 		});
 	}
 	return segments;

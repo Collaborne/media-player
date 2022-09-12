@@ -7,10 +7,10 @@ const VIDEO_DURATION = 100;
 const COLORS1 = ['#ffa', '#ff1'];
 const COLORS2 = ['#aa8', '#aaf'];
 const segments: Segment[] = [
-	{ start: 0, end: 5 },
-	{ start: 5, end: 10 },
-	{ start: 10, end: 30 },
-	{ start: 30, end: VIDEO_DURATION },
+	{ start: 0, end: 5, id: '1' },
+	{ start: 5, end: 10, id: '2' },
+	{ start: 10, end: 30, id: '3' },
+	{ start: 30, end: VIDEO_DURATION, id: '4' },
 ];
 
 const highlights: Highlight[] = [

@@ -19,9 +19,9 @@ describe('getRailSegments', () => {
 		const segments = getRailSegments(highlights, 30);
 
 		expect(segments).toStrictEqual([
-			{ start: 0, end: 10 },
-			{ start: 10, end: 20 },
-			{ start: 20, end: 30 },
+			{ start: 0, end: 10, id: expect.any(String) },
+			{ start: 10, end: 20, id: expect.any(String) },
+			{ start: 20, end: 30, id: expect.any(String) },
 		]);
 	});
 
@@ -31,9 +31,9 @@ describe('getRailSegments', () => {
 		const segments = getRailSegments(highlights, 30);
 
 		expect(segments).toStrictEqual([
-			{ start: 0, end: 10 },
-			{ start: 10, end: 20 },
-			{ start: 20, end: 30 },
+			{ start: 0, end: 10, id: expect.any(String) },
+			{ start: 10, end: 20, id: expect.any(String) },
+			{ start: 20, end: 30, id: expect.any(String) },
 		]);
 	});
 
@@ -43,8 +43,8 @@ describe('getRailSegments', () => {
 		const segments = getRailSegments(highlights, 30);
 
 		expect(segments).toStrictEqual([
-			{ start: 0, end: 20 },
-			{ start: 20, end: 30 },
+			{ start: 0, end: 20, id: expect.any(String) },
+			{ start: 20, end: 30, id: expect.any(String) },
 		]);
 	});
 
@@ -54,8 +54,8 @@ describe('getRailSegments', () => {
 		const segments = getRailSegments(highlights, 30);
 
 		expect(segments).toStrictEqual([
-			{ start: 0, end: 20 },
-			{ start: 20, end: 30 },
+			{ start: 0, end: 20, id: expect.any(String) },
+			{ start: 20, end: 30, id: expect.any(String) },
 		]);
 	});
 

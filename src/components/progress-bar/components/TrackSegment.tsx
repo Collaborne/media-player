@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { VideoContext } from '../../../context';
 import { Highlight } from '../../../types/video-state';
@@ -15,23 +15,27 @@ interface TrackSegmentProps {
 	getHighlightColorBlended: VideoContext['getHighlightColorBlended'];
 }
 
-export const TrackSegment: FC<TrackSegmentProps> = ({
-	from,
-	highlights,
-	to,
-	start,
-	width,
-	defaultColor,
-	getHighlightColorBlended,
-}) => {
-	const intersectedSegments = highlights.filter(
-		highlight => from >= highlight.start && to <= highlight.end,
-	);
+export const TrackSegment: FC<TrackSegmentProps> = memo(
+	({
+		from,
+		highlights,
+		to,
+		start,
+		width,
+		defaultColor,
+		getHighlightColorBlended,
+	}) => {
+		const intersectedSegments = highlights.filter(
+			highlight => from >= highlight.start && to <= highlight.end,
+		);
 
-	const colors = intersectedSegments.map(({ colors }) => colors);
-	// If there are no colors, it picks no color (undefined) = not the primary color.
-	const blendedColor = colors.length
-		? getHighlightColorBlended?.([...colors, defaultColor].flat())
-		: undefined;
-	return <TrackStyled startPoint={start} width={width} color={blendedColor} />;
-};
+		const colors = intersectedSegments.map(({ colors }) => colors);
+		// If there are no colors, it picks no color (undefined) = not the primary color.
+		const blendedColor = colors.length
+			? getHighlightColorBlended?.([...colors, defaultColor].flat())
+			: undefined;
+		return (
+			<TrackStyled startPoint={start} width={width} color={blendedColor} />
+		);
+	},
+);

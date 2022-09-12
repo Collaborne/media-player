@@ -27,6 +27,7 @@ export interface FullscreenApi {
 
 /** An interval that has required `start` and `end` point  */
 export interface Segment {
+	id: string;
 	/** Starting time of a segment */
 	start: number;
 	/** End time of a segment */
@@ -35,8 +36,6 @@ export interface Segment {
 
 /** An interval of timestamps in seconds, that will be "highlighted" in the scrub bar. Useful when you want to split video duration into small segments/chunks */
 export interface Highlight extends Segment {
-	/** Id of the highlight */
-	id: string;
 	/** Color of the highlight. This must be a HEX color code */
 	colors: string[];
 }

@@ -46,7 +46,6 @@ export const RailsList: FC<RailListProps> = memo(
 						/>
 					),
 				)}
-				;
 			</>
 		);
 	},
