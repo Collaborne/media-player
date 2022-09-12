@@ -17,16 +17,23 @@ export const Rail: FC<RailProps> = () => {
 
 	return (
 		<div className={sliderRail}>
-			{highlights?.map(({ id, colors, start, end }) => (
-				<RailStyled
-					key={id}
-					startPoint={getPercentFromDuration(start, videoDuration)}
-					width={getPercentFromDuration(end - start, videoDuration)}
-					color={getHighlightColorBlended?.(colors)}
-					startColorSegment={getHighlightColorBlended?.(colors, BLEND_CONFIG)}
-					endColorSegment={getHighlightColorBlended?.(colors, BLEND_CONFIG)}
-				/>
-			))}
+			{highlights?.map(({ id, colors, start, end }) => {
+				const highlightEdgesColor = getHighlightColorBlended?.(
+					colors,
+					BLEND_CONFIG,
+				);
+
+				return (
+					<RailStyled
+						key={id}
+						startPoint={getPercentFromDuration(start, videoDuration)}
+						width={getPercentFromDuration(end - start, videoDuration)}
+						color={getHighlightColorBlended?.(colors)}
+						startColorSegment={highlightEdgesColor}
+						endColorSegment={highlightEdgesColor}
+					/>
+				);
+			})}
 		</div>
 	);
 };
