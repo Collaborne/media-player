@@ -8,6 +8,19 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 			pointerEvents: 'auto',
 		},
 
+		'& .MuiSlider-rail': {
+			display: 'none',
+		},
+
+		'& .MuiSlider-track': {
+			position: 'absolute',
+			borderRadius: 0,
+			border: 0,
+			top: 10,
+			height: theme.spacing(0.75),
+			transform: 'translate(0)',
+		},
+
 		'& .MuiSlider-thumb': {
 			height: theme.spacing(1.25),
 			width: theme.spacing(1.25),

@@ -46,23 +46,26 @@ export const RailStyled = styled('span', {
 	}) => ({
 		display: 'block',
 		position: 'absolute',
-		backgroundColor: 'currentColor',
 		width: `${width}%`,
 		bottom: 0,
 		height: theme.spacing(0.75),
-		background: color ?? theme.palette.common.black,
+		backgroundColor: color ?? theme.palette.common.black,
 		left: `${startPoint}%`,
-		borderRadius: 0,
-		opacity: 1,
+		borderRadius: theme.spacing(0.125),
+		zIndex: 1,
+		borderLeft: `${theme.spacing(0.125)} solid transparent`,
+		borderRight: `${theme.spacing(0.125)} solid transparent`,
 		...(startColorSegment && {
 			'&:before': {
 				left: 0,
+				transform: 'translateX(-50%)',
 				...segmentBorderStyles(theme, startColorSegment),
 			},
 		}),
 		...(endColorSegment && {
 			'&:after': {
 				right: 0,
+				transform: 'translateX(50%)',
 				...segmentBorderStyles(theme, endColorSegment),
 			},
 		}),
