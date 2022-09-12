@@ -39,7 +39,6 @@ export const ProgressBar: FC<ProgressBarProps> = props => {
 		}
 		return 0;
 	})();
-
 	return (
 		<ProgressBarStyled
 			min={0}

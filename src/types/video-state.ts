@@ -3,6 +3,7 @@ import { Dispatch, MutableRefObject, ReactNode, RefObject } from 'react';
 import type ReactPlayer from 'react-player';
 
 import { VideoContext } from '../context';
+import { BlendColors } from '../utils/colors';
 
 import {
 	ControlsConfig,
@@ -37,7 +38,7 @@ export interface Highlight extends Segment {
 	/** Id of the highlight */
 	id: string;
 	/** Color of the highlight. This must be a HEX color code */
-	color: string;
+	colors: string[];
 }
 
 /** Provider's initialization state */
@@ -52,6 +53,8 @@ interface VideoPlayerInitialState {
 	duration: number;
 	/** Current played time */
 	currentTime: number;
+
+	highlights: Highlight[];
 }
 
 /**
@@ -68,9 +71,10 @@ export interface VideoProviderProps {
 	/** State that needs to be stored in localStorage */
 	persistedState?: VideoState;
 	/** Blending colors for highlights presented in `<ProgressBar>` */
-	getHighlightColorBlended?: (colors: string[]) => string;
+	getHighlightColorBlended?: BlendColors;
 	/** A callback that can updates VideoContext outside of the VideoProvider */
 	onContext?: (context: VideoContext) => void;
+	highlights?: Highlight[];
 }
 
 /**
@@ -100,7 +104,6 @@ export interface VideoState {
 	hasPipTriggeredByClick: boolean;
 	/** Storing wrapper ref of the videoPlayer */
 	videoContainerRef: RefObject<HTMLDivElement>;
-	highlights: Highlight[];
 }
 
 export type VideoDispatchArgs = unknown[];

@@ -21,6 +21,7 @@ import { useStateReducer } from '../store/reducer';
 import {
 	ControlsConfig,
 	FullscreenApi,
+	Highlight,
 	ReactPlayerProps,
 	VideoActionKeys,
 	VideoActions,
@@ -56,9 +57,10 @@ export interface VideoContext {
 	/** Fullscreen API getter and setters */
 	fullScreenApi?: FullscreenApi;
 	/** Blending colors for highlights presented in `<ProgressBar` */
-	getHighlightColorBlended?: (colors: string[]) => string | undefined;
+	getHighlightColorBlended?: VideoProviderProps['getHighlightColorBlended'];
 	/** Blending colors for highlights presented in `<ProgressBar` */
 	onContext?: (context: VideoContext) => void;
+	highlights?: Highlight[];
 }
 
 /** A React Context - to share video api through components */
@@ -72,6 +74,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	persistedState,
 	getHighlightColorBlended = blend,
 	onContext,
+	highlights,
 }) => {
 	const {
 		state,
@@ -127,6 +130,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 				toggleFullscreen,
 			};
 			ctx.state = state;
+			ctx.highlights = highlights;
 			ctx.controlsConfig = controlsConfig;
 			ctx.reactPlayerProps = {
 				autoPlay: Boolean(initialState.playing),
@@ -161,6 +165,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 		// reactPlayerRef - ReactPlayer instance ref,
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[
+			highlights,
 			controlsConfig,
 			dispatch,
 			initialState.playing,

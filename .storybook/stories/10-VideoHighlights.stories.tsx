@@ -1,22 +1,58 @@
+import React from 'react';
+import { uuid } from 'uuidv4';
+
+import { Highlight, VideoPlayer } from '../../src';
 import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
 import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
-import { VideoContainer } from '../../src/components/video-player/VideoContainer';
-import { VideoProvider } from '../../src/context/video';
+import { VideoContext } from '../../src/context/video';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
+import { highlightColors, pickRandomItem } from '../utils/highlights';
 
 export const VideoHighlights = () => {
 	const { wrapper } = useFilePlayerStyles().classes;
 
+	const [highlights, setHighlights] = React.useState<Highlight[]>([]);
+	const videoContextRef = React.useRef<VideoContext>();
+
+	const setVideoContext = React.useCallback((context: VideoContext) => {
+		videoContextRef.current = context;
+	}, []);
+	const maximumSecondsForHighlights = 560;
+	const end = Math.random() * maximumSecondsForHighlights;
+	const start = Math.random() * end;
+
+	const addHighlightToStart = () =>
+		setHighlights(prev => [
+			...prev,
+			{
+				start,
+				end,
+				colors: [
+					pickRandomItem(highlightColors),
+					pickRandomItem(highlightColors),
+					pickRandomItem(highlightColors),
+				],
+				id: uuid(),
+			},
+		]);
+
 	return (
-		<VideoProvider controlsConfig={DEFAULT_CONTROLS_CONFIG}>
-			<VideoContainer
+		<>
+			<VideoPlayer
+				highlights={highlights}
+				onContext={setVideoContext}
+				controlsConfig={{ ...DEFAULT_CONTROLS_CONFIG, fileActionsPanel: false }}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 				className={wrapper}
 			/>
-			<RandomHighlight />
-		</VideoProvider>
+
+			<RandomHighlight
+				addHighlightToStart={addHighlightToStart}
+				highlights={highlights}
+			/>
+		</>
 	);
 };
 
