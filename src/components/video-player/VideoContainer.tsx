@@ -16,8 +16,6 @@ import { useVideoContainerStyles } from './useVideoContainerStyles';
 export interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
 	/** The url of the video file to be played */
 	videoUrl: string;
-	/** Boolean that represents if the play is enabled. */
-	hasPlayEnabled?: boolean;
 	/** Callback triggered by play event */
 	onPlay?: VoidFunction;
 	/** CSS class name applied to component  */
@@ -28,15 +26,6 @@ export interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
 export const VideoContainer: FC<VideoContainerProps> = ({
 	className,
 	videoUrl,
-	hasPlayEnabled,
-	onPlay,
-	onDelete,
-	onDownload,
-	removeAsCover,
-	setAsCover,
-	actionPanelClassName,
-	hasImageCover,
-	isCover,
 }) => {
 	const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
 		useVideo();
@@ -48,7 +37,7 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 		onMouseLeave,
 		onMouseEnter,
 		showControls,
-	} = useVideoContainerHook({ hasPlayEnabled, onPlay, videoUrl });
+	} = useVideoContainerHook({ videoUrl });
 
 	// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
 	if (!videoUrl || !isPlayerReady) {
@@ -93,16 +82,7 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 							<div className={pipText}>{intl.get('video.playing_pip')}</div>
 						</VideoPoster>
 					)}
-					<Controls
-						isVisible={showControls}
-						onDelete={onDelete}
-						onDownload={onDownload}
-						removeAsCover={removeAsCover}
-						setAsCover={setAsCover}
-						actionPanelClassName={actionPanelClassName}
-						hasImageCover={hasImageCover}
-						isCover={isCover}
-					/>
+					<Controls isVisible={showControls} />
 				</>
 			)}
 		</div>

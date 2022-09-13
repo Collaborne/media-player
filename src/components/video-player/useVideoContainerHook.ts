@@ -16,8 +16,6 @@ import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';
 
 interface UseVideoContainerHookProps {
 	videoUrl: string;
-	hasPlayEnabled?: boolean;
-	onPlay?: VoidFunction;
 }
 interface UseVideoContainerHook {
 	isPlayerReady: boolean;
@@ -32,8 +30,6 @@ const BOTTOM_ROOT_MARGIN = '48px';
 
 export const useVideoContainerHook = ({
 	videoUrl,
-	hasPlayEnabled,
-	onPlay,
 }: UseVideoContainerHookProps): UseVideoContainerHook => {
 	const {
 		reactPlayerRef,
@@ -66,7 +62,6 @@ export const useVideoContainerHook = ({
 	// Checks if video container is in viewport when scrolling top
 	const entryBottom = useIntersection(videoContainerRef, {});
 	const isVisibleFromScrollingBottom = Boolean(entryBottom?.isIntersecting);
-	const onPlayCb = () => onPlay?.();
 
 	const updateShowControls = useCallback(() => {
 		if (controlsConfig?.alwaysShowConfig || isFullscreen) {
@@ -195,7 +190,7 @@ export const useVideoContainerHook = ({
 			return;
 		}
 		const videoEl = reactPlayerRef?.current?.getInternalPlayer();
-		if (!isPlaying || !isPlayerReady || !videoEl || !hasPlayEnabled) {
+		if (!isPlaying || !isPlayerReady || !videoEl) {
 			return;
 		}
 		if (!isPip && !isVisibleFromScrollingTop) {
@@ -211,7 +206,6 @@ export const useVideoContainerHook = ({
 		isVisibleFromScrollingBottom,
 		reactPlayerRef,
 		api,
-		hasPlayEnabled,
 		isPip,
 		hasPipTriggeredByClick,
 	]);
@@ -224,7 +218,6 @@ export const useVideoContainerHook = ({
 		() => {
 			const currentTime = api?.getCurrentRelativeTime?.();
 			calculateContainerSizes();
-			onPlayCb();
 			setTimeout(() => {
 				api?.setCurrentTime?.(currentTime);
 			}, PROGRESS_INTERVAL - 1);
@@ -263,18 +256,6 @@ export const useVideoContainerHook = ({
 			setIsPlayerReady(true);
 		}
 	}, [videoUrl, isPlayerReady]);
-
-	// On multiple videos per page, play only one (last triggered)
-	useEffect(() => {
-		if (!hasPlayEnabled) {
-			api?.pause?.();
-		}
-		if (api?.getPictureInPicture?.()) {
-			api?.exitPip?.();
-		}
-	}, [api, hasPlayEnabled]);
-	// Call onPlay when we have play event(setCurrentPlayingUrl to current one)
-	useEventListener('play', onPlayCb, api as unknown as HTMLElement);
 
 	return {
 		isPlayerReady,

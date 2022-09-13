@@ -27,7 +27,7 @@ export const VideoPlayer: Story<VideoPlayerProps> = args => {
 				removeAsCover={action('removeAsCover')}
 			/>
 			<br />
-			<VideoPlayerComponent
+			{/* <VideoPlayerComponent
 				{...args}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
 				className={wrapper}
@@ -61,7 +61,7 @@ export const VideoPlayer: Story<VideoPlayerProps> = args => {
 				onDownload={action('onDownload')}
 				setAsCover={action('setAsCover')}
 				removeAsCover={action('removeAsCover')}
-			/>
+			/> */}
 		</>
 	);
 };

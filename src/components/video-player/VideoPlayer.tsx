@@ -42,22 +42,11 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 	videoUrl,
 	className,
 	controlsConfig = DEFAULT_CONTROLS_CONFIG,
-	currentPlayingUrl,
-	setCurrentPlayingUrl,
 	theme,
-	onDelete,
-	onDownload,
-	removeAsCover,
-	setAsCover,
-	hasImageCover,
-	isCover,
-	actionPanelClassName,
+
 	onContext,
 	highlights,
 }) => {
-	const hasPlayEnabled = videoUrl === currentPlayingUrl;
-
-	const onPlay = () => setCurrentPlayingUrl?.(videoUrl);
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
 
 	return (
@@ -69,19 +58,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
 					onContext={onContext}
 					highlights={highlights}
 				>
-					<VideoContainer
-						className={className}
-						videoUrl={videoUrl}
-						hasPlayEnabled={hasPlayEnabled}
-						onPlay={onPlay}
-						onDelete={onDelete}
-						onDownload={onDownload}
-						removeAsCover={removeAsCover}
-						setAsCover={setAsCover}
-						actionPanelClassName={actionPanelClassName}
-						hasImageCover={hasImageCover}
-						isCover={isCover}
-					/>
+					<VideoContainer className={className} videoUrl={videoUrl} />
 				</VideoProvider>
 			</StyledEngineProvider>
 		</ThemeProvider>
