@@ -1,28 +1,39 @@
 import { FC } from 'react';
 
 import { useVideo } from '../../../hooks';
+import { getPercentFromDuration } from '../../../utils/highlights';
 
-import { RailsList } from './RailsList';
 import { RailStyled } from './RailStyled';
+import { useRailStyles } from './useRailStyles';
 
 interface RailProps {}
 
+const BLEND_CONFIG = { intensifyAll: true };
+
 export const Rail: FC<RailProps> = () => {
+	const { sliderRail } = useRailStyles().classes;
 	const { api, highlights, getHighlightColorBlended } = useVideo();
-
-	// If we do not have highlights, then display a simple Rail
-	if (!highlights || highlights.length === 0) {
-		return <RailStyled />;
-	}
-
 	const videoDuration = api?.getDuration?.() || 0;
 
-	// Create a list of rails from highlight segments
 	return (
-		<RailsList
-			highlights={highlights}
-			videoDuration={videoDuration}
-			getHighlightColorBlended={getHighlightColorBlended}
-		/>
+		<div className={sliderRail}>
+			{highlights?.map(({ id, colors, start, end }) => {
+				const highlightEdgesColor = getHighlightColorBlended?.(
+					colors,
+					BLEND_CONFIG,
+				);
+
+				return (
+					<RailStyled
+						key={id}
+						startPoint={getPercentFromDuration(start, videoDuration)}
+						width={getPercentFromDuration(end - start, videoDuration)}
+						color={getHighlightColorBlended?.(colors)}
+						startColorSegment={highlightEdgesColor}
+						endColorSegment={highlightEdgesColor}
+					/>
+				);
+			})}
+		</div>
 	);
 };
