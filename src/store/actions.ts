@@ -100,7 +100,6 @@ export const videoActions: VideoActions = {
 		return {
 			currentTime: state.startTime + relativeSeconds,
 			currentRelativeTime: relativeSeconds,
-			oneTimeStopPoint: null, // Erase 'soft stop point' when user seeks.
 			hasPlayedOrSeeked: true,
 		};
 	},
@@ -134,6 +133,14 @@ export const videoActions: VideoActions = {
 	exitPip: state => {
 		state.emitter.emit('pipExit');
 		return { pip: false };
+	},
+	setShowControls: (state, isUpdated) => {
+		state.emitter.emit('showControls', { isUpdated });
+		return { showControls: isUpdated };
+	},
+	setShowPipControls: (state, isUpdated) => {
+		state.emitter.emit('showPipControls', { isUpdated });
+		return { showPipControls: isUpdated };
 	},
 	// Private Actions
 	_setReady: state => {

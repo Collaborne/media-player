@@ -23,9 +23,7 @@ export type EmitterEvents =
 	| 'firstReady'
 	| 'ended'
 	| 'mute'
-	| 'captionsShow'
 	| 'unnmute'
-	| 'captionsHide'
 	| 'setPlaybackRate'
 	| 'timeupdate'
 	| 'fullscreenEnter'
@@ -34,18 +32,36 @@ export type EmitterEvents =
 	| 'end'
 	| 'relativeEnd'
 	| 'pipEnter'
-	| 'pipExit';
+	| 'pipExit'
+	| 'showControls'
+	| 'showPipControls';
+
+type EventArgs =
+	| ShowControlsEvent
+	| TimeUpdateEvent
+	| boolean
+	| number
+	| undefined;
 
 export type AddRemoveListener<Arguments> = (
 	event: EmitterEvents,
 	listener: (args: Arguments) => void,
 ) => void;
 export interface EmitterAddRemoveListeners {
-	removeEventListener?: AddRemoveListener<boolean | number | undefined>;
-	addEventListener?: AddRemoveListener<boolean | number | undefined>;
+	removeEventListener: AddRemoveListener<EventArgs>;
+	addEventListener: AddRemoveListener<EventArgs>;
 }
 
-/** DOM event `timeupdate` has seconds and duration properties, that are not present in `Event` typings */
-export interface ExtendedTimeUpdateEvent
-	extends Event,
-		Record<'seconds' | 'duration', number> {}
+/** Event emitted on `timeupdate`. Same as browsers native */
+export type TimeUpdateEvent = Record<'seconds' | 'duration', number>;
+/** Event emitted when `showControls` was triggered  */
+export type ShowControlsEvent = { isUpdated: boolean };
+/** Typeguard for `ShowControlsEvent` */
+export const isShowControlsEvent = (
+	event: unknown,
+): event is ShowControlsEvent =>
+	(event as ShowControlsEvent).isUpdated !== undefined;
+/** Typeguard for `TimeUpdateEvent` */
+export const isTimeUpdateEvent = (event: unknown): event is TimeUpdateEvent =>
+	(event as TimeUpdateEvent).seconds !== undefined &&
+	(event as TimeUpdateEvent).duration !== undefined;

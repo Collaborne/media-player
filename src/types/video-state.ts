@@ -53,7 +53,6 @@ interface VideoPlayerInitialState {
 	duration: number;
 	/** Current played time */
 	currentTime: number;
-
 	highlights: Highlight[];
 }
 
@@ -99,7 +98,8 @@ export interface VideoState {
 	ready: boolean;
 	hasPlayedOrSeeked: boolean;
 	pip: boolean;
-	oneTimeStopPoint: number | null;
+	showControls: boolean;
+	showPipControls: boolean;
 	/** Did pip mode was triggered by click event */
 	hasPipTriggeredByClick: boolean;
 	/** Storing wrapper ref of the videoPlayer */

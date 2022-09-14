@@ -12,7 +12,7 @@ interface ProgressBarProps extends SliderProps {}
 
 export const ProgressBar: FC<ProgressBarProps> = props => {
 	const { api } = useVideo();
-
+	const hasStarted = api?.getHasPlayedOrSeeked?.();
 	const onCurrentTimeUpdate = (
 		e: Event,
 		newValue: number | number[],
@@ -39,6 +39,10 @@ export const ProgressBar: FC<ProgressBarProps> = props => {
 		}
 		return 0;
 	})();
+
+	if (!hasStarted) {
+		return null;
+	}
 	return (
 		<ProgressBarStyled
 			min={0}

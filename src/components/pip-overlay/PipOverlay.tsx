@@ -2,10 +2,9 @@ import { Forward10, Replay10 } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 import { useVideo } from '../../hooks';
-import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
 import {
 	PlayPauseReplay,
 	PlaybackRateButton,
@@ -20,6 +19,9 @@ import { usePipOverlayStyles } from './usePipOverlayStyles';
 interface PipOverlayProps {}
 
 export const PipOverlay: FC<PipOverlayProps> = () => {
+	const { api } = useVideo();
+	const isVisible = api?.getShowPipControls?.();
+
 	const {
 		wrapper,
 		iconButton,
@@ -28,72 +30,19 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 		centerButtonIcon,
 		playBackRateWrapper,
 	} = usePipOverlayStyles().classes;
-	const [showControls, setShowControls] = useState(true);
-	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
-	const [lastMouseMove, setLastMouseMove] = useState<number>(0);
 
-	const { api, lastActivityRef, markActivity } = useVideo();
-	const {
-		isPlaying,
-		isFinished,
-		onPlay,
-		onRwd,
-		onFwd,
-		onStop,
-		onSetPlaybackRate,
-		playbackRate,
-	} = useBottomControlPanelHook();
+	const { onRwd, onFwd, onStop } = useBottomControlPanelHook();
 
 	const onClose = () => {
 		onStop();
 		api?.exitPip?.();
 	};
 
-	const onMouseMove = () => {
-		markActivity?.();
-		setLastMouseMove(Date.now());
-	};
-
-	const onMouseLeave = () => setLastMouseLeave(Date.now());
-
-	const updateShowControls = useCallback(() => {
-		const lastActivity = lastActivityRef?.current || 0;
-		if (api?.getPaused?.()) {
-			return setShowControls(true);
-		}
-		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
-		// Updating showControls should be on mouse move(stored here as a lastMouseLeave),
-		// the video is paused(paused video has always controls on top)
-		// or entering in PIP mode(we need to trigger creation of the new function)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [lastMouseLeave, api?.getPaused, api?.getPictureInPicture]);
-
-	useEffect(updateShowControls, [
-		updateShowControls,
-		showControls,
-		isPlaying,
-		lastMouseMove,
-	]);
-
-	// Updating video players bottom control's panel after OVERLAY_HIDE_DELAY time period
-	useEffect(() => {
-		if (!isPlaying) {
-			return;
-		}
-		const timeoutId = setTimeout(updateShowControls, OVERLAY_HIDE_DELAY + 100);
-		return () => clearTimeout(timeoutId);
-	}, [updateShowControls, lastMouseMove, isPlaying]);
-
-	if (!showControls) {
+	if (!isVisible) {
 		return null;
 	}
-
 	return (
-		<div
-			className={wrapper}
-			onMouseMove={onMouseMove}
-			onMouseLeave={onMouseLeave}
-		>
+		<div className={wrapper}>
 			<Grid
 				container
 				alignItems="center"
@@ -105,11 +54,6 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 						<Replay10 fontSize="medium" />
 					</IconButton>
 					<PlayPauseReplay
-						isPlaying={isPlaying}
-						isFinished={isFinished}
-						onPlay={onPlay}
-						onReplay={onPlay}
-						onStop={onStop}
 						className={centerButtonIcon}
 						svgClassName={centerIcon}
 						size="large"
@@ -141,8 +85,6 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 					<CloseIcon fontSize="small" />
 				</IconButton>
 				<PlaybackRateButton
-					playbackRate={playbackRate}
-					onChangeRate={onSetPlaybackRate}
 					className={playBackRateWrapper}
 					variant="contained"
 					size="small"

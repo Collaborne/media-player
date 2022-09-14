@@ -22,7 +22,6 @@ interface UseVideoContainerHook {
 	onMouseLeave: () => void;
 	onMouseEnter: () => void;
 	containerSizeRef: React.MutableRefObject<ContainerSizePosition | undefined>;
-	showControls: boolean;
 }
 
 /** Defines root margin when scrolling to bottom */
@@ -71,6 +70,9 @@ export const useVideoContainerHook = ({
 		if (!isPlaying) {
 			return setShowControls(true);
 		}
+		if (isPip) {
+			return setShowControls(true);
+		}
 		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
@@ -79,6 +81,7 @@ export const useVideoContainerHook = ({
 		lastActivityRef,
 		api,
 		lastMouseLeave,
+		isPip,
 	]);
 
 	useEffect(updateShowControls, [
@@ -224,6 +227,11 @@ export const useVideoContainerHook = ({
 		},
 		api as unknown as HTMLElement,
 	);
+	// Updating video state with show controls
+	useEffect(() => {
+		api?.setShowControls?.(showControls);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [showControls]);
 
 	useEventListener(
 		'pipExit',
@@ -262,6 +270,5 @@ export const useVideoContainerHook = ({
 		onMouseLeave,
 		onMouseEnter,
 		containerSizeRef,
-		showControls,
 	};
 };

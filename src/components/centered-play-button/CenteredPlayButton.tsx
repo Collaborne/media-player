@@ -6,26 +6,24 @@ import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 
 export interface CenteredPlayButtonProps {
-	onClick?: VoidFunction;
 	classNames?: string;
 	iconButtonProps?: IconButtonProps;
 }
 
 export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
-	onClick,
 	classNames,
 	iconButtonProps,
 }) => {
 	const { api } = useVideo();
-	const onPlay = () => {
-		api?.play?.();
-		onClick?.();
-	};
 
+	const hasStarted = api?.getHasPlayedOrSeeked?.();
+	if (hasStarted) {
+		return null;
+	}
 	return (
 		<BigCenteredButton
 			Icon={BigPlayIcon}
-			onClick={onPlay}
+			onClick={api?.play}
 			classNames={classNames}
 			iconButtonProps={iconButtonProps}
 		/>

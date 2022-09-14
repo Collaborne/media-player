@@ -1,23 +1,19 @@
-import { Forward10Outlined, Replay10Outlined } from '@mui/icons-material';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-import { toTimestamp } from '../../utils/time';
-import { FullscreenEnterIcon, FullscreenExitIcon, PiPIcon } from '../icons';
+import { useVideo } from '../../hooks';
+import { isShowControlsEvent } from '../../types';
 
-import {
-	PlayPauseReplay,
-	PlaybackRateButton,
-	VolumeBarStyled,
-	VolumeIcon,
-} from './components';
-import { useBottomControlPanelHook } from './useBottomControlPanelHook';
+import { PlayPauseReplay, PlaybackRateButton } from './components';
+import { FullscreenButton } from './components/FullscreenButton';
+import { FwdButton } from './components/FwdButton';
+import { PictureInPictureButton } from './components/PictureInPictureButton';
+import { RwdButton } from './components/RwdButton';
+import { TimeDisplay } from './components/TimeDisplay';
+import { VolumeButton } from './components/VolumeButton';
+import { VolumeSlider } from './components/VolumeSlider';
 import { useBottomControlPanelStyles } from './useBottomControlPanelStyles';
-
-const SECONDS_MULTIPLIER = 1000;
 
 export interface BottomControlPanelProps {
 	className?: string;
@@ -26,33 +22,31 @@ export interface BottomControlPanelProps {
 export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 	className,
 }) => {
-	const {
-		currentTime,
-		duration,
-		playbackRate,
-		volume,
-		isFinished,
-		isMuted,
-		isPlaying,
-		isFullscreen,
-		showFullscreenIcon,
-		showPipIcon,
-		showPlaybackRate,
-		showVolume,
-		onFwd,
-		onPlay,
-		onRwd,
-		onStop,
-		onPip,
-		onFullscreen,
-		onSetPlaybackRate,
-		onVolumeChange,
-		onToggleClick,
-	} = useBottomControlPanelHook();
-
+	const [isVisible, setIsVisible] = useState(true);
+	const { api } = useVideo();
 	// Bottom panel styles
-	const { wrapper, gridCentered, timeStampText, playBackRateBtn } =
-		useBottomControlPanelStyles().classes;
+	const { wrapper, gridCentered } = useBottomControlPanelStyles().classes;
+
+	const hasStarted = api?.getHasPlayedOrSeeked?.();
+
+	useEffect(() => {
+		if (!api) {
+			return;
+		}
+		const setControlsVisibility = (e: unknown) => {
+			if (isShowControlsEvent(e)) {
+				setIsVisible(e.isUpdated);
+			}
+		};
+		api.addEventListener?.('showControls', e => setControlsVisibility(e));
+		return () => {
+			api.removeEventListener?.('showControls', e => setControlsVisibility(e));
+		};
+	}, [api]);
+
+	if (!isVisible || !hasStarted) {
+		return null;
+	}
 
 	return (
 		<Grid
@@ -65,78 +59,20 @@ export const BottomControlPanel: FC<BottomControlPanelProps> = ({
 		>
 			<Grid item className={gridCentered} xs>
 				<Grid item className={gridCentered} xs justifyContent="flex-start">
-					{/*  Video Playing Statuses: Play-Pause-Replay */}
-					<PlayPauseReplay
-						isFinished={isFinished}
-						isPlaying={isPlaying}
-						onPlay={onPlay}
-						onStop={onStop}
-						onReplay={onPlay}
-						svgIconSize="medium"
-					/>
-					{/* Rewind Button */}
-					<IconButton size="medium" onClick={onRwd} data-testid="icon-rwd">
-						<Replay10Outlined fontSize="medium" />
-					</IconButton>
-					{/* Forward Button */}
-					<IconButton size="medium" onClick={onFwd} data-testid="icon-fwd">
-						<Forward10Outlined fontSize="medium" />
-					</IconButton>
-					{/* Volume Slider */}
-					{showVolume && (
-						<Grid className={gridCentered}>
-							<IconButton
-								size="medium"
-								onClick={onToggleClick}
-								data-testid="icon-volume"
-							>
-								<VolumeIcon fontSize="medium" volume={isMuted ? 0 : volume} />
-							</IconButton>
-							<VolumeBarStyled
-								min={0}
-								max={100}
-								value={volume}
-								size="small"
-								onChange={onVolumeChange}
-							/>
-						</Grid>
-					)}
+					<PlayPauseReplay svgIconSize="medium" />
+					<RwdButton />
+					<FwdButton />
+					<VolumeButton />
+					<VolumeSlider />
 				</Grid>
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="center">
-				{/* Current Time / Duration */}
-				<Typography variant="body2" className={timeStampText} color="inherit">
-					{toTimestamp(currentTime * SECONDS_MULTIPLIER)} /{' '}
-					{toTimestamp(duration * SECONDS_MULTIPLIER)}
-				</Typography>
+				<TimeDisplay />
 			</Grid>
 			<Grid item className={gridCentered} xs justifyContent="flex-end">
-				{/* Playback Rate */}
-				{showPlaybackRate && (
-					<PlaybackRateButton
-						playbackRate={playbackRate}
-						onChangeRate={onSetPlaybackRate}
-						variant="text"
-						className={playBackRateBtn}
-						data-testid="icon-playback-rate"
-					/>
-				)}
-				{/* Picture In Picture */}
-				{showPipIcon && (
-					<IconButton size="medium" onClick={onPip} data-testid="icon-pip">
-						<PiPIcon fontSize="medium" />
-					</IconButton>
-				)}
-				{/* Fullscreen mode */}
-				{showFullscreenIcon && (
-					<IconButton size="medium" onClick={onFullscreen}>
-						{isFullscreen ? (
-							<FullscreenExitIcon fontSize="medium" />
-						) : (
-							<FullscreenEnterIcon fontSize="medium" />
-						)}
-					</IconButton>
-				)}
+				<PlaybackRateButton />
+				<PictureInPictureButton />
+				<FullscreenButton />
 			</Grid>
 		</Grid>
 	);

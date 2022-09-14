@@ -17,6 +17,7 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 }) => {
 	const { centeredIcon, isPlaying, hasStarted, api } = usePlayPauseHook();
 	const [showPlayAnimation, setShowPlayAnimation] = useState(false);
+	const playAnimation = () => setShowPlayAnimation(true);
 
 	// Play animation on `play` event
 	// and filtering out the first "play"
@@ -27,7 +28,8 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 				return;
 			}
 			if (!isPlaying) {
-				setShowPlayAnimation(true);
+				console.log('called');
+				playAnimation();
 			}
 		},
 		api as unknown as HTMLElement,

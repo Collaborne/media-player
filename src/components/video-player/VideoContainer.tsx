@@ -31,13 +31,8 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 		useVideo();
 	const { wrapper, pipText, reactPlayer } = useVideoContainerStyles().classes;
 
-	const {
-		containerSizeRef,
-		isPlayerReady,
-		onMouseLeave,
-		onMouseEnter,
-		showControls,
-	} = useVideoContainerHook({ videoUrl });
+	const { containerSizeRef, isPlayerReady, onMouseLeave, onMouseEnter } =
+		useVideoContainerHook({ videoUrl });
 
 	// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
 	if (!videoUrl || !isPlayerReady) {
@@ -82,7 +77,7 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 							<div className={pipText}>{intl.get('video.playing_pip')}</div>
 						</VideoPoster>
 					)}
-					<Controls isVisible={showControls} />
+					<Controls />
 				</>
 			)}
 		</div>

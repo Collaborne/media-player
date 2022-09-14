@@ -8,17 +8,10 @@ export const useBottomControlPanelStyles = makeStyles()(theme => ({
 		background: theme.palette.background.default,
 		pointerEvents: 'auto',
 	},
-	timeStampText: {
-		fontWeight: 500,
-		color: theme.palette.text.secondary,
-	},
 
 	gridCentered: {
 		display: 'inline-flex',
 		height: '100%',
 		alignItems: 'center',
-	},
-	playBackRateBtn: {
-		color: theme.palette.text.primary,
 	},
 }));

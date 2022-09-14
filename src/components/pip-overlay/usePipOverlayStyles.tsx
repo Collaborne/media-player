@@ -8,6 +8,7 @@ export const usePipOverlayStyles = makeStyles()(theme => ({
 		top: 0,
 		display: 'flex',
 		background: 'rgba(0,0,0,0.4)',
+		zIndex: 9999,
 	},
 	iconButton: {
 		borderRadius: theme.spacing(0.5),

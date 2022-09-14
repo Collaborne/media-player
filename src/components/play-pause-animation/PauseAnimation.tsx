@@ -17,6 +17,7 @@ export const PauseAnimation: FC<PauseAnimationProps> = ({
 }) => {
 	const { centeredIcon, isPlaying, hasStarted, api } = usePlayPauseHook();
 	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
+	const pauseAnimation = () => setShowPauseAnimation(true);
 
 	// Play animation on `pause` event
 	useEventListener(
@@ -26,18 +27,21 @@ export const PauseAnimation: FC<PauseAnimationProps> = ({
 				return;
 			}
 			if (isPlaying) {
-				setShowPauseAnimation(true);
+				console.log('called');
+
+				pauseAnimation();
 			}
 		},
 		api as unknown as HTMLElement,
 	);
-
 	// Rerender when animation has been triggered
 	useEffect(() => {
 		if (showPauseAnimation) {
 			setShowPauseAnimation(false);
 		}
 	}, [showPauseAnimation]);
+
+	console.log('showPauseAnimation', showPauseAnimation);
 
 	return (
 		<AnimatedIconWrapper

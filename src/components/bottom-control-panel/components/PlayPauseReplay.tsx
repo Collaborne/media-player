@@ -3,34 +3,29 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { ComponentType, FC } from 'react';
 
+import { usePlayPauseReplayHook } from '../hooks/usePlayPauseReplayHook';
+
 interface PlayPauseReplayProps extends IconButtonProps {
-	isFinished: boolean;
-	isPlaying: boolean;
-	onStop: VoidFunction;
-	onPlay: VoidFunction;
-	onReplay: VoidFunction;
 	svgClassName?: string;
 	Icons?: Record<'Play' | 'Replay' | 'Pause', ComponentType<SvgIconProps>>;
 	svgIconSize?: SvgIconProps['fontSize'];
+	skipSeconds?: number;
 }
 
 export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
-	isFinished,
-	isPlaying,
-	onPlay,
-	onReplay,
-	onStop,
 	className,
 	svgClassName,
 	Icons = { Pause: PauseOutlined, Play: PlayArrow, Replay: ReplayOutlined },
 	svgIconSize = 'inherit',
+	skipSeconds,
 	...props
 }) => {
+	const { isFinished, isPlaying, onPlay, onStop } = usePlayPauseReplayHook();
 	const { Pause, Play, Replay } = Icons;
 
 	const handleClick = () => {
 		if (isFinished) {
-			return onReplay();
+			return onPlay();
 		}
 
 		if (isPlaying) {

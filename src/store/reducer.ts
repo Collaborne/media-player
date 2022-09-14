@@ -48,7 +48,7 @@ export const useStateReducer = ({
 		if (lastActivityRef) {
 			lastActivityRef.current = Date.now();
 		}
-	}, [lastActivityRef]);
+	}, []);
 	const stateReducer = useCallback(
 		(state: VideoState, action: VideoAction): VideoState => {
 			const fn: VideoStateSetter = videoActions[action.type];
@@ -96,6 +96,8 @@ export const useStateReducer = ({
 				pip: false,
 				videoContainerRef,
 				hasPipTriggeredByClick: true,
+				showControls: true,
+				showPipControls: false,
 			},
 			...persistedState,
 			...initialState,

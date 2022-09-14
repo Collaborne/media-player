@@ -7,11 +7,4 @@ export const useControlsStyles = makeStyles()(() => ({
 		position: 'absolute',
 		pointerEvents: 'none',
 	},
-	wrapperBottomPanel: {
-		display: 'flex',
-		flexDirection: 'column',
-		position: 'absolute',
-		bottom: 0,
-		width: '100%',
-	},
 }));

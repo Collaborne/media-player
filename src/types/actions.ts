@@ -31,6 +31,13 @@ export interface VideoActions {
 
 	requestPip: (state: VideoState) => PartialVideoState;
 	exitPip: (state: VideoState) => PartialVideoState;
+	/** Show controls after mouse moving and other interactions to player */
+	setShowControls: (state: VideoState, isUpdated: boolean) => PartialVideoState;
+	/** Show controls after mouse moving and other interactions to player */
+	setShowPipControls: (
+		state: VideoState,
+		isUpdated: boolean,
+	) => PartialVideoState;
 	// Private Methods
 	_setReady: (state: VideoState) => PartialVideoState;
 	_handleProgress: (

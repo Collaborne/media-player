@@ -27,8 +27,13 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	rndProps,
 	...props
 }) => {
-	const { defaultPosition, defaultWidth, enableResizing } =
-		useDraggablePopoverHook({ disablePortal: props.disablePortal });
+	const {
+		defaultPosition,
+		defaultWidth,
+		enableResizing,
+		onMouseMove,
+		onMouseLeave,
+	} = useDraggablePopoverHook({ disablePortal: props.disablePortal });
 
 	const { paper, progressBar, portalWrapper, resizeSquares } =
 		useDraggablePopoverStyles({
@@ -58,7 +63,12 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 					minWidth={241}
 					minHeight={146}
 				>
-					<Paper elevation={0} className={clsx(paper, className)}>
+					<Paper
+						elevation={0}
+						className={clsx(paper, className)}
+						onMouseMove={onMouseMove}
+						onMouseLeave={onMouseLeave}
+					>
 						{children}
 						{!props.disablePortal && (
 							<>

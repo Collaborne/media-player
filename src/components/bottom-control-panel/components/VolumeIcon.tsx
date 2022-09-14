@@ -1,20 +1,31 @@
 import { VolumeDown, VolumeUp } from '@mui/icons-material';
 import { SvgIconProps } from '@mui/material/SvgIcon';
-import { FC } from 'react';
+import { ComponentType, FC } from 'react';
 
 import { MIN_VOLUME } from '../../../utils/constants';
 import { VolumeMutedIcon } from '../../icons/VolumeMutedIcon';
 
+type VolumeIcons = {
+	VolumeMuted: ComponentType<SvgIconProps>;
+	VolumeUp: ComponentType<SvgIconProps>;
+	VolumeDown: ComponentType<SvgIconProps>;
+};
 interface VolumeIconProps extends SvgIconProps {
 	volume: number;
+	Icons?: VolumeIcons;
+	minVolume?: number;
 }
-
-export const VolumeIcon: FC<VolumeIconProps> = ({ volume, ...props }) => {
+export const VolumeIcon: FC<VolumeIconProps> = ({
+	volume,
+	Icons = { VolumeUp, VolumeDown, VolumeMuted: VolumeMutedIcon },
+	minVolume = MIN_VOLUME,
+	...props
+}) => {
 	if (volume === 0) {
-		return <VolumeMutedIcon {...props} />;
+		return <Icons.VolumeMuted {...props} />;
 	}
-	if (volume >= MIN_VOLUME) {
-		return <VolumeUp {...props} />;
+	if (volume >= minVolume) {
+		return <Icons.VolumeUp {...props} />;
 	}
-	return <VolumeDown {...props} />;
+	return <Icons.VolumeDown {...props} />;
 };

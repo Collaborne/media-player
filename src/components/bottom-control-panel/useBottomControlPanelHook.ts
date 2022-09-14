@@ -29,6 +29,7 @@ interface UseBottomControlPanelHook {
 	onFullscreen: VoidFunction;
 	onToggleClick: VoidFunction;
 }
+
 export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 	const { api, fullScreenApi, controlsConfig } = useVideo();
 	const isPip = Boolean(api?.getPictureInPicture?.());
@@ -90,6 +91,7 @@ export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
 		}
 		fullScreenApi?.toggleFullscreen();
 	};
+
 	return {
 		duration,
 		currentTime: relativeTime,
