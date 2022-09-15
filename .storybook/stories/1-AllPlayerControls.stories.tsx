@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/react';
 
 import {
-	BottomControlPanel as BottomControlPanelComponent,
-	BottomControlPanelProps,
-} from '../../src/components/bottom-control-panel/BottomControlPanel';
+	BottomControlButtons as BottomControlButtonsComponent,
+	BottomControlButtonsProps,
+} from '../../src/components/bottom-control-panel/BottomControlButtons';
 import {
 	CenteredBottomPlayback as CenteredBottomPlaybackComponent,
 	CenteredBottomPlaybackProps,
@@ -24,7 +24,7 @@ import {
 
 interface AllPlayerControlsProps
 	extends CenteredBottomPlaybackProps,
-		Partial<BottomControlPanelProps> {
+		Partial<BottomControlButtonsProps> {
 	isFirstView: boolean;
 }
 
@@ -57,7 +57,7 @@ export const AllPlayerControls: Story<AllPlayerControlsProps> = args => {
 		>
 			<div style={{ flex: 1 }} />
 			<ProgressBar />
-			<BottomControlPanelComponent />
+			<BottomControlButtonsComponent />
 		</div>
 	);
 };

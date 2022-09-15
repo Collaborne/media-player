@@ -8,7 +8,7 @@ import { SECONDS_TO_SKIP } from '../../utils/constants';
 import {
 	PlayPauseReplay,
 	PlaybackRateButton,
-} from '../bottom-control-panel/components';
+} from '../bottom-control-buttons/components';
 import { BigPauseIcon } from '../icons/BigPauseIcon';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 import { BigReplayIcon } from '../icons/BigReplayIcon';

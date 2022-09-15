@@ -1,11 +1,10 @@
 import clsx from 'clsx';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
 
 import { useVideo } from '../../hooks/use-video';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
-import { ControlProps, Controls } from '../controls/Controls';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { VideoPoster } from '../video-poster/VideoPoster';
 
@@ -13,19 +12,19 @@ import { useVideoContainerHook } from './useVideoContainerHook';
 import { useVideoContainerStyles } from './useVideoContainerStyles';
 
 /** VideoContainer Props */
-export interface VideoContainerProps extends Omit<ControlProps, 'isVisible'> {
+export interface VideoContainerProps {
 	/** The url of the video file to be played */
 	videoUrl: string;
-	/** Callback triggered by play event */
-	onPlay?: VoidFunction;
 	/** CSS class name applied to component  */
 	className?: string;
+	children?: ReactNode;
 }
 
 /** A React Component that consumes VideoContext's API and adds UI for the player and video controls  */
 export const VideoContainer: FC<VideoContainerProps> = ({
 	className,
 	videoUrl,
+	children,
 }) => {
 	const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
 		useVideo();
@@ -77,7 +76,7 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 							<div className={pipText}>{intl.get('video.playing_pip')}</div>
 						</VideoPoster>
 					)}
-					<Controls />
+					{children}
 				</>
 			)}
 		</div>

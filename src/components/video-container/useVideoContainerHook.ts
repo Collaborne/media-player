@@ -35,7 +35,6 @@ export const useVideoContainerHook = ({
 		api,
 		lastActivityRef,
 		markActivity,
-		controlsConfig,
 		videoContainerRef,
 		fullScreenApi,
 	} = useVideo();
@@ -63,7 +62,7 @@ export const useVideoContainerHook = ({
 	const isVisibleFromScrollingBottom = Boolean(entryBottom?.isIntersecting);
 
 	const updateShowControls = useCallback(() => {
-		if (controlsConfig?.alwaysShowConfig || isFullscreen) {
+		if (isFullscreen) {
 			return setShowControls(true);
 		}
 		const lastActivity = lastActivityRef?.current || 0;
@@ -75,14 +74,7 @@ export const useVideoContainerHook = ({
 		}
 		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [
-		controlsConfig?.alwaysShowConfig,
-		isFullscreen,
-		lastActivityRef,
-		api,
-		lastMouseLeave,
-		isPip,
-	]);
+	}, [isFullscreen, lastActivityRef, api, lastMouseLeave, isPip]);
 
 	useEffect(updateShowControls, [
 		updateShowControls,

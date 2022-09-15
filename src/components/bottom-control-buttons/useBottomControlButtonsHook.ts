@@ -1,11 +1,11 @@
 import { useVideo } from '../../hooks/use-video';
 
-interface UseBottomControlPanelHook {
+interface UseBottomControlButtonsHook {
 	showControls?: boolean;
 	hasStarted?: boolean;
 }
 
-export const useBottomControlPanelHook = (): UseBottomControlPanelHook => {
+export const useBottomControlButtonsHook = (): UseBottomControlButtonsHook => {
 	const { api } = useVideo();
 	const showControls = api?.getShowControls?.();
 	const hasStarted = api?.getHasPlayedOrSeeked?.();

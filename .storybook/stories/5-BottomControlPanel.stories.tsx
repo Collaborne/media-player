@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/react';
 
 import {
-	BottomControlPanel as BottomControlPanelComponent,
-	BottomControlPanelProps,
-} from '../../src/components/bottom-control-panel/BottomControlPanel';
+	BottomControlButtons as BottomControlButtonsComponent,
+	BottomControlButtonsProps,
+} from '../../src/components/bottom-control-panel/BottomControlButtons';
 import {
 	withDemoCard,
 	withPlayerTheme,
@@ -16,8 +16,8 @@ import {
 	bottomControlPanelStoryArgs,
 } from './shared/bottom-control-panel.args';
 
-export const BottomControlPanel: Story<
-	Partial<BottomControlPanelProps>
+export const BottomControlButtons: Story<
+	Partial<BottomControlButtonsProps>
 > = () => {
 	return (
 		<div
@@ -27,14 +27,14 @@ export const BottomControlPanel: Story<
 				flexDirection: 'column-reverse',
 			}}
 		>
-			<BottomControlPanelComponent />
+			<BottomControlButtonsComponent />
 		</div>
 	);
 };
 
 export default {
 	title: 'Video Player Controls',
-	component: BottomControlPanel,
+	component: BottomControlButtons,
 	decorators: [
 		withVideoProvider,
 		withVideoWrapper,

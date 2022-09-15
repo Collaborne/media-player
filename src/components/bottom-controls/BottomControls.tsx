@@ -1,18 +1,12 @@
-import { FC } from 'react';
-
-import { BottomControlPanel } from '../bottom-control-panel/BottomControlPanel';
-import { ProgressBar } from '../progress-bar/ProgressBar';
+import { FC, ReactNode } from 'react';
 
 import { useBottomControlsStyles } from './useBottomControlsStyles';
 
-interface BottomControlsProps {}
+interface BottomControlsProps {
+	children: ReactNode;
+}
 
-export const BottomControls: FC<BottomControlsProps> = () => {
+export const BottomControls: FC<BottomControlsProps> = ({ children }) => {
 	const { bottomControls } = useBottomControlsStyles().classes;
-	return (
-		<div className={bottomControls}>
-			<ProgressBar />
-			<BottomControlPanel />
-		</div>
-	);
+	return <div className={bottomControls}>{children}</div>;
 };
