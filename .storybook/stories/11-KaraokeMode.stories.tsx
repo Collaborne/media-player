@@ -1,9 +1,8 @@
 import useEventListener from '@use-it/event-listener';
 import React from 'react';
 
-import { ExtendedTimeUpdateEvent, VideoPlayer } from '../../src';
-import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
-import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
+import { isTimeUpdateEvent, VideoPlayer } from '../../src';
+import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import { VideoContext } from '../../src/context/video';
 import { Karaoke } from '../components/karaoke/Karaoke';
 import { createTimestamps } from '../components/karaoke/utils';
@@ -70,10 +69,10 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	useEventListener(
 		'timeupdate',
 		e => {
-			const event = e as Event as ExtendedTimeUpdateEvent;
-			const res = findMatchingPartOrNext(transcript, event.seconds);
-
-			setCurrentPart(() => res);
+			if (isTimeUpdateEvent(e)) {
+				const res = findMatchingPartOrNext(transcript, e.seconds);
+				setCurrentPart(() => res);
+			}
 		},
 		videoContextApi as unknown as HTMLElement,
 	);
@@ -95,7 +94,6 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		<div>
 			<VideoPlayer
 				videoUrl={args.videoUrl}
-				controlsConfig={{ ...DEFAULT_CONTROLS_CONFIG, fileActionsPanel: false }}
 				className={wrapper}
 				onContext={setVideoContext}
 			/>

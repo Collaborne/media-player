@@ -25,15 +25,12 @@ import { ProgressBar } from '../progress-bar/ProgressBar';
 
 import { useVideoPlayerStyles } from './useVideoPlayerStyles';
 
-export interface VideoPlayerProps extends CorePlayerProps {
-	children: ReactNode;
+export interface VideoPlayerProps extends Omit<CorePlayerProps, 'children'> {
+	children?: ReactNode;
 }
 
 /** A "video-player" from the box. A result of VideoProvider and VideoContainer */
-export const VideoPlayer: FC<VideoPlayerProps> = ({
-	children,
-	...corePlayerProps
-}) => {
+export const VideoPlayer: FC<VideoPlayerProps> = ({ ...corePlayerProps }) => {
 	const { gridCentered } = useVideoPlayerStyles().classes;
 	return (
 		<CorePlayer {...corePlayerProps}>

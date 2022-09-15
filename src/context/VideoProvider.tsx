@@ -134,7 +134,6 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			return ctx as VideoContext;
 		},
 		// Creating a new lazy state function - to renew state should ne only:
-		// we change controlsConfig(responsible to display video controls),
 		// dispatch - if the dispatcher is changed,
 		// state changes(user triggered it, or by events listeners),
 		// initialState.playing - to trigger autoplay,

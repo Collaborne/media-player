@@ -4,36 +4,20 @@ import {
 	DraggablePopover as DraggablePopoverComponent,
 	DraggablePopoverProps,
 } from '../../src/components/draggable-popover/DraggablePopover';
-import { VideoProvider } from '../../src/context/video';
-import {
-	withDemoCard,
-	withIntl,
-	withPlayerTheme,
-	withVideoWrapper,
-} from '../decorators';
+import { withCorePlayer, withDemoCard } from '../decorators';
 
 export const DraggablePopover: Story<Partial<DraggablePopoverProps>> = args => {
 	return (
-		<VideoProvider>
-			<div
-				style={{
-					display: 'flex',
-					width: '100%',
-					flexDirection: 'column-reverse',
-				}}
-			>
-				<DraggablePopoverComponent disablePortal={args.disablePortal}>
-					<div style={{ background: 'red', width: '100%', height: '100%' }} />
-				</DraggablePopoverComponent>
-			</div>
-		</VideoProvider>
+		<DraggablePopoverComponent disablePortal={args.disablePortal}>
+			<div style={{ background: 'red', width: '100%', height: '100%' }} />
+		</DraggablePopoverComponent>
 	);
 };
 
 export default {
 	title: 'Video Player Controls',
 	component: DraggablePopover,
-	decorators: [withVideoWrapper, withDemoCard, withPlayerTheme, withIntl],
+	decorators: [withCorePlayer, withDemoCard],
 	args: {
 		disablePortal: false,
 		className: '',

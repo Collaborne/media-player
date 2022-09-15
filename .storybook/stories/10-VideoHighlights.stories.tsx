@@ -2,8 +2,7 @@ import React from 'react';
 import { uuid } from 'uuidv4';
 
 import { Highlight, VideoPlayer } from '../../src';
-import { DEFAULT_CONTROLS_CONFIG } from '../../src/components/controls/controls-config';
-import { useFilePlayerStyles } from '../../src/components/video-player/useVideoContainerStyles';
+import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import { VideoContext } from '../../src/context/video';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
@@ -43,11 +42,9 @@ export const VideoHighlights = () => {
 			<VideoPlayer
 				highlights={highlights}
 				onContext={setVideoContext}
-				controlsConfig={{ ...DEFAULT_CONTROLS_CONFIG, fileActionsPanel: false }}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 				className={wrapper}
 			/>
-
 			<RandomHighlight
 				addHighlightToStart={addHighlightToStart}
 				highlights={highlights}

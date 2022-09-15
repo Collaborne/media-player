@@ -1,4 +1,5 @@
 import { Button as MUIButton, Paper, Grid } from '@mui/material';
+import React from 'react';
 
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
@@ -7,7 +8,7 @@ const UPDATED_SIZES: Array<'small' | 'medium'> = ['medium', 'small'];
 const UPDATED_VARIANT: Array<'text' | 'contained'> = ['contained', 'text'];
 const UPDATED_COLOR: Array<'primary'> = ['primary'];
 
-export const Button = () => {
+export const Button: React.FC = () => {
 	return (
 		<Paper sx={{ padding: 2 }}>
 			{UPDATED_COLOR.map(color => (
