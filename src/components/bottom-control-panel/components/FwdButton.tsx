@@ -3,14 +3,13 @@ import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
 import { useVideo } from '../../../hooks';
+import { SECONDS_TO_SKIP } from '../../../utils/constants';
 
 interface FwdButtonProps extends IconButtonProps {
 	skipSeconds?: number;
 	Icon?: ComponentType<SvgIconProps>;
 	svgIconProps?: SvgIconProps;
 }
-
-const SECONDS_TO_SKIP = 10;
 
 export const FwdButton: FC<FwdButtonProps> = ({
 	Icon = Forward10Outlined,

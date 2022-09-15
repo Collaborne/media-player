@@ -1,5 +1,5 @@
 import useEventListener from '@use-it/event-listener';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 
 import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
@@ -16,8 +16,8 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
 }) => {
 	const { centeredIcon, isPlaying, hasStarted, api } = usePlayPauseHook();
-	const [showPlayAnimation, setShowPlayAnimation] = useState(false);
-	const playAnimation = () => setShowPlayAnimation(true);
+	const showPlayAnimation = api?.getDidPlayAnimationStart?.();
+	const playAnimationStart = api?.playAnimationStart;
 
 	// Play animation on `play` event
 	// and filtering out the first "play"
@@ -28,19 +28,18 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 				return;
 			}
 			if (!isPlaying) {
-				console.log('called');
-				playAnimation();
+				playAnimationStart?.(true);
 			}
 		},
 		api as unknown as HTMLElement,
 	);
 
-	// Rerender when animation has been triggered
+	// Rerender when animation has been triggered and close it
 	useEffect(() => {
 		if (showPlayAnimation) {
-			setShowPlayAnimation(false);
+			playAnimationStart?.(false);
 		}
-	}, [showPlayAnimation]);
+	}, [playAnimationStart, showPlayAnimation]);
 
 	return (
 		<AnimatedIconWrapper

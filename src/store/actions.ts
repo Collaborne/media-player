@@ -20,7 +20,6 @@ export const videoActions: VideoActions = {
 			return {
 				playing: true,
 				currentTime: state.startTime,
-				currentRelativeTime: 0,
 				hasPlayedOrSeeked: true,
 			};
 		}
@@ -30,27 +29,6 @@ export const videoActions: VideoActions = {
 		}
 
 		return { playing: true, hasPlayedOrSeeked: true };
-	},
-
-	setNewBounds: (state, { startTime, endTime }) => {
-		// Do nothing if time hasn't changed.
-		if (state.startTime === startTime && state.endTime === endTime) {
-			return state;
-		}
-
-		const video = getVideoEl(state);
-		if (video) {
-			video.currentTime = startTime;
-		}
-
-		return {
-			playing: false,
-			currentTime: startTime,
-			currentRelativeTime: 0,
-			startTime,
-			endTime,
-			duration: endTime - startTime,
-		};
 	},
 	pause: state => {
 		state.emitter?.emit('pause');
@@ -99,7 +77,6 @@ export const videoActions: VideoActions = {
 
 		return {
 			currentTime: state.startTime + relativeSeconds,
-			currentRelativeTime: relativeSeconds,
 			hasPlayedOrSeeked: true,
 		};
 	},
@@ -137,6 +114,12 @@ export const videoActions: VideoActions = {
 	setShowControls: (state, isUpdated) => {
 		state.emitter.emit('showControls', { isUpdated });
 		return { showControls: isUpdated };
+	},
+	pauseAnimationStart: (_state, hasPaused) => {
+		return { didPauseAnimationStart: hasPaused };
+	},
+	playAnimationStart: (_state, hasPlayed) => {
+		return { didPlayAnimationStart: hasPlayed };
 	},
 	setShowPipControls: (state, isUpdated) => {
 		state.emitter.emit('showPipControls', { isUpdated });
@@ -184,7 +167,6 @@ export const videoActions: VideoActions = {
 
 		return {
 			currentTime,
-			currentRelativeTime,
 			playing,
 		};
 	},

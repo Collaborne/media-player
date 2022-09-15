@@ -10,7 +10,7 @@ type VolumeIcons = {
 	VolumeUp: ComponentType<SvgIconProps>;
 	VolumeDown: ComponentType<SvgIconProps>;
 };
-interface VolumeIconProps extends SvgIconProps {
+export interface VolumeIconProps extends SvgIconProps {
 	volume: number;
 	Icons?: VolumeIcons;
 	minVolume?: number;

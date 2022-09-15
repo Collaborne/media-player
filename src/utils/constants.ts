@@ -14,3 +14,6 @@ export const VOLUME_MULTIPLIER = 100;
 
 /** The time between onProgress callbacks, in milliseconds */
 export const PROGRESS_INTERVAL = 50;
+
+/** Seconds that should be skipped when using Forward/Rewind  buttons */
+export const SECONDS_TO_SKIP = 10;

@@ -92,13 +92,14 @@ export interface VideoState {
 	endTime: number;
 	duration: number;
 	currentTime: number;
-	currentRelativeTime: number;
 	loop: boolean;
 	volume: number;
 	ready: boolean;
 	hasPlayedOrSeeked: boolean;
 	pip: boolean;
 	showControls: boolean;
+	didPlayAnimationStart: boolean;
+	didPauseAnimationStart: boolean;
 	showPipControls: boolean;
 	/** Did pip mode was triggered by click event */
 	hasPipTriggeredByClick: boolean;

@@ -13,7 +13,6 @@ export interface VideoGetters {
 	getEndTime: VideoGetter<number>;
 	getDuration: VideoGetter<number>;
 	getCurrentTime: VideoGetter<number>;
-	getCurrentRelativeTime: VideoGetter<number>;
 	getLoop: VideoGetter<boolean>;
 	getVolume: VideoGetter<number>;
 	getReady: VideoGetter<boolean>;
@@ -22,6 +21,8 @@ export interface VideoGetters {
 	getHasPipTriggeredByClick: VideoGetter<boolean>;
 	getShowControls: VideoGetter<boolean>;
 	getShowPipControls: VideoGetter<boolean>;
+	getDidPauseAnimationStart: VideoGetter<boolean>;
+	getDidPlayAnimationStart: VideoGetter<boolean>;
 }
 
 export type VideoGettersKey = keyof VideoGetters;

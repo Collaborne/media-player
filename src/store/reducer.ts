@@ -98,6 +98,8 @@ export const useStateReducer = ({
 				hasPipTriggeredByClick: true,
 				showControls: true,
 				showPipControls: false,
+				didPlayAnimationStart: false,
+				didPauseAnimationStart: false,
 			},
 			...persistedState,
 			...initialState,

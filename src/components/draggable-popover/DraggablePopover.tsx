@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { FC } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
-import { PipOverlay } from '../pip-overlay/PipOverlay';
+import { PipControls } from '../pip-controls/PipControls';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 
 import { useDraggablePopoverHook } from './useDraggablePopoverHook';
@@ -72,7 +72,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 						{children}
 						{!props.disablePortal && (
 							<>
-								<PipOverlay />
+								<PipControls />
 								<ProgressBar className={progressBar} />
 							</>
 						)}

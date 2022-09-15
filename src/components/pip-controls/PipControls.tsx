@@ -4,24 +4,28 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { FC } from 'react';
 
-import { useVideo } from '../../hooks';
+import { SECONDS_TO_SKIP } from '../../utils/constants';
 import {
 	PlayPauseReplay,
 	PlaybackRateButton,
 } from '../bottom-control-panel/components';
-import { useBottomControlPanelHook } from '../bottom-control-panel/useBottomControlPanelHook';
 import { BigPauseIcon } from '../icons/BigPauseIcon';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 import { BigReplayIcon } from '../icons/BigReplayIcon';
 
-import { usePipOverlayStyles } from './usePipOverlayStyles';
+import { usePipControlsHook } from './usePipControlsHook';
+import { usePipControlsStyles } from './usePipControlsStyles';
 
-interface PipOverlayProps {}
+interface PipControlsProps {
+	skipSeconds?: number;
+}
 
-export const PipOverlay: FC<PipOverlayProps> = () => {
-	const { api } = useVideo();
-	const isVisible = api?.getShowPipControls?.();
-
+export const PipControls: FC<PipControlsProps> = ({
+	skipSeconds = SECONDS_TO_SKIP,
+}) => {
+	const { showPipControls, onClose, onFwd, onRwd } = usePipControlsHook({
+		skipSeconds,
+	});
 	const {
 		wrapper,
 		iconButton,
@@ -29,16 +33,9 @@ export const PipOverlay: FC<PipOverlayProps> = () => {
 		centerIcon,
 		centerButtonIcon,
 		playBackRateWrapper,
-	} = usePipOverlayStyles().classes;
+	} = usePipControlsStyles().classes;
 
-	const { onRwd, onFwd, onStop } = useBottomControlPanelHook();
-
-	const onClose = () => {
-		onStop();
-		api?.exitPip?.();
-	};
-
-	if (!isVisible) {
+	if (!showPipControls) {
 		return null;
 	}
 	return (

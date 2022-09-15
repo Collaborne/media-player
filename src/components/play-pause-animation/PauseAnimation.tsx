@@ -1,5 +1,5 @@
 import useEventListener from '@use-it/event-listener';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 
 import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
@@ -16,9 +16,8 @@ export const PauseAnimation: FC<PauseAnimationProps> = ({
 	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
 }) => {
 	const { centeredIcon, isPlaying, hasStarted, api } = usePlayPauseHook();
-	const [showPauseAnimation, setShowPauseAnimation] = useState(false);
-	const pauseAnimation = () => setShowPauseAnimation(true);
-
+	const showPauseAnimation = api?.getDidPauseAnimationStart?.();
+	const pauseAnimationStart = api?.pauseAnimationStart;
 	// Play animation on `pause` event
 	useEventListener(
 		'pause',
@@ -27,21 +26,17 @@ export const PauseAnimation: FC<PauseAnimationProps> = ({
 				return;
 			}
 			if (isPlaying) {
-				console.log('called');
-
-				pauseAnimation();
+				pauseAnimationStart?.(true);
 			}
 		},
 		api as unknown as HTMLElement,
 	);
-	// Rerender when animation has been triggered
+	// Rerender when animation has been triggered, and close it
 	useEffect(() => {
 		if (showPauseAnimation) {
-			setShowPauseAnimation(false);
+			pauseAnimationStart?.(false);
 		}
-	}, [showPauseAnimation]);
-
-	console.log('showPauseAnimation', showPauseAnimation);
+	}, [pauseAnimationStart, showPauseAnimation]);
 
 	return (
 		<AnimatedIconWrapper

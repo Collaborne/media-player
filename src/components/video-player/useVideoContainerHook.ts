@@ -219,7 +219,7 @@ export const useVideoContainerHook = ({
 	useEventListener(
 		'pipEnter',
 		() => {
-			const currentTime = api?.getCurrentRelativeTime?.();
+			const currentTime = api?.getCurrentTime?.();
 			calculateContainerSizes();
 			setTimeout(() => {
 				api?.setCurrentTime?.(currentTime);
@@ -236,7 +236,7 @@ export const useVideoContainerHook = ({
 	useEventListener(
 		'pipExit',
 		() => {
-			const currentTime = api?.getCurrentRelativeTime?.();
+			const currentTime = api?.getCurrentTime?.();
 			setTimeout(() => {
 				api?.setCurrentTime?.(currentTime);
 			}, PROGRESS_INTERVAL - 1);

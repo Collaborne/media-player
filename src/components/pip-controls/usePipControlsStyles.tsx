@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui';
 
-export const usePipOverlayStyles = makeStyles()(theme => ({
+export const usePipControlsStyles = makeStyles()(theme => ({
 	wrapper: {
 		position: 'absolute',
 		width: '100%',
@@ -8,7 +8,6 @@ export const usePipOverlayStyles = makeStyles()(theme => ({
 		top: 0,
 		display: 'flex',
 		background: 'rgba(0,0,0,0.4)',
-		zIndex: 9999,
 	},
 	iconButton: {
 		borderRadius: theme.spacing(0.5),
