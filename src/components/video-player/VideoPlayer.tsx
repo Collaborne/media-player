@@ -30,11 +30,15 @@ export interface VideoPlayerProps extends Omit<CorePlayerProps, 'children'> {
 }
 
 /** A "video-player" from the box. A result of VideoProvider and VideoContainer */
-export const VideoPlayer: FC<VideoPlayerProps> = ({ ...corePlayerProps }) => {
+export const VideoPlayer: FC<VideoPlayerProps> = ({
+	children,
+	...corePlayerProps
+}) => {
 	const { gridCentered } = useVideoPlayerStyles().classes;
 	return (
 		<CorePlayer {...corePlayerProps}>
 			<Controls>
+				{children}
 				<PlayAnimation />
 				<PauseAnimation />
 				<CenteredPlayButton />
