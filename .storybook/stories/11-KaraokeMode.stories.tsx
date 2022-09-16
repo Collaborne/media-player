@@ -1,7 +1,7 @@
 import useEventListener from '@use-it/event-listener';
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-import { isTimeUpdateEvent, TimeUpdateEvent, VideoPlayer } from '../../src';
+import { TimeUpdateEvent, VideoPlayer } from '../../src';
 import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import { VideoContext } from '../../src/context/video';
 import { Karaoke } from '../components/karaoke/Karaoke';
@@ -78,7 +78,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		videoContextApi.addEventListener?.('timeupdate', findUpdates);
 		return () =>
 			videoContextApi?.removeEventListener?.('timeupdate', findUpdates);
-	}, [isContextReady, transcript]);
+	}, [isContextReady, transcript, findUpdates, videoContextApi]);
 
 	// Create random timestamps due to video duration
 	React.useEffect(() => {
