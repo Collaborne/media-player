@@ -2,12 +2,9 @@ import { VideoState } from '.';
 
 export type PartialVideoState = Partial<VideoState> | void;
 
-type NewBounds = Record<'startTime' | 'endTime', number>;
-
 /** List of setters for the VideoState */
 export interface VideoActions {
 	play: (state: VideoState) => PartialVideoState;
-	setNewBounds: (state: VideoState, duration: NewBounds) => PartialVideoState;
 	pause: (state: VideoState) => PartialVideoState;
 	mute: (state: VideoState) => PartialVideoState;
 	unmute: (state: VideoState) => PartialVideoState;
@@ -31,6 +28,23 @@ export interface VideoActions {
 
 	requestPip: (state: VideoState) => PartialVideoState;
 	exitPip: (state: VideoState) => PartialVideoState;
+	/** Setter for displaying main controls */
+	setShowControls: (state: VideoState, isUpdated: boolean) => PartialVideoState;
+	/** Setter for starting animation on `play` event  */
+	playAnimationStart: (
+		state: VideoState,
+		hasStarted: boolean,
+	) => PartialVideoState;
+	/** Setter for starting animation on `pause` event  */
+	pauseAnimationStart: (
+		state: VideoState,
+		hasPaused: boolean,
+	) => PartialVideoState;
+	/** Setter for displaying pip controls */
+	setShowPipControls: (
+		state: VideoState,
+		isUpdated: boolean,
+	) => PartialVideoState;
 	// Private Methods
 	_setReady: (state: VideoState) => PartialVideoState;
 	_handleProgress: (

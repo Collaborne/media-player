@@ -16,6 +16,7 @@ import {
 	Replay10,
 } from '@mui/icons-material';
 import { Paper, Grid, IconButton } from '@mui/material';
+import React from 'react';
 
 import {
 	FullscreenEnterIcon,
@@ -31,7 +32,7 @@ const UPDATED_SIZES: Array<'large' | 'small' | 'medium'> = [
 	'small',
 ];
 
-export const IconButtonsAndIcons = () => {
+export const IconButtonsAndIcons: React.FC = () => {
 	return (
 		<>
 			<Paper sx={{ padding: 2 }}>

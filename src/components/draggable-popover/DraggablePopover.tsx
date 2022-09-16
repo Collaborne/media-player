@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { FC } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
-import { PipOverlay } from '../pip-overlay/PipOverlay';
+import { PipControls } from '../pip-controls/PipControls';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 
 import { useDraggablePopoverHook } from './useDraggablePopoverHook';
@@ -27,8 +27,13 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	rndProps,
 	...props
 }) => {
-	const { defaultPosition, defaultWidth, enableResizing } =
-		useDraggablePopoverHook({ disablePortal: props.disablePortal });
+	const {
+		defaultPosition,
+		defaultWidth,
+		enableResizing,
+		onMouseMove,
+		onMouseLeave,
+	} = useDraggablePopoverHook({ disablePortal: props.disablePortal });
 
 	const { paper, progressBar, portalWrapper, resizeSquares } =
 		useDraggablePopoverStyles({
@@ -58,11 +63,16 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 					minWidth={241}
 					minHeight={146}
 				>
-					<Paper elevation={0} className={clsx(paper, className)}>
+					<Paper
+						elevation={0}
+						className={clsx(paper, className)}
+						onMouseMove={onMouseMove}
+						onMouseLeave={onMouseLeave}
+					>
 						{children}
 						{!props.disablePortal && (
 							<>
-								<PipOverlay />
+								<PipControls />
 								<ProgressBar className={progressBar} />
 							</>
 						)}

@@ -1,40 +1,27 @@
-import { action } from '@storybook/addon-actions';
+import React from 'react';
 
+import { BottomControls } from '../../src/components/bottom-controls/BottomControls';
+import { Controls } from '../../src/components/controls/Controls';
 import { ProgressBar as ProgressBarComponent } from '../../src/components/progress-bar/ProgressBar';
-import {
-	withDemoCard,
-	withPlayerTheme,
-	withVideoProvider,
-	withVideoWrapper,
-} from '../decorators';
+import { withCorePlayer, withDemoCard } from '../decorators';
 
-export const ProgressBar = () => {
+export const ProgressBar: React.FC = () => {
 	return (
-		<div
-			style={{
-				display: 'flex',
-				alignItems: 'end',
-				width: '100%',
-				position: 'relative',
-			}}
-		>
-			<ProgressBarComponent
-				min={0}
-				max={100}
-				value={30}
-				onChange={action('onChange')}
-			/>
-		</div>
+		<>
+			<Controls>
+				<BottomControls>
+					<ProgressBarComponent />
+				</BottomControls>
+			</Controls>
+		</>
 	);
 };
 
 export default {
 	title: 'Video Player Controls',
 	component: ProgressBar,
-	decorators: [
-		withVideoProvider,
-		withVideoWrapper,
-		withDemoCard,
-		withPlayerTheme,
-	],
+	decorators: [withCorePlayer, withDemoCard],
+	parameters: {
+		controls: { expanded: true },
+	},
 };

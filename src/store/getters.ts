@@ -11,7 +11,6 @@ export const videoGetters: VideoGetters = {
 	getEndTime: state => state.endTime,
 	getDuration: state => state.duration,
 	getCurrentTime: state => state.currentTime,
-	getCurrentRelativeTime: state => state.currentRelativeTime,
 	getLoop: state => state.loop,
 	getVolume: state => state.volume,
 	getReady: state => state.ready,
@@ -19,4 +18,8 @@ export const videoGetters: VideoGetters = {
 	getHasPlayedOrSeeked: state => state.hasPlayedOrSeeked,
 	getPictureInPicture: state => state.pip,
 	getHasPipTriggeredByClick: state => state.hasPipTriggeredByClick,
+	getShowControls: state => state.showControls,
+	getDidPlayAnimationStart: state => state.didPlayAnimationStart,
+	getDidPauseAnimationStart: state => state.didPauseAnimationStart,
+	getShowPipControls: state => state.showPipControls,
 };

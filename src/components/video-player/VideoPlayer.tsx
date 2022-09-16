@@ -1,89 +1,73 @@
-import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import { FC, ReactNode } from 'react';
+
+import { BottomControlButtons } from '../bottom-control-buttons/BottomControlButtons';
 import {
-	StyledEngineProvider,
-	Theme,
-	ThemeProvider,
-} from '@mui/material/styles';
-import { deepmerge } from '@mui/utils';
-import { FC } from 'react';
+	TimeDisplay,
+	PlaybackRateButton,
+	PictureInPictureButton,
+	FullscreenButton,
+} from '../bottom-control-buttons/components';
+import { FwdButton } from '../bottom-control-buttons/components/FwdButton';
+import { PlayPauseReplay } from '../bottom-control-buttons/components/PlayPauseReplay';
+import { RwdButton } from '../bottom-control-buttons/components/RwdButton';
+import { VolumeButton } from '../bottom-control-buttons/components/VolumeButton';
+import { VolumeSlider } from '../bottom-control-buttons/components/VolumeSlider';
+import { BottomControls } from '../bottom-controls/BottomControls';
+import { CenteredBottomPlayback } from '../centered-bottom-playback/CenteredBottomPlayback';
+import { CenteredPlayButton } from '../centered-play-button/CenteredPlayButton';
+import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
+import { Controls } from '../controls/Controls';
+import { CorePlayer, CorePlayerProps } from '../core-player/CorePlayer';
+import { PauseAnimation } from '../play-pause-animation/PauseAnimation';
+import { PlayAnimation } from '../play-pause-animation/PlayAnimation';
+import { ProgressBar } from '../progress-bar/ProgressBar';
 
-import { VideoProvider } from '../../context/video';
-import { createPlayerTheme } from '../../theme';
-import { Highlight, VideoProviderProps } from '../../types';
-import { DEFAULT_CONTROLS_CONFIG } from '../controls/controls-config';
-import { FileActionPanelProps } from '../file-action-panel/FileActionPanel';
+import { useVideoPlayerStyles } from './useVideoPlayerStyles';
 
-import { VideoContainer } from './VideoContainer';
-
-export interface VideoPlayerProps
-	extends Omit<FileActionPanelProps, 'className'>,
-		Pick<
-			VideoProviderProps,
-			'controlsConfig' | 'getHighlightColorBlended' | 'onContext'
-		> {
-	/** The url of the video file to be played */
-	videoUrl: string;
-	/** CSS class name applied to component  */
-	className?: string;
-	/**  Used when you have multiple videos, and only one video is played at same time. *Ex: Video 1 plays, and video 2 is on pause. Playing video 2, pauses video 1*   */
-	currentPlayingUrl?: string;
-	/** A function that handles changing of the currentPlayingUrl */
-	setCurrentPlayingUrl?: (videoUrl: string) => void;
-	/** A MUI theme to control the stylization of the player . */
-	theme?: Theme;
-	/** CSS class name applied to the file action panel */
-	actionPanelClassName?: string;
-	/** Highlights to be displayed in scrub bar */
-	highlights?: Highlight[];
+export interface VideoPlayerProps extends Omit<CorePlayerProps, 'children'> {
+	children?: ReactNode;
 }
 
 /** A "video-player" from the box. A result of VideoProvider and VideoContainer */
-export const VideoPlayer: FC<VideoPlayerProps> = ({
-	videoUrl,
-	className,
-	controlsConfig = DEFAULT_CONTROLS_CONFIG,
-	currentPlayingUrl,
-	setCurrentPlayingUrl,
-	theme,
-	onDelete,
-	onDownload,
-	removeAsCover,
-	setAsCover,
-	hasImageCover,
-	isCover,
-	actionPanelClassName,
-	onContext,
-	highlights,
-}) => {
-	const hasPlayEnabled = videoUrl === currentPlayingUrl;
-
-	const onPlay = () => setCurrentPlayingUrl?.(videoUrl);
-	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
-
+export const VideoPlayer: FC<VideoPlayerProps> = ({ ...corePlayerProps }) => {
+	const { gridCentered } = useVideoPlayerStyles().classes;
 	return (
-		<ThemeProvider theme={nestedThemes}>
-			<StyledEngineProvider injectFirst>
-				<CssBaseline />
-				<VideoProvider
-					controlsConfig={controlsConfig}
-					onContext={onContext}
-					highlights={highlights}
-				>
-					<VideoContainer
-						className={className}
-						videoUrl={videoUrl}
-						hasPlayEnabled={hasPlayEnabled}
-						onPlay={onPlay}
-						onDelete={onDelete}
-						onDownload={onDownload}
-						removeAsCover={removeAsCover}
-						setAsCover={setAsCover}
-						actionPanelClassName={actionPanelClassName}
-						hasImageCover={hasImageCover}
-						isCover={isCover}
-					/>
-				</VideoProvider>
-			</StyledEngineProvider>
-		</ThemeProvider>
+		<CorePlayer {...corePlayerProps}>
+			<Controls>
+				<PlayAnimation />
+				<PauseAnimation />
+				<CenteredPlayButton />
+				<CenteredBottomPlayback />
+				<CenteredReplayButton />
+				<BottomControls>
+					<ProgressBar />
+					<BottomControlButtons>
+						<Grid item className={gridCentered} xs>
+							<Grid
+								item
+								className={gridCentered}
+								xs
+								justifyContent="flex-start"
+							>
+								<PlayPauseReplay svgIconSize="medium" />
+								<RwdButton />
+								<FwdButton />
+								<VolumeButton />
+								<VolumeSlider />
+							</Grid>
+						</Grid>
+						<Grid item className={gridCentered} xs justifyContent="center">
+							<TimeDisplay />
+						</Grid>
+						<Grid item className={gridCentered} xs justifyContent="flex-end">
+							<PlaybackRateButton />
+							<PictureInPictureButton />
+							<FullscreenButton />
+						</Grid>
+					</BottomControlButtons>
+				</BottomControls>
+			</Controls>
+		</CorePlayer>
 	);
 };

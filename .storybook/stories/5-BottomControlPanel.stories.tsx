@@ -1,53 +1,58 @@
-import { Meta, Story } from '@storybook/react';
+import { Grid } from '@mui/material';
+import React from 'react';
 
+import { BottomControlButtons as BottomControlButtonsComponent } from '../../src/components/bottom-control-buttons/BottomControlButtons';
 import {
-	BottomControlPanel as BottomControlPanelComponent,
-	BottomControlPanelProps,
-} from '../../src/components/bottom-control-panel/BottomControlPanel';
-import {
-	withDemoCard,
-	withPlayerTheme,
-	withVideoProvider,
-	withVideoWrapper,
-} from '../decorators';
+	PlayPauseReplay,
+	RwdButton,
+	FwdButton,
+	VolumeButton,
+	VolumeSlider,
+	TimeDisplay,
+	PlaybackRateButton,
+	PictureInPictureButton,
+	FullscreenButton,
+} from '../../src/components/bottom-control-buttons/components';
+import { BottomControls } from '../../src/components/bottom-controls/BottomControls';
+import { Controls } from '../../src/components/controls/Controls';
+import { useVideoPlayerStyles } from '../../src/components/video-player/useVideoPlayerStyles';
+import { withCorePlayer, withDemoCard } from '../decorators';
 
-import {
-	bottomControlPanelStoryArgTypes,
-	bottomControlPanelStoryArgs,
-} from './shared/bottom-control-panel.args';
+export const BottomControlButtons: React.FC = () => {
+	const { gridCentered } = useVideoPlayerStyles().classes;
 
-export const BottomControlPanel: Story<
-	Partial<BottomControlPanelProps>
-> = () => {
 	return (
-		<div
-			style={{
-				display: 'flex',
-				width: '100%',
-				flexDirection: 'column-reverse',
-			}}
-		>
-			<BottomControlPanelComponent />
-		</div>
+		<Controls>
+			<BottomControls>
+				<BottomControlButtonsComponent>
+					<Grid item className={gridCentered} xs>
+						<Grid item className={gridCentered} xs justifyContent="flex-start">
+							<PlayPauseReplay svgIconSize="medium" />
+							<RwdButton />
+							<FwdButton />
+							<VolumeButton />
+							<VolumeSlider />
+						</Grid>
+					</Grid>
+					<Grid item className={gridCentered} xs justifyContent="center">
+						<TimeDisplay />
+					</Grid>
+					<Grid item className={gridCentered} xs justifyContent="flex-end">
+						<PlaybackRateButton />
+						<PictureInPictureButton />
+						<FullscreenButton />
+					</Grid>
+				</BottomControlButtonsComponent>
+			</BottomControls>
+		</Controls>
 	);
 };
 
 export default {
 	title: 'Video Player Controls',
-	component: BottomControlPanel,
-	decorators: [
-		withVideoProvider,
-		withVideoWrapper,
-		withDemoCard,
-		withPlayerTheme,
-	],
-	args: {
-		...bottomControlPanelStoryArgs,
-	},
-	argTypes: {
-		...bottomControlPanelStoryArgTypes,
-	},
+	component: BottomControlButtons,
+	decorators: [withCorePlayer, withDemoCard],
 	parameters: {
 		controls: { expanded: true },
 	},
-} as Meta;
+};

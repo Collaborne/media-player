@@ -46,6 +46,7 @@ export interface CenteredBottomPlaybackProps {}
 
 export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 	const { api } = useVideo();
+	const hasStarted = api?.getHasPlayedOrSeeked?.();
 	const [activePlaybackRate, setActivePlaybackRate] = useState(
 		api?.getPlaybackRate?.() || 1,
 	);
@@ -57,6 +58,10 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 
 	const { wrapper, playbackWrapper } =
 		useCenteredBottomPlaybackStyles().classes;
+
+	if (hasStarted) {
+		return null;
+	}
 
 	return (
 		<div className={wrapper} data-testid="c-playbackRate">
