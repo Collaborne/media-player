@@ -1,3 +1,4 @@
+import { Emitter } from 'mitt';
 export type VideoNativeEvent =
 	| 'abort'
 	| 'canplay'
@@ -16,41 +17,35 @@ export type VideoNativeEvent =
 	| 'volumechange'
 	| 'waiting';
 
-export type EmitterEvents =
-	| VideoNativeEvent
+export type VoidEventsKey =
+	| 'play'
+	| 'pause'
 	| 'autoplayStart'
 	| 'ready'
 	| 'firstReady'
 	| 'ended'
 	| 'mute'
 	| 'unnmute'
-	| 'setPlaybackRate'
-	| 'timeupdate'
-	| 'fullscreenEnter'
-	| 'fullscreenExit'
-	| 'progress'
 	| 'end'
-	| 'relativeEnd'
 	| 'pipEnter'
-	| 'pipExit'
-	| 'showControls'
-	| 'showPipControls';
+	| 'pipExit';
 
-type EventArgs =
-	| ShowControlsEvent
-	| TimeUpdateEvent
-	| boolean
-	| number
-	| undefined;
+/** Events that VideoApi is listening, and have no arguments */
+export type VoidEvents = Record<VoidEventsKey, void>;
 
-export type AddRemoveListener<Arguments> = (
-	event: EmitterEvents,
-	listener: (args: Arguments) => void,
-) => void;
-export interface EmitterAddRemoveListeners {
-	removeEventListener: AddRemoveListener<EventArgs>;
-	addEventListener: AddRemoveListener<EventArgs>;
-}
+/** Events that VideoApi is listening, and have arguments */
+export type ExtendedEvents = {
+	setPlaybackRate: { playbackRate: number };
+	seeked: { diffMs: number };
+	timeupdate: TimeUpdateEvent;
+	progress: TimeUpdateEvent;
+	showControls: ShowControlsEvent;
+	showPipControls: ShowControlsEvent;
+};
+
+export type VideoEvents = VoidEvents & ExtendedEvents;
+
+export type EmitterEvents = Emitter<VideoEvents>;
 
 /** Event emitted on `timeupdate`. Same as browsers native */
 export type TimeUpdateEvent = Record<'seconds' | 'duration', number>;
@@ -65,3 +60,8 @@ export const isShowControlsEvent = (
 export const isTimeUpdateEvent = (event: unknown): event is TimeUpdateEvent =>
 	(event as TimeUpdateEvent).seconds !== undefined &&
 	(event as TimeUpdateEvent).duration !== undefined;
+
+export interface EmitterListeners {
+	removeEventListener: EmitterEvents['off'];
+	addEventListener: EmitterEvents['on'];
+}

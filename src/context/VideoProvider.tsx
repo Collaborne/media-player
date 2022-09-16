@@ -79,8 +79,8 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 			ctx.reactPlayerRef = reactPlayerRef;
 
 			const api: VideoApi = (ctx.api = ctx.api || {
-				addEventListener: state.emitter?.on,
-				removeEventListener: state.emitter?.off,
+				addEventListener: state.emitter.on,
+				removeEventListener: state.emitter.off,
 			});
 
 			for (const event in videoActions) {

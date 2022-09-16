@@ -157,12 +157,8 @@ export const videoActions: VideoActions = {
 		}
 		let { playing } = state;
 
-		// If the currentTime is *approaching* the soft stop point but hasn't reached it yet,
-		// go ahead and stop. We only receive time updates every 50ms, so we want to stop once
-		// the video "almost" reaches the point.
 		if (currentTime >= state.startTime + state.duration) {
 			playing = false;
-			state.emitter?.emit('relativeEnd');
 		}
 
 		return {
