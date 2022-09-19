@@ -89,7 +89,7 @@
 		"prettier": "^2.7.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-intl-universal": "^2.5.3",
+		"react-intl-universal": "2.5.3",
 		"react-is": "^18.2.0",
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "5.0.1",
