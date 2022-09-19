@@ -1,10 +1,9 @@
-import { Emitter } from 'mitt';
 import { Dispatch, MutableRefObject, RefObject } from 'react';
 import type ReactPlayer from 'react-player';
 
 import {
-	EmitterAddRemoveListeners,
 	EmitterEvents,
+	EmitterListeners,
 	VideoActions,
 	VideoGettersApi,
 } from '.';
@@ -43,7 +42,7 @@ export interface Highlight extends Segment {
 
 export interface VideoState {
 	lastActivityRef: MutableRefObject<number> | null;
-	emitter: Emitter<Record<EmitterEvents, unknown>>;
+	emitter: EmitterEvents;
 	reactPlayerRef: RefObject<ReactPlayer>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
 	playbackRate: number;
@@ -78,5 +77,5 @@ export type VideoActionsDispatch = {
 };
 
 export type VideoApi = Partial<
-	VideoActionsDispatch & EmitterAddRemoveListeners & VideoGettersApi
+	VideoActionsDispatch & EmitterListeners & VideoGettersApi
 >;

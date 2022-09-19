@@ -12,7 +12,12 @@ import {
 } from 'react';
 import ReactPlayer from 'react-player';
 
-import { VideoAction, VideoState, VideoStateSetter } from '../types';
+import {
+	VideoAction,
+	VideoState,
+	VideoStateSetter,
+	VideoEvents,
+} from '../types';
 
 import { videoActions } from './actions';
 
@@ -83,7 +88,7 @@ export const useStateReducer = ({
 				duration: 0,
 				volume: 1,
 				lastActivityRef: null,
-				emitter: mitt(),
+				emitter: mitt<VideoEvents>(),
 				reactPlayerRef,
 				oneTimeStopPoint: null,
 				ready: false,
