@@ -53,12 +53,6 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		}
 	}, [getCurrentTimePart, setCurrentPart]);
 
-	const findUpdates = (e: TimeUpdateEvent) => {
-		setVideoDuration(e.duration);
-		const res = findMatchingPartOrNext(transcript, e.seconds);
-		setCurrentPart(() => res);
-	};
-
 	useEventListener(
 		'play',
 		() => setIsPlaying(true),
@@ -75,10 +69,15 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		if (!videoContextApi || !isContextReady) {
 			return;
 		}
+		const findUpdates = (e: TimeUpdateEvent) => {
+			setVideoDuration(e.duration);
+			const res = findMatchingPartOrNext(transcript, e.seconds);
+			setCurrentPart(() => res);
+		};
 		videoContextApi.addEventListener?.('timeupdate', findUpdates);
 		return () =>
 			videoContextApi?.removeEventListener?.('timeupdate', findUpdates);
-	}, [isContextReady, transcript, findUpdates, videoContextApi]);
+	}, [isContextReady, transcript, videoContextApi]);
 
 	// Create random timestamps due to video duration
 	React.useEffect(() => {
