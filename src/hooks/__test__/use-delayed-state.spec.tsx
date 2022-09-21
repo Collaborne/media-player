@@ -1,5 +1,6 @@
 import { act, render } from '@testing-library/react';
 
+import { sleep } from '../../utils/sleep';
 import { useDelayedState } from '../use-delayed-state';
 
 function setup<T>(arg: T) {
@@ -15,6 +16,7 @@ function setup<T>(arg: T) {
 const INITIAL_STATE = 'initial state';
 const UPDATED_STATE = 'updated state';
 const UPDATE_DELAY = 100;
+const CANCEL_DELAY = UPDATE_DELAY / 2;
 
 describe('use-delayed-state', () => {
 	it('state initialization', () => {
@@ -28,15 +30,24 @@ describe('use-delayed-state', () => {
 		});
 		expect(results[0]).toBe(UPDATED_STATE);
 	});
-	it(`update state with ${UPDATE_DELAY} milliseconds delay`, () => {
+	it(`update state with ${UPDATE_DELAY} milliseconds delay`, async () => {
 		const results = setup(INITIAL_STATE);
 		act(() => {
 			results[1](UPDATED_STATE, UPDATE_DELAY);
 		});
 		expect(results[0]).toBe(INITIAL_STATE);
-
-		setTimeout(() => {
-			expect(results[0]).toBe(UPDATED_STATE);
-		}, UPDATE_DELAY);
+		await act(() => sleep(UPDATE_DELAY));
+		expect(results[0]).toBe(UPDATED_STATE);
+	});
+	it(`cancel state update with ${UPDATE_DELAY}ms delay after ${CANCEL_DELAY}ms`, async () => {
+		const results = setup(INITIAL_STATE);
+		act(() => {
+			results[1](UPDATED_STATE, UPDATE_DELAY);
+		});
+		expect(results[0]).toBe(INITIAL_STATE);
+		await act(() => sleep(CANCEL_DELAY));
+		await act(() => results[2]());
+		await act(() => sleep(UPDATE_DELAY));
+		expect(results[0]).toBe(INITIAL_STATE);
 	});
 });
