@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, DependencyList } from 'react';
 
 import { VideoApi, VideoEvents } from '../types';
 
@@ -12,6 +12,7 @@ export const useVideoListener = <T extends EventEmittersName>(
 	eventName: T,
 	handler: Handler<T>,
 	target?: VideoApi,
+	deps?: DependencyList,
 ) => {
 	const savedHandler = useRef<Handler<T>>();
 	useEffect(() => {
@@ -29,5 +30,5 @@ export const useVideoListener = <T extends EventEmittersName>(
 		return () => {
 			target.removeEventListener?.(eventName, eventListener);
 		};
-	}, [eventName, target]);
+	}, [eventName, target, deps]);
 };
