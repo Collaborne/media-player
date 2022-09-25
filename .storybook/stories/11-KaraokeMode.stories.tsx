@@ -1,7 +1,11 @@
-import useEventListener from '@use-it/event-listener';
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { TimeUpdateEvent, VideoPlayer } from '../../src';
+import {
+	TimeUpdateEvent,
+	useDelayedState,
+	useVideoListener,
+	VideoPlayer,
+} from '../../src';
 import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import { VideoContext } from '../../src/context/video';
 import { Karaoke } from '../components/karaoke/Karaoke';
@@ -19,14 +23,14 @@ interface KaraokeModeProps {
 export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	const { wrapper } = useFilePlayerStyles().classes;
 
-	const [videoDuration, setVideoDuration] = React.useState<number>(0);
+	const [videoDuration, setVideoDuration] = useDelayedState<number>(0);
 	const [isContextReady, setIsContextReady] = React.useState(false);
-	const [isPlaying, setIsPlaying] = React.useState(false);
-	const [transcript, setTranscript] = React.useState<Transcript[]>([]);
+	const [isPlaying, setIsPlaying] = useDelayedState(false);
+	const [transcript, setTranscript] = useDelayedState<Transcript[]>([]);
 
 	const videoContextRef = React.useRef<VideoContext>();
 	const videoContextApi = videoContextRef.current?.api;
-	const [currentPart, setCurrentPart] = React.useState<Transcript>({
+	const [currentPart, setCurrentPart] = useDelayedState<Transcript>({
 		index: 0,
 		end: 0,
 		start: 0,
@@ -49,36 +53,22 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	const onSeek = React.useCallback(() => {
 		const curPart = getCurrentTimePart();
 		if (curPart) {
-			setCurrentPart(curPart);
+			setCurrentPart(curPart, 1);
 		}
 	}, [getCurrentTimePart, setCurrentPart]);
 
-	useEventListener(
-		'play',
-		() => setIsPlaying(true),
-		videoContextApi as unknown as HTMLElement,
-	);
-	useEventListener(
-		'pause',
-		() => setIsPlaying(false),
-		videoContextApi as unknown as HTMLElement,
-	);
-	useEventListener('seeked', onSeek, videoContextApi as unknown as HTMLElement);
-
-	useEffect(() => {
-		if (!videoContextApi || !isContextReady) {
-			return;
-		}
-		const findUpdates = (e: TimeUpdateEvent) => {
-			setVideoDuration(e.duration);
+	useVideoListener('play', () => setIsPlaying(true, 1), videoContextApi);
+	useVideoListener('pause', () => setIsPlaying(false, 1), videoContextApi);
+	useVideoListener('seeked', onSeek, videoContextApi);
+	useVideoListener(
+		'timeupdate',
+		(e: TimeUpdateEvent) => {
+			setVideoDuration(e.duration, 1);
 			const res = findMatchingPartOrNext(transcript, e.seconds);
-			setCurrentPart(() => res);
-		};
-		videoContextApi.addEventListener?.('timeupdate', findUpdates);
-		return () =>
-			videoContextApi?.removeEventListener?.('timeupdate', findUpdates);
-	}, [isContextReady, transcript, videoContextApi]);
-
+			setCurrentPart(res, 1);
+		},
+		videoContextApi,
+	);
 	// Create random timestamps due to video duration
 	React.useEffect(() => {
 		setTranscript(createTimestamps(videoDuration, args.secondsDivider));
