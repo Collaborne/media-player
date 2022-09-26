@@ -1,9 +1,8 @@
 import React from 'react';
 import { uuid } from 'uuidv4';
 
-import { Highlight, VideoPlayer } from '../../src';
+import { Highlight, VideoPlayer, usePlayerContext } from '../../src';
 import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
-import { VideoContext } from '../../src/context/video';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
@@ -13,11 +12,6 @@ export const VideoHighlights = () => {
 	const { wrapper } = useFilePlayerStyles().classes;
 
 	const [highlights, setHighlights] = React.useState<Highlight[]>([]);
-	const videoContextRef = React.useRef<VideoContext>();
-
-	const setVideoContext = React.useCallback((context: VideoContext) => {
-		videoContextRef.current = context;
-	}, []);
 	const maximumSecondsForHighlights = 560;
 	const end = Math.random() * maximumSecondsForHighlights;
 	const start = Math.random() * end;
@@ -41,7 +35,6 @@ export const VideoHighlights = () => {
 		<>
 			<VideoPlayer
 				highlights={highlights}
-				onContext={setVideoContext}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 				className={wrapper}
 			/>
