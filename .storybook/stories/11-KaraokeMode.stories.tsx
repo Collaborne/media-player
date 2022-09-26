@@ -5,6 +5,7 @@ import {
 	useDelayedState,
 	useVideoListener,
 	VideoPlayer,
+	usePlayerContext,
 } from '../../src';
 import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import { VideoContext } from '../../src/context/video';
@@ -23,22 +24,18 @@ interface KaraokeModeProps {
 export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	const { wrapper } = useFilePlayerStyles().classes;
 
+	const { videoContextApi, setVideoContext } = usePlayerContext();
+
 	const [videoDuration, setVideoDuration] = useDelayedState<number>(0);
-	const [isContextReady, setIsContextReady] = React.useState(false);
 	const [isPlaying, setIsPlaying] = useDelayedState(false);
 	const [transcript, setTranscript] = useDelayedState<Transcript[]>([]);
 
 	const videoContextRef = React.useRef<VideoContext>();
-	const videoContextApi = videoContextRef.current?.api;
 	const [currentPart, setCurrentPart] = useDelayedState<Transcript>({
 		index: 0,
 		end: 0,
 		start: 0,
 	});
-	const setVideoContext = React.useCallback((context: VideoContext) => {
-		videoContextRef.current = context;
-		setIsContextReady(Boolean(context?.api));
-	}, []);
 
 	const getCurrentTimePart = React.useCallback(() => {
 		const videoEl =
@@ -72,7 +69,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	// Create random timestamps due to video duration
 	React.useEffect(() => {
 		setTranscript(createTimestamps(videoDuration, args.secondsDivider));
-	}, [videoDuration, args.secondsDivider, isContextReady]);
+	}, [videoDuration, args.secondsDivider]);
 
 	return (
 		<div>
