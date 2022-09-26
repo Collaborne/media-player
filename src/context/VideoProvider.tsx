@@ -3,7 +3,7 @@
  */
 
 import Bowser from 'bowser';
-import { log } from 'debug';
+import debug from 'debug';
 import React, {
 	ReactNode,
 	FC,
@@ -30,6 +30,9 @@ import { BlendColors } from '../utils/colors';
 
 import { useVideoDebug } from './useVideoDebug';
 import { VideoContext } from './video';
+
+const DEBUG_PREFIX = 'VideoProvider';
+const log = debug(DEBUG_PREFIX);
 
 export interface VideoProviderProps {
 	/** Provider's initialization state */
