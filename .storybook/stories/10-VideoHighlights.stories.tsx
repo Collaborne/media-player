@@ -1,7 +1,7 @@
 import React from 'react';
 import { uuid } from 'uuidv4';
 
-import { Highlight, VideoPlayer, usePlayerContext } from '../../src';
+import { Highlight, VideoPlayer } from '../../src';
 import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
