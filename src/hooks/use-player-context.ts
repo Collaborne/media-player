@@ -14,9 +14,10 @@ export const usePlayerContext = (): UsePlayerContext => {
 	const setVideoContext = useCallback((context?: VideoContext) => {
 		videoContextRef.current = context;
 	}, []);
+	const videoContextApi = videoContextRef.current?.api;
 	return {
 		setVideoContext,
 		videoContextRef,
-		videoContextApi: videoContextRef.current?.api,
+		videoContextApi,
 	};
 };
