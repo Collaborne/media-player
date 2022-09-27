@@ -1,7 +1,13 @@
 import React from 'react';
 import { uuid } from 'uuidv4';
 
-import { Highlight, VideoPlayer } from '../../src';
+import {
+	Highlight,
+	useDelayedState,
+	usePlayerContext,
+	useVideoListener,
+	VideoPlayer,
+} from '../../src';
 import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
@@ -9,14 +15,20 @@ import { withPlayerTheme } from '../decorators/with-player-theme';
 import { highlightColors, pickRandomItem } from '../utils/highlights';
 
 export const VideoHighlights = () => {
+	const { videoContextApi, setVideoContext } = usePlayerContext();
 	const { wrapper } = useFilePlayerStyles().classes;
-
 	const [highlights, setHighlights] = React.useState<Highlight[]>([]);
-	const maximumSecondsForHighlights = 560;
-	const end = Math.random() * maximumSecondsForHighlights;
-	const start = Math.random() * end;
+	const [videoDuration, setVideoDuration] = useDelayedState(0);
 
-	const addHighlightToStart = () =>
+	useVideoListener(
+		'durationchange',
+		({ duration }) => setVideoDuration(duration, 1),
+		videoContextApi,
+	);
+
+	const end = Math.random() * videoDuration;
+	const start = Math.random() * end;
+	const addHighlightToStart = () => {
 		setHighlights(prev => [
 			...prev,
 			{
@@ -30,10 +42,11 @@ export const VideoHighlights = () => {
 				id: uuid(),
 			},
 		]);
-
+	};
 	return (
 		<>
 			<VideoPlayer
+				onContext={setVideoContext}
 				highlights={highlights}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 				className={wrapper}

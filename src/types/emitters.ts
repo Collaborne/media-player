@@ -41,6 +41,7 @@ export type ExtendedEvents = {
 	progress: TimeUpdateEvent;
 	showControls: ShowControlsEvent;
 	showPipControls: ShowControlsEvent;
+	durationchange: { duration: number };
 };
 
 export type VideoEvents = VoidEvents & ExtendedEvents;
