@@ -88,6 +88,7 @@ export const videoActions: VideoActions = {
 	setEndTime: (_state, endTime) => ({ endTime }),
 
 	setDuration: (state, duration) => {
+		state.emitter.emit?.('durationchange', { duration });
 		if (state.duration > 0) {
 			return state;
 		}
