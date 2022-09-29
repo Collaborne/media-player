@@ -5,6 +5,7 @@ import {
 	ThemeProvider,
 } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
+import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
 import { VideoContext } from '../../context';
@@ -12,6 +13,7 @@ import { VideoProvider } from '../../context/VideoProvider';
 import { createPlayerTheme } from '../../theme';
 import { Highlight, VideoState } from '../../types';
 import { blend, BlendColors } from '../../utils/colors';
+import { useFilePlayerStyles } from '../video-container/useVideoContainerStyles';
 import { VideoContainer } from '../video-container/VideoContainer';
 
 import { CorePlayerInitialState, PROVIDER_INITIAL_STATE } from './types';
@@ -48,7 +50,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	children,
 }) => {
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
-
+	const { wrapper } = useFilePlayerStyles().classes;
+	const classNames = clsx(wrapper, className);
 	return (
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>
@@ -60,7 +63,7 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 					onContext={onContext}
 					highlights={highlights}
 				>
-					<VideoContainer className={className} videoUrl={videoUrl}>
+					<VideoContainer className={classNames} videoUrl={videoUrl}>
 						{children}
 					</VideoContainer>
 				</VideoProvider>
