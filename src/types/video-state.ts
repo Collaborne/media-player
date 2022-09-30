@@ -41,7 +41,6 @@ export interface Highlight extends Segment {
  */
 
 export interface VideoState {
-	lastActivityRef: MutableRefObject<number> | null;
 	emitter: EmitterEvents;
 	reactPlayerRef: RefObject<ReactPlayer>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;

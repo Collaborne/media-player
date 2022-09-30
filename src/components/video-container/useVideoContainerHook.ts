@@ -30,14 +30,15 @@ const BOTTOM_ROOT_MARGIN = '48px';
 export const useVideoContainerHook = ({
 	videoUrl,
 }: UseVideoContainerHookProps): UseVideoContainerHook => {
-	const {
-		reactPlayerRef,
-		api,
-		lastActivityRef,
-		markActivity,
-		videoContainerRef,
-		fullScreenApi,
-	} = useVideo();
+	const { reactPlayerRef, api, videoContainerRef, fullScreenApi } = useVideo();
+	// Store the user's last "activity" (including mousemove over player) within a ref,
+	// so that state re-renders are not triggered every mousemove.
+	const lastActivityRef = useRef<number>();
+	const markActivity = useCallback(() => {
+		if (lastActivityRef) {
+			lastActivityRef.current = Date.now();
+		}
+	}, []);
 	const [showControls, setShowControls] = useState(true);
 	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 	const [lastMouseMove, setLastMouseMove] = useState<number>(0);

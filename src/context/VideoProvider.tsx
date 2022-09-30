@@ -54,18 +54,11 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	onContext,
 	highlights,
 }) => {
-	const {
-		state,
-		dispatch,
-		reactPlayerRef,
-		initialState,
-		lastActivityRef,
-		markActivity,
-		videoContainerRef,
-	} = useStateReducer({
-		firstInitialState,
-		persistedState,
-	});
+	const { state, dispatch, reactPlayerRef, initialState, videoContainerRef } =
+		useStateReducer({
+			firstInitialState,
+			persistedState,
+		});
 	const readyFiredRef = useRef(false);
 	const hasAutoplayedRef = useRef(false);
 	const [showFullscreen, toggleFullscreen] = useToggle(false);
@@ -98,8 +91,6 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 				api[key] = () => videoGetters[key](state);
 			}
 			ctx.videoContainerRef = videoContainerRef;
-			ctx.lastActivityRef = lastActivityRef;
-			ctx.markActivity = markActivity;
 			ctx.getHighlightColorBlended = getHighlightColorBlended;
 			ctx.fullScreenApi = {
 				isFullscreen,
@@ -137,18 +128,9 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 		// dispatch - if the dispatcher is changed,
 		// state changes(user triggered it, or by events listeners),
 		// initialState.playing - to trigger autoplay,
-		// markActivity + lastActivityRef - setter and it's value to detect user interactions with the player(mouse move),
 		// reactPlayerRef - ReactPlayer instance ref,
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[
-			highlights,
-			dispatch,
-			initialState.playing,
-			markActivity,
-			state,
-			reactPlayerRef,
-			lastActivityRef,
-		],
+		[highlights, dispatch, initialState.playing, state, reactPlayerRef],
 	);
 
 	/**

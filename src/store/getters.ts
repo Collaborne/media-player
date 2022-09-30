@@ -2,7 +2,6 @@ import { VideoGetters } from '../types';
 
 // Getters return a return value, no side effects.
 export const videoGetters: VideoGetters = {
-	getLastActivity: state => state.lastActivityRef?.current || 0,
 	getPlaybackRate: state => state.playbackRate,
 	getPaused: state => !state.playing,
 	getPlaying: state => state.playing,
