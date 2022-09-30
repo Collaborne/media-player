@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { MutableRefObject } from 'react';
+import { MutableRefObject, useEffect } from 'react';
 
 import { VideoContext } from '../../context/video';
 import { VideoApi } from '../../types';
@@ -16,13 +16,14 @@ function setup(context: VideoContext) {
 	function TestComponent() {
 		const { setVideoContext, videoContextRef, videoContextApi } =
 			usePlayerContext();
-		setVideoContext(context);
+		useEffect(() => {
+			setVideoContext(context);
+		}, [setVideoContext]);
 		Object.assign(returnVal, { videoContextApi, videoContextRef });
 		return null;
 	}
-	const component = render(<TestComponent />);
-	const rerender = component.rerender(<TestComponent />);
-	return { ...returnVal, rerender };
+	render(<TestComponent />);
+	return returnVal;
 }
 
 describe('usePlayerContext', () => {
@@ -31,10 +32,9 @@ describe('usePlayerContext', () => {
 		const videoContext = {
 			api: { getCurrentTime } as VideoApi,
 		} as VideoContext;
-		const { videoContextApi, videoContextRef, rerender } = setup(videoContext);
+		const { videoContextApi, videoContextRef } = setup(videoContext);
 		videoContextRef?.current?.api?.getCurrentTime?.();
 		expect(getCurrentTime).toHaveBeenCalledTimes(1);
-		void rerender;
 		expect(videoContextApi).toEqual(videoContext.api);
 	});
 });
