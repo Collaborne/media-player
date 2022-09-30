@@ -8,7 +8,6 @@ export interface VideoActions {
 	pause: (state: VideoState) => PartialVideoState;
 	mute: (state: VideoState) => PartialVideoState;
 	unmute: (state: VideoState) => PartialVideoState;
-	setLoop: (state: VideoState, loop: boolean) => PartialVideoState;
 	setPlaybackRate: (
 		state: VideoState,
 		playbackRate: number,

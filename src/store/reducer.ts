@@ -75,7 +75,6 @@ export const useStateReducer = ({
 				reactPlayerRef,
 				oneTimeStopPoint: null,
 				ready: false,
-				loop: false,
 				playing: false,
 				playPromiseRef,
 				muted: false,

@@ -12,7 +12,6 @@ export interface VideoGetters {
 	getEndTime: VideoGetter<number>;
 	getDuration: VideoGetter<number>;
 	getCurrentTime: VideoGetter<number>;
-	getLoop: VideoGetter<boolean>;
 	getVolume: VideoGetter<number>;
 	getReady: VideoGetter<boolean>;
 	getHasPlayedOrSeeked: VideoGetter<boolean>;

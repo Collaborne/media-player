@@ -51,7 +51,6 @@ export interface VideoState {
 	endTime: number;
 	duration: number;
 	currentTime: number;
-	loop: boolean;
 	volume: number;
 	ready: boolean;
 	hasPlayedOrSeeked: boolean;

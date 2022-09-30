@@ -10,7 +10,6 @@ export const videoGetters: VideoGetters = {
 	getEndTime: state => state.endTime,
 	getDuration: state => state.duration,
 	getCurrentTime: state => state.currentTime,
-	getLoop: state => state.loop,
 	getVolume: state => state.volume,
 	getReady: state => state.ready,
 	// NOTE: getHasPlayedOrSeeked does not work for autoplaying embeds

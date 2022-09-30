@@ -54,7 +54,6 @@ export const videoActions: VideoActions = {
 			muted: false,
 		};
 	},
-	setLoop: (_state, loop) => ({ loop }),
 	setPlaybackRate: (state, playbackRate) => {
 		state.emitter?.emit('setPlaybackRate', { playbackRate });
 		return { playbackRate };
