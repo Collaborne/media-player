@@ -1,4 +1,4 @@
-import { MutableRefObject, RefObject, createContext } from 'react';
+import { RefObject, createContext } from 'react';
 import type ReactPlayer from 'react-player';
 
 import { CorePlayerProps } from '../components/core-player/CorePlayer';
@@ -13,10 +13,6 @@ import {
 export interface VideoContext {
 	/** A collection of getters, setters, emitters for the video  */
 	api?: VideoApi;
-	/** Last activity ref(triggered by mouse move) */
-	lastActivityRef?: MutableRefObject<number | undefined>;
-	/** Setter for the lastActivityRef */
-	markActivity?: VoidFunction;
 	/** Props that will be provided to ReactPlayer */
 	reactPlayerProps?: ReactPlayerProps;
 	/** Video state */

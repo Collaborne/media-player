@@ -4,7 +4,6 @@ export type VideoGetter<T> = (state: VideoState) => T;
 
 /** List of getters for the VideoState */
 export interface VideoGetters {
-	getLastActivity: VideoGetter<number>;
 	getPlaybackRate: VideoGetter<number>;
 	getPaused: VideoGetter<boolean>;
 	getPlaying: VideoGetter<boolean>;
@@ -13,7 +12,6 @@ export interface VideoGetters {
 	getEndTime: VideoGetter<number>;
 	getDuration: VideoGetter<number>;
 	getCurrentTime: VideoGetter<number>;
-	getLoop: VideoGetter<boolean>;
 	getVolume: VideoGetter<number>;
 	getReady: VideoGetter<boolean>;
 	getHasPlayedOrSeeked: VideoGetter<boolean>;

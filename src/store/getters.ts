@@ -2,7 +2,6 @@ import { VideoGetters } from '../types';
 
 // Getters return a return value, no side effects.
 export const videoGetters: VideoGetters = {
-	getLastActivity: state => state.lastActivityRef?.current || 0,
 	getPlaybackRate: state => state.playbackRate,
 	getPaused: state => !state.playing,
 	getPlaying: state => state.playing,
@@ -11,7 +10,6 @@ export const videoGetters: VideoGetters = {
 	getEndTime: state => state.endTime,
 	getDuration: state => state.duration,
 	getCurrentTime: state => state.currentTime,
-	getLoop: state => state.loop,
 	getVolume: state => state.volume,
 	getReady: state => state.ready,
 	// NOTE: getHasPlayedOrSeeked does not work for autoplaying embeds

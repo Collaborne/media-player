@@ -2,7 +2,6 @@ import debug from 'debug';
 import mitt from 'mitt';
 import {
 	Dispatch,
-	MutableRefObject,
 	RefObject,
 	useCallback,
 	useMemo,
@@ -30,8 +29,6 @@ interface UseStateReducer {
 	initialState: Partial<VideoState>;
 	reactPlayerRef: RefObject<ReactPlayer>;
 	dispatch: Dispatch<VideoAction>;
-	lastActivityRef: MutableRefObject<number | undefined>;
-	markActivity: VoidFunction;
 	videoContainerRef: RefObject<HTMLDivElement>;
 }
 const DEBUG_PREFIX = 'useStateReducer';
@@ -46,14 +43,6 @@ export const useStateReducer = ({
 	const playPromiseRef = useRef<Promise<void>>();
 	const videoContainerRef = useRef<HTMLDivElement>(null);
 
-	// Store the user's last "activity" (including mousemove over player) within a ref,
-	// so that state re-renders are not triggered every mousemove.
-	const lastActivityRef = useRef<number>();
-	const markActivity = useCallback(() => {
-		if (lastActivityRef) {
-			lastActivityRef.current = Date.now();
-		}
-	}, []);
 	const stateReducer = useCallback(
 		(state: VideoState, action: VideoAction): VideoState => {
 			const fn: VideoStateSetter = videoActions[action.type];
@@ -67,14 +56,9 @@ export const useStateReducer = ({
 				changes,
 			});
 			const newState = { ...state, ...changes };
-
-			// Non-private actions mark new activity date.
-			if (action.type.charAt(0) !== '_') {
-				markActivity();
-			}
 			return newState;
 		},
-		[markActivity],
+		[],
 	);
 
 	const initialReducerState: VideoState = useMemo(
@@ -87,12 +71,10 @@ export const useStateReducer = ({
 				endTime: initialState.duration || 0,
 				duration: 0,
 				volume: 1,
-				lastActivityRef: null,
 				emitter: mitt<VideoEvents>(),
 				reactPlayerRef,
 				oneTimeStopPoint: null,
 				ready: false,
-				loop: false,
 				playing: false,
 				playPromiseRef,
 				muted: false,
@@ -118,9 +100,7 @@ export const useStateReducer = ({
 		state,
 		initialState,
 		reactPlayerRef,
-		lastActivityRef,
 		dispatch,
-		markActivity,
 		videoContainerRef,
 	};
 };

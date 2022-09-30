@@ -3,8 +3,6 @@ import { getVideoEl } from '../utils';
 
 export const videoActions: VideoActions = {
 	// all public actions (not prefixed with `_`)
-	// set "lastActivityRef" to a new Date
-	// lastActivityRef is used to figure out when to hide/show player controls.
 	play: state => {
 		state.emitter.emit('play');
 
@@ -56,7 +54,6 @@ export const videoActions: VideoActions = {
 			muted: false,
 		};
 	},
-	setLoop: (_state, loop) => ({ loop }),
 	setPlaybackRate: (state, playbackRate) => {
 		state.emitter?.emit('setPlaybackRate', { playbackRate });
 		return { playbackRate };
