@@ -7,7 +7,6 @@ import {
 	VideoPlayer,
 	usePlayerContext,
 } from '../../src';
-import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import { VideoContext } from '../../src/context/video';
 import { Karaoke } from '../components/karaoke/Karaoke';
 import { createTimestamps } from '../components/karaoke/utils';
@@ -22,8 +21,6 @@ interface KaraokeModeProps {
 }
 
 export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
-	const { wrapper } = useFilePlayerStyles().classes;
-
 	const { videoContextApi, setVideoContext } = usePlayerContext();
 
 	const [videoDuration, setVideoDuration] = useDelayedState<number>(0);
@@ -73,11 +70,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 
 	return (
 		<div>
-			<VideoPlayer
-				videoUrl={args.videoUrl}
-				className={wrapper}
-				onContext={setVideoContext}
-			/>
+			<VideoPlayer videoUrl={args.videoUrl} onContext={setVideoContext} />
 			<Karaoke
 				isPlaying={isPlaying}
 				requestPip={videoContextRef.current?.api?.requestPip}

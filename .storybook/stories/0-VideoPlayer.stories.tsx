@@ -1,6 +1,5 @@
 import { Meta, Story } from '@storybook/react';
 
-import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import {
 	VideoPlayer as VideoPlayerComponent,
 	VideoPlayerProps,
@@ -8,8 +7,7 @@ import {
 import { withDemoCard, withIntl } from '../decorators';
 
 export const VideoPlayer: Story<VideoPlayerProps> = args => {
-	const { wrapper } = useFilePlayerStyles().classes;
-	return <VideoPlayerComponent {...args} className={wrapper} />;
+	return <VideoPlayerComponent {...args} />;
 };
 
 export default {

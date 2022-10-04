@@ -8,7 +8,6 @@ import {
 	useVideoListener,
 	VideoPlayer,
 } from '../../src';
-import { useFilePlayerStyles } from '../../src/components/video-container/useVideoContainerStyles';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
@@ -16,7 +15,6 @@ import { highlightColors, pickRandomItem } from '../utils/highlights';
 
 export const VideoHighlights = () => {
 	const { videoContextApi, setVideoContext } = usePlayerContext();
-	const { wrapper } = useFilePlayerStyles().classes;
 	const [highlights, setHighlights] = React.useState<Highlight[]>([]);
 	const [videoDuration, setVideoDuration] = useDelayedState(0);
 
@@ -49,7 +47,6 @@ export const VideoHighlights = () => {
 				onContext={setVideoContext}
 				highlights={highlights}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
-				className={wrapper}
 			/>
 			<RandomHighlight
 				addHighlightToStart={addHighlightToStart}
