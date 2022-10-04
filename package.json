@@ -26,8 +26,7 @@
 		"predeploy": "run-s storybook:build",
 		"deploy": "gh-pages -d storybook-static",
 		"storybook": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" FAST_REFRESH=false start-storybook -p 9009",
-		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" build-storybook --quiet",
-		"chromatic": "npx chromatic --build-script-name storybook:build"
+		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" build-storybook --quiet"
 	},
 	"peerDependencies": {
 		"@mui/icons-material": "^5.8.0",
