@@ -1,7 +1,8 @@
 import clsx from 'clsx';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useRef } from 'react';
 import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
+import { useVideoStore } from '../../context/VideoProvider';
 
 import { useVideo } from '../../hooks/use-video';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
@@ -26,8 +27,14 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 	videoUrl,
 	children,
 }) => {
-	const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
-		useVideo();
+	const state = useVideoStore();
+	const videoContainerRef = useVideoStore(state => state.videoContainerRef);
+	const setReady = useVideoStore(state => state._setReady);
+	const emitter = useVideoStore(state => state.emitter);
+	const readyFiredRef = useRef(false);
+
+	// const { api, reactPlayerProps, videoContainerRef, fullScreenApi } =
+	// 	useVideo();
 	const { wrapper, pipText, reactPlayer } = useVideoContainerStyles().classes;
 
 	const { containerSizeRef, isPlayerReady, onMouseLeave, onMouseEnter } =
@@ -47,27 +54,43 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 		>
 			{Boolean(videoUrl) && (
 				<>
-					<DraggablePopover
-						disablePortal={Boolean(!api?.getPictureInPicture?.())}
-					>
-						<ReactPlayer
-							url={videoUrl}
-							progressInterval={PROGRESS_INTERVAL}
-							width="100%"
-							height={fullScreenApi?.isFullscreen ? '100%' : 'unset'}
-							className={reactPlayer}
-							data-testid="video-player"
-							config={{
-								file: {
-									attributes: {
-										crossOrigin: 'anonymous',
-										preload: 'false',
-									},
+					{/* <DraggablePopover disablePortal={isPip}> */}
+					<ReactPlayer
+						url={videoUrl}
+						progressInterval={PROGRESS_INTERVAL}
+						width="100%"
+						// height={fullScreenApi?.isFullscreen ? '100%' : 'unset'}
+						className={reactPlayer}
+						data-testid="video-player"
+						config={{
+							file: {
+								attributes: {
+									crossOrigin: 'anonymous',
+									preload: 'false',
 								},
-							}}
-							{...reactPlayerProps}
-						/>
-					</DraggablePopover>
+							},
+						}}
+						onReady={() => {
+							emitter?.emit('ready');
+
+							if (!readyFiredRef?.current) {
+								emitter?.emit('firstReady');
+								readyFiredRef.current = true;
+							}
+							setReady();
+						}}
+						playsinline
+						playbackRate={state.playbackRate}
+						playing={state.playing}
+						muted={state.muted}
+						ref={state.reactPlayerRef}
+						onEnded={() => state.emitter.emit('ended')}
+						onDuration={duration => state.setDuration(duration)}
+						onProgress={({ playedSeconds }) =>
+							state._handleProgress?.(playedSeconds)
+						}
+					/>
+					{/* </DraggablePopover>
 					{Boolean(api?.getPictureInPicture?.()) && (
 						<VideoPoster
 							width={containerSizeRef?.current?.width || 0}
@@ -75,7 +98,7 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 						>
 							<div className={pipText}>{intl.get('video.playing_pip')}</div>
 						</VideoPoster>
-					)}
+					)} */}
 					{children}
 				</>
 			)}

@@ -1,7 +1,7 @@
-import { Highlight, VideoState } from '../../types';
+import { Highlight } from '../../types';
 
 /** Provider's initialization state */
-export interface CorePlayerInitialState extends Partial<VideoState> {
+export interface CorePlayerInitialState {
 	/** If the video start playing from start */
 	playing: boolean;
 	/** Time (in ms) that video will start to play */

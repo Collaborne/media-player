@@ -1,3 +1,4 @@
+import { VideoSettersSlice } from '../store/video-store';
 import { VideoState } from '../types';
 
 /**
@@ -9,7 +10,9 @@ export const isHTMLMediaElement = (e: unknown): e is HTMLMediaElement =>
 /**
  * Gets the HTMLMediaElement from a VideoState
  */
-export const getVideoEl = (state: VideoState): HTMLMediaElement | undefined => {
+export const getVideoEl = (
+	state: VideoState & VideoSettersSlice,
+): HTMLMediaElement | undefined => {
 	const internalPlayer = state?.reactPlayerRef?.current?.getInternalPlayer();
 
 	if (isHTMLMediaElement(internalPlayer)) {

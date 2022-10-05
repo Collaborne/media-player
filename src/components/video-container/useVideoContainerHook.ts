@@ -9,7 +9,7 @@ import {
 import useIntersection from 'react-use/lib/useIntersection';
 import useUnmount from 'react-use/lib/useUnmount';
 
-import { useVideo } from '../../hooks';
+import { useVideoStore } from '../../context';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { getElementOffset } from '../../utils/html-elements';
 import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';
@@ -30,7 +30,10 @@ const BOTTOM_ROOT_MARGIN = '48px';
 export const useVideoContainerHook = ({
 	videoUrl,
 }: UseVideoContainerHookProps): UseVideoContainerHook => {
-	const { reactPlayerRef, api, videoContainerRef, fullScreenApi } = useVideo();
+	const reactPlayerRef = useVideoStore(state => state.reactPlayerRef);
+	const videoContainerRef = useVideoStore(state => state.videoContainerRef);
+	const api = useVideoStore();
+
 	// Store the user's last "activity" (including mousemove over player) within a ref,
 	// so that state re-renders are not triggered every mousemove.
 	const lastActivityRef = useRef<number>();
@@ -47,10 +50,10 @@ export const useVideoContainerHook = ({
 	const hasAutoFocusedRef = useRef(false);
 	const containerSizeRef = useRef<ContainerSizePosition>();
 
-	const isPlaying = Boolean(api?.getPlaying?.());
-	const isFullscreen = Boolean(fullScreenApi?.isFullscreen);
-	const isPip = Boolean(api?.getPictureInPicture?.());
-	const hasPipTriggeredByClick = Boolean(api?.getHasPipTriggeredByClick?.());
+	const isPlaying = Boolean(api.playing);
+	const isFullscreen = false;
+	const isPip = Boolean(api.pip);
+	const hasPipTriggeredByClick = api.hasPipTriggeredByClick;
 
 	// Checks if video container is in viewport when scrolling bottom
 	const entryTop = useIntersection(videoContainerRef, {
@@ -212,7 +215,7 @@ export const useVideoContainerHook = ({
 	useEventListener(
 		'pipEnter',
 		() => {
-			const currentTime = api?.getCurrentTime?.();
+			const currentTime = api.currentTime;
 			calculateContainerSizes();
 			setTimeout(() => {
 				api?.setCurrentTime?.(currentTime);
@@ -229,7 +232,7 @@ export const useVideoContainerHook = ({
 	useEventListener(
 		'pipExit',
 		() => {
-			const currentTime = api?.getCurrentTime?.();
+			const currentTime = api.currentTime;
 			setTimeout(() => {
 				api?.setCurrentTime?.(currentTime);
 			}, PROGRESS_INTERVAL - 1);
