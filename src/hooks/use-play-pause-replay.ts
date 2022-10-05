@@ -1,4 +1,6 @@
-import { useOneMSDelayedState, useVideo, useVideoListener } from '.';
+import { useVideoStore } from '../context';
+
+import { useOneMSDelayedState, useVideoListener } from '.';
 
 interface UsePlayPauseReplayHook {
 	isPlaying: boolean;
@@ -9,11 +11,11 @@ interface UsePlayPauseReplayHook {
 
 export const usePlayPauseReplayHook = (): UsePlayPauseReplayHook => {
 	const [isFinished, setIsFinished] = useOneMSDelayedState(false);
-	const { api } = useVideo();
-	const isPlaying = Boolean(api?.getPlaying?.());
-	const hasStarted = api?.getHasPlayedOrSeeked?.();
-	const onPlay = () => api?.play?.();
-	const onStop = () => api?.pause?.();
+	const listener = useVideoStore(state => state.listener);
+	const isPlaying = useVideoStore(state => state.playing);
+	const hasStarted = useVideoStore(state => state.hasPlayedOrSeeked);
+	const onPlay = useVideoStore(state => state.play);
+	const onStop = useVideoStore(state => state.pause);
 
 	// `end` event is emitted when media playing reached the end of the duration
 	useVideoListener(
@@ -24,7 +26,7 @@ export const usePlayPauseReplayHook = (): UsePlayPauseReplayHook => {
 			}
 			setIsFinished(true);
 		},
-		api,
+		listener,
 	);
 
 	useVideoListener(
@@ -32,7 +34,7 @@ export const usePlayPauseReplayHook = (): UsePlayPauseReplayHook => {
 		() => {
 			setIsFinished(false);
 		},
-		api,
+		listener,
 	);
 
 	return {

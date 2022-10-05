@@ -16,6 +16,8 @@ export const BottomControlButtons: FC<BottomControlButtonsProps> = memo(
 
 		const { hasStarted, showControls } = useBottomControlButtonsHook();
 
+		console.log('BOTTOM CONTROLS RERENDER');
+
 		if (!showControls || !hasStarted) {
 			return null;
 		}

@@ -4,7 +4,7 @@ import type ReactPlayer from 'react-player';
 import create, { StateCreator } from 'zustand';
 
 import { CorePlayerInitialState } from '../components';
-import { Highlight, VideoEvents, VideoState } from '../types';
+import { EmitterListeners, Highlight, VideoEvents, VideoState } from '../types';
 import { getVideoEl } from '../utils';
 import { BlendColors } from '../utils/colors';
 
@@ -29,6 +29,7 @@ export interface VideoSettersSlice {
 	// Private Methods
 	_setReady: () => void;
 	_handleProgress: (currentTime: number) => void;
+	listener: EmitterListeners;
 }
 
 interface VideoStoreExternalProps {
@@ -73,7 +74,11 @@ export const createVideoSetters: StateCreator<
 	[],
 	[],
 	VideoSettersSlice
-> = set => ({
+> = (set, get) => ({
+	listener: {
+		addEventListener: get()?.emitter.on,
+		removeEventListener: get()?.emitter.off,
+	},
 	play: () =>
 		set(state => {
 			state.emitter.emit('play');
@@ -250,6 +255,6 @@ export const createVideoSetters: StateCreator<
 
 export const createVideoStore = (externalProps: VideoStoreExternalProps) =>
 	create<VideoState & VideoSettersSlice>()((...a) => ({
-		...createVideoSetters(...a),
 		...createVideoStateSlice(externalProps)(...a),
+		...createVideoSetters(...a),
 	}));

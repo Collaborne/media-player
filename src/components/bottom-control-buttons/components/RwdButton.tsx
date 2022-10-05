@@ -2,7 +2,7 @@ import { Replay10Outlined } from '@mui/icons-material';
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
-import { useVideo } from '../../../hooks';
+import { useVideoStore } from '../../../context/VideoProvider';
 import { SECONDS_TO_SKIP } from '../../../utils/constants';
 
 interface RwdButtonProps extends IconButtonProps {
@@ -17,9 +17,10 @@ export const RwdButton: FC<RwdButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
-	const { api } = useVideo();
-	const onRwd = () =>
-		api?.setCurrentTime?.(Number(api?.getCurrentTime?.()) - skipSeconds);
+	const currentTime = useVideoStore(state => state.currentTime);
+	const setCurrentTime = useVideoStore(state => state.setCurrentTime);
+	const onRwd = () => setCurrentTime(currentTime - skipSeconds);
+	console.log('RWD Button RERENDER');
 
 	return (
 		<IconButton size="medium" onClick={onRwd} data-testid="icon-rwd" {...props}>
