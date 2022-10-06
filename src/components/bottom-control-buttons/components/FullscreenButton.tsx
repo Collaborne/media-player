@@ -1,8 +1,7 @@
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
-import { useVideoStore } from '../../../context';
 
-import { useVideo } from '../../../hooks';
+import { useVideoStore } from '../../../context';
 import { FullscreenEnterIcon, FullscreenExitIcon } from '../../icons';
 type FullscreenIcons = {
 	FullscreenEnter: ComponentType<SvgIconProps>;

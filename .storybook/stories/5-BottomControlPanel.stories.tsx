@@ -39,7 +39,7 @@ export const BottomControlButtons: React.FC = () => {
 					</Grid>
 					<Grid item className={gridCentered} xs justifyContent="flex-end">
 						<PlaybackRateButton />
-						{/* <PictureInPictureButton /> */}
+						<PictureInPictureButton />
 						<FullscreenButton />
 					</Grid>
 				</BottomControlButtonsComponent>

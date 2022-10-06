@@ -179,6 +179,9 @@ export const createVideoSetters: StateCreator<
 
 	requestPip: () =>
 		set(state => {
+			if (state.isFullscreen) {
+				state.exitFullscreen();
+			}
 			state.emitter.emit('pipEnter');
 			return {
 				pip: true,
