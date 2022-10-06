@@ -48,6 +48,36 @@ export const BottomControlButtons: React.FC = () => {
 	);
 };
 
+export const BottomControlButtonsDisabled: React.FC = () => {
+	const { gridCentered } = useVideoPlayerStyles().classes;
+
+	return (
+		<Controls>
+			<BottomControls>
+				<BottomControlButtonsComponent>
+					<Grid item className={gridCentered} xs>
+						<Grid item className={gridCentered} xs justifyContent="flex-start">
+							<PlayPauseReplay svgIconSize="medium" disabled />
+							<RwdButton disabled />
+							<FwdButton disabled />
+							<VolumeButton disabled />
+							<VolumeSlider />
+						</Grid>
+					</Grid>
+					<Grid item className={gridCentered} xs justifyContent="center">
+						<TimeDisplay />
+					</Grid>
+					<Grid item className={gridCentered} xs justifyContent="flex-end">
+						<PlaybackRateButton disabled />
+						<PictureInPictureButton disabled />
+						<FullscreenButton disabled />
+					</Grid>
+				</BottomControlButtonsComponent>
+			</BottomControls>
+		</Controls>
+	);
+};
+
 export default {
 	title: 'Video Player Controls',
 	component: BottomControlButtons,

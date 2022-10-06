@@ -244,7 +244,6 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 					},
 					root: ({ ownerState }) => {
 						return {
-							color: baseTheme.palette.text.primary,
 							...(ownerState.fontSize === 'small' && {
 								width: baseTheme.spacing(2.5),
 								height: baseTheme.spacing(2.5),
