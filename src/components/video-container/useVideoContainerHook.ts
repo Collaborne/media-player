@@ -1,5 +1,4 @@
 /* eslint-disable max-lines */
-import useEventListener from '@use-it/event-listener';
 import Bowser from 'bowser';
 import {
 	useCallback,
@@ -8,6 +7,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
+import { useEvent } from 'react-use';
 import useIntersection from 'react-use/lib/useIntersection';
 import useUnmount from 'react-use/lib/useUnmount';
 
@@ -268,7 +268,7 @@ export const useVideoContainerHook = ({
 	}, [reactPlayerRef, togglePlay]);
 
 	// Show video controls when controls are focused
-	useEventListener(
+	useEvent(
 		'focus',
 		() => {
 			markActivity?.();
