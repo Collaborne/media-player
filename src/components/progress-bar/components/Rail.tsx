@@ -1,7 +1,6 @@
 import { FC } from 'react';
-import { useVideoStore } from '../../../context';
 
-import { useVideo } from '../../../hooks';
+import { useVideoStore } from '../../../context';
 import { getPercentFromDuration } from '../../../utils/highlights';
 
 import { RailStyled } from './RailStyled';

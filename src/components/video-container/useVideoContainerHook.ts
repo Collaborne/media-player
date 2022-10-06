@@ -1,4 +1,6 @@
+/* eslint-disable max-lines */
 import useEventListener from '@use-it/event-listener';
+import Bowser from 'bowser';
 import {
 	useCallback,
 	useEffect,
@@ -10,6 +12,8 @@ import useIntersection from 'react-use/lib/useIntersection';
 import useUnmount from 'react-use/lib/useUnmount';
 
 import { useVideoStore } from '../../context';
+import { useVideoListener } from '../../hooks';
+import { ReactPlayerProps } from '../../types';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { getElementOffset } from '../../utils/html-elements';
 import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';
@@ -22,6 +26,7 @@ interface UseVideoContainerHook {
 	onMouseLeave: () => void;
 	onMouseEnter: () => void;
 	containerSizeRef: React.MutableRefObject<ContainerSizePosition | undefined>;
+	reactPlayerProps: ReactPlayerProps;
 }
 
 /** Defines root margin when scrolling to bottom */
@@ -30,9 +35,131 @@ const BOTTOM_ROOT_MARGIN = '48px';
 export const useVideoContainerHook = ({
 	videoUrl,
 }: UseVideoContainerHookProps): UseVideoContainerHook => {
-	const reactPlayerRef = useVideoStore(state => state.reactPlayerRef);
-	const videoContainerRef = useVideoStore(state => state.videoContainerRef);
-	const api = useVideoStore();
+	// UseProvider hooks
+	const readyFiredRef = useRef(false);
+	const hasAutoplayedRef = useRef(false);
+	const [
+		reactPlayerRef,
+		listener,
+		videoContainerRef,
+		initialState,
+		playbackRate,
+		playing,
+		muted,
+		volume,
+		emitter,
+		setReady,
+		setDuration,
+		onProgress,
+		onPause,
+		setCurrentTime,
+		isFullscreen,
+		hasPipTriggeredByClick,
+		isPip,
+		onPlay,
+		requestPip,
+		exitPip,
+		currentTime,
+		setHasPipTriggeredByClick,
+	] = useVideoStore(state => [
+		state.reactPlayerRef,
+		state.getListener(),
+		state.videoContainerRef,
+		state.initialState,
+		state.playbackRate,
+		state.playing,
+		state.muted,
+		state.volume,
+		state.emitter,
+		state._setReady,
+		state.setDuration,
+		state._handleProgress,
+		state.pause,
+		state.setCurrentTime,
+		state.isFullscreen,
+		state.hasPipTriggeredByClick,
+		state.pip,
+		state.play,
+		state.requestPip,
+		state.exitPip,
+		state.currentTime,
+		state.setHasPipTriggeredByClick,
+	]);
+
+	const reactPlayerProps: ReactPlayerProps = {
+		autoPlay: initialState.playing,
+		playsinline: true,
+		playbackRate,
+		playing,
+		muted,
+		volume,
+		ref: reactPlayerRef,
+		onReady: () => {
+			emitter?.emit('ready');
+			if (!readyFiredRef?.current) {
+				emitter?.emit('firstReady');
+				readyFiredRef.current = true;
+			}
+			setReady();
+		},
+		onEnded: () => emitter?.emit('ended'),
+		onDuration: duration => setDuration(duration),
+		onProgress: ({ playedSeconds }) => onProgress(playedSeconds),
+	};
+
+	// Force a ready event for safari when the video has been loaded
+	useEffect(() => {
+		const browser = Bowser.getParser(window.navigator.userAgent);
+
+		if (!browser.satisfies({ safari: '>1' })) {
+			return;
+		}
+		const videoEl = reactPlayerRef?.current?.getInternalPlayer();
+		if (videoEl) {
+			videoEl.load();
+		}
+	});
+
+	const onReadyToPlay = useCallback(() => {
+		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
+		emitter.off('seeked', onReadyToPlay);
+		mediaEl
+			?.play()
+			.then(() => emitter?.emit('autoplayStart'))
+			.catch((error: unknown) => {
+				console.info('Player failed to autoplay', error);
+				onPause();
+			});
+	}, [onPause, emitter, reactPlayerRef]);
+
+	// Play is a async operation. so when the player is ready to autoplay video,
+	// then we must be sure that first of all we solve setCurrentTime and after that the play method.
+	// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play
+	const onReadyToSeek = useCallback(() => {
+		emitter.on('seeked', onReadyToPlay);
+		emitter.off('ready', onReadyToSeek);
+		window.setTimeout(() => {
+			setCurrentTime(0);
+		}, 0);
+	}, [emitter, onReadyToPlay, setCurrentTime]);
+
+	useLayoutEffect(() => {
+		if (
+			!hasAutoplayedRef.current &&
+			reactPlayerRef?.current &&
+			initialState?.playing
+		) {
+			const el = reactPlayerRef?.current?.getInternalPlayer();
+			if (el && el.parentElement) {
+				el.parentElement?.focus();
+			}
+			const videoEl = reactPlayerRef.current?.getInternalPlayer();
+			if (!videoEl) return;
+
+			emitter.on('ready', onReadyToSeek);
+		}
+		hasAutoplayedRef.current = true;
+	}, [emitter, initialState, onReadyToSeek, reactPlayerRef]);
 
 	// Store the user's last "activity" (including mousemove over player) within a ref,
 	// so that state re-renders are not triggered every mousemove.
@@ -50,11 +177,6 @@ export const useVideoContainerHook = ({
 	const hasAutoFocusedRef = useRef(false);
 	const containerSizeRef = useRef<ContainerSizePosition>();
 
-	const isPlaying = Boolean(api.playing);
-	const isFullscreen = false;
-	const isPip = Boolean(api.pip);
-	const hasPipTriggeredByClick = api.hasPipTriggeredByClick;
-
 	// Checks if video container is in viewport when scrolling bottom
 	const entryTop = useIntersection(videoContainerRef, {
 		rootMargin: BOTTOM_ROOT_MARGIN,
@@ -70,7 +192,7 @@ export const useVideoContainerHook = ({
 			return setShowControls(true);
 		}
 		const lastActivity = lastActivityRef?.current || 0;
-		if (!isPlaying) {
+		if (!playing) {
 			return setShowControls(true);
 		}
 		if (isPip) {
@@ -78,12 +200,12 @@ export const useVideoContainerHook = ({
 		}
 		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isFullscreen, lastActivityRef, api, lastMouseLeave, isPip]);
+	}, [isFullscreen, lastActivityRef, lastMouseLeave, isPip]);
 
 	useEffect(updateShowControls, [
 		updateShowControls,
 		showControls,
-		isPlaying,
+		playing,
 		lastMouseMove,
 	]);
 
@@ -118,11 +240,11 @@ export const useVideoContainerHook = ({
 		if (isPip) {
 			return;
 		}
-		if (!isPlaying) {
-			return api?.play?.();
+		if (!playing) {
+			return onPlay();
 		}
-		return api?.pause?.();
-	}, [isPip, isPlaying, api]);
+		return onPause();
+	}, [isPip, playing, onPause, onPlay]);
 
 	const onMouseEnter = useCallback(() => {
 		markActivity?.();
@@ -174,7 +296,7 @@ export const useVideoContainerHook = ({
 	useEffect(() => {
 		const onWheel = () => {
 			if (!isVisibleFromScrollingBottom || !isVisibleFromScrollingTop) {
-				api?.setHasPipTriggeredByClick?.(false);
+				setHasPipTriggeredByClick(false);
 			}
 		};
 		document.body.addEventListener('wheel', onWheel);
@@ -189,65 +311,64 @@ export const useVideoContainerHook = ({
 			return;
 		}
 		const videoEl = reactPlayerRef?.current?.getInternalPlayer();
-		if (!isPlaying || !isPlayerReady || !videoEl) {
+		if (!playing || !isPlayerReady || !videoEl) {
 			return;
 		}
 		if (!isPip && !isVisibleFromScrollingTop) {
-			api?.requestPip?.();
+			requestPip?.();
 		}
 		if (isPip && isVisibleFromScrollingBottom) {
-			api?.exitPip?.();
+			exitPip?.();
 		}
 	}, [
 		isPlayerReady,
-		isPlaying,
+		playing,
 		isVisibleFromScrollingTop,
 		isVisibleFromScrollingBottom,
 		reactPlayerRef,
-		api,
 		isPip,
 		hasPipTriggeredByClick,
+		requestPip,
+		exitPip,
 	]);
 
 	// TODO: Open a issue for ReactPlayer on github
 	// Listening for pip events and updating currentTime for ProgressBar
 	// This is used for covering bugs with ReactPlayer
-	useEventListener(
+	useVideoListener(
 		'pipEnter',
 		() => {
-			const currentTime = api.currentTime;
 			calculateContainerSizes();
 			setTimeout(() => {
-				api?.setCurrentTime?.(currentTime);
+				setCurrentTime?.(currentTime);
 			}, PROGRESS_INTERVAL - 1);
 		},
-		api as unknown as HTMLElement,
+		listener,
 	);
 	// Updating video state with show controls
 	useEffect(() => {
-		api?.setShowControls?.(showControls);
+		setShowControls?.(showControls);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [showControls]);
 
-	useEventListener(
+	useVideoListener(
 		'pipExit',
 		() => {
-			const currentTime = api.currentTime;
 			setTimeout(() => {
-				api?.setCurrentTime?.(currentTime);
+				setCurrentTime?.(currentTime);
 			}, PROGRESS_INTERVAL - 1);
 		},
-		api as unknown as HTMLElement,
+		listener,
 	);
 
 	// Updating video players bottom control's panel after OVERLAY_HIDE_DELAY time period
 	useEffect(() => {
-		if (!isPlaying) {
+		if (!playing) {
 			return;
 		}
 		const timeoutId = setTimeout(updateShowControls, OVERLAY_HIDE_DELAY + 100);
 		return () => clearTimeout(timeoutId);
-	}, [updateShowControls, lastMouseMove, isPlaying]);
+	}, [updateShowControls, lastMouseMove, playing]);
 
 	useEffect(() => {
 		// If video is already loaded with one valid url, don't re-load player.
@@ -266,5 +387,6 @@ export const useVideoContainerHook = ({
 		onMouseLeave,
 		onMouseEnter,
 		containerSizeRef,
+		reactPlayerProps,
 	};
 };
