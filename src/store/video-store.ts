@@ -33,7 +33,7 @@ export interface VideoSettersSlice {
 	// Private Methods
 	_setReady: () => void;
 	_handleProgress: (currentTime: number) => void;
-	listener: EmitterListeners;
+	getListener: () => EmitterListeners;
 }
 
 export interface PropsToState {
@@ -116,10 +116,10 @@ export const createSettersSlice: StateCreator<
 			}
 			return { isFullscreen: false };
 		}),
-	listener: {
-		addEventListener: get()?.emitter.on,
-		removeEventListener: get()?.emitter.off,
-	},
+	getListener: () => ({
+		addEventListener: get().emitter.on,
+		removeEventListener: get().emitter.off,
+	}),
 	play: () =>
 		set(state => {
 			state.emitter.emit('play');

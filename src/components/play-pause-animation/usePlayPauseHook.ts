@@ -1,25 +1,22 @@
-import { useVideo } from '../../hooks';
-import { VideoApi } from '../../types';
+import { useVideoStore } from '../../context';
 
 import { usePlayPauseAnimationStyles } from './usePlayPauseAnimationStyles';
 
 interface UsePlayPauseHook {
 	centeredIcon: string;
 	isPlaying: boolean;
-	api?: VideoApi;
 	hasStarted?: boolean;
 }
 
 export const usePlayPauseHook = (): UsePlayPauseHook => {
-	const { api } = useVideo();
+	const isPlaying = useVideoStore(state => state.playing);
+	const hasStarted = useVideoStore(state => state.hasPlayedOrSeeked);
 
 	const { centeredIcon } = usePlayPauseAnimationStyles().classes;
-	const isPlaying = Boolean(api?.getPlaying?.());
-	const hasStarted = api?.getHasPlayedOrSeeked?.();
+
 	return {
 		centeredIcon,
 		isPlaying,
 		hasStarted,
-		api,
 	};
 };

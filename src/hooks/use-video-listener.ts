@@ -1,6 +1,6 @@
 import { useRef, useEffect, DependencyList } from 'react';
 
-import { VideoApi, VideoEvents } from '../types';
+import { EmitterListeners, VideoEvents } from '../types';
 
 export type EventEmittersName = keyof VideoEvents;
 export type Handler<T extends EventEmittersName> = (
@@ -11,7 +11,7 @@ export type Handler<T extends EventEmittersName> = (
 export const useVideoListener = <T extends EventEmittersName>(
 	eventName: T,
 	handler: Handler<T>,
-	target?: VideoApi,
+	target?: EmitterListeners,
 	deps?: DependencyList,
 ) => {
 	const savedHandler = useRef<Handler<T>>();

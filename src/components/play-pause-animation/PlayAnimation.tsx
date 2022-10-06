@@ -1,6 +1,7 @@
-import useEventListener from '@use-it/event-listener';
 import { FC, useEffect } from 'react';
 
+import { useVideoStore } from '../../context';
+import { useVideoListener } from '../../hooks';
 import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
 import { BigPlayIcon } from '../icons';
@@ -15,13 +16,15 @@ interface PlayAnimationProps {
 export const PlayAnimation: FC<PlayAnimationProps> = ({
 	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
 }) => {
-	const { centeredIcon, isPlaying, hasStarted, api } = usePlayPauseHook();
-	const showPlayAnimation = api?.getDidPlayAnimationStart?.();
-	const playAnimationStart = api?.playAnimationStart;
+	const { centeredIcon, isPlaying, hasStarted } = usePlayPauseHook();
+
+	const showPlayAnimation = useVideoStore(state => state.didPlayAnimationStart);
+	const playAnimationStart = useVideoStore(state => state.playAnimationStart);
+	const listener = useVideoStore(state => state.getListener)();
 
 	// Play animation on `play` event
 	// and filtering out the first "play"
-	useEventListener(
+	useVideoListener(
 		'play',
 		() => {
 			if (!hasStarted) {
@@ -31,7 +34,7 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 				playAnimationStart?.(true);
 			}
 		},
-		api as unknown as HTMLElement,
+		listener,
 	);
 
 	// Rerender when animation has been triggered and close it
@@ -40,6 +43,8 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 			playAnimationStart?.(false);
 		}
 	}, [playAnimationStart, showPlayAnimation]);
+
+	console.log('PlayAnimation Rerender, showPlayAnimation', showPlayAnimation);
 
 	return (
 		<AnimatedIconWrapper
