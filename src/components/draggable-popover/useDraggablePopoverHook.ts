@@ -32,9 +32,11 @@ const vh = window.innerHeight;
 export const useDraggablePopoverHook = ({
 	disablePortal,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
-	const isPip = useVideoStore(state => state.pip);
-	const isPaused = useVideoStore(state => !state.playing);
-	const setShowPipControls = useVideoStore(state => state.setShowPipControls);
+	const [isPip, isPaused, setShowPipControls] = useVideoStore(state => [
+		state.pip,
+		!state.playing,
+		state.setShowControls,
+	]);
 
 	// Detecting mouse movements for displaying PipControls
 	const [showControls, setShowControls] = useState(false);

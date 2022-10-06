@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useVideoStore } from '../../context';
 import { useVideoListener } from '../../hooks';
@@ -17,9 +17,7 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
 }) => {
 	const { centeredIcon, isPlaying, hasStarted } = usePlayPauseHook();
-
-	const showPlayAnimation = useVideoStore(state => state.didPlayAnimationStart);
-	const playAnimationStart = useVideoStore(state => state.playAnimationStart);
+	const [showPlayAnimation, playAnimationStart] = useState(false);
 	const listener = useVideoStore(state => state.getListener)();
 
 	// Play animation on `play` event
@@ -43,8 +41,6 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 			playAnimationStart?.(false);
 		}
 	}, [playAnimationStart, showPlayAnimation]);
-
-	console.log('PlayAnimation Rerender, showPlayAnimation', showPlayAnimation);
 
 	return (
 		<AnimatedIconWrapper

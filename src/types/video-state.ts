@@ -53,8 +53,6 @@ export interface VideoState {
 	hasPlayedOrSeeked: boolean;
 	pip: boolean;
 	showControls: boolean;
-	didPlayAnimationStart: boolean;
-	didPauseAnimationStart: boolean;
 	showPipControls: boolean;
 	/** Did pip mode was triggered by click event */
 	hasPipTriggeredByClick: boolean;

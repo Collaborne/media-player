@@ -27,8 +27,6 @@ export interface VideoSettersSlice {
 	requestFullscreen: () => void;
 	exitFullscreen: () => void;
 	setShowControls: (isUpdated: boolean) => void;
-	playAnimationStart: (hasStarted: boolean) => void;
-	pauseAnimationStart: (hasPaused: boolean) => void;
 	setShowPipControls: (isUpdated: boolean) => void;
 	// Private Methods
 	_setReady: () => void;
@@ -176,14 +174,6 @@ export const createSettersSlice: StateCreator<
 		set(state => {
 			state.emitter.emit('showControls', { isUpdated });
 			return { showControls: isUpdated };
-		}),
-	pauseAnimationStart: (hasPaused: boolean) =>
-		set({
-			didPauseAnimationStart: hasPaused,
-		}),
-	playAnimationStart: (hasPlayed: boolean) =>
-		set({
-			didPlayAnimationStart: hasPlayed,
 		}),
 	setShowPipControls: (isUpdated: boolean) =>
 		set(state => {
