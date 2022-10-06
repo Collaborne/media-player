@@ -40,6 +40,8 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 			isExpanded: Boolean(props.disablePortal),
 		}).classes;
 
+	console.log('DRAGGABLE POPOVER rerender');
+
 	return (
 		<Portal {...props}>
 			<div className={portalWrapper}>
