@@ -53,7 +53,7 @@ export const BottomControlButtonsDisabled: React.FC = () => {
 
 	return (
 		<Controls>
-			<BottomControls >
+			<BottomControls>
 				<BottomControlButtonsComponent>
 					<Grid item className={gridCentered} xs>
 						<Grid item className={gridCentered} xs justifyContent="flex-start">
