@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useVideoStore } from '../../../context';
 
 import { useVideo } from '../../../hooks';
 import { getPercentFromDuration } from '../../../utils/highlights';
@@ -12,8 +13,11 @@ const BLEND_CONFIG = { intensifyAll: true };
 
 export const Rail: FC<RailProps> = () => {
 	const { sliderRail } = useRailStyles().classes;
-	const { api, highlights, getHighlightColorBlended } = useVideo();
-	const videoDuration = api?.getDuration?.() || 0;
+	const getHighlightColorBlended = useVideoStore(
+		state => state.getHighlightColorBlended,
+	);
+	const highlights = useVideoStore(state => state.highlights);
+	const duration = useVideoStore(state => state.duration);
 
 	return (
 		<div className={sliderRail}>
@@ -26,8 +30,8 @@ export const Rail: FC<RailProps> = () => {
 				return (
 					<RailStyled
 						key={id}
-						startPoint={getPercentFromDuration(start, videoDuration)}
-						width={getPercentFromDuration(end - start, videoDuration)}
+						startPoint={getPercentFromDuration(start, duration)}
+						width={getPercentFromDuration(end - start, duration)}
 						color={getHighlightColorBlended?.(colors)}
 						startColorSegment={highlightEdgesColor}
 						endColorSegment={highlightEdgesColor}

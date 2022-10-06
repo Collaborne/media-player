@@ -1,5 +1,4 @@
-import { Dispatch, MutableRefObject, RefObject } from 'react';
-import type ReactPlayer from 'react-player';
+import { Dispatch } from 'react';
 
 import {
 	EmitterEvents,
@@ -42,8 +41,6 @@ export interface Highlight extends Segment {
 
 export interface VideoState {
 	emitter: EmitterEvents;
-	reactPlayerRef: RefObject<ReactPlayer>;
-	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
 	playbackRate: number;
 	playing: boolean;
 	muted: boolean;
@@ -62,7 +59,6 @@ export interface VideoState {
 	/** Did pip mode was triggered by click event */
 	hasPipTriggeredByClick: boolean;
 	/** Storing wrapper ref of the videoPlayer */
-	videoContainerRef: RefObject<HTMLDivElement>;
 	isFullscreen: boolean;
 }
 

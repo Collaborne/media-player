@@ -8,14 +8,18 @@ import { StoreApi } from 'zustand';
 import createContext from 'zustand/context';
 
 import { CorePlayerInitialState } from '../components/core-player/types';
-import { createVideoStore, VideoSettersSlice } from '../store/video-store';
+import {
+	createVideoStore,
+	PropsToState,
+	VideoSettersSlice,
+} from '../store/video-store';
 import { VideoState, Highlight } from '../types';
 import { BlendColors } from '../utils/colors';
 
 import { VideoContext } from './video';
 
 const { Provider, useStore } =
-	createContext<StoreApi<VideoState & VideoSettersSlice>>();
+	createContext<StoreApi<VideoState & VideoSettersSlice & PropsToState>>();
 export interface VideoProviderProps {
 	/** Provider's initialization state */
 	initialState: CorePlayerInitialState;

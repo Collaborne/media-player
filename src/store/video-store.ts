@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import mitt from 'mitt';
 import { MutableRefObject, RefObject } from 'react';
 import type ReactPlayer from 'react-player';
@@ -35,7 +36,7 @@ export interface VideoSettersSlice {
 	listener: EmitterListeners;
 }
 
-interface VideoStoreExternalProps {
+export interface PropsToState {
 	reactPlayerRef: RefObject<ReactPlayer>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
 	videoContainerRef: RefObject<HTMLDivElement>;
@@ -44,37 +45,50 @@ interface VideoStoreExternalProps {
 	getHighlightColorBlended?: BlendColors;
 }
 
-type CreateExternal = (
-	args: VideoStoreExternalProps,
-) => StateCreator<VideoState & VideoSettersSlice, [], [], VideoState>;
+type CreatePropsSlice = (
+	args: PropsToState,
+) => StateCreator<
+	VideoState & VideoSettersSlice & PropsToState,
+	[],
+	[],
+	PropsToState
+>;
 
-export const createVideoStateSlice: CreateExternal =
-	(externalProps: VideoStoreExternalProps) => () => ({
+export const createPropsSlice: CreatePropsSlice =
+	(externalProps: PropsToState) => () => ({
 		...externalProps,
-		currentTime: 0,
-		currentRelativeTime: 0,
-		playbackRate: 1,
-		startTime: 0,
-		endTime: 0,
-		duration: 0,
-		volume: 1,
-		emitter: mitt<VideoEvents>(),
-		ready: false,
-		playing: false,
-		muted: false,
-		fullscreen: false,
-		hasPlayedOrSeeked: false,
-		pip: false,
-		hasPipTriggeredByClick: true,
-		showControls: true,
-		showPipControls: false,
-		didPlayAnimationStart: false,
-		didPauseAnimationStart: false,
-		isFullscreen: false,
 	});
 
-export const createVideoSetters: StateCreator<
-	VideoState & VideoSettersSlice,
+export const createDefaultMediaSlice: StateCreator<
+	VideoState & VideoSettersSlice & PropsToState,
+	[],
+	[],
+	VideoState
+> = () => ({
+	currentTime: 0,
+	currentRelativeTime: 0,
+	playbackRate: 1,
+	startTime: 0,
+	endTime: 0,
+	duration: 0,
+	volume: 1,
+	emitter: mitt<VideoEvents>(),
+	ready: false,
+	playing: false,
+	muted: false,
+	fullscreen: false,
+	hasPlayedOrSeeked: false,
+	pip: false,
+	hasPipTriggeredByClick: true,
+	showControls: true,
+	showPipControls: false,
+	didPlayAnimationStart: false,
+	didPauseAnimationStart: false,
+	isFullscreen: false,
+});
+
+export const createSettersSlice: StateCreator<
+	VideoState & VideoSettersSlice & PropsToState,
 	[],
 	[],
 	VideoSettersSlice
@@ -283,8 +297,9 @@ export const createVideoSetters: StateCreator<
 		}),
 });
 
-export const createVideoStore = (externalProps: VideoStoreExternalProps) =>
-	create<VideoState & VideoSettersSlice>()((...a) => ({
-		...createVideoStateSlice(externalProps)(...a),
-		...createVideoSetters(...a),
+export const createVideoStore = (externalProps: PropsToState) =>
+	create<VideoState & VideoSettersSlice & PropsToState>()((...a) => ({
+		...createDefaultMediaSlice(...a),
+		...createSettersSlice(...a),
+		...createPropsSlice(externalProps)(...a),
 	}));
