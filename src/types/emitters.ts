@@ -28,7 +28,9 @@ export type VoidEventsKey =
 	| 'unnmute'
 	| 'end'
 	| 'pipEnter'
-	| 'pipExit';
+	| 'pipExit'
+	| 'fullscreenEnter'
+	| 'fullscreenExit';
 
 /** Events that VideoApi is listening, and have no arguments */
 export type VoidEvents = Record<VoidEventsKey, void>;

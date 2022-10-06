@@ -63,6 +63,7 @@ export interface VideoState {
 	hasPipTriggeredByClick: boolean;
 	/** Storing wrapper ref of the videoPlayer */
 	videoContainerRef: RefObject<HTMLDivElement>;
+	isFullscreen: boolean;
 }
 
 export type VideoDispatchArgs = unknown[];

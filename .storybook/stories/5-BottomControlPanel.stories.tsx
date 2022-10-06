@@ -30,17 +30,17 @@ export const BottomControlButtons: React.FC = () => {
 							<PlayPauseReplay svgIconSize="medium" />
 							<RwdButton />
 							<FwdButton />
-							{/* <VolumeButton /> */}
-							{/* <VolumeSlider /> */}
+							<VolumeButton />
+							<VolumeSlider />
 						</Grid>
 					</Grid>
 					<Grid item className={gridCentered} xs justifyContent="center">
-						{/* <TimeDisplay /> */}
+						<TimeDisplay />
 					</Grid>
 					<Grid item className={gridCentered} xs justifyContent="flex-end">
-						{/* <PlaybackRateButton /> */}
+						<PlaybackRateButton />
 						{/* <PictureInPictureButton /> */}
-						{/* <FullscreenButton /> */}
+						<FullscreenButton />
 					</Grid>
 				</BottomControlButtonsComponent>
 			</BottomControls>

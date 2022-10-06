@@ -1,6 +1,7 @@
 import mitt from 'mitt';
 import { MutableRefObject, RefObject } from 'react';
 import type ReactPlayer from 'react-player';
+import screenfull from 'screenfull';
 import create, { StateCreator } from 'zustand';
 
 import { CorePlayerInitialState } from '../components';
@@ -22,6 +23,8 @@ export interface VideoSettersSlice {
 	setDuration: (duration: number) => void;
 	requestPip: () => void;
 	exitPip: () => void;
+	requestFullscreen: () => void;
+	exitFullscreen: () => void;
 	setShowControls: (isUpdated: boolean) => void;
 	playAnimationStart: (hasStarted: boolean) => void;
 	pauseAnimationStart: (hasPaused: boolean) => void;
@@ -67,6 +70,7 @@ export const createVideoStateSlice: CreateExternal =
 		showPipControls: false,
 		didPlayAnimationStart: false,
 		didPauseAnimationStart: false,
+		isFullscreen: false,
 	});
 
 export const createVideoSetters: StateCreator<
@@ -75,6 +79,29 @@ export const createVideoSetters: StateCreator<
 	[],
 	VideoSettersSlice
 > = (set, get) => ({
+	requestFullscreen: () =>
+		set(state => {
+			const mediaEl = getVideoEl(state);
+			if (!mediaEl) {
+				return state;
+			}
+			if (state.pip) {
+				state.exitPip();
+			}
+			state.emitter.emit('fullscreenEnter');
+			if (screenfull.isEnabled && state.videoContainerRef.current) {
+				void screenfull.request(state.videoContainerRef.current);
+			}
+			return { isFullscreen: true };
+		}),
+	exitFullscreen: () =>
+		set(state => {
+			state.emitter.emit('fullscreenExit');
+			if (screenfull.isEnabled) {
+				void screenfull.exit();
+			}
+			return { isFullscreen: false };
+		}),
 	listener: {
 		addEventListener: get()?.emitter.on,
 		removeEventListener: get()?.emitter.off,

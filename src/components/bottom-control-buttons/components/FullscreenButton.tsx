@@ -1,5 +1,6 @@
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
+import { useVideoStore } from '../../../context';
 
 import { useVideo } from '../../../hooks';
 import { FullscreenEnterIcon, FullscreenExitIcon } from '../../icons';
@@ -20,15 +21,11 @@ export const FullscreenButton: FC<FullscreenButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
-	const { api, fullScreenApi } = useVideo();
-	const isFullscreen = Boolean(fullScreenApi?.isFullscreen);
-	const onFullscreen = () => {
-		if (api?.getPictureInPicture?.()) {
-			api?.exitPip?.();
-		}
-		fullScreenApi?.toggleFullscreen();
-	};
-
+	const isFullscreen = useVideoStore(state => state.isFullscreen);
+	const requestFullscreen = useVideoStore(state => state.requestFullscreen);
+	const exitFullscreen = useVideoStore(state => state.exitFullscreen);
+	const onFullscreen = isFullscreen ? exitFullscreen : requestFullscreen;
+	console.log('FullscreenBtn rerender');
 	return (
 		<IconButton size="medium" onClick={onFullscreen} {...props}>
 			{!isFullscreen ? (
