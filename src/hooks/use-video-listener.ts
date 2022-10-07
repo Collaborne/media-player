@@ -23,8 +23,7 @@ export const useVideoListener = <T extends EventEmittersName>(
 		if (!hasVideoApi) {
 			return;
 		}
-		console.log(target);
-		console.log('eventNAme:', eventName);
+
 		const eventListener = (event: MediaEvents[T]) =>
 			savedHandler.current?.(event);
 		target.addEventListener?.(eventName, eventListener);
