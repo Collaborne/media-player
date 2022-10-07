@@ -1,19 +1,19 @@
 import { RefObject } from 'react';
 import type ReactPlayer from 'react-player';
 
-import { VideoState } from '.';
+import { MediaState } from '.';
 
 /** Props that will be provided to ReactPlayer */
 export interface ReactPlayerProps {
 	autoPlay: boolean;
 	playsinline: boolean;
-	playbackRate: VideoState['playbackRate'];
-	playing: VideoState['playing'];
-	muted: VideoState['muted'];
-	volume: VideoState['volume'];
+	playbackRate: MediaState['playbackRate'];
+	playing: MediaState['playing'];
+	muted: MediaState['muted'];
+	volume: MediaState['volume'];
 	ref: RefObject<ReactPlayer>;
 	onReady: () => void;
 	onEnded: () => void;
-	onDuration: (duration: VideoState['duration']) => void;
+	onDuration: (duration: MediaState['duration']) => void;
 	onProgress: ({ playedSeconds }: Record<'playedSeconds', number>) => void;
 }

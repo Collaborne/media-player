@@ -1,10 +1,10 @@
 import { useRef, useEffect, DependencyList } from 'react';
 
-import { EmitterListeners, VideoEvents } from '../types';
+import { EmitterListeners, MediaEvents } from '../types';
 
-export type EventEmittersName = keyof VideoEvents;
+export type EventEmittersName = keyof MediaEvents;
 export type Handler<T extends EventEmittersName> = (
-	eventArgs: VideoEvents[T],
+	eventArgs: MediaEvents[T],
 ) => void;
 
 /** Video Listener hook that subscribes and unsubscribes from `VideoApi`'s `EventEmitters` */
@@ -18,13 +18,14 @@ export const useVideoListener = <T extends EventEmittersName>(
 	useEffect(() => {
 		savedHandler.current = handler;
 	}, [handler]);
-
 	useEffect(() => {
 		const hasVideoApi = target && target.addEventListener;
 		if (!hasVideoApi) {
 			return;
 		}
-		const eventListener = (event: VideoEvents[T]) =>
+		console.log(target);
+		console.log('eventNAme:', eventName);
+		const eventListener = (event: MediaEvents[T]) =>
 			savedHandler.current?.(event);
 		target.addEventListener?.(eventName, eventListener);
 		return () => {

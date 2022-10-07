@@ -9,26 +9,27 @@ import createContext from 'zustand/context';
 
 import { CorePlayerInitialState } from '../components/core-player/types';
 import {
-	createVideoStore,
+	createMediaStore,
 	PropsToState,
 	VideoSettersSlice,
+	MediaStore,
 } from '../store/video-store';
-import { VideoState, Highlight } from '../types';
+import { MediaState, Highlight } from '../types';
 import { BlendColors } from '../utils/colors';
 
-import { VideoContext } from './video';
+import { HighlightsProvider } from './HighlightsProvider';
 
 const { Provider, useStore } =
-	createContext<StoreApi<VideoState & VideoSettersSlice & PropsToState>>();
+	createContext<StoreApi<MediaState & VideoSettersSlice & PropsToState>>();
 export interface VideoProviderProps {
 	/** Provider's initialization state */
 	initialState: CorePlayerInitialState;
 	/** State that needs to be stored in localStorage */
-	persistedState?: VideoState;
+	persistedState?: MediaState;
 	/** Blending colors for highlights presented in `<ProgressBar>` */
 	getHighlightColorBlended: BlendColors;
 	/** A callback that can updates VideoContext outside of the VideoProvider */
-	onContext?: (context: VideoContext) => void;
+	onStoreUpdate?: (store: MediaStore) => void;
 	highlights?: Highlight[];
 	/** ReactNode that will consume the context */
 	children: ReactNode;
@@ -39,30 +40,31 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 	initialState,
 	children,
 	getHighlightColorBlended,
-	// onContext,
+	onStoreUpdate,
 	highlights,
 }) => {
 	const reactPlayerRef = useRef<ReactPlayer>(null);
 	const playPromiseRef = useRef<Promise<void>>();
 	const videoContainerRef = useRef<HTMLDivElement>(null);
-
 	return (
-		<Provider
-			createStore={() =>
-				createVideoStore({
-					initialState,
-					getHighlightColorBlended,
-					highlights,
-					playPromiseRef,
-					reactPlayerRef,
-					videoContainerRef,
-				})
-			}
-		>
-			{children}
-		</Provider>
+		<HighlightsProvider highlights={highlights}>
+			<Provider
+				createStore={() =>
+					createMediaStore({
+						initialState,
+						getHighlightColorBlended,
+						playPromiseRef,
+						reactPlayerRef,
+						videoContainerRef,
+						onStoreUpdate,
+					})
+				}
+			>
+				{children}
+			</Provider>
+		</HighlightsProvider>
 	);
 };
 
-export const useVideoStore = useStore;
+export const useMediaStore = useStore;
 VideoProvider.displayName = 'VideoProvider';

@@ -46,9 +46,9 @@ export type ExtendedEvents = {
 	durationchange: { duration: number };
 };
 
-export type VideoEvents = VoidEvents & ExtendedEvents;
+export type MediaEvents = VoidEvents & ExtendedEvents;
 
-export type EmitterEvents = Emitter<VideoEvents>;
+export type EmitterEvents = Emitter<MediaEvents>;
 
 /** Event emitted on `timeupdate`. Same as browsers native */
 export type TimeUpdateEvent = Record<'seconds' | 'duration', number>;

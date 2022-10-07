@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useVideoStore } from '../../../context/VideoProvider';
+import { useMediaStore } from '../../../context/VideoProvider';
 import { VOLUME_MULTIPLIER } from '../../../utils/constants';
 
 import { VolumeBarStyled } from './VolumeBarStyled';
@@ -12,8 +12,8 @@ interface VolumeSliderProps {
 export const VolumeSlider: FC<VolumeSliderProps> = ({
 	volumeMultiplier = VOLUME_MULTIPLIER,
 }) => {
-	const setVolume = useVideoStore(state => state.setVolume);
-	const volume = useVideoStore(state => state.volume) * volumeMultiplier;
+	const setVolume = useMediaStore(state => state.setVolume);
+	const volume = useMediaStore(state => state.volume) * volumeMultiplier;
 	const onVolumeChange = (
 		event: Event,
 		value: number | number[],

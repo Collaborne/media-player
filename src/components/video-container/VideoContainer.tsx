@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
 
-import { useVideoStore } from '../../context/VideoProvider';
+import { useMediaStore } from '../../context/VideoProvider';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { VideoPoster } from '../video-poster/VideoPoster';
@@ -26,7 +26,7 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 	videoUrl,
 	children,
 }) => {
-	const [videoContainerRef, isPip, isFullscreen] = useVideoStore(state => [
+	const [videoContainerRef, isPip, isFullscreen] = useMediaStore(state => [
 		state.videoContainerRef,
 		state.pip,
 		state.isFullscreen,

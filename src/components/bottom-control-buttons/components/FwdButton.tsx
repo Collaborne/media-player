@@ -2,7 +2,7 @@ import { Forward10Outlined } from '@mui/icons-material';
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
-import { useVideoStore } from '../../../context';
+import { useMediaStore } from '../../../context';
 import { SECONDS_TO_SKIP } from '../../../utils/constants';
 
 interface FwdButtonProps extends IconButtonProps {
@@ -17,8 +17,8 @@ export const FwdButton: FC<FwdButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
-	const currentTime = useVideoStore(state => state.currentTime);
-	const setCurrentTime = useVideoStore(state => state.setCurrentTime);
+	const currentTime = useMediaStore(state => state.currentTime);
+	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
 	const onFwd = () => setCurrentTime(currentTime + skipSeconds);
 	console.log('FWD Button RERENDER');
 	return (

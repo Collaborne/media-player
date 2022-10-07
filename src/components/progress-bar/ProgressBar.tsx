@@ -1,7 +1,7 @@
 import { SliderProps } from '@mui/material/Slider/Slider';
 import { FC } from 'react';
 
-import { useVideoStore } from '../../context';
+import { useMediaStore } from '../../context';
 import { PROGRESS_BAR_DIVIDER } from '../../utils/constants';
 
 import { ProgressBarStyled } from './components/ProgressBarStyled';
@@ -10,10 +10,10 @@ import { Rail } from './components/Rail';
 interface ProgressBarProps extends SliderProps {}
 
 export const ProgressBar: FC<ProgressBarProps> = props => {
-	const hasStarted = useVideoStore(state => state.hasPlayedOrSeeked);
-	const currentTime = useVideoStore(state => state.currentTime);
-	const duration = useVideoStore(state => state.duration);
-	const setCurrentTime = useVideoStore(state => state.setCurrentTime);
+	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
+	const currentTime = useMediaStore(state => state.currentTime);
+	const duration = useMediaStore(state => state.duration);
+	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
 
 	const onCurrentTimeUpdate = (
 		e: Event,

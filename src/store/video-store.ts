@@ -1,67 +1,33 @@
-/* eslint-disable max-lines */
 import mitt from 'mitt';
-import { MutableRefObject, RefObject } from 'react';
-import type ReactPlayer from 'react-player';
 import screenfull from 'screenfull';
 import create, { StateCreator } from 'zustand';
 
-import { CorePlayerInitialState } from '../components';
-import { EmitterListeners, Highlight, VideoEvents, VideoState } from '../types';
+import {
+	MediaEvents,
+	MediaState,
+	MediaStateExternalInitializers,
+	MediaStateSetters,
+} from '../types';
 import { getVideoEl } from '../utils';
-import { BlendColors } from '../utils/colors';
 
-export interface VideoSettersSlice {
-	play: () => void;
-	pause: () => void;
-	mute: () => void;
-	unmute: () => void;
-	setPlaybackRate: (playbackRate: number) => void;
-	setVolume: (volume: number) => void;
-	setCurrentTime: (relativeSeconds: number) => void;
-	setHasPipTriggeredByClick: (hasPipTriggeredByClick: boolean) => void;
-	setStartTime: (startTime: number) => void;
-	setEndTime: (endTime: number) => void;
-	setDuration: (duration: number) => void;
-	requestPip: () => void;
-	exitPip: () => void;
-	requestFullscreen: () => void;
-	exitFullscreen: () => void;
-	setShowControls: (isUpdated: boolean) => void;
-	setShowPipControls: (isUpdated: boolean) => void;
-	// Private Methods
-	_setReady: () => void;
-	_handleProgress: (currentTime: number) => void;
-	getListener: () => EmitterListeners;
-}
-
-export interface PropsToState {
-	reactPlayerRef: RefObject<ReactPlayer>;
-	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
-	videoContainerRef: RefObject<HTMLDivElement>;
-	highlights?: Highlight[];
-	initialState: CorePlayerInitialState;
-	getHighlightColorBlended?: BlendColors;
-}
+export type MediaStore = MediaState &
+	MediaStateSetters &
+	MediaStateExternalInitializers;
 
 type CreatePropsSlice = (
-	args: PropsToState,
-) => StateCreator<
-	VideoState & VideoSettersSlice & PropsToState,
-	[],
-	[],
-	PropsToState
->;
+	args: MediaStateExternalInitializers,
+) => StateCreator<MediaStore, [], [], MediaStateExternalInitializers>;
 
 export const createPropsSlice: CreatePropsSlice =
-	(externalProps: PropsToState) => () => ({
+	(externalProps: MediaStateExternalInitializers) => () => ({
 		...externalProps,
 	});
 
 export const createDefaultMediaSlice: StateCreator<
-	VideoState & VideoSettersSlice & PropsToState,
+	MediaStore,
 	[],
 	[],
-	VideoState
+	MediaState
 > = () => ({
 	currentTime: 0,
 	currentRelativeTime: 0,
@@ -70,7 +36,7 @@ export const createDefaultMediaSlice: StateCreator<
 	endTime: 0,
 	duration: 0,
 	volume: 1,
-	emitter: mitt<VideoEvents>(),
+	emitter: mitt<MediaEvents>(),
 	ready: false,
 	playing: false,
 	muted: false,
@@ -86,10 +52,10 @@ export const createDefaultMediaSlice: StateCreator<
 });
 
 export const createSettersSlice: StateCreator<
-	VideoState & VideoSettersSlice & PropsToState,
+	MediaState & MediaStateSetters & MediaStateExternalInitializers,
 	[],
 	[],
-	VideoSettersSlice
+	MediaStateSetters
 > = (set, get) => ({
 	requestFullscreen: () =>
 		set(state => {
@@ -287,9 +253,30 @@ export const createSettersSlice: StateCreator<
 		}),
 });
 
-export const createVideoStore = (externalProps: PropsToState) =>
-	create<VideoState & VideoSettersSlice & PropsToState>()((...a) => ({
-		...createDefaultMediaSlice(...a),
-		...createSettersSlice(...a),
-		...createPropsSlice(externalProps)(...a),
-	}));
+type onStoreUpdate = <T>(
+	fn?: (store: T) => void,
+) => (initializer: StateCreator<T, [], [], T>) => StateCreator<T, [], [], T>;
+
+const onStoreUpdateMiddleware: onStoreUpdate =
+	fn => config => (set, get, api, info) =>
+		config(
+			state => {
+				set(state);
+				fn?.(get());
+			},
+			get,
+			api,
+			info,
+		);
+
+export const createMediaStore = ({
+	onStoreUpdate,
+	...externalProps
+}: MediaStateExternalInitializers) =>
+	create<MediaStore>()(
+		onStoreUpdateMiddleware(onStoreUpdate)((...a) => ({
+			...createDefaultMediaSlice(...a),
+			...createSettersSlice(...a),
+			...createPropsSlice(externalProps)(...a),
+		})),
+	);

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
-import { useVideoStore } from '../../../context';
+import { useMediaStore } from '../../../context';
+import { useHighlights } from '../../../hooks/use-highlights';
 import { getPercentFromDuration } from '../../../utils/highlights';
 
 import { RailStyled } from './RailStyled';
@@ -11,12 +12,13 @@ interface RailProps {}
 const BLEND_CONFIG = { intensifyAll: true };
 
 export const Rail: FC<RailProps> = () => {
+	const { highlights } = useHighlights();
 	const { sliderRail } = useRailStyles().classes;
-	const getHighlightColorBlended = useVideoStore(
+	const getHighlightColorBlended = useMediaStore(
 		state => state.getHighlightColorBlended,
 	);
-	const highlights = useVideoStore(state => state.highlights);
-	const duration = useVideoStore(state => state.duration);
+
+	const duration = useMediaStore(state => state.duration);
 
 	return (
 		<div className={sliderRail}>

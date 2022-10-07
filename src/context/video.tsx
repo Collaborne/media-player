@@ -7,7 +7,7 @@ import {
 	Highlight,
 	ReactPlayerProps,
 	VideoApi,
-	VideoState,
+	MediaState,
 } from '../types';
 
 export interface VideoContext {
@@ -16,7 +16,7 @@ export interface VideoContext {
 	/** Props that will be provided to ReactPlayer */
 	reactPlayerProps?: ReactPlayerProps;
 	/** Video state */
-	state?: VideoState;
+	state?: MediaState;
 	/** Instance ref for the ReactPlayer */
 	reactPlayerRef?: RefObject<ReactPlayer>;
 	/** Ref to the container of the <video>. Used mostly for fullscreen */

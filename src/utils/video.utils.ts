@@ -1,5 +1,4 @@
-import { PropsToState, VideoSettersSlice } from '../store/video-store';
-import { VideoState } from '../types';
+import { MediaStore } from '../store/video-store';
 
 /**
  * HTMLMediaElement typeguard
@@ -8,11 +7,9 @@ export const isHTMLMediaElement = (e: unknown): e is HTMLMediaElement =>
 	e instanceof HTMLMediaElement;
 
 /**
- * Gets the HTMLMediaElement from a VideoState
+ * Gets the HTMLMediaElement from a MediaState
  */
-export const getVideoEl = (
-	state: VideoState & VideoSettersSlice & PropsToState,
-): HTMLMediaElement | undefined => {
+export const getVideoEl = (state: MediaStore): HTMLMediaElement | undefined => {
 	const internalPlayer = state?.reactPlayerRef?.current?.getInternalPlayer();
 
 	if (isHTMLMediaElement(internalPlayer)) {

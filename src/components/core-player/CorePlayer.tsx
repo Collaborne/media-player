@@ -10,8 +10,9 @@ import { FC, ReactNode } from 'react';
 
 import { VideoContext } from '../../context';
 import { VideoProvider } from '../../context/VideoProvider';
+import { MediaStore } from '../../store/video-store';
 import { createPlayerTheme } from '../../theme';
-import { Highlight, VideoState } from '../../types';
+import { Highlight, MediaState } from '../../types';
 import { blend, BlendColors } from '../../utils/colors';
 import { useFilePlayerStyles } from '../video-container/useVideoContainerStyles';
 import { VideoContainer } from '../video-container/VideoContainer';
@@ -30,9 +31,9 @@ export interface CorePlayerProps {
 	/** Blending colors for highlights presented in `<ProgressBar>` */
 	getHighlightColorBlended?: BlendColors;
 	/** A callback that can updates VideoContext outside of the VideoProvider */
-	onContext?: (context: VideoContext) => void;
+	onStoreUpdate?: (store: MediaStore) => void;
 	/** State that needs to be stored in localStorage */
-	persistedState?: VideoState;
+	persistedState?: MediaState;
 	/** Provider's initialization state */
 	initialState?: CorePlayerInitialState;
 	children: ReactNode;
@@ -43,7 +44,7 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	className,
 	getHighlightColorBlended = blend,
 	highlights,
-	onContext,
+	onStoreUpdate,
 	theme,
 	initialState = PROVIDER_INITIAL_STATE,
 	persistedState,
@@ -60,7 +61,7 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 					initialState={initialState}
 					persistedState={persistedState}
 					getHighlightColorBlended={getHighlightColorBlended}
-					onContext={onContext}
+					onStoreUpdate={onStoreUpdate}
 					highlights={highlights}
 				>
 					<VideoContainer className={classNames} videoUrl={videoUrl}>

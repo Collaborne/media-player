@@ -1,30 +1,18 @@
 import React from 'react';
 import { uuid } from 'uuidv4';
 
-import {
-	Highlight,
-	useDelayedState,
-	usePlayerContext,
-	useVideoListener,
-	VideoPlayer,
-} from '../../src';
+import { Highlight, VideoPlayer, usePlayerContext } from '../../src';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
 import { highlightColors, pickRandomItem } from '../utils/highlights';
 
 export const VideoHighlights = () => {
-	const { videoContextApi, setVideoContext } = usePlayerContext();
+	const { mediaStore, onMediaStore } = usePlayerContext();
 	const [highlights, setHighlights] = React.useState<Highlight[]>([]);
-	const [videoDuration, setVideoDuration] = useDelayedState(0);
+	const duration = mediaStore?.duration;
 
-	useVideoListener(
-		'durationchange',
-		({ duration }) => setVideoDuration(duration, 1),
-		videoContextApi,
-	);
-
-	const end = Math.random() * videoDuration;
+	const end = Math.random() * (duration || 0);
 	const start = Math.random() * end;
 	const addHighlightToStart = () => {
 		setHighlights(prev => [
@@ -41,10 +29,12 @@ export const VideoHighlights = () => {
 			},
 		]);
 	};
+
+	console.log('=>rerender');
 	return (
 		<>
 			<VideoPlayer
-				onContext={setVideoContext}
+				onStoreUpdate={onMediaStore}
 				highlights={highlights}
 				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 			/>

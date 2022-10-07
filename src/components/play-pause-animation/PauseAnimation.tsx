@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
-import { useVideoStore } from '../../context';
+import { useMediaStore } from '../../context';
 import { useVideoListener } from '../../hooks';
 import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
@@ -18,7 +18,7 @@ export const PauseAnimation: FC<PauseAnimationProps> = ({
 }) => {
 	const { centeredIcon, isPlaying, hasStarted } = usePlayPauseHook();
 	const [showPauseAnimation, pauseAnimationStart] = useState(false);
-	const listener = useVideoStore(state => state.getListener)();
+	const listener = useMediaStore(state => state.getListener)();
 
 	// Play animation on `pause` event
 	useVideoListener(

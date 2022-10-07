@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Position, ResizeEnable } from 'react-rnd';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
-import { useVideoStore } from '../../context';
+import { useMediaStore } from '../../context';
 import { DEFAULT_PIP_SIZE, OVERLAY_HIDE_DELAY } from '../../utils/constants';
 
 export type Size = {
@@ -32,7 +32,7 @@ const vh = window.innerHeight;
 export const useDraggablePopoverHook = ({
 	disablePortal,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
-	const [isPip, isPaused, setShowPipControls] = useVideoStore(state => [
+	const [isPip, isPaused, setShowPipControls] = useMediaStore(state => [
 		state.pip,
 		!state.playing,
 		state.setShowControls,

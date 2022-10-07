@@ -1,7 +1,7 @@
 import { ButtonProps } from '@mui/material';
 import { FC } from 'react';
 
-import { useVideoStore } from '../../context';
+import { useMediaStore } from '../../context';
 import { PLAYBACK_RATES } from '../../utils/constants';
 import { MultiplySymbol } from '../../utils/MultiplySymbol';
 
@@ -45,9 +45,9 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 export interface CenteredBottomPlaybackProps {}
 
 export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
-	const hasStarted = useVideoStore(state => state.hasPlayedOrSeeked);
-	const playbackRate = useVideoStore(state => state.playbackRate);
-	const setPlaybackRate = useVideoStore(state => state.setPlaybackRate);
+	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
+	const playbackRate = useMediaStore(state => state.playbackRate);
+	const setPlaybackRate = useMediaStore(state => state.setPlaybackRate);
 
 	const onChangePlaybackRate = (rate: number) => {
 		setPlaybackRate(rate);

@@ -11,7 +11,7 @@ import { useEvent } from 'react-use';
 import useIntersection from 'react-use/lib/useIntersection';
 import useUnmount from 'react-use/lib/useUnmount';
 
-import { useVideoStore } from '../../context';
+import { useMediaStore } from '../../context';
 import { useVideoListener } from '../../hooks';
 import { ReactPlayerProps } from '../../types';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
@@ -61,7 +61,7 @@ export const useVideoContainerHook = ({
 		exitPip,
 		currentTime,
 		setHasPipTriggeredByClick,
-	] = useVideoStore(state => [
+	] = useMediaStore(state => [
 		state.reactPlayerRef,
 		state.getListener(),
 		state.videoContainerRef,
@@ -102,8 +102,11 @@ export const useVideoContainerHook = ({
 			}
 			setReady();
 		},
-		onEnded: () => emitter?.emit('ended'),
-		onDuration: duration => setDuration(duration),
+		onEnded: () => emitter.emit('ended'),
+		onDuration: duration => {
+			emitter.emit('durationchange', { duration });
+			setDuration(duration);
+		},
 		onProgress: ({ playedSeconds }) => onProgress(playedSeconds),
 	};
 

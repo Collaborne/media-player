@@ -1,23 +1,4 @@
-import { Dispatch } from 'react';
-
-import {
-	EmitterEvents,
-	EmitterListeners,
-	VideoActions,
-	VideoGettersApi,
-} from '.';
-
-/** State setter/holder for the FullscreenApi.On the hood uses the `fullscreen` package */
-export interface FullscreenApi {
-	/** Is player in fullscreen mode */
-	isFullscreen: boolean;
-	/** Enter the fullscreen mode */
-	enterFullscreen: () => void;
-	/** Exit the fullscreen mode */
-	exitFullscreen: () => void;
-	/** Toggler for the fullscreen mode */
-	toggleFullscreen: () => void;
-}
+import { EmitterEvents } from '.';
 
 /** An interval that has required `start` and `end` point  */
 export interface Segment {
@@ -39,7 +20,7 @@ export interface Highlight extends Segment {
  * State for video. Keeping info about current video player behavior
  */
 
-export interface VideoState {
+export interface MediaState {
 	emitter: EmitterEvents;
 	playbackRate: number;
 	playing: boolean;
@@ -59,16 +40,3 @@ export interface VideoState {
 	/** Storing wrapper ref of the videoPlayer */
 	isFullscreen: boolean;
 }
-
-export type VideoDispatchArgs = unknown[];
-
-export type VideoActionsDispatch = {
-	[key in keyof VideoActions]: (...payload: VideoDispatchArgs) => Dispatch<{
-		type: keyof VideoActions;
-		payload: VideoDispatchArgs;
-	}>;
-};
-
-export type VideoApi = Partial<
-	VideoActionsDispatch & EmitterListeners & VideoGettersApi
->;

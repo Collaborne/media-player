@@ -7,7 +7,6 @@ import {
 	VideoPlayer,
 	usePlayerContext,
 } from '../../src';
-import { VideoContext } from '../../src/context/video';
 import { Karaoke } from '../components/karaoke/Karaoke';
 import { createTimestamps } from '../components/karaoke/utils';
 import { withDemoCard } from '../decorators';
@@ -21,13 +20,12 @@ interface KaraokeModeProps {
 }
 
 export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
-	const { videoContextApi, setVideoContext } = usePlayerContext();
+	const { onMediaStore, mediaStore } = usePlayerContext();
 
-	const [videoDuration, setVideoDuration] = useDelayedState<number>(0);
+	const videoDuration = mediaStore?.duration || 0;
 	const [isPlaying, setIsPlaying] = useDelayedState(false);
 	const [transcript, setTranscript] = useDelayedState<Transcript[]>([]);
-
-	const videoContextRef = React.useRef<VideoContext>();
+	const listener = mediaStore?.getListener();
 	const [currentPart, setCurrentPart] = useDelayedState<Transcript>({
 		index: 0,
 		end: 0,
@@ -35,14 +33,13 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	});
 
 	const getCurrentTimePart = React.useCallback(() => {
-		const videoEl =
-			videoContextRef?.current?.reactPlayerRef?.current?.getInternalPlayer();
+		const videoEl = mediaStore?.reactPlayerRef?.current?.getInternalPlayer();
 		if (!videoEl) {
 			return;
 		}
 
 		return findMatchingPartOrNext(transcript, videoEl.currentTime * 1000 - 1);
-	}, [videoContextRef, transcript]);
+	}, [mediaStore, transcript]);
 
 	const onSeek = React.useCallback(() => {
 		const curPart = getCurrentTimePart();
@@ -51,17 +48,26 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		}
 	}, [getCurrentTimePart, setCurrentPart]);
 
-	useVideoListener('play', () => setIsPlaying(true, 1), videoContextApi);
-	useVideoListener('pause', () => setIsPlaying(false, 1), videoContextApi);
-	useVideoListener('seeked', onSeek, videoContextApi);
+	useVideoListener('play', () => setIsPlaying(true, 1), listener);
+	useVideoListener('pause', () => setIsPlaying(false, 1), listener);
+	useVideoListener('seeked', onSeek, listener);
 	useVideoListener(
 		'timeupdate',
 		(e: TimeUpdateEvent) => {
-			setVideoDuration(e.duration, 1);
+			console.log('=====SEARCH', e.seconds);
+			if (currentPart.start - 0.2 < e.seconds && currentPart.end > e.seconds) {
+				console.log(
+					`=====SEARCH declined AT: currentTime${e.seconds} for [ ${currentPart.start}, ${currentPart.end}]`,
+				);
+				return;
+			}
+			console.log(
+				`=====SEARCH accepted for : currentTime${e.seconds} for [ ${currentPart.start}, ${currentPart.end}]`,
+			);
 			const res = findMatchingPartOrNext(transcript, e.seconds);
 			setCurrentPart(res, 1);
 		},
-		videoContextApi,
+		listener,
 	);
 	// Create random timestamps due to video duration
 	React.useEffect(() => {
@@ -70,11 +76,11 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 
 	return (
 		<div>
-			<VideoPlayer videoUrl={args.videoUrl} onContext={setVideoContext} />
+			<VideoPlayer videoUrl={args.videoUrl} onStoreUpdate={onMediaStore} />
 			<Karaoke
 				isPlaying={isPlaying}
-				requestPip={videoContextRef.current?.api?.requestPip}
-				setCurrentTime={videoContextRef.current?.api?.setCurrentTime}
+				requestPip={mediaStore?.requestPip}
+				setCurrentTime={mediaStore?.setCurrentTime}
 				transcripts={transcript}
 				activeTranscript={currentPart}
 			/>

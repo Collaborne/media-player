@@ -1,4 +1,4 @@
-import { useVideoStore } from '../../context';
+import { useMediaStore } from '../../context';
 
 import { usePlayPauseAnimationStyles } from './usePlayPauseAnimationStyles';
 
@@ -9,8 +9,8 @@ interface UsePlayPauseHook {
 }
 
 export const usePlayPauseHook = (): UsePlayPauseHook => {
-	const isPlaying = useVideoStore(state => state.playing);
-	const hasStarted = useVideoStore(state => state.hasPlayedOrSeeked);
+	const isPlaying = useMediaStore(state => state.playing);
+	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
 
 	const { centeredIcon } = usePlayPauseAnimationStyles().classes;
 

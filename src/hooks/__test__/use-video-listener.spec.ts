@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react';
 import mitt from 'mitt';
 
-import { EmitterListeners, VideoEvents } from '../../types';
+import { EmitterListeners, MediaEvents } from '../../types';
 import { EventEmittersName, useVideoListener } from '../use-video-listener';
 
-const emitter = mitt<VideoEvents>();
+const emitter = mitt<MediaEvents>();
 const eventName: EventEmittersName = 'play';
 const emitApi: EmitterListeners = {
 	addEventListener: emitter.on,

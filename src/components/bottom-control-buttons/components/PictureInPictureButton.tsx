@@ -1,7 +1,7 @@
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
-import { useVideoStore } from '../../../context';
+import { useMediaStore } from '../../../context';
 import { PiPIcon } from '../../icons';
 
 interface PictureInPictureButtonProps extends IconButtonProps {
@@ -14,9 +14,9 @@ export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
-	const pip = useVideoStore(state => state.pip);
-	const exitPip = useVideoStore(state => state.exitPip);
-	const requestPip = useVideoStore(state => state.requestPip);
+	const pip = useMediaStore(state => state.pip);
+	const exitPip = useMediaStore(state => state.exitPip);
+	const requestPip = useMediaStore(state => state.requestPip);
 
 	const togglePip = () => {
 		if (pip) {

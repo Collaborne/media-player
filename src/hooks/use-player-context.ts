@@ -1,28 +1,27 @@
 import { MutableRefObject, useCallback, useRef, useState } from 'react';
 
-import { VideoContext } from '../context';
-import { VideoApi } from '../types';
+import { MediaStore } from '../store/video-store';
 
 interface UsePlayerContext {
-	setVideoContext: (context?: VideoContext) => void;
-	videoContextRef: MutableRefObject<VideoContext | undefined>;
-	videoContextApi?: VideoApi;
+	onMediaStore: (store: MediaStore) => void;
+	mediaContextRef: MutableRefObject<MediaStore | undefined>;
+	mediaStore?: MediaStore;
 }
 
 export const usePlayerContext = (): UsePlayerContext => {
 	// Rerender when video context exists/ready
 	const [, setIsReady] = useState(false);
-	const videoContextRef = useRef<VideoContext>();
-	const setVideoContext = useCallback((context?: VideoContext) => {
-		videoContextRef.current = context;
-		if (context) {
+	const mediaContextRef = useRef<MediaStore>();
+	const onMediaStore = useCallback((store?: MediaStore) => {
+		mediaContextRef.current = store;
+		if (store) {
 			setIsReady(true);
 		}
 	}, []);
-	const videoContextApi = videoContextRef.current?.api;
+	const mediaStore = mediaContextRef.current;
 	return {
-		setVideoContext,
-		videoContextRef,
-		videoContextApi,
+		onMediaStore,
+		mediaContextRef,
+		mediaStore,
 	};
 };
