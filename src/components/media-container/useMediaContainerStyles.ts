@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui';
 
-export const useVideoContainerStyles = makeStyles()(theme => ({
+export const useMediaContainerStyles = makeStyles()(theme => ({
 	wrapper: {
 		position: 'relative',
 		alignItems: 'center',

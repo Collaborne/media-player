@@ -2,16 +2,16 @@ import debug from 'debug';
 import { RefObject, useLayoutEffect } from 'react';
 import ReactPlayer from 'react-player';
 
-import { VideoNativeEvent } from '../types/emitters';
+import { MediaNativeEvent } from '../types/emitters';
 
-const DEBUG_PREFIX = 'video-context';
+const DEBUG_PREFIX = 'media-context';
 const log = debug(DEBUG_PREFIX);
 
-interface UseVideoDebugProps {
+interface UseMediaDebugProps {
 	reactPlayerRef: RefObject<ReactPlayer>;
 }
 const LISTEN_TO_NATIVE_ELEMENT = ['play', 'pause'];
-const LISTEN_TO_EVENTS: VideoNativeEvent[] = [
+const LISTEN_TO_EVENTS: MediaNativeEvent[] = [
 	'abort',
 	'canplay',
 	'canplaythrough',
@@ -30,7 +30,7 @@ const LISTEN_TO_EVENTS: VideoNativeEvent[] = [
 	'waiting',
 ];
 
-export const useVideoDebug = ({ reactPlayerRef }: UseVideoDebugProps) => {
+export const useMediaDebug = ({ reactPlayerRef }: UseMediaDebugProps) => {
 	useLayoutEffect(() => {
 		if (!debug.enabled(DEBUG_PREFIX)) {
 			return;
@@ -38,15 +38,15 @@ export const useVideoDebug = ({ reactPlayerRef }: UseVideoDebugProps) => {
 		const unlisteners: VoidFunction[] = [];
 
 		const initLogging = () => {
-			const videoEl = reactPlayerRef.current?.getInternalPlayer();
-			if (!videoEl) {
+			const mediaEl = reactPlayerRef.current?.getInternalPlayer();
+			if (!mediaEl) {
 				return;
 			}
 
-			// Add logs messages when native `<video>` element events are triggered
+			// Add logs messages when native `<media>` element events are triggered
 			LISTEN_TO_NATIVE_ELEMENT.forEach(key => {
-				const nativeMethod = videoEl[key].bind(videoEl);
-				videoEl[key] = (...args: unknown[]) => {
+				const nativeMethod = mediaEl[key].bind(mediaEl);
+				mediaEl[key] = (...args: unknown[]) => {
 					log(`nativeElement.${key}()`, ...args);
 					return nativeMethod(...args);
 				};
@@ -56,12 +56,12 @@ export const useVideoDebug = ({ reactPlayerRef }: UseVideoDebugProps) => {
 				const onEvent = (event: Event) => {
 					log(`nativeElement.on('${eventName}')`, event);
 				};
-				videoEl.addEventListener(eventName, onEvent);
-				unlisteners.push(() => videoEl.removeEventListener(eventName, onEvent));
+				mediaEl.addEventListener(eventName, onEvent);
+				unlisteners.push(() => mediaEl.removeEventListener(eventName, onEvent));
 			});
 		};
 
-		// Give 100ms for video element to initialize...
+		// Give 100ms for media element to initialize...
 		const timeoutId = setTimeout(initLogging, 100);
 
 		return () => {

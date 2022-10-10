@@ -8,7 +8,7 @@ import {
 	MediaStateExternalInitializers,
 	MediaStateSetters,
 } from '../types';
-import { getVideoEl } from '../utils';
+import { getMediaEl } from '../utils';
 
 export type MediaStore = MediaState &
 	MediaStateSetters &
@@ -59,7 +59,7 @@ export const createSettersSlice: StateCreator<
 > = (set, get) => ({
 	requestFullscreen: () =>
 		set(state => {
-			const mediaEl = getVideoEl(state);
+			const mediaEl = getMediaEl(state);
 			if (!mediaEl) {
 				return state;
 			}
@@ -67,8 +67,8 @@ export const createSettersSlice: StateCreator<
 				state.exitPip();
 			}
 			state.emitter.emit('fullscreenEnter');
-			if (screenfull.isEnabled && state.videoContainerRef.current) {
-				void screenfull.request(state.videoContainerRef.current);
+			if (screenfull.isEnabled && state.mediaContainerRef.current) {
+				void screenfull.request(state.mediaContainerRef.current);
 			}
 			return { isFullscreen: true };
 		}),
@@ -87,7 +87,7 @@ export const createSettersSlice: StateCreator<
 	play: () =>
 		set(state => {
 			state.emitter.emit('play');
-			const mediaEl = getVideoEl(state);
+			const mediaEl = getMediaEl(state);
 			if (mediaEl) {
 				state.playPromiseRef.current = mediaEl.play();
 			}
@@ -109,9 +109,9 @@ export const createSettersSlice: StateCreator<
 	pause: () =>
 		set(state => {
 			state.emitter.emit('pause');
-			const video = getVideoEl(state);
-			if (video && state.playPromiseRef.current) {
-				void state.playPromiseRef.current.then(() => video.pause());
+			const media = getMediaEl(state);
+			if (media && state.playPromiseRef.current) {
+				void state.playPromiseRef.current.then(() => media.pause());
 			}
 			return { playing: false };
 		}),
@@ -186,10 +186,10 @@ export const createSettersSlice: StateCreator<
 	setCurrentTime: (relativeSeconds: number) =>
 		set(state => {
 			relativeSeconds = Math.min(state.duration, Math.max(0, relativeSeconds));
-			const videoEl = getVideoEl(state);
-			if (videoEl) {
-				const diffMs = (relativeSeconds - videoEl.currentTime) * 1000;
-				videoEl.currentTime = state.startTime + relativeSeconds;
+			const mediaEl = getMediaEl(state);
+			if (mediaEl) {
+				const diffMs = (relativeSeconds - mediaEl.currentTime) * 1000;
+				mediaEl.currentTime = state.startTime + relativeSeconds;
 				state.emitter.emit('seeked', { diffMs });
 				state.emitter.emit('timeupdate', {
 					seconds: relativeSeconds,
@@ -206,16 +206,16 @@ export const createSettersSlice: StateCreator<
 	// Private Actions
 	_setReady: () =>
 		set(state => {
-			// In safari, any seeking that happens before a video is ready is canceled as soon
-			// as the video loads.
+			// In safari, any seeking that happens before a media is ready is canceled as soon
+			// as the media loads.
 			// Counteract this by re-seeking to state time on the first ready.
-			const videoEl = getVideoEl(state);
+			const mediaEl = getMediaEl(state);
 			if (
-				videoEl &&
+				mediaEl &&
 				!state.ready &&
-				videoEl.currentTime !== state.currentTime
+				mediaEl.currentTime !== state.currentTime
 			) {
-				videoEl.currentTime = state.currentTime;
+				mediaEl.currentTime = state.currentTime;
 			}
 			return { ready: true };
 		}),

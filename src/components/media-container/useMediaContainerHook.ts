@@ -12,16 +12,16 @@ import useIntersection from 'react-use/lib/useIntersection';
 import useUnmount from 'react-use/lib/useUnmount';
 
 import { useMediaStore } from '../../context';
-import { useVideoListener } from '../../hooks';
+import { useMediaListener } from '../../hooks';
 import { ReactPlayerProps } from '../../types';
 import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
 import { getElementOffset } from '../../utils/html-elements';
 import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';
 
-interface UseVideoContainerHookProps {
-	videoUrl: string;
+interface UseMediaContainerHookProps {
+	url: string;
 }
-interface UseVideoContainerHook {
+interface UseMediaContainerHook {
 	isPlayerReady: boolean;
 	onMouseLeave: () => void;
 	onMouseEnter: () => void;
@@ -32,16 +32,16 @@ interface UseVideoContainerHook {
 /** Defines root margin when scrolling to bottom */
 const BOTTOM_ROOT_MARGIN = '48px';
 
-export const useVideoContainerHook = ({
-	videoUrl,
-}: UseVideoContainerHookProps): UseVideoContainerHook => {
+export const useMediaContainerHook = ({
+	url,
+}: UseMediaContainerHookProps): UseMediaContainerHook => {
 	// UseProvider hooks
 	const readyFiredRef = useRef(false);
 	const hasAutoplayedRef = useRef(false);
 	const [
 		reactPlayerRef,
 		listener,
-		videoContainerRef,
+		mediaContainerRef,
 		initialState,
 		playbackRate,
 		playing,
@@ -64,7 +64,7 @@ export const useVideoContainerHook = ({
 	] = useMediaStore(state => [
 		state.reactPlayerRef,
 		state.getListener(),
-		state.videoContainerRef,
+		state.mediaContainerRef,
 		state.initialState,
 		state.playbackRate,
 		state.playing,
@@ -110,16 +110,16 @@ export const useVideoContainerHook = ({
 		onProgress: ({ playedSeconds }) => onProgress(playedSeconds),
 	};
 
-	// Force a ready event for safari when the video has been loaded
+	// Force a ready event for safari when the media has been loaded
 	useEffect(() => {
 		const browser = Bowser.getParser(window.navigator.userAgent);
 
 		if (!browser.satisfies({ safari: '>1' })) {
 			return;
 		}
-		const videoEl = reactPlayerRef?.current?.getInternalPlayer();
-		if (videoEl) {
-			videoEl.load();
+		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
+		if (mediaEl) {
+			mediaEl.load();
 		}
 	});
 
@@ -135,7 +135,7 @@ export const useVideoContainerHook = ({
 			});
 	}, [onPause, emitter, reactPlayerRef]);
 
-	// Play is a async operation. so when the player is ready to autoplay video,
+	// Play is a async operation. so when the player is ready to autoplay media,
 	// then we must be sure that first of all we solve setCurrentTime and after that the play method.
 	// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play
 	const onReadyToSeek = useCallback(() => {
@@ -156,8 +156,8 @@ export const useVideoContainerHook = ({
 			if (el && el.parentElement) {
 				el.parentElement?.focus();
 			}
-			const videoEl = reactPlayerRef.current?.getInternalPlayer();
-			if (!videoEl) return;
+			const mediaEl = reactPlayerRef.current?.getInternalPlayer();
+			if (!mediaEl) return;
 
 			emitter.on('ready', onReadyToSeek);
 		}
@@ -175,19 +175,19 @@ export const useVideoContainerHook = ({
 	const [showControls, setShowControls] = useState(true);
 	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 	const [lastMouseMove, setLastMouseMove] = useState<number>(0);
-	const [isPlayerReady, setIsPlayerReady] = useState(Boolean(videoUrl));
+	const [isPlayerReady, setIsPlayerReady] = useState(Boolean(url));
 
 	const hasAutoFocusedRef = useRef(false);
 	const containerSizeRef = useRef<ContainerSizePosition>();
 
-	// Checks if video container is in viewport when scrolling bottom
-	const entryTop = useIntersection(videoContainerRef, {
+	// Checks if media container is in viewport when scrolling bottom
+	const entryTop = useIntersection(mediaContainerRef, {
 		rootMargin: BOTTOM_ROOT_MARGIN,
 	});
 	const isVisibleFromScrollingTop = Boolean(entryTop?.isIntersecting);
 
-	// Checks if video container is in viewport when scrolling top
-	const entryBottom = useIntersection(videoContainerRef, {});
+	// Checks if media container is in viewport when scrolling top
+	const entryBottom = useIntersection(mediaContainerRef, {});
 	const isVisibleFromScrollingBottom = Boolean(entryBottom?.isIntersecting);
 
 	const updateShowControls = useCallback(() => {
@@ -213,28 +213,28 @@ export const useVideoContainerHook = ({
 	]);
 
 	useLayoutEffect(() => {
-		if (!videoUrl || hasAutoFocusedRef.current) {
+		if (!url || hasAutoFocusedRef.current) {
 			return;
 		}
-		const videoContainerElement = reactPlayerRef?.current?.wrapper;
-		if (!videoContainerElement) {
+		const mediaContainerElement = reactPlayerRef?.current?.wrapper;
+		if (!mediaContainerElement) {
 			throw new Error(
-				'videoContainerElement can not be null after componentDidMount.',
+				'mediaContainerElement can not be null after componentDidMount.',
 			);
 		}
 		const timeoutId = setTimeout(() => {
-			videoContainerElement.focus();
+			mediaContainerElement.focus();
 			hasAutoFocusedRef.current = true;
 		}, 100);
 		return () => clearTimeout(timeoutId);
-	}, [videoUrl, reactPlayerRef]);
+	}, [url, reactPlayerRef]);
 
 	useUnmount(() => {
-		// Bug: video is stuck browser memory, so even after dismount the OS play/pause controls work
+		// Bug: media is stuck browser memory, so even after dismount the OS play/pause controls work
 		// Clear src attribute so it's removed.
-		const videoEl = videoContainerRef?.current?.querySelector('video');
-		if (videoEl) {
-			videoEl.setAttribute('src', '');
+		const mediaEl = mediaContainerRef?.current?.querySelector('media');
+		if (mediaEl) {
+			mediaEl.setAttribute('src', '');
 		}
 	});
 
@@ -256,41 +256,41 @@ export const useVideoContainerHook = ({
 
 	const onMouseLeave = useCallback(() => setLastMouseLeave(Date.now()), []);
 
-	// Add stop/pause events on clicking to video-player
+	// Add stop/pause events on clicking to media-player
 	useEffect(() => {
-		const videoContainerElement = reactPlayerRef?.current?.wrapper;
-		if (videoContainerElement == null) {
+		const mediaContainerElement = reactPlayerRef?.current?.wrapper;
+		if (mediaContainerElement == null) {
 			return console.error(
-				'videoContainerElement can not be null after componentDidMount.',
+				'mediaContainerElement can not be null after componentDidMount.',
 			);
 		}
-		videoContainerElement.addEventListener('click', togglePlay);
+		mediaContainerElement.addEventListener('click', togglePlay);
 		return () => {
-			videoContainerElement.removeEventListener('click', togglePlay);
+			mediaContainerElement.removeEventListener('click', togglePlay);
 		};
 	}, [reactPlayerRef, togglePlay]);
 
-	// Show video controls when controls are focused
+	// Show media controls when controls are focused
 	useEvent(
 		'focus',
 		() => {
 			markActivity?.();
 			updateShowControls();
 		},
-		videoContainerRef?.current,
+		mediaContainerRef?.current,
 		{ capture: true },
 	);
 
 	const calculateContainerSizes = useCallback(() => {
-		const width = videoContainerRef?.current?.offsetWidth;
-		const height = videoContainerRef?.current?.offsetHeight;
-		const rect = videoContainerRef?.current
-			? getElementOffset(videoContainerRef.current)
+		const width = mediaContainerRef?.current?.offsetWidth;
+		const height = mediaContainerRef?.current?.offsetHeight;
+		const rect = mediaContainerRef?.current
+			? getElementOffset(mediaContainerRef.current)
 			: undefined;
 		if (width && height && rect) {
 			containerSizeRef.current = { width, height, ...rect };
 		}
-		// Calculates only on mounting the VideoContainer and passes this size to <VideoPoster/>
+		// Calculates only on mounting the MediaContainer and passes this size to <MediaPoster/>
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -313,8 +313,8 @@ export const useVideoContainerHook = ({
 		if (hasPipTriggeredByClick) {
 			return;
 		}
-		const videoEl = reactPlayerRef?.current?.getInternalPlayer();
-		if (!playing || !isPlayerReady || !videoEl) {
+		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
+		if (!playing || !isPlayerReady || !mediaEl) {
 			return;
 		}
 		if (!isPip && !isVisibleFromScrollingTop) {
@@ -338,7 +338,7 @@ export const useVideoContainerHook = ({
 	// TODO: Open a issue for ReactPlayer on github
 	// Listening for pip events and updating currentTime for ProgressBar
 	// This is used for covering bugs with ReactPlayer
-	useVideoListener(
+	useMediaListener(
 		'pipEnter',
 		() => {
 			calculateContainerSizes();
@@ -348,13 +348,13 @@ export const useVideoContainerHook = ({
 		},
 		listener,
 	);
-	// Updating video state with show controls
+	// Updating media state with show controls
 	useEffect(() => {
 		setShowControls?.(showControls);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [showControls]);
 
-	useVideoListener(
+	useMediaListener(
 		'pipExit',
 		() => {
 			setTimeout(() => {
@@ -364,7 +364,7 @@ export const useVideoContainerHook = ({
 		listener,
 	);
 
-	// Updating video players bottom control's panel after OVERLAY_HIDE_DELAY time period
+	// Updating media players bottom control's panel after OVERLAY_HIDE_DELAY time period
 	useEffect(() => {
 		if (!playing) {
 			return;
@@ -374,16 +374,16 @@ export const useVideoContainerHook = ({
 	}, [updateShowControls, lastMouseMove, playing]);
 
 	useEffect(() => {
-		// If video is already loaded with one valid url, don't re-load player.
+		// If media is already loaded with one valid url, don't re-load player.
 		if (isPlayerReady) {
 			return;
 		}
-		if (videoUrl) {
+		if (url) {
 			setIsPlayerReady(true);
-		} else if (!videoUrl) {
+		} else if (!url) {
 			setIsPlayerReady(true);
 		}
-	}, [videoUrl, isPlayerReady]);
+	}, [url, isPlayerReady]);
 
 	return {
 		isPlayerReady,

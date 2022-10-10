@@ -6,8 +6,8 @@ import { usePreviousDistinct } from 'react-use';
 import {
 	TimeUpdateEvent,
 	useDelayedState,
-	useVideoListener,
-	VideoPlayer,
+	useMediaListener,
+	MediaPlayer,
 	usePlayerContext,
 } from '../../src';
 import { Timestamp } from '../components/karaoke/Timestamp';
@@ -19,7 +19,7 @@ import { findMatchingPartOrNext, Transcript } from './shared/transcript';
 
 interface KaraokeModeProps {
 	secondsDivider: number;
-	videoUrl: string;
+	url: string;
 }
 
 type TranscriptRef = { ref: HTMLButtonElement | null };
@@ -33,7 +33,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	const { onMediaStore, mediaStore } = usePlayerContext();
 	const ready = mediaStore?.ready;
 	const currentTime = mediaStore?.currentTime;
-	const videoDuration = mediaStore?.duration || 0;
+	const mediaDuration = mediaStore?.duration || 0;
 	const isPlaying = mediaStore?.playing;
 	const transcriptRef = React.useRef<Transcript[]>([]);
 	const listener = mediaStore?.getListener();
@@ -45,14 +45,14 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	});
 
 	const getCurrentTimePart = React.useCallback(() => {
-		const videoEl = mediaStore?.reactPlayerRef?.current?.getInternalPlayer();
-		if (!videoEl) {
+		const mediaEl = mediaStore?.reactPlayerRef?.current?.getInternalPlayer();
+		if (!mediaEl) {
 			return;
 		}
 
 		return findMatchingPartOrNext(
 			transcriptRef.current,
-			videoEl.currentTime * 1000 - 1,
+			mediaEl.currentTime * 1000 - 1,
 		);
 	}, [mediaStore]);
 
@@ -63,9 +63,9 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		}
 	}, [getCurrentTimePart, setCurrentPart]);
 
-	useVideoListener('seeked', onSeek, listener);
+	useMediaListener('seeked', onSeek, listener);
 
-	useVideoListener(
+	useMediaListener(
 		'timeupdate',
 		(e: TimeUpdateEvent) => {
 			console.log('=====SEARCH', e.seconds);
@@ -88,16 +88,16 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		},
 		listener,
 	);
-	// Create random timestamps due to video duration
+	// Create random timestamps due to media duration
 	React.useEffect(() => {
 		transcriptRef.current = createTimestamps(
-			videoDuration,
+			mediaDuration,
 			args.secondsDivider,
 		);
 		if (transcriptRef.current) {
 			setIsTimestampsReady(true, 1000);
 		}
-	}, [videoDuration, args.secondsDivider, ready]);
+	}, [mediaDuration, args.secondsDivider, ready]);
 
 	const timeStampsMemo = React.useMemo(() => {
 		if (ready && isTimestampsReady && transcriptRef.current.length > 0) {
@@ -132,7 +132,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	}, [currentPart, timeStampsMemo]);
 	return (
 		<div>
-			<VideoPlayer videoUrl={args.videoUrl} onStoreUpdate={onMediaStore} />
+			<MediaPlayer url={args.url} onStoreUpdate={onMediaStore} />
 			<div>{timeStampsMemo}</div>
 			{createActiveSpan()}
 		</div>
@@ -144,14 +144,13 @@ export default {
 	component: KaraokeMode,
 	decorators: [withDemoCard, withPlayerTheme],
 	args: {
-		videoUrl:
-			'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+		url: 'http://commondatastorage.googleapis.com/gtv-medias-bucket/sample/ElephantsDream.mp4',
 		secondsDivider: 2,
 	},
 	argTypes: {
-		videoUrl: {
-			name: 'videoUrl',
-			description: 'A video URL. Only file type supported',
+		url: {
+			name: 'url',
+			description: 'A media URL. Only file type supported',
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: undefined },

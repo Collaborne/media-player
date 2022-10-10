@@ -24,7 +24,7 @@ export const ProgressBar: FC<ProgressBarProps> = props => {
 		if (Array.isArray(newValue)) {
 			return;
 		}
-		// Get new time according to played time from the total video duration
+		// Get new time according to played time from the total media duration
 		const seekTime = (newValue / PROGRESS_BAR_DIVIDER) * duration;
 		setCurrentTime?.(seekTime);
 	};

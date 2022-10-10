@@ -15,10 +15,10 @@ const WrappedStyled = styled(Paper)(({ theme }) => ({
 	position: 'relative',
 }));
 /**
- * Adds video wrapper for styles simulation
+ * Adds media wrapper for styles simulation
  * added borderColor and radiuses style={{ display: 'flex', height: '380px', width: '640px' }}
  */
-export const withVideoWrapper = (
+export const withMediaWrapper = (
 	Story: FC<StoryContext>,
 	context: StoryContext,
 ) => {

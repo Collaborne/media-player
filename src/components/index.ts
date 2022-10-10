@@ -1,4 +1,4 @@
-export * from './video-player/VideoPlayer';
+export * from './media-player/MediaPlayer';
 export * from './animated-icon-wrapper/AnimatedIconWrapper';
 export * from './big-centered-button/BigCenteredButton';
 export * from './bottom-control-buttons/BottomControlButtons';
@@ -17,6 +17,6 @@ export * from './pip-controls/PipControls';
 export * from './play-pause-animation/PauseAnimation';
 export * from './play-pause-animation/PlayAnimation';
 export * from './progress-bar/ProgressBar';
-export * from './video-container/VideoContainer';
-export * from './video-player/VideoPlayer';
-export * from './video-poster/VideoPoster';
+export * from './media-container/MediaContainer';
+export * from './media-player/MediaPlayer';
+export * from './media-poster/MediaPoster';

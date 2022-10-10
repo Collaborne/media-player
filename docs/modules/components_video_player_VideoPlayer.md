@@ -1,22 +1,22 @@
-[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / components/video-player/VideoPlayer
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / components/video-player/MediaPlayer
 
-# Module: components/video-player/VideoPlayer
+# Module: components/video-player/MediaPlayer
 
 ## Table of contents
 
 ### Interfaces
 
-- [VideoPlayerProps](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md)
+- [MediaPlayerProps](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md)
 
 ### Functions
 
-- [VideoPlayer](/docs/modules/components_video_player_VideoPlayer.md#videoplayer)
+- [MediaPlayer](/docs/modules/components_video_player_VideoPlayer.md#videoplayer)
 
 ## Functions
 
-### VideoPlayer
+### MediaPlayer
 
-▸ **VideoPlayer**(`props`, `context?`): ``null`` \| `ReactElement`<`any`, `any`\>
+▸ **MediaPlayer**(`props`, `context?`): ``null`` \| `ReactElement`<`any`, `any`\>
 
 A "video-player" from the box. A result of VideoProvider and VideoContainer
 
@@ -24,7 +24,7 @@ A "video-player" from the box. A result of VideoProvider and VideoContainer
 
 | Name | Type |
 | :------ | :------ |
-| `props` | [`VideoPlayerProps`](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md) |
+| `props` | [`MediaPlayerProps`](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md) |
 | `context?` | `any` |
 
 #### Returns

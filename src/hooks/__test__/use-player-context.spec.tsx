@@ -1,25 +1,25 @@
 import { render } from '@testing-library/react';
 import { MutableRefObject, useEffect } from 'react';
 
-import { VideoContext } from '../../context/video';
-import { VideoApi } from '../../types';
+import { MediaContext } from '../../context/media';
+import { MediaApi } from '../../types';
 import { usePlayerContext } from '../use-player-context';
 
-function setup(context: VideoContext) {
+function setup(context: MediaContext) {
 	const returnVal: {
-		videoContextRef: MutableRefObject<VideoContext | undefined> | undefined;
-		videoContextApi: VideoApi | undefined;
+		mediaContextRef: MutableRefObject<MediaContext | undefined> | undefined;
+		mediaContextApi: MediaApi | undefined;
 	} = {
-		videoContextRef: undefined,
-		videoContextApi: undefined,
+		mediaContextRef: undefined,
+		mediaContextApi: undefined,
 	};
 	function TestComponent() {
-		const { setVideoContext, videoContextRef, videoContextApi } =
+		const { setMediaContext, mediaContextRef, mediaContextApi } =
 			usePlayerContext();
 		useEffect(() => {
-			setVideoContext(context);
-		}, [setVideoContext]);
-		Object.assign(returnVal, { videoContextApi, videoContextRef });
+			setMediaContext(context);
+		}, [setMediaContext]);
+		Object.assign(returnVal, { mediaContextApi, mediaContextRef });
 		return null;
 	}
 	render(<TestComponent />);
@@ -29,12 +29,12 @@ function setup(context: VideoContext) {
 describe('usePlayerContext', () => {
 	it('getCurrentTime from player context', () => {
 		const getCurrentTime = jest.fn();
-		const videoContext = {
-			api: { getCurrentTime } as VideoApi,
-		} as VideoContext;
-		const { videoContextApi, videoContextRef } = setup(videoContext);
-		videoContextRef?.current?.api?.getCurrentTime?.();
+		const mediaContext = {
+			api: { getCurrentTime } as MediaApi,
+		} as MediaContext;
+		const { mediaContextApi, mediaContextRef } = setup(mediaContext);
+		mediaContextRef?.current?.api?.getCurrentTime?.();
 		expect(getCurrentTime).toHaveBeenCalledTimes(1);
-		expect(videoContextApi).toEqual(videoContext.api);
+		expect(mediaContextApi).toEqual(mediaContext.api);
 	});
 });

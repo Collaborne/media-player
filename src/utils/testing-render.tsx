@@ -3,8 +3,8 @@ import { render as renderRTL, RenderOptions } from '@testing-library/react';
 import { FC, ReactNode, useRef } from 'react';
 
 import { PROVIDER_INITIAL_STATE } from '../components/core-player/types';
-import { VideoContext } from '../context/video';
-import { VideoProvider } from '../context/VideoProvider';
+import { MediaContext } from '../context/media';
+import { MediaProvider } from '../context/MediaProvider';
 import { createPlayerTheme } from '../theme';
 
 import { blend } from './colors';
@@ -19,26 +19,26 @@ export const renderWithProviders = (
 	options?: RenderOptions,
 ) =>
 	renderRTL(
-		<VideoProvider
+		<MediaProvider
 			initialState={PROVIDER_INITIAL_STATE}
 			getHighlightColorBlended={blend}
 		>
 			<ThemeProvider theme={playerTheme}>{Component}</ThemeProvider>
-		</VideoProvider>,
+		</MediaProvider>,
 		options,
 	);
 
-interface TestingVideoProviderProps
-	extends Omit<VideoContext, 'videoContainerRef'> {
+interface TestingMediaProviderProps
+	extends Omit<MediaContext, 'mediaContainerRef'> {
 	children?: ReactNode;
 }
-export const TestingVideoProvider: FC<TestingVideoProviderProps> = ({
+export const TestingMediaProvider: FC<TestingMediaProviderProps> = ({
 	children,
 	...props
 }) => {
-	const videoContainerRef = useRef<HTMLDivElement>(null);
-	const value = { ...props, videoContainerRef };
+	const mediaContainerRef = useRef<HTMLDivElement>(null);
+	const value = { ...props, mediaContainerRef };
 	return (
-		<VideoContext.Provider value={value}>{children}</VideoContext.Provider>
+		<MediaContext.Provider value={value}>{children}</MediaContext.Provider>
 	);
 };

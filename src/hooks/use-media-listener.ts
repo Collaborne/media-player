@@ -7,8 +7,8 @@ export type Handler<T extends EventEmittersName> = (
 	eventArgs: MediaEvents[T],
 ) => void;
 
-/** Video Listener hook that subscribes and unsubscribes from `VideoApi`'s `EventEmitters` */
-export const useVideoListener = <T extends EventEmittersName>(
+/** Media Listener hook that subscribes and unsubscribes from `MediaApi`'s `EventEmitters` */
+export const useMediaListener = <T extends EventEmittersName>(
 	eventName: T,
 	handler: Handler<T>,
 	target?: EmitterListeners,
@@ -19,8 +19,8 @@ export const useVideoListener = <T extends EventEmittersName>(
 		savedHandler.current = handler;
 	}, [handler]);
 	useEffect(() => {
-		const hasVideoApi = target && target.addEventListener;
-		if (!hasVideoApi) {
+		const hasMediaApi = target && target.addEventListener;
+		if (!hasMediaApi) {
 			return;
 		}
 

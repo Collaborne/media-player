@@ -1,4 +1,4 @@
-import { TimeUpdateEvent, VideoContext } from '../../../src';
+import { TimeUpdateEvent, MediaContext } from '../../../src';
 import { Decoration } from '@remirror/pm/view';
 import { MutableRefObject, RefObject, useCallback } from 'react';
 import { makeStyles } from 'tss-react/mui';
@@ -6,7 +6,7 @@ import { makeStyles } from 'tss-react/mui';
 import { TimestampsByUrlRef } from '../components/SetTimestamps';
 
 import { useTranscript } from './useTranscript';
-import { useVideoContexts } from './useVideoContexts';
+import { useMediaContexts } from './useMediaContexts';
 
 export interface UseKaraokeParams {
 	editorRef: RefObject<EditorRef>;
@@ -14,7 +14,7 @@ export interface UseKaraokeParams {
 }
 
 export interface UseKaraokeResponse {
-	setVideoContext: (context: VideoContext, url?: string) => void;
+	setMediaContext: (context: MediaContext, url?: string) => void;
 	getTimestampsStyle: () => Decoration[];
 	handleTranscriptMarkClick: (time: Timestamp) => void;
 }
@@ -50,8 +50,8 @@ export function useKaraoke({
 		[editorRef, setActiveTimestamp],
 	);
 
-	const { setVideoContext, setVideoTime } =
-		useVideoContexts(getTimeUpdateHandler);
+	const { setMediaContext, setMediaTime } =
+		useMediaContexts(getTimeUpdateHandler);
 
 	const getTimestampsStyle = useCallback(() => {
 		const activeTimestamps = getActiveTimestamps();
@@ -62,8 +62,8 @@ export function useKaraoke({
 	}, [classes.active, getActiveTimestamps]);
 
 	return {
-		setVideoContext,
+		setMediaContext,
 		getTimestampsStyle,
-		handleTranscriptMarkClick: setVideoTime,
+		handleTranscriptMarkClick: setMediaTime,
 	};
 }

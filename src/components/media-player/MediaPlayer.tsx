@@ -23,18 +23,18 @@ import { PauseAnimation } from '../play-pause-animation/PauseAnimation';
 import { PlayAnimation } from '../play-pause-animation/PlayAnimation';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 
-import { useVideoPlayerStyles } from './useVideoPlayerStyles';
+import { useMediaPlayerStyles } from './useMediaPlayerStyles';
 
-export interface VideoPlayerProps extends Omit<CorePlayerProps, 'children'> {
+export interface MediaPlayerProps extends Omit<CorePlayerProps, 'children'> {
 	children?: ReactNode;
 }
 
-/** A "video-player" from the box. A result of VideoProvider and VideoContainer */
-export const VideoPlayer: FC<VideoPlayerProps> = ({
+/** A "media-player" from the box. A result of MediaProvider and MediaContainer */
+export const MediaPlayer: FC<MediaPlayerProps> = ({
 	children,
 	...corePlayerProps
 }) => {
-	const { gridCentered } = useVideoPlayerStyles().classes;
+	const { gridCentered } = useMediaPlayerStyles().classes;
 	return (
 		<CorePlayer {...corePlayerProps}>
 			<Controls>

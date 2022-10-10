@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
-import { VideoContext } from '../../../context';
+import { MediaContext } from '../../../context';
 import {
 	render,
 	renderWithProviders,
-	TestingVideoProvider,
+	TestingMediaProvider,
 	userEvent,
 } from '../../../utils/testing-render';
 import {
@@ -33,7 +33,7 @@ const BottomControlButtons = () => {
 };
 
 describe('<BottomControlButtons />', () => {
-	const api: VideoContext['api'] = {
+	const api: MediaContext['api'] = {
 		play: jest.fn(),
 		pause: jest.fn(),
 		mute: jest.fn(),
@@ -46,7 +46,7 @@ describe('<BottomControlButtons />', () => {
 		expect(getByTestId('icon-play')).toBeInTheDocument();
 	});
 
-	it('displays pause button while the video plays', async () => {
+	it('displays pause button while the media plays', async () => {
 		const { getByTestId } = renderWithProviders(<BottomControlButtons />);
 		await userEvent.click(getByTestId('icon-play'));
 		expect(getByTestId('icon-pause')).toBeInTheDocument();
@@ -54,9 +54,9 @@ describe('<BottomControlButtons />', () => {
 
 	it('click on play icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingMediaProvider api={api}>
 				<BottomControlButtons />
-			</TestingVideoProvider>,
+			</TestingMediaProvider>,
 		);
 		const playButton = getByTestId('icon-play');
 		await userEvent.click(playButton);
@@ -65,9 +65,9 @@ describe('<BottomControlButtons />', () => {
 
 	it('click on mute icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingMediaProvider api={api}>
 				<BottomControlButtons />
-			</TestingVideoProvider>,
+			</TestingMediaProvider>,
 		);
 		const volumeButton = getByTestId('icon-volume');
 		await userEvent.click(volumeButton);
@@ -76,9 +76,9 @@ describe('<BottomControlButtons />', () => {
 
 	it('click on fwd icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingMediaProvider api={api}>
 				<BottomControlButtons />
-			</TestingVideoProvider>,
+			</TestingMediaProvider>,
 		);
 
 		const fwdButton = getByTestId('icon-fwd');
@@ -88,9 +88,9 @@ describe('<BottomControlButtons />', () => {
 
 	it('click on rwd icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingMediaProvider api={api}>
 				<BottomControlButtons />
-			</TestingVideoProvider>,
+			</TestingMediaProvider>,
 		);
 		const rwdButton = getByTestId('icon-rwd');
 		await userEvent.click(rwdButton);
@@ -99,9 +99,9 @@ describe('<BottomControlButtons />', () => {
 
 	it('click on playbackRate icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingMediaProvider api={api}>
 				<BottomControlButtons />
-			</TestingVideoProvider>,
+			</TestingMediaProvider>,
 		);
 		const rateBtn = getByTestId('icon-playback-rate');
 		await userEvent.click(rateBtn);
@@ -110,14 +110,14 @@ describe('<BottomControlButtons />', () => {
 
 	it('click on pip icon', async () => {
 		const { getByTestId } = render(
-			<TestingVideoProvider api={api}>
+			<TestingMediaProvider api={api}>
 				<BottomControlButtons />
-			</TestingVideoProvider>,
+			</TestingMediaProvider>,
 		);
 		const pip = getByTestId('icon-pip');
 		await userEvent.click(pip);
 		// NOTE: we should test `api.setPictureInPicture` - setter for PIP mode, but it wont be called
-		// because first we check if it runs in PIP mode(api.getPictureInPicture), after that we change "video-state" + calling `api.setPictureInPicture`
+		// because first we check if it runs in PIP mode(api.getPictureInPicture), after that we change "media-state" + calling `api.setPictureInPicture`
 		expect(api.getPictureInPicture).toHaveBeenCalledTimes(1);
 	});
 });

@@ -1,13 +1,13 @@
 import React from 'react';
 import { uuid } from 'uuidv4';
 
-import { Highlight, VideoPlayer, usePlayerContext } from '../../src';
+import { Highlight, MediaPlayer, usePlayerContext } from '../../src';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
 import { highlightColors, pickRandomItem } from '../utils/highlights';
 
-export const VideoHighlights = () => {
+export const MediaHighlights = () => {
 	const { mediaStore, onMediaStore } = usePlayerContext();
 	const [highlights, setHighlights] = React.useState<Highlight[]>([]);
 	const duration = mediaStore?.duration;
@@ -33,10 +33,10 @@ export const VideoHighlights = () => {
 	console.log('=>rerender');
 	return (
 		<>
-			<VideoPlayer
+			<MediaPlayer
 				onStoreUpdate={onMediaStore}
 				highlights={highlights}
-				videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
+				url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 			/>
 			<RandomHighlight
 				addHighlightToStart={addHighlightToStart}
@@ -47,7 +47,7 @@ export const VideoHighlights = () => {
 };
 
 export default {
-	title: 'Video Player Controls',
-	component: VideoHighlights,
+	title: 'Media Player Controls',
+	component: MediaHighlights,
 	decorators: [withDemoCard, withPlayerTheme],
 };

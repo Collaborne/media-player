@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useMediaStore } from '../../../context/VideoProvider';
+import { useMediaStore } from '../../../context/MediaProvider';
 import { VOLUME_MULTIPLIER } from '../../../utils/constants';
 
 import { VolumeBarStyled } from './VolumeBarStyled';

@@ -1,5 +1,5 @@
 /**
- * Context Provider for playing videos
+ * Context Provider for playing medias
  */
 
 import { ReactNode, FC, useRef } from 'react';
@@ -11,32 +11,32 @@ import { CorePlayerInitialState } from '../components/core-player/types';
 import {
 	createMediaStore,
 	PropsToState,
-	VideoSettersSlice,
+	MediaSettersSlice,
 	MediaStore,
-} from '../store/video-store';
+} from '../store/media-store';
 import { MediaState, Highlight } from '../types';
 import { BlendColors } from '../utils/colors';
 
 import { HighlightsProvider } from './HighlightsProvider';
 
 const { Provider, useStore } =
-	createContext<StoreApi<MediaState & VideoSettersSlice & PropsToState>>();
-export interface VideoProviderProps {
+	createContext<StoreApi<MediaState & MediaSettersSlice & PropsToState>>();
+export interface MediaProviderProps {
 	/** Provider's initialization state */
 	initialState: CorePlayerInitialState;
 	/** State that needs to be stored in localStorage */
 	persistedState?: MediaState;
 	/** Blending colors for highlights presented in `<ProgressBar>` */
 	getHighlightColorBlended: BlendColors;
-	/** A callback that can updates VideoContext outside of the VideoProvider */
+	/** A callback that can updates MediaContext outside of the MediaProvider */
 	onStoreUpdate?: (store: MediaStore) => void;
 	highlights?: Highlight[];
 	/** ReactNode that will consume the context */
 	children: ReactNode;
 }
 
-/** A provider that should wrap VideoContainer for context consuming */
-export const VideoProvider: FC<VideoProviderProps> = ({
+/** A provider that should wrap MediaContainer for context consuming */
+export const MediaProvider: FC<MediaProviderProps> = ({
 	initialState,
 	children,
 	getHighlightColorBlended,
@@ -45,7 +45,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 }) => {
 	const reactPlayerRef = useRef<ReactPlayer>(null);
 	const playPromiseRef = useRef<Promise<void>>();
-	const videoContainerRef = useRef<HTMLDivElement>(null);
+	const mediaContainerRef = useRef<HTMLDivElement>(null);
 	return (
 		<HighlightsProvider highlights={highlights}>
 			<Provider
@@ -55,7 +55,7 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 						getHighlightColorBlended,
 						playPromiseRef,
 						reactPlayerRef,
-						videoContainerRef,
+						mediaContainerRef,
 						onStoreUpdate,
 					})
 				}
@@ -67,4 +67,4 @@ export const VideoProvider: FC<VideoProviderProps> = ({
 };
 
 export const useMediaStore = useStore;
-VideoProvider.displayName = 'VideoProvider';
+MediaProvider.displayName = 'MediaProvider';

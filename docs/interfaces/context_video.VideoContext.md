@@ -162,7 +162,7 @@ ___
 
 • `Optional` **state**: [`VideoState`](/docs/interfaces/types_video_state.VideoState.md)
 
-Video state
+Media state
 
 #### Defined in
 

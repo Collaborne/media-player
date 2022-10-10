@@ -1,6 +1,6 @@
 import { MutableRefObject, useCallback, useRef, useState } from 'react';
 
-import { MediaStore } from '../store/video-store';
+import { MediaStore } from '../store/media-store';
 
 interface UsePlayerContext {
 	onMediaStore: (store: MediaStore) => void;
@@ -9,7 +9,7 @@ interface UsePlayerContext {
 }
 
 export const usePlayerContext = (): UsePlayerContext => {
-	// Rerender when video context exists/ready
+	// Rerender when media context exists/ready
 	const [, setIsReady] = useState(false);
 	const mediaContextRef = useRef<MediaStore>();
 	const onMediaStore = useCallback((store?: MediaStore) => {

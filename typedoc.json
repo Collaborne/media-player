@@ -5,15 +5,15 @@
 	"excludeExternals": true,
 	"out": "docs/",
 	"entryPoints": [
-		"./src/components/video-player/*.tsx",
-		"./src/context/video.tsx",
-		"./src/hooks/use-video.ts",
+		"./src/components/media-player/*.tsx",
+		"./src/context/media.tsx",
+		"./src/hooks/use-media.ts",
 		"./src/types/actions.ts",
 		"./src/types/controls.ts",
 		"./src/types/getters.ts",
-		"./src/types/video-state.ts"
+		"./src/types/media-state.ts"
 	],
-	"name": "@collaborne/video-player",
+	"name": "@collaborne/media-player",
 	"includeVersion": true,
 	"publicPath": "/docs/",
 	"hideGenerator": true

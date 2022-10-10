@@ -7,7 +7,7 @@ const storybookDotenv = require('dotenv').config({
 const EslintWebpackPlugin = require('eslint-webpack-plugin');
 
 // An object that contains env.storybook environment variables.
-// PS: Now is used for debugging video-player only in storybooks environment
+// PS: Now is used for debugging media-player only in storybooks environment
 const processEnvStorybook = Object.keys(storybookDotenv.parsed).reduce(
 	(c, key) => {
 		c[`process.env.${key}`] = JSON.stringify(process.env[key]);

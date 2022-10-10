@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import mitt from 'mitt';
 
 import { EmitterListeners, MediaEvents } from '../../types';
-import { EventEmittersName, useVideoListener } from '../use-video-listener';
+import { EventEmittersName, useMediaListener } from '../use-media-listener';
 
 const emitter = mitt<MediaEvents>();
 const eventName: EventEmittersName = 'play';
@@ -13,11 +13,11 @@ const emitApi: EmitterListeners = {
 const addEventListenerSpy = jest.spyOn(emitApi, 'addEventListener');
 const removeEventListenerSpy = jest.spyOn(emitApi, 'removeEventListener');
 
-describe('useVideoListener', () => {
+describe('useMediaListener', () => {
 	it(`mount/unmount on "${eventName}" event`, async () => {
 		const handler = jest.fn();
 		const { unmount } = renderHook(() =>
-			useVideoListener(eventName, handler, emitApi),
+			useMediaListener(eventName, handler, emitApi),
 		);
 		expect(addEventListenerSpy).toHaveBeenCalledTimes(1);
 		expect(addEventListenerSpy).toHaveBeenCalledWith(

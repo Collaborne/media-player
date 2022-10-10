@@ -26,7 +26,7 @@ VideoContainer Props
 - [onPlay](/docs/interfaces/components_video_player_VideoContainer.VideoContainerProps.md#onplay)
 - [removeAsCover](/docs/interfaces/components_video_player_VideoContainer.VideoContainerProps.md#removeascover)
 - [setAsCover](/docs/interfaces/components_video_player_VideoContainer.VideoContainerProps.md#setascover)
-- [videoUrl](/docs/interfaces/components_video_player_VideoContainer.VideoContainerProps.md#videourl)
+- [url](/docs/interfaces/components_video_player_VideoContainer.VideoContainerProps.md#videourl)
 
 ## Properties
 
@@ -176,9 +176,9 @@ Omit.setAsCover
 
 ___
 
-### videoUrl
+### url
 
-• **videoUrl**: `string`
+• **url**: `string`
 
 The url of the video file to be played
 

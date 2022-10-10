@@ -15,11 +15,11 @@ import {
 } from '../../src/components/bottom-control-buttons/components';
 import { BottomControls } from '../../src/components/bottom-controls/BottomControls';
 import { Controls } from '../../src/components/controls/Controls';
-import { useVideoPlayerStyles } from '../../src/components/video-player/useVideoPlayerStyles';
+import { useMediaPlayerStyles } from '../../src/components/media-player/useMediaPlayerStyles';
 import { withCorePlayer, withDemoCard } from '../decorators';
 
 export const BottomControlButtons: React.FC = () => {
-	const { gridCentered } = useVideoPlayerStyles().classes;
+	const { gridCentered } = useMediaPlayerStyles().classes;
 
 	return (
 		<Controls>
@@ -49,7 +49,7 @@ export const BottomControlButtons: React.FC = () => {
 };
 
 export default {
-	title: 'Video Player Controls',
+	title: 'Media Player Controls',
 	component: BottomControlButtons,
 	decorators: [withCorePlayer, withDemoCard],
 	parameters: {

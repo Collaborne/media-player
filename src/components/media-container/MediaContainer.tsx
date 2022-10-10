@@ -3,35 +3,35 @@ import { FC, ReactNode } from 'react';
 import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
 
-import { useMediaStore } from '../../context/VideoProvider';
+import { useMediaStore } from '../../context/MediaProvider';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
-import { VideoPoster } from '../video-poster/VideoPoster';
+import { MediaPoster } from '../media-poster/MediaPoster';
 
-import { useVideoContainerHook } from './useVideoContainerHook';
-import { useVideoContainerStyles } from './useVideoContainerStyles';
+import { useMediaContainerHook } from './useMediaContainerHook';
+import { useMediaContainerStyles } from './useMediaContainerStyles';
 
-/** VideoContainer Props */
-export interface VideoContainerProps {
-	/** The url of the video file to be played */
-	videoUrl: string;
+/** MediaContainer Props */
+export interface MediaContainerProps {
+	/** The url of the media file to be played */
+	url: string;
 	/** CSS class name applied to component  */
 	className?: string;
 	children?: ReactNode;
 }
 
-/** A React Component that consumes VideoContext's API and adds UI for the player and video controls  */
-export const VideoContainer: FC<VideoContainerProps> = ({
+/** A React Component that consumes MediaContext's API and adds UI for the player and media controls  */
+export const MediaContainer: FC<MediaContainerProps> = ({
 	className,
-	videoUrl,
+	url,
 	children,
 }) => {
-	const [videoContainerRef, isPip, isFullscreen] = useMediaStore(state => [
-		state.videoContainerRef,
+	const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(state => [
+		state.mediaContainerRef,
 		state.pip,
 		state.isFullscreen,
 	]);
-	const { wrapper, pipText, reactPlayer } = useVideoContainerStyles().classes;
+	const { wrapper, pipText, reactPlayer } = useMediaContainerStyles().classes;
 
 	const {
 		containerSizeRef,
@@ -39,30 +39,30 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 		onMouseLeave,
 		onMouseEnter,
 		reactPlayerProps,
-	} = useVideoContainerHook({ videoUrl });
+	} = useMediaContainerHook({ url });
 
-	// TODO: Add a UI/UX decision when player is not ready or missing a videoUrl
-	if (!videoUrl || !isPlayerReady) {
+	// TODO: Add a UI/UX decision when player is not ready or missing a url
+	if (!url || !isPlayerReady) {
 		return null;
 	}
 
 	return (
 		<div
-			ref={videoContainerRef}
+			ref={mediaContainerRef}
 			className={clsx(wrapper, className)}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 		>
-			{Boolean(videoUrl) && (
+			{Boolean(url) && (
 				<>
 					<DraggablePopover disablePortal={!isPip}>
 						<ReactPlayer
-							url={videoUrl}
+							url={url}
 							progressInterval={PROGRESS_INTERVAL}
 							width="100%"
 							height={isFullscreen ? '100%' : 'unset'}
 							className={reactPlayer}
-							data-testid="video-player"
+							data-testid="media-player"
 							config={{
 								file: {
 									attributes: {
@@ -75,12 +75,12 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 						/>
 					</DraggablePopover>
 					{isPip && (
-						<VideoPoster
+						<MediaPoster
 							width={containerSizeRef?.current?.width || 0}
 							height={containerSizeRef?.current?.height || 0}
 						>
-							<div className={pipText}>{intl.get('video.playing_pip')}</div>
-						</VideoPoster>
+							<div className={pipText}>{intl.get('media.playing_pip')}</div>
+						</MediaPoster>
 					)}
 					{children}
 				</>
@@ -89,4 +89,4 @@ export const VideoContainer: FC<VideoContainerProps> = ({
 	);
 };
 
-VideoContainer.displayName = 'VideoContainer';
+MediaContainer.displayName = 'MediaContainer';

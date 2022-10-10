@@ -2,7 +2,7 @@ import { Replay10Outlined } from '@mui/icons-material';
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
-import { useMediaStore } from '../../../context/VideoProvider';
+import { useMediaStore } from '../../../context/MediaProvider';
 import { SECONDS_TO_SKIP } from '../../../utils/constants';
 
 interface RwdButtonProps extends IconButtonProps {

@@ -53,7 +53,7 @@ export const useDraggablePopoverHook = ({
 		setShowControls(true);
 	};
 
-	// Updating video state with show controls
+	// Updating media state with show controls
 	useEffect(() => {
 		if (isPaused && isPip) {
 			setShowControls(true);

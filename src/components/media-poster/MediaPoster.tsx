@@ -1,12 +1,12 @@
 import { styled } from '@mui/material/styles';
 
-interface VideoPosterProps {
+interface MediaPosterProps {
 	img?: string;
 	width?: number;
 	height?: number;
 }
 
-export const VideoPoster = styled('div')<VideoPosterProps>(
+export const MediaPoster = styled('div')<MediaPosterProps>(
 	({ theme }) =>
 		({ img, width, height }) => ({
 			backgroundImage: img ?? 'none',

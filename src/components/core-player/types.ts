@@ -2,13 +2,13 @@ import { Highlight } from '../../types';
 
 /** Provider's initialization state */
 export interface CorePlayerInitialState {
-	/** If the video start playing from start */
+	/** If the media start playing from start */
 	playing: boolean;
-	/** Time (in ms) that video will start to play */
+	/** Time (in ms) that media will start to play */
 	startTime: number;
-	/** Time (in ms) that video should pause */
+	/** Time (in ms) that media should pause */
 	endTime: number;
-	/** Video duration */
+	/** Media duration */
 	duration: number;
 	/** Current played time */
 	currentTime: number;

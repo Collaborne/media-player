@@ -1,4 +1,4 @@
-import { MediaStore } from '../store/video-store';
+import { MediaStore } from '../store/media-store';
 
 /**
  * HTMLMediaElement typeguard
@@ -9,7 +9,7 @@ export const isHTMLMediaElement = (e: unknown): e is HTMLMediaElement =>
 /**
  * Gets the HTMLMediaElement from a MediaState
  */
-export const getVideoEl = (state: MediaStore): HTMLMediaElement | undefined => {
+export const getMediaEl = (state: MediaStore): HTMLMediaElement | undefined => {
 	const internalPlayer = state?.reactPlayerRef?.current?.getInternalPlayer();
 
 	if (isHTMLMediaElement(internalPlayer)) {

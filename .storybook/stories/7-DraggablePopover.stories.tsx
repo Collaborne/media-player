@@ -15,7 +15,7 @@ export const DraggablePopover: Story<Partial<DraggablePopoverProps>> = args => {
 };
 
 export default {
-	title: 'Video Player Controls',
+	title: 'Media Player Controls',
 	component: DraggablePopover,
 	decorators: [withCorePlayer, withDemoCard],
 	args: {

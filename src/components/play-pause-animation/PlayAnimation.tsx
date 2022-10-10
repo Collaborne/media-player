@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import { useMediaStore } from '../../context';
-import { useVideoListener } from '../../hooks';
+import { useMediaListener } from '../../hooks';
 import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
 import { BigPlayIcon } from '../icons';
@@ -22,7 +22,7 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 
 	// Play animation on `play` event
 	// and filtering out the first "play"
-	useVideoListener(
+	useMediaListener(
 		'play',
 		() => {
 			if (!hasStarted) {

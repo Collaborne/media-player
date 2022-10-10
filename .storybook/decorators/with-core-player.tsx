@@ -5,7 +5,7 @@ import { CorePlayer } from '../../src/components/core-player/CorePlayer';
 import { PROVIDER_INITIAL_STATE } from '../../src/components/core-player/types';
 
 // TODO: When all dump components will be added to storybook,
-// merge provider into with-video-wrapper decorator
+// merge provider into with-media-wrapper decorator
 
 export const withCorePlayer = (
 	Story: React.FC<StoryContext>,
@@ -13,7 +13,7 @@ export const withCorePlayer = (
 ) => {
 	return (
 		<CorePlayer
-			videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+			url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
 			initialState={{ ...PROVIDER_INITIAL_STATE }}
 		>
 			<Story {...context} />

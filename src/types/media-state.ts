@@ -8,7 +8,7 @@ export interface Segment {
 	end: number;
 }
 
-/** An interval of timestamps in seconds, that will be "highlighted" in the scrub bar. Useful when you want to split video duration into small segments/chunks */
+/** An interval of timestamps in seconds, that will be "highlighted" in the scrub bar. Useful when you want to split media duration into small segments/chunks */
 export interface Highlight extends Segment {
 	/** Id of the highlight */
 	id: string;
@@ -17,7 +17,7 @@ export interface Highlight extends Segment {
 }
 
 /**
- * State for video. Keeping info about current video player behavior
+ * State for media. Keeping info about current media player behavior
  */
 
 export interface MediaState {
@@ -37,6 +37,6 @@ export interface MediaState {
 	showPipControls: boolean;
 	/** Did pip mode was triggered by click event */
 	hasPipTriggeredByClick: boolean;
-	/** Storing wrapper ref of the videoPlayer */
+	/** Storing wrapper ref of the mediaPlayer */
 	isFullscreen: boolean;
 }

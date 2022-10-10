@@ -2,4 +2,4 @@ export * from './components';
 export * from './context';
 export * from './hooks';
 export * from './types';
-export * from './store/video-store';
+export * from './store/media-store';

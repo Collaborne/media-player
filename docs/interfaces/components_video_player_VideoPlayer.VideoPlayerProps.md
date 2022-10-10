@@ -1,8 +1,8 @@
-[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [components/video-player/VideoPlayer](/docs/modules/components_video_player_VideoPlayer.md) / VideoPlayerProps
+[@collaborne/video-player - v0.1.12](/docs/../README.md) / [Modules](/docs/modules.md) / [components/video-player/MediaPlayer](/docs/modules/components_video_player_VideoPlayer.md) / MediaPlayerProps
 
-# Interface: VideoPlayerProps
+# Interface: MediaPlayerProps
 
-[components/video-player/VideoPlayer](/docs/modules/components_video_player_VideoPlayer.md).VideoPlayerProps
+[components/video-player/MediaPlayer](/docs/modules/components_video_player_VideoPlayer.md).MediaPlayerProps
 
 ## Hierarchy
 
@@ -10,27 +10,27 @@
 
 - `Pick`<[`VideoProviderProps`](/docs/interfaces/types_video_state.VideoProviderProps.md), ``"controlsConfig"`` \| ``"getHighlightColorBlended"`` \| ``"onContext"``\>
 
-  ↳ **`VideoPlayerProps`**
+  ↳ **`MediaPlayerProps`**
 
 ## Table of contents
 
 ### Properties
 
-- [actionPanelClassName](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#actionpanelclassname)
-- [className](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#classname)
-- [controlsConfig](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#controlsconfig)
-- [currentPlayingUrl](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#currentplayingurl)
-- [getHighlightColorBlended](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#gethighlightcolorblended)
-- [hasImageCover](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#hasimagecover)
-- [isCover](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#iscover)
-- [onContext](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#oncontext)
-- [onDelete](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#ondelete)
-- [onDownload](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#ondownload)
-- [removeAsCover](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#removeascover)
-- [setAsCover](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#setascover)
-- [setCurrentPlayingUrl](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#setcurrentplayingurl)
-- [theme](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#theme)
-- [videoUrl](/docs/interfaces/components_video_player_VideoPlayer.VideoPlayerProps.md#videourl)
+- [actionPanelClassName](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#actionpanelclassname)
+- [className](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#classname)
+- [controlsConfig](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#controlsconfig)
+- [currentPlayingUrl](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#currentplayingurl)
+- [getHighlightColorBlended](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#gethighlightcolorblended)
+- [hasImageCover](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#hasimagecover)
+- [isCover](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#iscover)
+- [onContext](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#oncontext)
+- [onDelete](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#ondelete)
+- [onDownload](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#ondownload)
+- [removeAsCover](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#removeascover)
+- [setAsCover](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#setascover)
+- [setCurrentPlayingUrl](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#setcurrentplayingurl)
+- [theme](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#theme)
+- [url](/docs/interfaces/components_video_player_VideoPlayer.MediaPlayerProps.md#videourl)
 
 ## Properties
 
@@ -42,7 +42,7 @@ CSS class name applied to the file action panel
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:35](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L35)
+[src/components/video-player/MediaPlayer.tsx:35](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/MediaPlayer.tsx#L35)
 
 ___
 
@@ -54,7 +54,7 @@ CSS class name applied to component
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:27](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L27)
+[src/components/video-player/MediaPlayer.tsx:27](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/MediaPlayer.tsx#L27)
 
 ___
 
@@ -78,11 +78,11 @@ ___
 
 • `Optional` **currentPlayingUrl**: `string`
 
-Used when you have multiple videos, and only one video is played at same time. *Ex: Video 1 plays, and video 2 is on pause. Playing video 2, pauses video 1*
+Used when you have multiple videos, and only one video is played at same time. *Ex: Media 1 plays, and video 2 is on pause. Playing video 2, pauses video 1*
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:29](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L29)
+[src/components/video-player/MediaPlayer.tsx:29](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/MediaPlayer.tsx#L29)
 
 ___
 
@@ -244,11 +244,11 @@ ___
 
 ### setCurrentPlayingUrl
 
-• `Optional` **setCurrentPlayingUrl**: (`videoUrl`: `string`) => `void`
+• `Optional` **setCurrentPlayingUrl**: (`url`: `string`) => `void`
 
 #### Type declaration
 
-▸ (`videoUrl`): `void`
+▸ (`url`): `void`
 
 A function that handles changing of the currentPlayingUrl
 
@@ -256,7 +256,7 @@ A function that handles changing of the currentPlayingUrl
 
 | Name | Type |
 | :------ | :------ |
-| `videoUrl` | `string` |
+| `url` | `string` |
 
 ##### Returns
 
@@ -264,7 +264,7 @@ A function that handles changing of the currentPlayingUrl
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:31](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L31)
+[src/components/video-player/MediaPlayer.tsx:31](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/MediaPlayer.tsx#L31)
 
 ___
 
@@ -276,16 +276,16 @@ A MUI theme to control the stylization of the player .
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:33](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L33)
+[src/components/video-player/MediaPlayer.tsx:33](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/MediaPlayer.tsx#L33)
 
 ___
 
-### videoUrl
+### url
 
-• **videoUrl**: `string`
+• **url**: `string`
 
 The url of the video file to be played
 
 #### Defined in
 
-[src/components/video-player/VideoPlayer.tsx:25](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/VideoPlayer.tsx#L25)
+[src/components/video-player/MediaPlayer.tsx:25](https://github.com/Collaborne/video-player/blob/803dfdf/src/components/video-player/MediaPlayer.tsx#L25)

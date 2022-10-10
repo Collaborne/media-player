@@ -1,5 +1,5 @@
 import { Emitter } from 'mitt';
-export type VideoNativeEvent =
+export type MediaNativeEvent =
 	| 'abort'
 	| 'canplay'
 	| 'canplaythrough'
@@ -32,10 +32,10 @@ export type VoidEventsKey =
 	| 'fullscreenEnter'
 	| 'fullscreenExit';
 
-/** Events that VideoApi is listening, and have no arguments */
+/** Events that MediaApi is listening, and have no arguments */
 export type VoidEvents = Record<VoidEventsKey, void>;
 
-/** Events that VideoApi is listening, and have arguments */
+/** Events that MediaApi is listening, and have arguments */
 export type ExtendedEvents = {
 	setPlaybackRate: { playbackRate: number };
 	seeked: { diffMs: number };

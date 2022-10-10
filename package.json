@@ -1,7 +1,7 @@
 {
 	"name": "@collaborne/video-player",
 	"version": "0.2.6",
-	"description": "Video player for carrot-app",
+	"description": "Media player for carrot-app",
 	"author": "Collaborne",
 	"license": "UNLICENSED",
 	"repository": "Collaborne/video-player",
