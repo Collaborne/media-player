@@ -10,8 +10,8 @@ import { MediaPoster } from '../media-poster/MediaPoster';
 
 import { useMediaContainerHook } from './useMediaContainerHook';
 import { useMediaContainerStyles } from './useMediaContainerStyles';
+import { usePipHook } from './usePipHook';
 
-/** MediaContainer Props */
 export interface MediaContainerProps {
 	/** The url of the media file to be played */
 	url: string;
@@ -33,13 +33,9 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 	]);
 	const { wrapper, pipText, reactPlayer } = useMediaContainerStyles().classes;
 
-	const {
-		containerSizeRef,
-		isPlayerReady,
-		onMouseLeave,
-		onMouseEnter,
-		reactPlayerProps,
-	} = useMediaContainerHook({ url });
+	const { isPlayerReady, onMouseLeave, onMouseEnter, reactPlayerProps } =
+		useMediaContainerHook({ url });
+	const { containerSizeRef } = usePipHook({ isPlayerReady });
 
 	// TODO: Add a UI/UX decision when player is not ready or missing a url
 	if (!url || !isPlayerReady) {

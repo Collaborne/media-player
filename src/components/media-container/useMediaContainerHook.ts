@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import Bowser from 'bowser';
 import {
 	useCallback,
@@ -8,15 +7,11 @@ import {
 	useState,
 } from 'react';
 import { useEvent } from 'react-use';
-import useIntersection from 'react-use/lib/useIntersection';
 import useUnmount from 'react-use/lib/useUnmount';
 
 import { useMediaStore } from '../../context';
-import { useMediaListener } from '../../hooks';
 import { ReactPlayerProps } from '../../types';
-import { OVERLAY_HIDE_DELAY, PROGRESS_INTERVAL } from '../../utils/constants';
-import { getElementOffset } from '../../utils/html-elements';
-import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';
+import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
 
 interface UseMediaContainerHookProps {
 	url: string;
@@ -25,22 +20,15 @@ interface UseMediaContainerHook {
 	isPlayerReady: boolean;
 	onMouseLeave: () => void;
 	onMouseEnter: () => void;
-	containerSizeRef: React.MutableRefObject<ContainerSizePosition | undefined>;
 	reactPlayerProps: ReactPlayerProps;
 }
-
-/** Defines root margin when scrolling to bottom */
-const BOTTOM_ROOT_MARGIN = '48px';
-
 export const useMediaContainerHook = ({
 	url,
 }: UseMediaContainerHookProps): UseMediaContainerHook => {
-	// UseProvider hooks
 	const readyFiredRef = useRef(false);
 	const hasAutoplayedRef = useRef(false);
 	const [
 		reactPlayerRef,
-		listener,
 		mediaContainerRef,
 		initialState,
 		playbackRate,
@@ -54,16 +42,10 @@ export const useMediaContainerHook = ({
 		onPause,
 		setCurrentTime,
 		isFullscreen,
-		hasPipTriggeredByClick,
 		isPip,
 		onPlay,
-		requestPip,
-		exitPip,
-		currentTime,
-		setHasPipTriggeredByClick,
 	] = useMediaStore(state => [
 		state.reactPlayerRef,
-		state.getListener(),
 		state.mediaContainerRef,
 		state.initialState,
 		state.playbackRate,
@@ -77,13 +59,8 @@ export const useMediaContainerHook = ({
 		state.pause,
 		state.setCurrentTime,
 		state.isFullscreen,
-		state.hasPipTriggeredByClick,
 		state.pip,
 		state.play,
-		state.requestPip,
-		state.exitPip,
-		state.currentTime,
-		state.setHasPipTriggeredByClick,
 	]);
 
 	const reactPlayerProps: ReactPlayerProps = {
@@ -95,9 +72,9 @@ export const useMediaContainerHook = ({
 		volume,
 		ref: reactPlayerRef,
 		onReady: () => {
-			emitter?.emit('ready');
+			emitter.emit('ready');
 			if (!readyFiredRef?.current) {
-				emitter?.emit('firstReady');
+				emitter.emit('firstReady');
 				readyFiredRef.current = true;
 			}
 			setReady();
@@ -128,7 +105,7 @@ export const useMediaContainerHook = ({
 		emitter.off('seeked', onReadyToPlay);
 		mediaEl
 			?.play()
-			.then(() => emitter?.emit('autoplayStart'))
+			.then(() => emitter.emit('autoplayStart'))
 			.catch((error: unknown) => {
 				console.info('Player failed to autoplay', error);
 				onPause();
@@ -178,17 +155,6 @@ export const useMediaContainerHook = ({
 	const [isPlayerReady, setIsPlayerReady] = useState(Boolean(url));
 
 	const hasAutoFocusedRef = useRef(false);
-	const containerSizeRef = useRef<ContainerSizePosition>();
-
-	// Checks if media container is in viewport when scrolling bottom
-	const entryTop = useIntersection(mediaContainerRef, {
-		rootMargin: BOTTOM_ROOT_MARGIN,
-	});
-	const isVisibleFromScrollingTop = Boolean(entryTop?.isIntersecting);
-
-	// Checks if media container is in viewport when scrolling top
-	const entryBottom = useIntersection(mediaContainerRef, {});
-	const isVisibleFromScrollingBottom = Boolean(entryBottom?.isIntersecting);
 
 	const updateShowControls = useCallback(() => {
 		if (isFullscreen) {
@@ -250,7 +216,7 @@ export const useMediaContainerHook = ({
 	}, [isPip, playing, onPause, onPlay]);
 
 	const onMouseEnter = useCallback(() => {
-		markActivity?.();
+		markActivity();
 		setLastMouseMove(Date.now());
 	}, [markActivity]);
 
@@ -274,95 +240,17 @@ export const useMediaContainerHook = ({
 	useEvent(
 		'focus',
 		() => {
-			markActivity?.();
+			markActivity();
 			updateShowControls();
 		},
 		mediaContainerRef?.current,
 		{ capture: true },
 	);
 
-	const calculateContainerSizes = useCallback(() => {
-		const width = mediaContainerRef?.current?.offsetWidth;
-		const height = mediaContainerRef?.current?.offsetHeight;
-		const rect = mediaContainerRef?.current
-			? getElementOffset(mediaContainerRef.current)
-			: undefined;
-		if (width && height && rect) {
-			containerSizeRef.current = { width, height, ...rect };
-		}
-		// Calculates only on mounting the MediaContainer and passes this size to <MediaPoster/>
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	// On wheel event - updating that pip isn't triggered by a click on pip icon button
-	// In this way we can evite overlapping of wheel vs click onPip
-	useEffect(() => {
-		const onWheel = () => {
-			if (!isVisibleFromScrollingBottom || !isVisibleFromScrollingTop) {
-				setHasPipTriggeredByClick(false);
-			}
-		};
-		document.body.addEventListener('wheel', onWheel);
-		return () => document.body.removeEventListener('wheel', onWheel);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isVisibleFromScrollingBottom, isVisibleFromScrollingTop]);
-
-	// If the player is mounted, ready and playing then display/hide pip player
-	useEffect(() => {
-		// Allow to enter PIP mode, except clicks on pip icon button
-		if (hasPipTriggeredByClick) {
-			return;
-		}
-		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
-		if (!playing || !isPlayerReady || !mediaEl) {
-			return;
-		}
-		if (!isPip && !isVisibleFromScrollingTop) {
-			requestPip?.();
-		}
-		if (isPip && isVisibleFromScrollingBottom) {
-			exitPip?.();
-		}
-	}, [
-		isPlayerReady,
-		playing,
-		isVisibleFromScrollingTop,
-		isVisibleFromScrollingBottom,
-		reactPlayerRef,
-		isPip,
-		hasPipTriggeredByClick,
-		requestPip,
-		exitPip,
-	]);
-
-	// TODO: Open a issue for ReactPlayer on github
-	// Listening for pip events and updating currentTime for ProgressBar
-	// This is used for covering bugs with ReactPlayer
-	useMediaListener(
-		'pipEnter',
-		() => {
-			calculateContainerSizes();
-			setTimeout(() => {
-				setCurrentTime?.(currentTime);
-			}, PROGRESS_INTERVAL - 1);
-		},
-		listener,
-	);
 	// Updating media state with show controls
 	useEffect(() => {
-		setShowControls?.(showControls);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		setShowControls(showControls);
 	}, [showControls]);
-
-	useMediaListener(
-		'pipExit',
-		() => {
-			setTimeout(() => {
-				setCurrentTime?.(currentTime);
-			}, PROGRESS_INTERVAL - 1);
-		},
-		listener,
-	);
 
 	// Updating media players bottom control's panel after OVERLAY_HIDE_DELAY time period
 	useEffect(() => {
@@ -389,7 +277,6 @@ export const useMediaContainerHook = ({
 		isPlayerReady,
 		onMouseLeave,
 		onMouseEnter,
-		containerSizeRef,
 		reactPlayerProps,
 	};
 };

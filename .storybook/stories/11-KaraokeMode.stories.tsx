@@ -1,6 +1,4 @@
-import { duration } from '@mui/material';
-import { useEffect } from '@storybook/addons';
-import React, { RefObject, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { usePreviousDistinct } from 'react-use';
 
 import {
@@ -29,12 +27,9 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	const transcriptsElementRef = React.useRef<TranscriptRef[]>([]);
 	const setTranscriptsElementRef = (ref: HTMLButtonElement | null) =>
 		transcriptsElementRef.current.push({ ref });
-	const dateNow = React.useRef(Date.now());
 	const { setMediaContext, mediaContext } = usePlayerContext();
 	const ready = mediaContext?.ready;
-	const currentTime = mediaContext?.currentTime;
 	const mediaDuration = mediaContext?.duration || 0;
-	const isPlaying = mediaContext?.playing;
 	const transcriptRef = React.useRef<Transcript[]>([]);
 	const listener = mediaContext?.getListener();
 	const setCurrentTime = mediaContext?.setCurrentTime;
@@ -68,22 +63,10 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	useMediaListener(
 		'timeupdate',
 		(e: TimeUpdateEvent) => {
-			console.log('=====SEARCH', e.seconds);
 			if (currentPart.start - 0.2 < e.seconds && currentPart.end > e.seconds) {
-				console.log(
-					`=====SEARCH declined AT: currentTime${e.seconds} for [ ${currentPart.start}, ${currentPart.end}]`,
-				);
 				return;
 			}
-			console.log(
-				`=====SEARCH accepted for : currentTime${e.seconds} for [ ${currentPart.start}, ${currentPart.end}]`,
-			);
-
-			console.time('=====SEARCH  MyTimer');
-			console.timeLog('=====SEARCH  MyTimer', 'Starting search');
 			const res = findMatchingPartOrNext(transcriptRef.current, e.seconds);
-			console.log('=====SEARCH time searched', Date.now() - dateNow.current);
-			console.timeEnd('=====SEARCH  MyTimer');
 			setCurrentPart(res, 1);
 		},
 		listener,
