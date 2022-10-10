@@ -7,7 +7,7 @@ export type Handler<T extends EventEmittersName> = (
 	eventArgs: MediaEvents[T],
 ) => void;
 
-/** Media Listener hook that subscribes and unsubscribes from `MediaApi`'s `EventEmitters` */
+/** Media Listener hook that subscribes and unsubscribes from MediaStore's `emitter` */
 export const useMediaListener = <T extends EventEmittersName>(
 	eventName: T,
 	handler: Handler<T>,

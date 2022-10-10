@@ -8,9 +8,9 @@ import { withPlayerTheme } from '../decorators/with-player-theme';
 import { highlightColors, pickRandomItem } from '../utils/highlights';
 
 export const MediaHighlights = () => {
-	const { mediaStore, onMediaStore } = usePlayerContext();
+	const { mediaContext, setMediaContext } = usePlayerContext();
 	const [highlights, setHighlights] = React.useState<Highlight[]>([]);
-	const duration = mediaStore?.duration;
+	const duration = mediaContext?.duration;
 
 	const end = Math.random() * (duration || 0);
 	const start = Math.random() * end;
@@ -34,7 +34,7 @@ export const MediaHighlights = () => {
 	return (
 		<>
 			<MediaPlayer
-				onStoreUpdate={onMediaStore}
+				onStoreUpdate={setMediaContext}
 				highlights={highlights}
 				url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
 			/>

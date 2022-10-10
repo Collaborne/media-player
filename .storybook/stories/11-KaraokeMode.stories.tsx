@@ -30,14 +30,14 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	const setTranscriptsElementRef = (ref: HTMLButtonElement | null) =>
 		transcriptsElementRef.current.push({ ref });
 	const dateNow = React.useRef(Date.now());
-	const { onMediaStore, mediaStore } = usePlayerContext();
-	const ready = mediaStore?.ready;
-	const currentTime = mediaStore?.currentTime;
-	const mediaDuration = mediaStore?.duration || 0;
-	const isPlaying = mediaStore?.playing;
+	const { setMediaContext, mediaContext } = usePlayerContext();
+	const ready = mediaContext?.ready;
+	const currentTime = mediaContext?.currentTime;
+	const mediaDuration = mediaContext?.duration || 0;
+	const isPlaying = mediaContext?.playing;
 	const transcriptRef = React.useRef<Transcript[]>([]);
-	const listener = mediaStore?.getListener();
-	const setCurrentTime = mediaStore?.setCurrentTime;
+	const listener = mediaContext?.getListener();
+	const setCurrentTime = mediaContext?.setCurrentTime;
 	const [currentPart, setCurrentPart] = useDelayedState<Transcript>({
 		index: 0,
 		end: 0,
@@ -45,7 +45,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	});
 
 	const getCurrentTimePart = React.useCallback(() => {
-		const mediaEl = mediaStore?.reactPlayerRef?.current?.getInternalPlayer();
+		const mediaEl = mediaContext?.reactPlayerRef?.current?.getInternalPlayer();
 		if (!mediaEl) {
 			return;
 		}
@@ -54,7 +54,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 			transcriptRef.current,
 			mediaEl.currentTime * 1000 - 1,
 		);
-	}, [mediaStore]);
+	}, [mediaContext]);
 
 	const onSeek = React.useCallback(() => {
 		const curPart = getCurrentTimePart();
@@ -132,7 +132,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	}, [currentPart, timeStampsMemo]);
 	return (
 		<div>
-			<MediaPlayer url={args.url} onStoreUpdate={onMediaStore} />
+			<MediaPlayer url={args.url} onStoreUpdate={setMediaContext} />
 			<div>{timeStampsMemo}</div>
 			{createActiveSpan()}
 		</div>
@@ -144,7 +144,7 @@ export default {
 	component: KaraokeMode,
 	decorators: [withDemoCard, withPlayerTheme],
 	args: {
-		url: 'http://commondatastorage.googleapis.com/gtv-medias-bucket/sample/ElephantsDream.mp4',
+		url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
 		secondsDivider: 2,
 	},
 	argTypes: {

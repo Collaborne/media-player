@@ -1,16 +1,15 @@
 import { Highlight } from '../../types';
 
-/** Provider's initialization state */
+/** MediaStore initialization state */
 export interface CorePlayerInitialState {
-	/** If the media start playing from start */
 	playing: boolean;
-	/** Time (in ms) that media will start to play */
+	/** Initial start time in seconds */
 	startTime: number;
-	/** Time (in ms) that media should pause */
+	/** Initial time for pausing in seconds */
 	endTime: number;
-	/** Media duration */
+	/** Media total time(duration) in seconds */
 	duration: number;
-	/** Current played time */
+	/** Current played time in seconds */
 	currentTime: number;
 	highlights: Highlight[];
 }

@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom';
-import { MediaContext } from '../../../context';
 import {
 	render,
 	renderWithProviders,
