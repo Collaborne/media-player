@@ -20,7 +20,7 @@ export const FwdButton: FC<FwdButtonProps> = ({
 	const currentTime = useMediaStore(state => state.currentTime);
 	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
 	const onFwd = () => setCurrentTime(currentTime + skipSeconds);
-	console.log('FWD Button RERENDER');
+
 	return (
 		<IconButton size="medium" onClick={onFwd} data-testid="icon-fwd" {...props}>
 			<Icon fontSize="medium" {...svgIconProps} />

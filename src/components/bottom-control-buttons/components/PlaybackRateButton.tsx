@@ -29,7 +29,7 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 
 	const { playBackRateBtn } = usePlaybackRateStyles().classes;
 	const classNames = clsx(playBackRateBtn, className);
-	console.log('PlaybackRate Btn rerender');
+
 	return (
 		<Button
 			variant={variant}

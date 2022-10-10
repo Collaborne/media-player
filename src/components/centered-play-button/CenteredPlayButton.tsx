@@ -20,8 +20,6 @@ export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 		return null;
 	}
 
-	console.log('RERENDER in CenteredPlayButton');
-
 	return (
 		<BigCenteredButton
 			Icon={BigPlayIcon}

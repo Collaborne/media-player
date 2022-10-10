@@ -18,7 +18,7 @@ export const TimeDisplay: FC<TimeDisplayProps> = ({
 	const currentTime = useMediaStore(state => state.currentTime);
 
 	const { timeStampText } = useTimeDisplayStyles().classes;
-	console.log('TimeDisplay rerender');
+
 	return (
 		<Typography
 			variant="body2"

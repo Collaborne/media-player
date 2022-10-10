@@ -30,8 +30,6 @@ export const VolumeButton: FC<VolumeButtonProps> = ({
 		return mute();
 	};
 
-	console.log('VolumeButton RERENDER');
-
 	return (
 		<IconButton
 			size="medium"

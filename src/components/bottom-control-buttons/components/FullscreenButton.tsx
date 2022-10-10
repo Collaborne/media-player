@@ -24,7 +24,6 @@ export const FullscreenButton: FC<FullscreenButtonProps> = ({
 	const requestFullscreen = useMediaStore(state => state.requestFullscreen);
 	const exitFullscreen = useMediaStore(state => state.exitFullscreen);
 	const onFullscreen = isFullscreen ? exitFullscreen : requestFullscreen;
-	console.log('FullscreenBtn rerender');
 	return (
 		<IconButton size="medium" onClick={onFullscreen} {...props}>
 			{!isFullscreen ? (

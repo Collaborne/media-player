@@ -30,7 +30,6 @@ export const MediaHighlights = () => {
 		]);
 	};
 
-	console.log('=>rerender');
 	return (
 		<>
 			<MediaPlayer

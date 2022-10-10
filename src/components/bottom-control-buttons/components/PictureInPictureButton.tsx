@@ -25,8 +25,6 @@ export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 		return requestPip();
 	};
 
-	console.log('PIPButon rerender');
-
 	return (
 		<IconButton
 			size="medium"

@@ -37,7 +37,7 @@ export const ProgressBar: FC<ProgressBarProps> = props => {
 		}
 		return 0;
 	})();
-	console.log('ProgressBar rerender');
+
 	if (!hasStarted) {
 		return null;
 	}

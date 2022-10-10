@@ -20,7 +20,6 @@ export const RwdButton: FC<RwdButtonProps> = ({
 	const currentTime = useMediaStore(state => state.currentTime);
 	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
 	const onRwd = () => setCurrentTime(currentTime - skipSeconds);
-	console.log('RWD Button RERENDER');
 
 	return (
 		<IconButton size="medium" onClick={onRwd} data-testid="icon-rwd" {...props}>
