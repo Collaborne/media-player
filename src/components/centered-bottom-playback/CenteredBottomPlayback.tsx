@@ -69,7 +69,7 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 						active={playbackRate}
 						onChangeRate={onChangePlaybackRate}
 						playbackRate={item}
-						data-testid={`c-playbackRate-${playbackRate}`}
+						data-testid={`c-playbackRate-${item}`}
 					/>
 				))}
 			</div>

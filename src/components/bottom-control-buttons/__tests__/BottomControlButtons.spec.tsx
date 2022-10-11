@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
+import { PLAYBACK_RATES, SECONDS_TO_SKIP } from '../../../utils/constants';
 import {
-	render,
-	renderWithProviders,
-	TestingMediaProvider,
+	act,
+	setupMediaProvider,
 	userEvent,
 } from '../../../utils/testing-render';
 import {
@@ -32,91 +32,77 @@ const BottomControlButtons = () => {
 };
 
 describe('<BottomControlButtons />', () => {
-	const api: MediaContext['api'] = {
-		play: jest.fn(),
-		pause: jest.fn(),
-		mute: jest.fn(),
-		setCurrentTime: jest.fn(),
-		setPlaybackRate: jest.fn(),
-		getPictureInPicture: jest.fn(),
-	};
 	it('displays play button on first mount', async () => {
-		const { getByTestId } = renderWithProviders(<BottomControlButtons />);
+		const { getByTestId } = setupMediaProvider(<BottomControlButtons />);
 		expect(getByTestId('icon-play')).toBeInTheDocument();
 	});
 
-	it('displays pause button while the media plays', async () => {
-		const { getByTestId } = renderWithProviders(<BottomControlButtons />);
-		await userEvent.click(getByTestId('icon-play'));
-		expect(getByTestId('icon-pause')).toBeInTheDocument();
-	});
-
-	it('click on play icon', async () => {
-		const { getByTestId } = render(
-			<TestingMediaProvider api={api}>
-				<BottomControlButtons />
-			</TestingMediaProvider>,
+	it('click on play/pause actions', async () => {
+		const { getByTestId, mediaStore } = setupMediaProvider(
+			<BottomControlButtons />,
 		);
 		const playButton = getByTestId('icon-play');
 		await userEvent.click(playButton);
-		expect(api.play).toHaveBeenCalledTimes(1);
+		expect(mediaStore.playing).toBeTruthy();
+		const pauseButton = getByTestId('icon-pause');
+		expect(pauseButton).toBeInTheDocument();
+		await userEvent.click(pauseButton);
+		expect(mediaStore.playing).toBeFalsy();
 	});
 
 	it('click on mute icon', async () => {
-		const { getByTestId } = render(
-			<TestingMediaProvider api={api}>
-				<BottomControlButtons />
-			</TestingMediaProvider>,
+		const { getByTestId, mediaStore } = setupMediaProvider(
+			<BottomControlButtons />,
 		);
 		const volumeButton = getByTestId('icon-volume');
 		await userEvent.click(volumeButton);
-		expect(api.mute).toHaveBeenCalledTimes(1);
+		expect(mediaStore.muted).toBeTruthy();
 	});
 
 	it('click on fwd icon', async () => {
-		const { getByTestId } = render(
-			<TestingMediaProvider api={api}>
-				<BottomControlButtons />
-			</TestingMediaProvider>,
+		const { getByTestId, mediaStore } = setupMediaProvider(
+			<BottomControlButtons />,
 		);
 
 		const fwdButton = getByTestId('icon-fwd');
+		act(() => mediaStore.setDuration(100));
 		await userEvent.click(fwdButton);
-		expect(api.setCurrentTime).toHaveBeenCalledTimes(1);
+		expect(mediaStore.currentTime).toBe(SECONDS_TO_SKIP);
 	});
 
 	it('click on rwd icon', async () => {
-		const { getByTestId } = render(
-			<TestingMediaProvider api={api}>
-				<BottomControlButtons />
-			</TestingMediaProvider>,
+		const { getByTestId, mediaStore } = setupMediaProvider(
+			<BottomControlButtons />,
 		);
+		act(() => mediaStore.setDuration(100));
 		const rwdButton = getByTestId('icon-rwd');
 		await userEvent.click(rwdButton);
-		expect(api.setCurrentTime).toHaveBeenCalledTimes(1);
+		expect(mediaStore.currentTime).toBe(0);
+		act(() => mediaStore.setCurrentTime(SECONDS_TO_SKIP * 2));
+		await userEvent.click(rwdButton);
+		expect(mediaStore.currentTime).toBe(SECONDS_TO_SKIP);
 	});
 
 	it('click on playbackRate icon', async () => {
-		const { getByTestId } = render(
-			<TestingMediaProvider api={api}>
-				<BottomControlButtons />
-			</TestingMediaProvider>,
+		const { getByTestId, mediaStore } = setupMediaProvider(
+			<BottomControlButtons />,
 		);
 		const rateBtn = getByTestId('icon-playback-rate');
 		await userEvent.click(rateBtn);
-		expect(api.setPlaybackRate).toHaveBeenCalledTimes(1);
+		expect(mediaStore.playbackRate).toBe(PLAYBACK_RATES[1]);
+		await userEvent.click(rateBtn);
+		expect(mediaStore.playbackRate).toBe(PLAYBACK_RATES[2]);
 	});
 
 	it('click on pip icon', async () => {
-		const { getByTestId } = render(
-			<TestingMediaProvider api={api}>
-				<BottomControlButtons />
-			</TestingMediaProvider>,
+		const { getByTestId, mediaStore } = setupMediaProvider(
+			<BottomControlButtons />,
 		);
 		const pip = getByTestId('icon-pip');
 		await userEvent.click(pip);
-		// NOTE: we should test `api.setPictureInPicture` - setter for PIP mode, but it wont be called
-		// because first we check if it runs in PIP mode(api.getPictureInPicture), after that we change "media-state" + calling `api.setPictureInPicture`
-		expect(api.getPictureInPicture).toHaveBeenCalledTimes(1);
+		expect(mediaStore.pip).toBeTruthy();
+		expect(mediaStore.hasPipTriggeredByClick).toBeTruthy();
+		await userEvent.click(pip);
+		expect(mediaStore.pip).toBeFalsy();
 	});
 });
