@@ -1,21 +1,4 @@
 import { Emitter } from 'mitt';
-export type MediaNativeEvent =
-	| 'abort'
-	| 'canplay'
-	| 'canplaythrough'
-	| 'durationchange'
-	| 'ended'
-	| 'error'
-	| 'loadstart'
-	| 'pause'
-	| 'play'
-	| 'playing'
-	| 'seeked'
-	| 'seeking'
-	| 'stalled'
-	| 'suspend'
-	| 'volumechange'
-	| 'waiting';
 
 export type VoidEventsKey =
 	| 'play'

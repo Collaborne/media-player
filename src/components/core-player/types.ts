@@ -2,7 +2,7 @@ import { Highlight } from '../../types';
 
 /** MediaStore initialization state */
 export interface CorePlayerInitialState {
-	playing: boolean;
+	isPlaying: boolean;
 	/** Initial start time in seconds */
 	startTime: number;
 	/** Initial time for pausing in seconds */
@@ -15,7 +15,7 @@ export interface CorePlayerInitialState {
 }
 
 export const PROVIDER_INITIAL_STATE: CorePlayerInitialState = {
-	playing: false,
+	isPlaying: false,
 	startTime: 0,
 	endTime: 0,
 	duration: 0,

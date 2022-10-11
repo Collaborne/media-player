@@ -14,12 +14,14 @@ export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
-	const pip = useMediaStore(state => state.pip);
-	const exitPip = useMediaStore(state => state.exitPip);
-	const requestPip = useMediaStore(state => state.requestPip);
+	const [isPip, exitPip, requestPip] = useMediaStore(state => [
+		state.isPip,
+		state.exitPip,
+		state.requestPip,
+	]);
 
 	const togglePip = () => {
-		if (pip) {
+		if (isPip) {
 			return exitPip();
 		}
 		return requestPip();

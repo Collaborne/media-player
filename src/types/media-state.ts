@@ -23,8 +23,8 @@ export interface Highlight extends Segment {
 export interface MediaState {
 	emitter: EmitterEvents;
 	playbackRate: number;
-	playing: boolean;
-	muted: boolean;
+	isPlaying: boolean;
+	isMuted: boolean;
 	startTime: number;
 	endTime: number;
 	duration: number;
@@ -32,7 +32,7 @@ export interface MediaState {
 	volume: number;
 	ready: boolean;
 	hasPlayedOrSeeked: boolean;
-	pip: boolean;
+	isPip: boolean;
 	showControls: boolean;
 	showPipControls: boolean;
 	/** Did pip mode was triggered by click event */

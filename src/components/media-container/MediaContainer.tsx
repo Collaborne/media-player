@@ -28,7 +28,7 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 }) => {
 	const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(state => [
 		state.mediaContainerRef,
-		state.pip,
+		state.isPip,
 		state.isFullscreen,
 	]);
 	const { wrapper, pipText, reactPlayer } = useMediaContainerStyles().classes;

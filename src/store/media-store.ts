@@ -38,11 +38,11 @@ export const createDefaultMediaSlice: StateCreator<
 	volume: 1,
 	emitter: mitt<MediaEvents>(),
 	ready: false,
-	playing: false,
-	muted: false,
+	isPlaying: false,
+	isMuted: false,
 	fullscreen: false,
 	hasPlayedOrSeeked: false,
-	pip: false,
+	isPip: false,
 	hasPipTriggeredByClick: true,
 	showControls: true,
 	showPipControls: false,
@@ -63,7 +63,7 @@ export const createSettersSlice: StateCreator<
 			if (!mediaEl) {
 				return state;
 			}
-			if (state.pip) {
+			if (state.isPip) {
 				state.exitPip();
 			}
 			state.emitter.emit('fullscreenEnter');
@@ -98,13 +98,13 @@ export const createSettersSlice: StateCreator<
 			) {
 				mediaEl.currentTime = state.startTime;
 				return {
-					playing: true,
+					isPlaying: true,
 					currentTime: state.startTime,
 					hasPlayedOrSeeked: true,
 				};
 			}
 
-			return { playing: true, hasPlayedOrSeeked: true };
+			return { isPlaying: true, hasPlayedOrSeeked: true };
 		}),
 	pause: () =>
 		set(state => {
@@ -113,7 +113,7 @@ export const createSettersSlice: StateCreator<
 			if (media && state.playPromiseRef.current) {
 				void state.playPromiseRef.current.then(() => media.pause());
 			}
-			return { playing: false };
+			return { isPlaying: false };
 		}),
 	setVolume: (volume: number) =>
 		set({ volume: Math.min(Math.max(volume, 0), 1) }),
@@ -126,14 +126,14 @@ export const createSettersSlice: StateCreator<
 		set(state => {
 			state.emitter.emit('unnmute');
 			return {
-				muted: false,
+				isMuted: false,
 			};
 		}),
 	mute: () =>
 		set(state => {
 			state.emitter.emit('mute');
 			return {
-				muted: true,
+				isMuted: true,
 			};
 		}),
 	setShowControls: (isUpdated: boolean) =>
@@ -154,13 +154,13 @@ export const createSettersSlice: StateCreator<
 			}
 			state.emitter.emit('pipEnter');
 			return {
-				pip: true,
+				isPip: true,
 			};
 		}),
 	exitPip: () =>
 		set(state => {
 			state.emitter.emit('pipExit');
-			return { pip: false };
+			return { isPip: false };
 		}),
 	setDuration: (duration: number) =>
 		set(state => {
@@ -227,7 +227,7 @@ export const createSettersSlice: StateCreator<
 				Math.max(0, currentTime - state.startTime),
 			);
 
-			if (state.playing) {
+			if (state.isPlaying) {
 				state.emitter.emit('timeupdate', {
 					seconds: currentRelativeTime,
 					duration: state.duration,
@@ -240,15 +240,15 @@ export const createSettersSlice: StateCreator<
 			if (currentTime >= state.endTime) {
 				state.emitter.emit('end');
 			}
-			let { playing } = state;
+			let { isPlaying } = state;
 
 			if (currentTime >= state.startTime + state.duration) {
-				playing = false;
+				isPlaying = false;
 			}
 
 			return {
 				currentTime,
-				playing,
+				isPlaying,
 			};
 		}),
 });

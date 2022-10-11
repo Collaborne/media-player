@@ -9,7 +9,7 @@ interface UsePlayPauseHook {
 }
 
 export const usePlayPauseHook = (): UsePlayPauseHook => {
-	const isPlaying = useMediaStore(state => state.playing);
+	const isPlaying = useMediaStore(state => state.isPlaying);
 	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
 
 	const { centeredIcon } = usePlayPauseAnimationStyles().classes;

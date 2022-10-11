@@ -32,8 +32,8 @@ export const useMediaContainerHook = ({
 		mediaContainerRef,
 		initialState,
 		playbackRate,
-		playing,
-		muted,
+		isPlaying,
+		isMuted,
 		volume,
 		emitter,
 		setReady,
@@ -49,8 +49,8 @@ export const useMediaContainerHook = ({
 		state.mediaContainerRef,
 		state.initialState,
 		state.playbackRate,
-		state.playing,
-		state.muted,
+		state.isPlaying,
+		state.isMuted,
 		state.volume,
 		state.emitter,
 		state._setReady,
@@ -59,16 +59,16 @@ export const useMediaContainerHook = ({
 		state.pause,
 		state.setCurrentTime,
 		state.isFullscreen,
-		state.pip,
+		state.isPip,
 		state.play,
 	]);
 
 	const reactPlayerProps: ReactPlayerProps = {
-		autoPlay: initialState.playing,
+		autoPlay: initialState.isPlaying,
 		playsinline: true,
 		playbackRate,
-		playing,
-		muted,
+		playing: isPlaying,
+		muted: isMuted,
 		volume,
 		ref: reactPlayerRef,
 		onReady: () => {
@@ -127,7 +127,7 @@ export const useMediaContainerHook = ({
 		if (
 			!hasAutoplayedRef.current &&
 			reactPlayerRef?.current &&
-			initialState?.playing
+			initialState?.isPlaying
 		) {
 			const el = reactPlayerRef?.current?.getInternalPlayer();
 			if (el && el.parentElement) {
@@ -161,7 +161,7 @@ export const useMediaContainerHook = ({
 			return setShowControls(true);
 		}
 		const lastActivity = lastActivityRef?.current || 0;
-		if (!playing) {
+		if (!isPlaying) {
 			return setShowControls(true);
 		}
 		if (isPip) {
@@ -174,7 +174,7 @@ export const useMediaContainerHook = ({
 	useEffect(updateShowControls, [
 		updateShowControls,
 		showControls,
-		playing,
+		isPlaying,
 		lastMouseMove,
 	]);
 
@@ -205,15 +205,15 @@ export const useMediaContainerHook = ({
 	});
 
 	const togglePlay = useCallback(() => {
-		// PIP mode disables clicking on screen to toggle playing
+		// PIP mode disables clicking on screen to toggle isPlaying
 		if (isPip) {
 			return;
 		}
-		if (!playing) {
+		if (!isPlaying) {
 			return onPlay();
 		}
 		return onPause();
-	}, [isPip, playing, onPause, onPlay]);
+	}, [isPip, isPlaying, onPause, onPlay]);
 
 	const onMouseEnter = useCallback(() => {
 		markActivity();
@@ -254,12 +254,12 @@ export const useMediaContainerHook = ({
 
 	// Updating media players bottom control's panel after OVERLAY_HIDE_DELAY time period
 	useEffect(() => {
-		if (!playing) {
+		if (!isPlaying) {
 			return;
 		}
 		const timeoutId = setTimeout(updateShowControls, OVERLAY_HIDE_DELAY + 100);
 		return () => clearTimeout(timeoutId);
-	}, [updateShowControls, lastMouseMove, playing]);
+	}, [updateShowControls, lastMouseMove, isPlaying]);
 
 	useEffect(() => {
 		// If media is already loaded with one valid url, don't re-load player.

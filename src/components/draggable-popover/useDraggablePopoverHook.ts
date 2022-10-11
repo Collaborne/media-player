@@ -33,8 +33,8 @@ export const useDraggablePopoverHook = ({
 	disablePortal,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
 	const [isPip, isPaused, setShowPipControls] = useMediaStore(state => [
-		state.pip,
-		!state.playing,
+		state.isPip,
+		!state.isPlaying,
 		state.setShowControls,
 	]);
 

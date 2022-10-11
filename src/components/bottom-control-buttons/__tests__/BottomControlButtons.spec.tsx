@@ -43,11 +43,11 @@ describe('<BottomControlButtons />', () => {
 		);
 		const playButton = getByTestId('icon-play');
 		await userEvent.click(playButton);
-		expect(mediaStore.playing).toBeTruthy();
+		expect(mediaStore.isPlaying).toBeTruthy();
 		const pauseButton = getByTestId('icon-pause');
 		expect(pauseButton).toBeInTheDocument();
 		await userEvent.click(pauseButton);
-		expect(mediaStore.playing).toBeFalsy();
+		expect(mediaStore.isPlaying).toBeFalsy();
 	});
 
 	it('click on mute icon', async () => {
@@ -56,7 +56,7 @@ describe('<BottomControlButtons />', () => {
 		);
 		const volumeButton = getByTestId('icon-volume');
 		await userEvent.click(volumeButton);
-		expect(mediaStore.muted).toBeTruthy();
+		expect(mediaStore.isMuted).toBeTruthy();
 	});
 
 	it('click on fwd icon', async () => {

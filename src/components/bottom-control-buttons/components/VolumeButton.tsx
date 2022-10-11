@@ -21,7 +21,7 @@ export const VolumeButton: FC<VolumeButtonProps> = ({
 	const volume = useMediaStore(state => state.volume) * volumeMultiplier;
 	const mute = useMediaStore(state => state.mute);
 	const unmute = useMediaStore(state => state.unmute);
-	const isMuted = useMediaStore(state => state.muted);
+	const isMuted = useMediaStore(state => state.isMuted);
 
 	const onToggleMute = () => {
 		if (isMuted) {

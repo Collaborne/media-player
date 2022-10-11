@@ -21,7 +21,7 @@ const BOTTOM_ROOT_MARGIN = '48px';
 export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	const [
 		listener,
-		playing,
+		isPlaying,
 		currentTime,
 		setCurrentTime,
 		hasPipTriggeredByClick,
@@ -33,14 +33,14 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		requestPip,
 	] = useMediaStore(state => [
 		state.getListener(),
-		state.playing,
+		state.isPlaying,
 		state.currentTime,
 		state.setCurrentTime,
 		state.hasPipTriggeredByClick,
 		state.setHasPipTriggeredByClick,
 		state.mediaContainerRef,
 		state.reactPlayerRef,
-		state.pip,
+		state.isPip,
 		state.exitPip,
 		state.requestPip,
 	]);
@@ -83,14 +83,14 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isVisibleFromScrollingBottom, isVisibleFromScrollingTop]);
 
-	// If the player is mounted, ready and playing then display/hide pip player
+	// If the player is mounted, ready and isPlaying then display/hide pip player
 	useEffect(() => {
 		// Allow to enter PIP mode, except clicks on pip icon button
 		if (hasPipTriggeredByClick) {
 			return;
 		}
 		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
-		if (!playing || !isPlayerReady || !mediaEl) {
+		if (!isPlaying || !isPlayerReady || !mediaEl) {
 			return;
 		}
 		if (!isPip && !isVisibleFromScrollingTop) {
@@ -101,7 +101,7 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		}
 	}, [
 		isPlayerReady,
-		playing,
+		isPlaying,
 		isVisibleFromScrollingTop,
 		isVisibleFromScrollingBottom,
 		reactPlayerRef,

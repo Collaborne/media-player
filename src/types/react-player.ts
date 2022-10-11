@@ -8,8 +8,8 @@ export interface ReactPlayerProps {
 	autoPlay: boolean;
 	playsinline: boolean;
 	playbackRate: MediaState['playbackRate'];
-	playing: MediaState['playing'];
-	muted: MediaState['muted'];
+	playing: MediaState['isPlaying'];
+	muted: MediaState['isMuted'];
 	volume: MediaState['volume'];
 	ref: RefObject<ReactPlayer>;
 	onReady: () => void;

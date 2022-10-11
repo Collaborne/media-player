@@ -1,5 +1,5 @@
 /**
- * Context Provider for playing medias
+ * Context Provider for isPlaying medias
  */
 
 import { FC, useRef } from 'react';
