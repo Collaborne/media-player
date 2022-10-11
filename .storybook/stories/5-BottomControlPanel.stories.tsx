@@ -49,7 +49,7 @@ export const BottomControlButtons: React.FC = () => {
 };
 
 export const BottomControlButtonsDisabled: React.FC = () => {
-	const { gridCentered } = useVideoPlayerStyles().classes;
+	const { gridCentered } = useMediaPlayerStyles().classes;
 
 	return (
 		<Controls>

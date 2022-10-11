@@ -100,9 +100,9 @@ describe('<BottomControlButtons />', () => {
 		);
 		const pip = getByTestId('icon-pip');
 		await userEvent.click(pip);
-		expect(mediaStore.pip).toBeTruthy();
+		expect(mediaStore.isPip).toBeTruthy();
 		expect(mediaStore.hasPipTriggeredByClick).toBeTruthy();
 		await userEvent.click(pip);
-		expect(mediaStore.pip).toBeFalsy();
+		expect(mediaStore.isPip).toBeFalsy();
 	});
 });
