@@ -1,7 +1,7 @@
 import { Typography, TypographyProps } from '@mui/material';
 import { FC } from 'react';
 
-import { useVideo } from '../../../hooks';
+import { useMediaStore } from '../../../context';
 import { toTimestamp } from '../../../utils/time';
 import { useTimeDisplayStyles } from '../hooks/useTimeDisplayStyles';
 
@@ -14,10 +14,8 @@ export const TimeDisplay: FC<TimeDisplayProps> = ({
 	secondsMultiplier = SECONDS_MULTIPLIER,
 	...props
 }) => {
-	const { api } = useVideo();
-
-	const duration = Number(api?.getDuration?.());
-	const currentTime = Number(api?.getCurrentTime?.());
+	const duration = useMediaStore(state => state.duration);
+	const currentTime = useMediaStore(state => state.currentTime);
 
 	const { timeStampText } = useTimeDisplayStyles().classes;
 

@@ -1,7 +1,7 @@
 import { IconButtonProps } from '@mui/material/IconButton';
 import { FC } from 'react';
 
-import { useVideo } from '../../hooks/use-video';
+import { useMediaStore } from '../../context';
 import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 
@@ -14,16 +14,16 @@ export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 	classNames,
 	iconButtonProps,
 }) => {
-	const { api } = useVideo();
-
-	const hasStarted = api?.getHasPlayedOrSeeked?.();
+	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
+	const play = useMediaStore(state => state.play);
 	if (hasStarted) {
 		return null;
 	}
+
 	return (
 		<BigCenteredButton
 			Icon={BigPlayIcon}
-			onClick={api?.play}
+			onClick={play}
 			classNames={classNames}
 			iconButtonProps={iconButtonProps}
 		/>

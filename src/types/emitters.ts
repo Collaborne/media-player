@@ -1,21 +1,4 @@
 import { Emitter } from 'mitt';
-export type VideoNativeEvent =
-	| 'abort'
-	| 'canplay'
-	| 'canplaythrough'
-	| 'durationchange'
-	| 'ended'
-	| 'error'
-	| 'loadstart'
-	| 'pause'
-	| 'play'
-	| 'playing'
-	| 'seeked'
-	| 'seeking'
-	| 'stalled'
-	| 'suspend'
-	| 'volumechange'
-	| 'waiting';
 
 export type VoidEventsKey =
 	| 'play'
@@ -28,12 +11,14 @@ export type VoidEventsKey =
 	| 'unnmute'
 	| 'end'
 	| 'pipEnter'
-	| 'pipExit';
+	| 'pipExit'
+	| 'fullscreenEnter'
+	| 'fullscreenExit';
 
-/** Events that VideoApi is listening, and have no arguments */
+/** Events that MediaApi is listening, and have no arguments */
 export type VoidEvents = Record<VoidEventsKey, void>;
 
-/** Events that VideoApi is listening, and have arguments */
+/** Events that MediaApi is listening, and have arguments */
 export type ExtendedEvents = {
 	setPlaybackRate: { playbackRate: number };
 	seeked: { diffMs: number };
@@ -44,9 +29,9 @@ export type ExtendedEvents = {
 	durationchange: { duration: number };
 };
 
-export type VideoEvents = VoidEvents & ExtendedEvents;
+export type MediaEvents = VoidEvents & ExtendedEvents;
 
-export type EmitterEvents = Emitter<VideoEvents>;
+export type EmitterEvents = Emitter<MediaEvents>;
 
 /** Event emitted on `timeupdate`. Same as browsers native */
 export type TimeUpdateEvent = Record<'seconds' | 'duration', number>;

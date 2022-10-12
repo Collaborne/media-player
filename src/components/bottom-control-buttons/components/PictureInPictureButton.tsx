@@ -1,7 +1,7 @@
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
-import { useVideo } from '../../../hooks';
+import { useMediaStore } from '../../../context';
 import { PiPIcon } from '../../icons';
 
 interface PictureInPictureButtonProps extends IconButtonProps {
@@ -14,21 +14,26 @@ export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
-	const { api, fullScreenApi } = useVideo();
-	const onPip = () => {
-		if (fullScreenApi?.isFullscreen) {
-			fullScreenApi?.exitFullscreen();
+	const [isPip, exitPip, requestPip] = useMediaStore(state => [
+		state.isPip,
+		state.exitPip,
+		state.requestPip,
+	]);
+
+	const togglePip = () => {
+		if (isPip) {
+			return exitPip();
 		}
-		api?.setHasPipTriggeredByClick?.(true);
-		if (api?.getPictureInPicture?.()) {
-			return api?.exitPip?.();
-		}
-		// Calling with a delay pip => otherwise styles and position for pip are inconsistent
-		return setTimeout(() => api?.requestPip?.(), 10);
+		return requestPip();
 	};
 
 	return (
-		<IconButton size="medium" onClick={onPip} data-testid="icon-pip" {...props}>
+		<IconButton
+			size="medium"
+			onClick={togglePip}
+			data-testid="icon-pip"
+			{...props}
+		>
 			<Icon fontSize="medium" {...svgIconProps} />
 		</IconButton>
 	);

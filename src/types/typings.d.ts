@@ -9,7 +9,7 @@ declare module '*.css' {
 }
 
 // TODO: Fix when deciding to use youtube links
-// TS for only video player that plays video files
+// TS for only media player that plays media files
 declare module 'react-player' {
 	export default interface ReactPlayer extends ReactPlayer {
 		getInternalPlayer(): HTMLMediaElement | null;

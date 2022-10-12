@@ -1,13 +1,14 @@
 import { ThemeProvider } from '@mui/material/styles';
 import { render as renderRTL, RenderOptions } from '@testing-library/react';
-import { FC, ReactNode, useRef } from 'react';
+import { ReactNode } from 'react';
 
 import { PROVIDER_INITIAL_STATE } from '../components/core-player/types';
-import { VideoContext } from '../context/video';
-import { VideoProvider } from '../context/VideoProvider';
+import { MediaProvider, useMediaStore } from '../context/MediaProvider';
+import { MediaStore } from '../store/media-store';
 import { createPlayerTheme } from '../theme';
 
 import { blend } from './colors';
+
 export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';
 
@@ -19,26 +20,35 @@ export const renderWithProviders = (
 	options?: RenderOptions,
 ) =>
 	renderRTL(
-		<VideoProvider
+		<MediaProvider
 			initialState={PROVIDER_INITIAL_STATE}
 			getHighlightColorBlended={blend}
 		>
 			<ThemeProvider theme={playerTheme}>{Component}</ThemeProvider>
-		</VideoProvider>,
+		</MediaProvider>,
 		options,
 	);
 
-interface TestingVideoProviderProps
-	extends Omit<VideoContext, 'videoContainerRef'> {
-	children?: ReactNode;
+/** Setup test for a component that is dependant of the `MediaProvider` context */
+export function setupMediaProvider(Component: ReactNode) {
+	const returnVal = {} as MediaStore;
+	function NullComponent() {
+		const mediaStore = useMediaStore();
+		Object.assign(returnVal, mediaStore);
+		return null;
+	}
+	function TestComponent() {
+		return (
+			<MediaProvider
+				initialState={PROVIDER_INITIAL_STATE}
+				getHighlightColorBlended={blend}
+			>
+				<ThemeProvider theme={playerTheme}>
+					{Component}
+					<NullComponent />
+				</ThemeProvider>
+			</MediaProvider>
+		);
+	}
+	return { ...renderRTL(<TestComponent />), mediaStore: returnVal };
 }
-export const TestingVideoProvider: FC<TestingVideoProviderProps> = ({
-	children,
-	...props
-}) => {
-	const videoContainerRef = useRef<HTMLDivElement>(null);
-	const value = { ...props, videoContainerRef };
-	return (
-		<VideoContext.Provider value={value}>{children}</VideoContext.Provider>
-	);
-};

@@ -4,15 +4,7 @@
 	"entryDocument": ["../README.md"],
 	"excludeExternals": true,
 	"out": "docs/",
-	"entryPoints": [
-		"./src/components/video-player/*.tsx",
-		"./src/context/video.tsx",
-		"./src/hooks/use-video.ts",
-		"./src/types/actions.ts",
-		"./src/types/controls.ts",
-		"./src/types/getters.ts",
-		"./src/types/video-state.ts"
-	],
+	"entryPoints": ["./src/components/media-player/*.tsx", "./src/types/*.ts"],
 	"name": "@collaborne/video-player",
 	"includeVersion": true,
 	"publicPath": "/docs/",

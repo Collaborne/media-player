@@ -18,7 +18,7 @@ export const ProgressBar: React.FC = () => {
 };
 
 export default {
-	title: 'Video Player Controls',
+	title: 'Media Player Controls',
 	component: ProgressBar,
 	decorators: [withCorePlayer, withDemoCard],
 	parameters: {

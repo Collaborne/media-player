@@ -13,7 +13,7 @@ export const CenteredPlayButton: React.FC = () => {
 };
 
 export default {
-	title: 'Video Player Controls',
+	title: 'Media Player Controls',
 	component: CenteredPlayButton,
 	decorators: [withCorePlayer, withDemoCard],
 	parameters: {

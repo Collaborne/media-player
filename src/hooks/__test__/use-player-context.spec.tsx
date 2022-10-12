@@ -1,25 +1,24 @@
 import { render } from '@testing-library/react';
 import { MutableRefObject, useEffect } from 'react';
 
-import { VideoContext } from '../../context/video';
-import { VideoApi } from '../../types';
+import { MediaStore } from '../../store/media-store';
 import { usePlayerContext } from '../use-player-context';
 
-function setup(context: VideoContext) {
+function setup(store: MediaStore) {
 	const returnVal: {
-		videoContextRef: MutableRefObject<VideoContext | undefined> | undefined;
-		videoContextApi: VideoApi | undefined;
+		mediaContextRef: MutableRefObject<MediaStore | undefined> | undefined;
+		mediaContext: MediaStore | undefined;
 	} = {
-		videoContextRef: undefined,
-		videoContextApi: undefined,
+		mediaContextRef: undefined,
+		mediaContext: undefined,
 	};
 	function TestComponent() {
-		const { setVideoContext, videoContextRef, videoContextApi } =
+		const { setMediaContext, mediaContextRef, mediaContext } =
 			usePlayerContext();
 		useEffect(() => {
-			setVideoContext(context);
-		}, [setVideoContext]);
-		Object.assign(returnVal, { videoContextApi, videoContextRef });
+			setMediaContext(store);
+		}, [setMediaContext]);
+		Object.assign(returnVal, { mediaContext, mediaContextRef });
 		return null;
 	}
 	render(<TestComponent />);
@@ -28,13 +27,11 @@ function setup(context: VideoContext) {
 
 describe('usePlayerContext', () => {
 	it('getCurrentTime from player context', () => {
-		const getCurrentTime = jest.fn();
-		const videoContext = {
-			api: { getCurrentTime } as VideoApi,
-		} as VideoContext;
-		const { videoContextApi, videoContextRef } = setup(videoContext);
-		videoContextRef?.current?.api?.getCurrentTime?.();
-		expect(getCurrentTime).toHaveBeenCalledTimes(1);
-		expect(videoContextApi).toEqual(videoContext.api);
+		const setCurrentTime = jest.fn();
+		const testMediaStore = { setCurrentTime } as unknown as MediaStore;
+		const { mediaContext } = setup(testMediaStore);
+		mediaContext?.setCurrentTime(10);
+		expect(setCurrentTime).toHaveBeenCalledTimes(1);
+		expect(testMediaStore).toEqual(mediaContext);
 	});
 });

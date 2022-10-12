@@ -1,7 +1,7 @@
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
-import { useVideo } from '../../../hooks';
+import { useMediaStore } from '../../../context';
 import { VOLUME_MULTIPLIER } from '../../../utils/constants';
 
 import { VolumeIcon } from './VolumeIcon';
@@ -18,13 +18,16 @@ export const VolumeButton: FC<VolumeButtonProps> = ({
 	volumeMultiplier = VOLUME_MULTIPLIER,
 	...props
 }) => {
-	const { api } = useVideo();
-	const volume = (Number(api?.getVolume?.()) || 0) * volumeMultiplier;
+	const volume = useMediaStore(state => state.volume) * volumeMultiplier;
+	const mute = useMediaStore(state => state.mute);
+	const unmute = useMediaStore(state => state.unmute);
+	const isMuted = useMediaStore(state => state.isMuted);
+
 	const onToggleMute = () => {
-		if (api?.getMuted?.()) {
-			return api?.unmute?.();
+		if (isMuted) {
+			unmute();
 		}
-		return api?.mute?.();
+		return mute();
 	};
 
 	return (
@@ -34,11 +37,7 @@ export const VolumeButton: FC<VolumeButtonProps> = ({
 			data-testid="icon-volume"
 			{...props}
 		>
-			<Icon
-				fontSize="medium"
-				volume={api?.getMuted?.() ? 0 : volume}
-				{...svgIconProps}
-			/>
+			<Icon fontSize="medium" volume={isMuted ? 0 : volume} {...svgIconProps} />
 		</IconButton>
 	);
 };

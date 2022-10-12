@@ -2,7 +2,7 @@ import { Forward10Outlined } from '@mui/icons-material';
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
-import { useVideo } from '../../../hooks';
+import { useMediaStore } from '../../../context';
 import { SECONDS_TO_SKIP } from '../../../utils/constants';
 
 interface FwdButtonProps extends IconButtonProps {
@@ -17,9 +17,9 @@ export const FwdButton: FC<FwdButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
-	const { api } = useVideo();
-	const onFwd = () =>
-		api?.setCurrentTime?.(Number(api?.getCurrentTime?.()) + skipSeconds);
+	const currentTime = useMediaStore(state => state.currentTime);
+	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
+	const onFwd = () => setCurrentTime(currentTime + skipSeconds);
 
 	return (
 		<IconButton size="medium" onClick={onFwd} data-testid="icon-fwd" {...props}>

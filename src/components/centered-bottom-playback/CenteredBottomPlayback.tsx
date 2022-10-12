@@ -1,7 +1,7 @@
 import { ButtonProps } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { useVideo } from '../../hooks/use-video';
+import { useMediaStore } from '../../context';
 import { PLAYBACK_RATES } from '../../utils/constants';
 import { MultiplySymbol } from '../../utils/MultiplySymbol';
 
@@ -45,15 +45,12 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 export interface CenteredBottomPlaybackProps {}
 
 export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
-	const { api } = useVideo();
-	const hasStarted = api?.getHasPlayedOrSeeked?.();
-	const [activePlaybackRate, setActivePlaybackRate] = useState(
-		api?.getPlaybackRate?.() || 1,
-	);
+	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
+	const playbackRate = useMediaStore(state => state.playbackRate);
+	const setPlaybackRate = useMediaStore(state => state.setPlaybackRate);
 
 	const onChangePlaybackRate = (rate: number) => {
-		setActivePlaybackRate(rate);
-		api?.setPlaybackRate?.(rate);
+		setPlaybackRate(rate);
 	};
 
 	const { wrapper, playbackWrapper } =
@@ -66,13 +63,13 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 	return (
 		<div className={wrapper} data-testid="c-playbackRate">
 			<div className={playbackWrapper}>
-				{PLAYBACK_RATES.map(playbackRate => (
+				{PLAYBACK_RATES.map(item => (
 					<PlayBackButton
-						key={playbackRate}
-						active={activePlaybackRate}
+						key={item}
+						active={playbackRate}
 						onChangeRate={onChangePlaybackRate}
-						playbackRate={playbackRate}
-						data-testid={`c-playbackRate-${playbackRate}`}
+						playbackRate={item}
+						data-testid={`c-playbackRate-${item}`}
 					/>
 				))}
 			</div>

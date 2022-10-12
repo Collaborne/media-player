@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { usePreviousDistinct } from 'react-use';
 
 import {
 	TimeUpdateEvent,
 	useDelayedState,
-	useVideoListener,
-	VideoPlayer,
+	useMediaListener,
+	MediaPlayer,
 	usePlayerContext,
 } from '../../src';
-import { VideoContext } from '../../src/context/video';
-import { Karaoke } from '../components/karaoke/Karaoke';
+import { Timestamp } from '../components/karaoke/Timestamp';
 import { createTimestamps } from '../components/karaoke/utils';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
@@ -17,17 +17,22 @@ import { findMatchingPartOrNext, Transcript } from './shared/transcript';
 
 interface KaraokeModeProps {
 	secondsDivider: number;
-	videoUrl: string;
+	url: string;
 }
 
+type TranscriptRef = { ref: HTMLButtonElement | null };
+
 export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
-	const { videoContextApi, setVideoContext } = usePlayerContext();
-
-	const [videoDuration, setVideoDuration] = useDelayedState<number>(0);
-	const [isPlaying, setIsPlaying] = useDelayedState(false);
-	const [transcript, setTranscript] = useDelayedState<Transcript[]>([]);
-
-	const videoContextRef = React.useRef<VideoContext>();
+	const [isTimestampsReady, setIsTimestampsReady] = useDelayedState(false);
+	const transcriptsElementRef = React.useRef<TranscriptRef[]>([]);
+	const setTranscriptsElementRef = (ref: HTMLButtonElement | null) =>
+		transcriptsElementRef.current.push({ ref });
+	const { setMediaContext, mediaContext } = usePlayerContext();
+	const ready = mediaContext?.ready;
+	const mediaDuration = mediaContext?.duration || 0;
+	const transcriptRef = React.useRef<Transcript[]>([]);
+	const listener = mediaContext?.getListener();
+	const setCurrentTime = mediaContext?.setCurrentTime;
 	const [currentPart, setCurrentPart] = useDelayedState<Transcript>({
 		index: 0,
 		end: 0,
@@ -35,14 +40,16 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	});
 
 	const getCurrentTimePart = React.useCallback(() => {
-		const videoEl =
-			videoContextRef?.current?.reactPlayerRef?.current?.getInternalPlayer();
-		if (!videoEl) {
+		const mediaEl = mediaContext?.reactPlayerRef?.current?.getInternalPlayer();
+		if (!mediaEl) {
 			return;
 		}
 
-		return findMatchingPartOrNext(transcript, videoEl.currentTime * 1000 - 1);
-	}, [videoContextRef, transcript]);
+		return findMatchingPartOrNext(
+			transcriptRef.current,
+			mediaEl.currentTime * 1000 - 1,
+		);
+	}, [mediaContext]);
 
 	const onSeek = React.useCallback(() => {
 		const curPart = getCurrentTimePart();
@@ -51,33 +58,66 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		}
 	}, [getCurrentTimePart, setCurrentPart]);
 
-	useVideoListener('play', () => setIsPlaying(true, 1), videoContextApi);
-	useVideoListener('pause', () => setIsPlaying(false, 1), videoContextApi);
-	useVideoListener('seeked', onSeek, videoContextApi);
-	useVideoListener(
+	useMediaListener('seeked', onSeek, listener);
+
+	useMediaListener(
 		'timeupdate',
 		(e: TimeUpdateEvent) => {
-			setVideoDuration(e.duration, 1);
-			const res = findMatchingPartOrNext(transcript, e.seconds);
+			if (currentPart.start - 0.2 < e.seconds && currentPart.end > e.seconds) {
+				return;
+			}
+			const res = findMatchingPartOrNext(transcriptRef.current, e.seconds);
 			setCurrentPart(res, 1);
 		},
-		videoContextApi,
+		listener,
 	);
-	// Create random timestamps due to video duration
+	// Create random timestamps due to media duration
 	React.useEffect(() => {
-		setTranscript(createTimestamps(videoDuration, args.secondsDivider));
-	}, [videoDuration, args.secondsDivider]);
+		transcriptRef.current = createTimestamps(
+			mediaDuration,
+			args.secondsDivider,
+		);
+		if (transcriptRef.current) {
+			setIsTimestampsReady(true, 1000);
+		}
+	}, [mediaDuration, args.secondsDivider, ready]);
 
+	const timeStampsMemo = React.useMemo(() => {
+		if (ready && isTimestampsReady && transcriptRef.current.length > 0) {
+			return transcriptRef.current.map(({ start, end, index }) => {
+				return (
+					<Timestamp
+						ref={setTranscriptsElementRef}
+						onClick={() => setCurrentTime?.(start)}
+						key={index}
+						isActive={false}
+					>
+						{`[${start} - ${end}]`}
+					</Timestamp>
+				);
+			});
+		}
+		return null;
+	}, [ready, isTimestampsReady, transcriptRef]);
+	const prevCurrent = usePreviousDistinct(currentPart);
+	const createActiveSpan = useCallback(() => {
+		const element = transcriptsElementRef.current[currentPart.index];
+		if (element && element.ref) {
+			element.ref.style.background = 'red';
+		}
+		if (prevCurrent) {
+			const element = transcriptsElementRef.current[prevCurrent.index];
+			if (element && element.ref) {
+				element.ref.style.background = '';
+			}
+		}
+		return null;
+	}, [currentPart, timeStampsMemo]);
 	return (
 		<div>
-			<VideoPlayer videoUrl={args.videoUrl} onContext={setVideoContext} />
-			<Karaoke
-				isPlaying={isPlaying}
-				requestPip={videoContextRef.current?.api?.requestPip}
-				setCurrentTime={videoContextRef.current?.api?.setCurrentTime}
-				transcripts={transcript}
-				activeTranscript={currentPart}
-			/>
+			<MediaPlayer url={args.url} onStoreUpdate={setMediaContext} />
+			<div>{timeStampsMemo}</div>
+			{createActiveSpan()}
 		</div>
 	);
 };
@@ -87,14 +127,13 @@ export default {
 	component: KaraokeMode,
 	decorators: [withDemoCard, withPlayerTheme],
 	args: {
-		videoUrl:
-			'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+		url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
 		secondsDivider: 2,
 	},
 	argTypes: {
-		videoUrl: {
-			name: 'videoUrl',
-			description: 'A video URL. Only file type supported',
+		url: {
+			name: 'url',
+			description: 'A media URL. Only file type supported',
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: undefined },

@@ -1,3 +1,3 @@
-export * from './video';
-export * from './useVideoDebug';
-export * from './VideoProvider';
+export * from './MediaProvider';
+export * from './highlights';
+export * from './HighlightsProvider';

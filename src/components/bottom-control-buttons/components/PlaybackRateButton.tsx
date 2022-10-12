@@ -2,7 +2,7 @@ import Button, { ButtonProps } from '@mui/material/Button';
 import clsx from 'clsx';
 import { FC } from 'react';
 
-import { useVideo } from '../../../hooks';
+import { useMediaStore } from '../../../context';
 import { PLAYBACK_RATES } from '../../../utils/constants';
 import { MultiplySymbol } from '../../../utils/MultiplySymbol';
 import { usePlaybackRateStyles } from '../hooks/usePlaybackRateStyles';
@@ -15,16 +15,16 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 	variant = 'text',
 	...props
 }) => {
-	const { api } = useVideo();
-	const playbackRate = api?.getPlaybackRate?.() || 1;
+	const playbackRate = useMediaStore(state => state.playbackRate);
+	const setPlaybackRate = useMediaStore(state => state.setPlaybackRate);
 	const handleClick = () => {
 		// Gets the next value of playback rate, otherwise get first one
 		const playbackLength = PLAYBACK_RATES.length;
 		const currentIndex = PLAYBACK_RATES.findIndex(el => el === playbackRate);
 		if (playbackLength === currentIndex) {
-			return api?.setPlaybackRate?.(PLAYBACK_RATES[0]);
+			return setPlaybackRate(PLAYBACK_RATES[0]);
 		}
-		return api?.setPlaybackRate?.(PLAYBACK_RATES[currentIndex + 1]);
+		return setPlaybackRate(PLAYBACK_RATES[currentIndex + 1]);
 	};
 
 	const { playBackRateBtn } = usePlaybackRateStyles().classes;

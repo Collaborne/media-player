@@ -1,11 +1,10 @@
-import { useVideo } from '../../hooks';
+import { useMediaStore } from '../../context/MediaProvider';
 
 interface UseBottomControlsHook {
 	hasStarted?: boolean;
 }
 
 export const useBottomControlsHook = (): UseBottomControlsHook => {
-	const { api } = useVideo();
-	const hasStarted = api?.getHasPlayedOrSeeked?.();
+	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
 	return { hasStarted };
 };

@@ -8,45 +8,42 @@ import { deepmerge } from '@mui/utils';
 import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
-import { VideoContext } from '../../context';
-import { VideoProvider } from '../../context/VideoProvider';
+import { MediaProvider } from '../../context/MediaProvider';
+import { MediaStore } from '../../store/media-store';
 import { createPlayerTheme } from '../../theme';
-import { Highlight, VideoState } from '../../types';
+import { Highlight } from '../../types';
 import { blend, BlendColors } from '../../utils/colors';
-import { useFilePlayerStyles } from '../video-container/useVideoContainerStyles';
-import { VideoContainer } from '../video-container/VideoContainer';
+import { MediaContainer } from '../media-container/MediaContainer';
+import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles';
 
 import { CorePlayerInitialState, PROVIDER_INITIAL_STATE } from './types';
 
 export interface CorePlayerProps {
-	/** The url of the video file to be played */
-	videoUrl: string;
+	/** The url of the media file to be played */
+	url: string;
 	/** CSS class name applied to component  */
 	className?: string;
 	/** A MUI theme to control the stylization of the player . */
 	theme?: Theme;
-	/** Highlights to be displayed in scrub bar */
+	/** Highlights to be displayed in the scrub bar */
 	highlights?: Highlight[];
-	/** Blending colors for highlights presented in `<ProgressBar>` */
+	/** Blend highlights colors in the scrub bar */
 	getHighlightColorBlended?: BlendColors;
-	/** A callback that can updates VideoContext outside of the VideoProvider */
-	onContext?: (context: VideoContext) => void;
-	/** State that needs to be stored in localStorage */
-	persistedState?: VideoState;
-	/** Provider's initialization state */
+	/** Callback for media store update */
+	onStoreUpdate?: (store: MediaStore) => void;
+	/** `CorePlayer` initial state */
 	initialState?: CorePlayerInitialState;
 	children: ReactNode;
 }
 
 export const CorePlayer: FC<CorePlayerProps> = ({
-	videoUrl,
+	url,
 	className,
 	getHighlightColorBlended = blend,
 	highlights,
-	onContext,
+	onStoreUpdate,
 	theme,
 	initialState = PROVIDER_INITIAL_STATE,
-	persistedState,
 	children,
 }) => {
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
@@ -56,17 +53,16 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>
 				<CssBaseline />
-				<VideoProvider
+				<MediaProvider
 					initialState={initialState}
-					persistedState={persistedState}
 					getHighlightColorBlended={getHighlightColorBlended}
-					onContext={onContext}
+					onStoreUpdate={onStoreUpdate}
 					highlights={highlights}
 				>
-					<VideoContainer className={classNames} videoUrl={videoUrl}>
+					<MediaContainer className={classNames} url={url}>
 						{children}
-					</VideoContainer>
-				</VideoProvider>
+					</MediaContainer>
+				</MediaProvider>
 			</StyledEngineProvider>
 		</ThemeProvider>
 	);

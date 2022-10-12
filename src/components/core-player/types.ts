@@ -1,22 +1,21 @@
-import { Highlight, VideoState } from '../../types';
+import { Highlight } from '../../types';
 
-/** Provider's initialization state */
-export interface CorePlayerInitialState extends Partial<VideoState> {
-	/** If the video start playing from start */
-	playing: boolean;
-	/** Time (in ms) that video will start to play */
+/** MediaStore initialization state */
+export interface CorePlayerInitialState {
+	isPlaying: boolean;
+	/** Initial start time in seconds */
 	startTime: number;
-	/** Time (in ms) that video should pause */
+	/** Initial time for pausing in seconds */
 	endTime: number;
-	/** Video duration */
+	/** Media total time(duration) in seconds */
 	duration: number;
-	/** Current played time */
+	/** Current played time in seconds */
 	currentTime: number;
 	highlights: Highlight[];
 }
 
 export const PROVIDER_INITIAL_STATE: CorePlayerInitialState = {
-	playing: false,
+	isPlaying: false,
 	startTime: 0,
 	endTime: 0,
 	duration: 0,

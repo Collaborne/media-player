@@ -1,4 +1,4 @@
-import { useVideo } from '../../hooks';
+import { useMediaStore } from '../../context';
 
 interface UsePipControlsProps {
 	skipSeconds: number;
@@ -13,15 +13,16 @@ interface UsePipControlsHook {
 export const usePipControlsHook = ({
 	skipSeconds,
 }: UsePipControlsProps): UsePipControlsHook => {
-	const { api } = useVideo();
-	const currentTime = Number(api?.getCurrentTime?.());
-	const showPipControls = api?.getShowPipControls?.();
-	const onStop = () => api?.pause?.();
-	const onRwd = () => api?.setCurrentTime?.(currentTime - skipSeconds);
-	const onFwd = () => api?.setCurrentTime?.(currentTime + skipSeconds);
+	const currentTime = useMediaStore(state => state.currentTime);
+	const showPipControls = useMediaStore(state => state.showPipControls);
+	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
+	const onStop = useMediaStore(state => state.pause);
+	const onRwd = () => setCurrentTime(currentTime - skipSeconds);
+	const onFwd = () => setCurrentTime(currentTime + skipSeconds);
+	const exitPip = useMediaStore(state => state.exitPip);
 	const onClose = () => {
 		onStop();
-		api?.exitPip?.();
+		exitPip();
 	};
 
 	return {

@@ -1,7 +1,7 @@
 import { SliderProps } from '@mui/material/Slider/Slider';
 import { FC } from 'react';
 
-import { useVideo } from '../../hooks';
+import { useMediaStore } from '../../context';
 import { PROGRESS_BAR_DIVIDER } from '../../utils/constants';
 
 import { ProgressBarStyled } from './components/ProgressBarStyled';
@@ -10,8 +10,11 @@ import { Rail } from './components/Rail';
 interface ProgressBarProps extends SliderProps {}
 
 export const ProgressBar: FC<ProgressBarProps> = props => {
-	const { api } = useVideo();
-	const hasStarted = api?.getHasPlayedOrSeeked?.();
+	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
+	const currentTime = useMediaStore(state => state.currentTime);
+	const duration = useMediaStore(state => state.duration);
+	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
+
 	const onCurrentTimeUpdate = (
 		e: Event,
 		newValue: number | number[],
@@ -21,20 +24,16 @@ export const ProgressBar: FC<ProgressBarProps> = props => {
 		if (Array.isArray(newValue)) {
 			return;
 		}
-		// Get new time according to played time from the total video duration
-		const seekTime =
-			(newValue / PROGRESS_BAR_DIVIDER) * (api?.getDuration?.() || 0);
-		api?.setCurrentTime?.(seekTime);
+		// Get new time according to played time from the total media duration
+		const seekTime = (newValue / PROGRESS_BAR_DIVIDER) * duration;
+		setCurrentTime?.(seekTime);
 	};
 
 	const value = (() => {
-		const videoDuration = api?.getDuration?.();
-		const currentTime = api?.getCurrentTime?.();
-
 		// Calculate current slider's "rail" value according to total duration
 		// and current played time
-		if (videoDuration && currentTime) {
-			return (currentTime / videoDuration) * PROGRESS_BAR_DIVIDER;
+		if (duration && currentTime) {
+			return (currentTime / duration) * PROGRESS_BAR_DIVIDER;
 		}
 		return 0;
 	})();

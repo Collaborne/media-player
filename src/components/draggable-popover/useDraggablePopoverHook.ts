@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Position, ResizeEnable } from 'react-rnd';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
-import { useVideo } from '../../hooks';
+import { useMediaStore } from '../../context';
 import { DEFAULT_PIP_SIZE, OVERLAY_HIDE_DELAY } from '../../utils/constants';
 
 export type Size = {
@@ -32,9 +32,11 @@ const vh = window.innerHeight;
 export const useDraggablePopoverHook = ({
 	disablePortal,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
-	const { api } = useVideo();
-	const isPip = api?.getPictureInPicture?.();
-	const isPaused = api?.getPaused?.();
+	const [isPip, isPaused, setShowPipControls] = useMediaStore(state => [
+		state.isPip,
+		!state.isPlaying,
+		state.setShowControls,
+	]);
 
 	// Detecting mouse movements for displaying PipControls
 	const [showControls, setShowControls] = useState(false);
@@ -51,15 +53,15 @@ export const useDraggablePopoverHook = ({
 		setShowControls(true);
 	};
 
-	// Updating video state with show controls
+	// Updating media state with show controls
 	useEffect(() => {
 		if (isPaused && isPip) {
 			setShowControls(true);
-			api?.setShowPipControls?.(showControls);
+			setShowPipControls?.(showControls);
 			return;
 		}
 		if (isPip) {
-			api?.setShowPipControls?.(showControls);
+			setShowPipControls?.(showControls);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [showControls, isPip, isPaused]);

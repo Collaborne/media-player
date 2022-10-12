@@ -1,13 +1,13 @@
 import { Meta, Story } from '@storybook/react';
 
 import {
-	VideoPlayer as VideoPlayerComponent,
-	VideoPlayerProps,
-} from '../../src/components/video-player/VideoPlayer';
+	MediaPlayer as MediaPlayerComponent,
+	MediaPlayerProps,
+} from '../../src/components/media-player/MediaPlayer';
 import { withDemoCard, withIntl } from '../decorators';
 
-export const AudioPlayer: Story<VideoPlayerProps> = args => {
-	return <VideoPlayerComponent {...args} />;
+export const AudioPlayer: Story<MediaPlayerProps> = args => {
+	return <MediaPlayerComponent {...args} />;
 };
 
 export default {
@@ -15,12 +15,12 @@ export default {
 	component: AudioPlayer,
 	decorators: [withDemoCard, withIntl],
 	args: {
-		videoUrl: `https://assets.mixkit.co/sfx/preview/mixkit-game-show-suspense-waiting-667.mp3`,
+		url: `https://assets.mixkit.co/sfx/preview/mixkit-game-show-suspense-waiting-667.mp3`,
 	},
 	argTypes: {
-		videoUrl: {
-			name: 'props.videoUrl',
-			description: 'A video URL. Only file type supported',
+		url: {
+			name: 'props.url',
+			description: 'A media URL. Only file type supported',
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: undefined },
