@@ -39,4 +39,12 @@ export interface MediaState {
 	hasPipTriggeredByClick: boolean;
 	/** Storing wrapper ref of the mediaPlayer */
 	isFullscreen: boolean;
+	/** Current time value for the conditional time in seconds */
+	currentConditionalTime: number;
+	/** Next time value for the conditional time in seconds */
+	nextConditionalTime: number;
+	/** Last time when conditionalEvent was called */
+	previousTime: number;
+	/** Last time when conditionalEvent was called */
+	lastConditionalEventCalled: number;
 }

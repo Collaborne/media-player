@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+import { times } from 'lodash';
 import mitt from 'mitt';
 import screenfull from 'screenfull';
 import create, { StateCreator } from 'zustand';
@@ -9,6 +11,13 @@ import {
 	MediaStateSetters,
 } from '../types';
 import { getMediaEl } from '../utils';
+import { findBinarySearchIndex } from '../utils/array';
+import { getTimeIndexComparator } from '../utils/get-time-index-comparator';
+import {
+	compareNumbers,
+	findIndexArrayOfConsecutiveNumbers,
+	toTwoDigits,
+} from '../utils/number';
 
 export type MediaStore = MediaState &
 	MediaStateSetters &
@@ -49,6 +58,10 @@ export const createDefaultMediaSlice: StateCreator<
 	didPlayAnimationStart: false,
 	didPauseAnimationStart: false,
 	isFullscreen: false,
+	currentConditionalTime: 0,
+	nextConditionalTime: 0,
+	previousTime: 0,
+	lastConditionalEventCalled: 0,
 });
 
 export const createSettersSlice: StateCreator<
@@ -98,6 +111,7 @@ export const createSettersSlice: StateCreator<
 			) {
 				mediaEl.currentTime = state.startTime;
 				return {
+					previousTime: state.currentTime,
 					isPlaying: true,
 					currentTime: state.startTime,
 					hasPlayedOrSeeked: true,
@@ -198,6 +212,7 @@ export const createSettersSlice: StateCreator<
 			}
 
 			return {
+				previousTime: state.currentTime,
 				currentTime: state.startTime + relativeSeconds,
 				hasPlayedOrSeeked: true,
 			};
@@ -222,11 +237,22 @@ export const createSettersSlice: StateCreator<
 
 	_handleProgress: (currentTime: number) =>
 		set(state => {
+			let shoudlConditionalEvent = false;
 			const currentRelativeTime = Math.min(
 				state.endTime,
 				Math.max(0, currentTime - state.startTime),
 			);
-
+			let conditionalTime = {
+				current: state.currentConditionalTime || 0,
+				next: state.nextConditionalTime || 0,
+			};
+			const [conditionalTimeUpdateArr, timeBeforeSearch] = [
+				state.conditionalTimeUpdate,
+				state.timeBeforeConditionalTimeUpdate || 0,
+			];
+			if (conditionalTimeUpdateArr && conditionalTimeUpdateArr.length > 0) {
+				const timeSec = toTwoDigits(currentRelativeTime);
+			}
 			if (state.isPlaying) {
 				state.emitter.emit('timeupdate', {
 					seconds: currentRelativeTime,
@@ -245,10 +271,15 @@ export const createSettersSlice: StateCreator<
 			if (currentTime >= state.startTime + state.duration) {
 				isPlaying = false;
 			}
-
 			return {
+				lastConditionalEventCalled: shoudlConditionalEvent
+					? toTwoDigits(currentRelativeTime)
+					: state.lastConditionalEventCalled,
+				previousTime: state.currentTime,
 				currentTime,
 				isPlaying,
+				currentConditionalTime: conditionalTime.current,
+				nextConditionalTime: conditionalTime.next,
 			};
 		}),
 });
@@ -263,6 +294,9 @@ const onStoreUpdateMiddleware: onStoreUpdate =
 			state => {
 				set(state);
 				fn?.(get());
+				console.log('last called', get().lastConditionalEventCalled);
+				console.log('current', get().currentTime);
+				console.log('prevuous', get().previousTime);
 			},
 			get,
 			api,

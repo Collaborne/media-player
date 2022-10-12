@@ -27,6 +27,7 @@ export type ExtendedEvents = {
 	showControls: ShowControlsEvent;
 	showPipControls: ShowControlsEvent;
 	durationchange: { duration: number };
+	conditionalTimeUpdate: TimeUpdateEvent;
 };
 
 export type MediaEvents = VoidEvents & ExtendedEvents;
