@@ -1,5 +1,4 @@
 /* eslint-disable max-lines */
-import { times } from 'lodash';
 import mitt from 'mitt';
 import screenfull from 'screenfull';
 import create, { StateCreator } from 'zustand';
@@ -11,10 +10,7 @@ import {
 	MediaStateSetters,
 } from '../types';
 import { getMediaEl } from '../utils';
-import { findBinarySearchIndex } from '../utils/array';
-import { getTimeIndexComparator } from '../utils/get-time-index-comparator';
 import {
-	compareNumbers,
 	findIndexArrayOfConsecutiveNumbers,
 	toTwoDigits,
 } from '../utils/number';
@@ -252,6 +248,60 @@ export const createSettersSlice: StateCreator<
 			];
 			if (conditionalTimeUpdateArr && conditionalTimeUpdateArr.length > 0) {
 				const timeSec = toTwoDigits(currentRelativeTime);
+				// refreshing values for conditional time
+				if (
+					conditionalTime.next < timeSec &&
+					conditionalTime.current < timeSec
+				) {
+					const index = findIndexArrayOfConsecutiveNumbers(
+						conditionalTimeUpdateArr,
+						timeSec,
+						timeBeforeSearch,
+					);
+					conditionalTime = {
+						current: conditionalTimeUpdateArr[index],
+						next: conditionalTimeUpdateArr[index + 1] ?? Infinity,
+					};
+				}
+				const hasPassedCurrent =
+					timeSec - timeBeforeSearch > conditionalTime.current &&
+					timeSec - timeBeforeSearch < conditionalTime.next;
+				const hasCurrentEventRan =
+					state.lastConditionalEventCalled - timeBeforeSearch >
+						conditionalTime.current &&
+					state.lastConditionalEventCalled - timeBeforeSearch <
+						conditionalTime.next;
+				if (hasPassedCurrent && !hasCurrentEventRan) {
+					shoudlConditionalEvent = true;
+				}
+				const hasPassedNext =
+					state.nextConditionalTime <= timeSec &&
+					state.currentTime >= state.nextConditionalTime;
+
+				// console.log(
+				// 	'  state.currentTime',
+				// 	state.currentTime,
+				// 	'  timeSec',
+				// 	timeSec,
+				// 	'  state.nextConditionalTime',
+				// 	state.nextConditionalTime,
+				// 	'  state.lastConditionalEventCalled',
+				// 	state.lastConditionalEventCalled,
+				// );
+				console.log(conditionalTime);
+				if (hasPassedNext) {
+					console.log(conditionalTime);
+					console.log('Ran next event');
+					shoudlConditionalEvent = true;
+				}
+
+				if (shoudlConditionalEvent) {
+					console.log('EMIT EVENT', timeSec);
+					state.emitter.emit('conditionalTimeUpdate', {
+						seconds: timeSec,
+						duration: state.duration,
+					});
+				}
 			}
 			if (state.isPlaying) {
 				state.emitter.emit('timeupdate', {
@@ -275,8 +325,7 @@ export const createSettersSlice: StateCreator<
 				lastConditionalEventCalled: shoudlConditionalEvent
 					? toTwoDigits(currentRelativeTime)
 					: state.lastConditionalEventCalled,
-				previousTime: state.currentTime,
-				currentTime,
+				currentTime: toTwoDigits(currentTime),
 				isPlaying,
 				currentConditionalTime: conditionalTime.current,
 				nextConditionalTime: conditionalTime.next,
@@ -294,9 +343,9 @@ const onStoreUpdateMiddleware: onStoreUpdate =
 			state => {
 				set(state);
 				fn?.(get());
-				console.log('last called', get().lastConditionalEventCalled);
-				console.log('current', get().currentTime);
-				console.log('prevuous', get().previousTime);
+				// console.log('last called', get().lastConditionalEventCalled);
+				// console.log('current', get().currentTime);
+				// console.log('prevuous', get().previousTime);
 			},
 			get,
 			api,

@@ -44,7 +44,5 @@ export interface MediaState {
 	/** Next time value for the conditional time in seconds */
 	nextConditionalTime: number;
 	/** Last time when conditionalEvent was called */
-	previousTime: number;
-	/** Last time when conditionalEvent was called */
 	lastConditionalEventCalled: number;
 }
