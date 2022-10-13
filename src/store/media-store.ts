@@ -10,10 +10,7 @@ import {
 	MediaStateSetters,
 } from '../types';
 import { getMediaEl } from '../utils';
-import {
-	findIndexArrayOfConsecutiveNumbers,
-	toTwoDigits,
-} from '../utils/number';
+import { findNextConsecutiveIndex } from '../utils/number';
 
 export type MediaStore = MediaState &
 	MediaStateSetters &
@@ -247,58 +244,48 @@ export const createSettersSlice: StateCreator<
 				state.timeBeforeConditionalTimeUpdate || 0,
 			];
 			if (conditionalTimeUpdateArr && conditionalTimeUpdateArr.length > 0) {
-				const timeSec = toTwoDigits(currentRelativeTime);
 				// refreshing values for conditional time
+				const isInitialized =
+					state.currentTime === state.currentConditionalTime &&
+					state.currentTime === state.nextConditionalTime;
 				if (
-					conditionalTime.next < timeSec &&
-					conditionalTime.current < timeSec
+					(conditionalTime.next < currentRelativeTime &&
+						conditionalTime.current < currentRelativeTime) ||
+					isInitialized
 				) {
-					const index = findIndexArrayOfConsecutiveNumbers(
+					const index = findNextConsecutiveIndex(
 						conditionalTimeUpdateArr,
-						timeSec,
+						currentRelativeTime,
 						timeBeforeSearch,
 					);
 					conditionalTime = {
 						current: conditionalTimeUpdateArr[index],
 						next: conditionalTimeUpdateArr[index + 1] ?? Infinity,
 					};
-				}
-				const hasPassedCurrent =
-					timeSec - timeBeforeSearch > conditionalTime.current &&
-					timeSec - timeBeforeSearch < conditionalTime.next;
-				const hasCurrentEventRan =
-					state.lastConditionalEventCalled - timeBeforeSearch >
-						conditionalTime.current &&
-					state.lastConditionalEventCalled - timeBeforeSearch <
-						conditionalTime.next;
-				if (hasPassedCurrent && !hasCurrentEventRan) {
-					shoudlConditionalEvent = true;
-				}
-				const hasPassedNext =
-					state.nextConditionalTime <= timeSec &&
-					state.currentTime >= state.nextConditionalTime;
-
-				// console.log(
-				// 	'  state.currentTime',
-				// 	state.currentTime,
-				// 	'  timeSec',
-				// 	timeSec,
-				// 	'  state.nextConditionalTime',
-				// 	state.nextConditionalTime,
-				// 	'  state.lastConditionalEventCalled',
-				// 	state.lastConditionalEventCalled,
-				// );
-				console.log(conditionalTime);
-				if (hasPassedNext) {
-					console.log(conditionalTime);
-					console.log('Ran next event');
-					shoudlConditionalEvent = true;
+					console.log(
+						'SEARCH RESILTS:',
+						conditionalTime,
+						conditionalTimeUpdateArr,
+						currentRelativeTime,
+					);
 				}
 
+				console.log(
+					'  state.currentTime',
+					state.currentTime,
+					'  currentRelativeTime',
+					currentRelativeTime,
+					'  state.currentConditionalTime',
+					state.currentConditionalTime,
+					'  state.nextConditionalTime',
+					state.nextConditionalTime,
+					'  state.lastConditionalEventCalled',
+					state.lastConditionalEventCalled,
+				);
 				if (shoudlConditionalEvent) {
-					console.log('EMIT EVENT', timeSec);
+					console.log('EMIT EVENT', currentRelativeTime);
 					state.emitter.emit('conditionalTimeUpdate', {
-						seconds: timeSec,
+						seconds: currentRelativeTime,
 						duration: state.duration,
 					});
 				}
@@ -323,9 +310,9 @@ export const createSettersSlice: StateCreator<
 			}
 			return {
 				lastConditionalEventCalled: shoudlConditionalEvent
-					? toTwoDigits(currentRelativeTime)
+					? currentRelativeTime
 					: state.lastConditionalEventCalled,
-				currentTime: toTwoDigits(currentTime),
+				currentTime,
 				isPlaying,
 				currentConditionalTime: conditionalTime.current,
 				nextConditionalTime: conditionalTime.next,
