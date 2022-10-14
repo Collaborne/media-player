@@ -94,10 +94,10 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 			return;
 		}
 		if (!isPip && !isVisibleFromScrollingTop) {
-			requestPip?.();
+			setTimeout(requestPip, 1);
 		}
 		if (isPip && isVisibleFromScrollingBottom) {
-			exitPip?.();
+			setTimeout(exitPip, 1);
 		}
 	}, [
 		isPlayerReady,

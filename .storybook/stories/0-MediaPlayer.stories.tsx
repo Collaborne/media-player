@@ -7,7 +7,12 @@ import {
 import { withDemoCard, withIntl } from '../decorators';
 
 export const MediaPlayer: Story<MediaPlayerProps> = args => {
-	return <MediaPlayerComponent {...args} />;
+	return (
+		<>
+			<MediaPlayerComponent {...args} />
+			<div style={{ height: '2000px' }} />
+		</>
+	);
 };
 
 export default {
