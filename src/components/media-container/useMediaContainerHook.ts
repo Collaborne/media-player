@@ -44,6 +44,8 @@ export const useMediaContainerHook = ({
 		isFullscreen,
 		isPip,
 		onPlay,
+		showControls,
+		setShowControls,
 	] = useMediaStore(state => [
 		state.reactPlayerRef,
 		state.mediaContainerRef,
@@ -61,6 +63,8 @@ export const useMediaContainerHook = ({
 		state.isFullscreen,
 		state.isPip,
 		state.play,
+		state.showControls,
+		state.setShowControls,
 	]);
 
 	const reactPlayerProps: ReactPlayerProps = {
@@ -149,11 +153,9 @@ export const useMediaContainerHook = ({
 			lastActivityRef.current = Date.now();
 		}
 	}, []);
-	const [showControls, setShowControls] = useState(true);
 	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 	const [lastMouseMove, setLastMouseMove] = useState<number>(0);
 	const [isPlayerReady, setIsPlayerReady] = useState(Boolean(url));
-
 	const hasAutoFocusedRef = useRef(false);
 
 	const updateShowControls = useCallback(() => {
