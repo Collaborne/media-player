@@ -53,8 +53,6 @@ export const createDefaultMediaSlice: StateCreator<
 	isFullscreen: false,
 	currentTimeAlarm: 0,
 	nextTimeAlarm: 0,
-	previousTime: 0,
-	lastConditionalEventCalled: 0,
 });
 
 export const createSettersSlice: StateCreator<
@@ -230,22 +228,18 @@ export const createSettersSlice: StateCreator<
 
 	_handleProgress: (currentTime: number) =>
 		set(state => {
-			let shouldRunTimeAlarm = false;
+			let alarmTurnedOn = false;
 			const currentRelativeTime = Math.min(
 				state.endTime,
 				Math.max(0, currentTime - state.startTime),
 			);
-			let newTimeAlarm = {
+			let newAlarmState = {
 				current: state.currentTimeAlarm || 0,
 				next: state.nextTimeAlarm || 0,
 			};
-			const [timeAlarm, timeBeforeAlarm] = [
-				state.timeAlarm,
-				state.timeBeforeAlarm || 0,
-			];
 
 			// Creating and updating `onTimeAlarm`
-			if (timeAlarm && timeAlarm.length > 0) {
+			if (state.alarms.length > 0) {
 				// Time that was played previously
 				const previousTime = state.currentTime;
 				// Get the initial state
@@ -254,19 +248,18 @@ export const createSettersSlice: StateCreator<
 					previousTime === state.nextTimeAlarm;
 				// Run 1 search for 2 consecutive values
 				if (
-					(newTimeAlarm.next < currentRelativeTime &&
-						newTimeAlarm.current < currentRelativeTime) ||
+					(newAlarmState.next < currentRelativeTime &&
+						newAlarmState.current < currentRelativeTime) ||
 					isInitialized
 				) {
 					// Get next index in `timeAlarm`
-					const index = findNextConsecutiveIndex(
-						timeAlarm,
+					const alarmsIndex = findNextConsecutiveIndex(
+						state.alarms,
 						currentRelativeTime,
-						timeBeforeAlarm,
 					);
-					newTimeAlarm = {
-						current: timeAlarm[index] ?? -Infinity,
-						next: timeAlarm[index + 1] ?? Infinity,
+					newAlarmState = {
+						current: state.alarms[alarmsIndex] ?? -Infinity,
+						next: state.alarms[alarmsIndex + 1] ?? Infinity,
 					};
 				}
 
@@ -276,14 +269,14 @@ export const createSettersSlice: StateCreator<
 					currentRelativeTime > state.currentTimeAlarm &&
 					state.nextTimeAlarm > currentRelativeTime;
 
-				// Check if we should run event on currentTimeAlarm
+				// Check if we should run event on nextTimeAlarm
 				const hasNextAlarm =
 					previousTime <= state.nextTimeAlarm &&
 					currentRelativeTime > state.nextTimeAlarm;
 				if (hasNextAlarm || hasCurrentAlarm) {
-					shouldRunTimeAlarm = true;
+					alarmTurnedOn = true;
 				}
-				if (shouldRunTimeAlarm) {
+				if (alarmTurnedOn) {
 					state.emitter.emit('onTimeAlarm', {
 						seconds: currentRelativeTime,
 						duration: state.duration,
@@ -311,8 +304,8 @@ export const createSettersSlice: StateCreator<
 			return {
 				currentTime,
 				isPlaying,
-				currentTimeAlarm: newTimeAlarm.current,
-				nextTimeAlarm: newTimeAlarm.next,
+				currentTimeAlarm: newAlarmState.current,
+				nextTimeAlarm: newAlarmState.next,
 			};
 		}),
 });

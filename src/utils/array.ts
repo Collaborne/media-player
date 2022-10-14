@@ -2,14 +2,12 @@
 export function findNextConsecutiveIndex(
 	arr: number[],
 	num: number,
-	delta: number,
 	CHUNK_VALUE = 100,
 ) {
 	const totalLength = arr.length;
-	const relativeNum = num - delta;
 
 	if (totalLength <= CHUNK_VALUE) {
-		return arr.findIndex(el => el >= relativeNum);
+		return arr.findIndex(el => el >= num);
 	}
 	// get the number of intervals
 	const intervalNr = Math.ceil(totalLength / CHUNK_VALUE);
@@ -26,13 +24,13 @@ export function findNextConsecutiveIndex(
 	// because we look to the next highest value
 	const arrToSearch: number[] = [];
 	arrChunks.forEach((item, index) => {
-		if (arr[item[0]] <= relativeNum && arr[item[1]] > relativeNum) {
+		if (arr[item[0]] <= num && arr[item[1]] > num) {
 			arrToSearch.push(...item);
 		}
 
 		if (
-			arr[arrChunks[index][1]] <= relativeNum &&
-			arr[arrChunks[index + 1][0]] >= relativeNum
+			arr[arrChunks[index][1]] <= num &&
+			arr[arrChunks[index + 1][0]] >= num
 		) {
 			arrToSearch.push(arrChunks[index][1], arrChunks[index + 1][0]);
 		}
@@ -46,7 +44,7 @@ export function findNextConsecutiveIndex(
 	// Iterate while do not find first element that is bigger than the number
 	while (startIndex <= endIndex) {
 		const element = arr[startIndex];
-		if (element >= relativeNum) {
+		if (element >= num) {
 			return startIndex;
 		}
 		startIndex = startIndex + 1;

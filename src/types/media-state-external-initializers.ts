@@ -12,8 +12,6 @@ export interface MediaStateExternalInitializers {
 	initialState: CorePlayerInitialState;
 	getHighlightColorBlended?: BlendColors;
 	onStoreUpdate?: (store: MediaStore) => void;
-	/** Time in sec for values that will set `onAlarmUpdate` */
-	timeAlarm?: number[];
-	/** Time before `onAlarmUpdate` event should ran in sec */
-	timeBeforeAlarm?: number;
+	/** Trigger points (in sec) when an alert event is emitted */
+	alarms: number[];
 }
