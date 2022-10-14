@@ -35,7 +35,7 @@ export const useDraggablePopoverHook = ({
 	const [isPip, isPaused, setShowPipControls] = useMediaStore(state => [
 		state.isPip,
 		!state.isPlaying,
-		state.setShowControls,
+		state.setShowPipControls,
 	]);
 
 	// Detecting mouse movements for displaying PipControls
