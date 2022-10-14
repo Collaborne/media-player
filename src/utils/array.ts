@@ -1,6 +1,3 @@
-/** Rounds a number into a 2 digits number */
-export const toTwoDigits = (num: number) => Math.round(num * 100) / 100;
-
 /** Find closest higher `number` in a `Array<numbers>` with a delta approximate */
 export function findNextConsecutiveIndex(
 	arr: number[],

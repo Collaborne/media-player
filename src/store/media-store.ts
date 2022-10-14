@@ -10,7 +10,7 @@ import {
 	MediaStateSetters,
 } from '../types';
 import { getMediaEl } from '../utils';
-import { findNextConsecutiveIndex } from '../utils/number';
+import { findNextConsecutiveIndex } from '../utils/array';
 
 export type MediaStore = MediaState &
 	MediaStateSetters &
