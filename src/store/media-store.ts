@@ -51,8 +51,8 @@ export const createDefaultMediaSlice: StateCreator<
 	didPlayAnimationStart: false,
 	didPauseAnimationStart: false,
 	isFullscreen: false,
-	currentConditionalTime: 0,
-	nextConditionalTime: 0,
+	currentTimeAlarm: 0,
+	nextTimeAlarm: 0,
 	previousTime: 0,
 	lastConditionalEventCalled: 0,
 });
@@ -230,61 +230,61 @@ export const createSettersSlice: StateCreator<
 
 	_handleProgress: (currentTime: number) =>
 		set(state => {
-			let shoudlConditionalEvent = false;
+			let shouldRunTimeAlarm = false;
 			const currentRelativeTime = Math.min(
 				state.endTime,
 				Math.max(0, currentTime - state.startTime),
 			);
-			let conditionalTime = {
-				current: state.currentConditionalTime || 0,
-				next: state.nextConditionalTime || 0,
+			let newTimeAlarm = {
+				current: state.currentTimeAlarm || 0,
+				next: state.nextTimeAlarm || 0,
 			};
-			const [conditionalTimeUpdateArr, timeBeforeSearch] = [
-				state.conditionalTimeUpdate,
-				state.timeBeforeConditionalTimeUpdate || 0,
+			const [timeAlarm, timeBeforeAlarm] = [
+				state.timeAlarm,
+				state.timeBeforeAlarm || 0,
 			];
-			if (conditionalTimeUpdateArr && conditionalTimeUpdateArr.length > 0) {
-				// refreshing values for conditional time
+
+			// Creating and updating `onTimeAlarm`
+			if (timeAlarm && timeAlarm.length > 0) {
+				// Time that was played previously
+				const previousTime = state.currentTime;
+				// Get the initial state
 				const isInitialized =
-					state.currentTime === state.currentConditionalTime &&
-					state.currentTime === state.nextConditionalTime;
+					previousTime === state.currentTimeAlarm &&
+					previousTime === state.nextTimeAlarm;
+				// Run 1 search for 2 consecutive values
 				if (
-					(conditionalTime.next < currentRelativeTime &&
-						conditionalTime.current < currentRelativeTime) ||
+					(newTimeAlarm.next < currentRelativeTime &&
+						newTimeAlarm.current < currentRelativeTime) ||
 					isInitialized
 				) {
+					// Get next index in `timeAlarm`
 					const index = findNextConsecutiveIndex(
-						conditionalTimeUpdateArr,
+						timeAlarm,
 						currentRelativeTime,
-						timeBeforeSearch,
+						timeBeforeAlarm,
 					);
-					conditionalTime = {
-						current: conditionalTimeUpdateArr[index],
-						next: conditionalTimeUpdateArr[index + 1] ?? Infinity,
+					newTimeAlarm = {
+						current: timeAlarm[index] ?? -Infinity,
+						next: timeAlarm[index + 1] ?? Infinity,
 					};
-					console.log(
-						'SEARCH RESILTS:',
-						conditionalTime,
-						conditionalTimeUpdateArr,
-						currentRelativeTime,
-					);
 				}
 
-				console.log(
-					'  state.currentTime',
-					state.currentTime,
-					'  currentRelativeTime',
-					currentRelativeTime,
-					'  state.currentConditionalTime',
-					state.currentConditionalTime,
-					'  state.nextConditionalTime',
-					state.nextConditionalTime,
-					'  state.lastConditionalEventCalled',
-					state.lastConditionalEventCalled,
-				);
-				if (shoudlConditionalEvent) {
-					console.log('EMIT EVENT', currentRelativeTime);
-					state.emitter.emit('conditionalTimeUpdate', {
+				// Check if we should run event on currentTimeAlarm
+				const hasCurrentAlarm =
+					previousTime <= state.currentTimeAlarm &&
+					currentRelativeTime > state.currentTimeAlarm &&
+					state.nextTimeAlarm > currentRelativeTime;
+
+				// Check if we should run event on currentTimeAlarm
+				const hasNextAlarm =
+					previousTime <= state.nextTimeAlarm &&
+					currentRelativeTime > state.nextTimeAlarm;
+				if (hasNextAlarm || hasCurrentAlarm) {
+					shouldRunTimeAlarm = true;
+				}
+				if (shouldRunTimeAlarm) {
+					state.emitter.emit('onTimeAlarm', {
 						seconds: currentRelativeTime,
 						duration: state.duration,
 					});
@@ -309,13 +309,10 @@ export const createSettersSlice: StateCreator<
 				isPlaying = false;
 			}
 			return {
-				lastConditionalEventCalled: shoudlConditionalEvent
-					? currentRelativeTime
-					: state.lastConditionalEventCalled,
 				currentTime,
 				isPlaying,
-				currentConditionalTime: conditionalTime.current,
-				nextConditionalTime: conditionalTime.next,
+				currentTimeAlarm: newTimeAlarm.current,
+				nextTimeAlarm: newTimeAlarm.next,
 			};
 		}),
 });
@@ -330,9 +327,6 @@ const onStoreUpdateMiddleware: onStoreUpdate =
 			state => {
 				set(state);
 				fn?.(get());
-				// console.log('last called', get().lastConditionalEventCalled);
-				// console.log('current', get().currentTime);
-				// console.log('prevuous', get().previousTime);
 			},
 			get,
 			api,

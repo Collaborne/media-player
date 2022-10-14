@@ -19,7 +19,7 @@ export interface MediaProviderProps
 	extends RequiredAndOptionalPick<
 		CorePlayerProps,
 		'initialState' | 'getHighlightColorBlended' | 'children',
-		'onStoreUpdate' | 'highlights'
+		'onStoreUpdate' | 'highlights' | 'timeAlarm' | 'timeBeforeAlarm'
 	> {}
 
 /** A provider that should wrap MediaContainer for context consuming */
@@ -29,6 +29,8 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 	children,
 	onStoreUpdate,
 	highlights,
+	timeAlarm,
+	timeBeforeAlarm,
 }) => {
 	const reactPlayerRef = useRef<ReactPlayer>(null);
 	const playPromiseRef = useRef<Promise<void>>();
@@ -44,7 +46,8 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 						reactPlayerRef,
 						mediaContainerRef,
 						onStoreUpdate,
-						conditionalTimeUpdate: [0, 1, 2, 3, 4, 5, 6, 7],
+						timeAlarm,
+						timeBeforeAlarm,
 					})
 				}
 			>

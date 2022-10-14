@@ -34,6 +34,10 @@ export interface CorePlayerProps {
 	/** `CorePlayer` initial state */
 	initialState?: CorePlayerInitialState;
 	children: ReactNode;
+	/** Time in sec for values that will set `onAlarmUpdate` */
+	timeAlarm?: number[];
+	/** Time before `onAlarmUpdate` event should ran in sec */
+	timeBeforeAlarm?: number;
 }
 
 export const CorePlayer: FC<CorePlayerProps> = ({
@@ -44,6 +48,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	onStoreUpdate,
 	theme,
 	initialState = PROVIDER_INITIAL_STATE,
+	timeAlarm,
+	timeBeforeAlarm,
 	children,
 }) => {
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
@@ -58,6 +64,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 					getHighlightColorBlended={getHighlightColorBlended}
 					onStoreUpdate={onStoreUpdate}
 					highlights={highlights}
+					timeAlarm={timeAlarm}
+					timeBeforeAlarm={timeBeforeAlarm}
 				>
 					<MediaContainer className={classNames} url={url}>
 						{children}

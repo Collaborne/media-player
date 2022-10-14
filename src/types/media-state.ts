@@ -40,9 +40,7 @@ export interface MediaState {
 	/** Storing wrapper ref of the mediaPlayer */
 	isFullscreen: boolean;
 	/** Current time value for the conditional time in seconds */
-	currentConditionalTime: number;
+	currentTimeAlarm: number;
 	/** Next time value for the conditional time in seconds */
-	nextConditionalTime: number;
-	/** Last time when conditionalEvent was called */
-	lastConditionalEventCalled: number;
+	nextTimeAlarm: number;
 }
