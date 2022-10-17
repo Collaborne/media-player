@@ -4,6 +4,9 @@ export function findNextConsecutiveIndex(
 	num: number,
 	CHUNK_VALUE = 100,
 ) {
+	if (CHUNK_VALUE <= 0) {
+		throw new Error('CHUNK_VALUE should be greater than 0');
+	}
 	const totalLength = arr.length;
 
 	if (totalLength <= CHUNK_VALUE) {
