@@ -47,7 +47,6 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	theme,
 	initialState = PROVIDER_INITIAL_STATE,
 	alarms,
-	timeBeforeAlarm,
 	children,
 }) => {
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});

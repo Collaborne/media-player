@@ -32,7 +32,6 @@ export const createDefaultMediaSlice: StateCreator<
 	MediaState
 > = () => ({
 	currentTime: 0,
-	currentRelativeTime: 0,
 	playbackRate: 1,
 	startTime: 0,
 	endTime: 0,
@@ -42,7 +41,6 @@ export const createDefaultMediaSlice: StateCreator<
 	ready: false,
 	isPlaying: false,
 	isMuted: false,
-	fullscreen: false,
 	hasPlayedOrSeeked: false,
 	isPip: false,
 	hasPipTriggeredByClick: true,
@@ -228,29 +226,29 @@ export const createSettersSlice: StateCreator<
 
 	_handleProgress: (currentTime: number) =>
 		set(state => {
-			let alarmTurnedOn = false;
 			const currentRelativeTime = Math.min(
 				state.endTime,
 				Math.max(0, currentTime - state.startTime),
 			);
 			let newAlarmState = {
-				current: state.currentTimeAlarm || 0,
-				next: state.nextTimeAlarm || 0,
+				current: state.currentTimeAlarm,
+				next: state.nextTimeAlarm,
 			};
 
 			// Creating and updating `onTimeAlarm`
-			if (state.alarms.length > 0) {
-				// Time that was played previously
+			if (state.alarms.length > 0 && state.isPlaying) {
+				// state.currentTime - was already played(previous state)
 				const previousTime = state.currentTime;
-				// Get the initial state
-				const isInitialized =
+				// It might happen that first alarm can be at `0` (zero),
+				// so we need to initialize from `0` (zero) interval
+				const isFirstInterval =
 					previousTime === state.currentTimeAlarm &&
 					previousTime === state.nextTimeAlarm;
 				// Run 1 search for 2 consecutive values
 				if (
 					(newAlarmState.next < currentRelativeTime &&
 						newAlarmState.current < currentRelativeTime) ||
-					isInitialized
+					isFirstInterval
 				) {
 					// Get next index in `timeAlarm`
 					const alarmsIndex = findNextConsecutiveIndex(
@@ -264,19 +262,24 @@ export const createSettersSlice: StateCreator<
 				}
 
 				// Check if we should run event on currentTimeAlarm
-				const hasCurrentAlarm =
-					previousTime <= state.currentTimeAlarm &&
-					currentRelativeTime > state.currentTimeAlarm &&
-					state.nextTimeAlarm > currentRelativeTime;
+				const isCurrentAlarmTriggered =
+					currentRelativeTime > state.currentTimeAlarm;
+				const isNextAlarmTriggered = currentRelativeTime > state.nextTimeAlarm;
+				const hadCurrentAlarmAlreadyBeTriggered =
+					previousTime > state.currentTimeAlarm;
+				const isCurrentAlarmTurnedOn =
+					isCurrentAlarmTriggered &&
+					!isNextAlarmTriggered &&
+					!hadCurrentAlarmAlreadyBeTriggered;
 
 				// Check if we should run event on nextTimeAlarm
-				const hasNextAlarm =
-					previousTime <= state.nextTimeAlarm &&
-					currentRelativeTime > state.nextTimeAlarm;
-				if (hasNextAlarm || hasCurrentAlarm) {
-					alarmTurnedOn = true;
-				}
-				if (alarmTurnedOn) {
+				const hadNextAlarmAlreadyBeTriggered =
+					previousTime > state.nextTimeAlarm;
+				const isNextAlarmTurnedOn =
+					isNextAlarmTriggered && !hadNextAlarmAlreadyBeTriggered;
+				const isAlarmTurnedOn = isCurrentAlarmTurnedOn || isNextAlarmTurnedOn;
+
+				if (isAlarmTurnedOn) {
 					state.emitter.emit('onTimeAlarm', {
 						seconds: currentRelativeTime,
 						duration: state.duration,
