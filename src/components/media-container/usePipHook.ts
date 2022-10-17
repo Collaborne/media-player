@@ -94,9 +94,13 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 			return;
 		}
 		if (!isPip && !isVisibleFromScrollingTop) {
+			// New MediaStore context wont be ready to be passed into PIP mode(it will be again initialized),
+			// so need to await all processes via creating a macrotask
 			setTimeout(requestPip, 1);
 		}
 		if (isPip && isVisibleFromScrollingBottom) {
+			// New MediaStore context wont be ready to be passed into PIP mode(it will be again initialized),
+			// so need to await all processes via creating a macrotask
 			setTimeout(exitPip, 1);
 		}
 	}, [
