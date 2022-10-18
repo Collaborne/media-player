@@ -1,8 +1,10 @@
 import Bowser from 'bowser';
+import { throttle } from 'lodash';
 import {
 	useCallback,
 	useEffect,
 	useLayoutEffect,
+	useMemo,
 	useRef,
 	useState,
 } from 'react';
@@ -13,6 +15,7 @@ import { useMediaStore } from '../../context';
 import { ReactPlayerProps } from '../../types';
 import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
 
+const MOUSE_MOVE_THROTTLE = 1000;
 interface UseMediaContainerHookProps {
 	url: string;
 }
@@ -20,6 +23,7 @@ interface UseMediaContainerHook {
 	isPlayerReady: boolean;
 	onMouseLeave: () => void;
 	onMouseEnter: () => void;
+	onMouseMove: () => void;
 	reactPlayerProps: ReactPlayerProps;
 }
 export const useMediaContainerHook = ({
@@ -222,7 +226,19 @@ export const useMediaContainerHook = ({
 		setLastMouseMove(Date.now());
 	}, [markActivity]);
 
-	const onMouseLeave = useCallback(() => setLastMouseLeave(Date.now()), []);
+	const onMouseLeave = useCallback(() => {
+		setShowControls(false);
+	}, [setShowControls]);
+
+	const onMouseMove = useMemo(() => {
+		const throttled = throttle(() => {
+			markActivity();
+			setLastMouseLeave(Date.now());
+		}, MOUSE_MOVE_THROTTLE);
+		return () => {
+			return throttled();
+		};
+	}, [markActivity]);
 
 	// Add stop/pause events on clicking to media-player
 	useEffect(() => {
@@ -276,9 +292,10 @@ export const useMediaContainerHook = ({
 	}, [url, isPlayerReady]);
 
 	return {
+		reactPlayerProps,
 		isPlayerReady,
 		onMouseLeave,
 		onMouseEnter,
-		reactPlayerProps,
+		onMouseMove,
 	};
 };

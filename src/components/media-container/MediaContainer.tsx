@@ -33,8 +33,13 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 	]);
 	const { wrapper, pipText, reactPlayer } = useMediaContainerStyles().classes;
 
-	const { isPlayerReady, onMouseLeave, onMouseEnter, reactPlayerProps } =
-		useMediaContainerHook({ url });
+	const {
+		isPlayerReady,
+		onMouseLeave,
+		onMouseEnter,
+		reactPlayerProps,
+		onMouseMove,
+	} = useMediaContainerHook({ url });
 	const { containerSizeRef } = usePipHook({ isPlayerReady });
 
 	// TODO: Add a UI/UX decision when player is not ready or missing a url
@@ -48,6 +53,7 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 			className={clsx(wrapper, className)}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
+			onMouseMove={onMouseMove}
 		>
 			{Boolean(url) && (
 				<>

@@ -18,6 +18,7 @@ import { CenteredBottomPlayback } from '../centered-bottom-playback/CenteredBott
 import { CenteredPlayButton } from '../centered-play-button/CenteredPlayButton';
 import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
 import { Controls } from '../controls/Controls';
+import { useControlsStyles } from '../controls/useControlsStyles';
 import { CorePlayer, CorePlayerProps } from '../core-player/CorePlayer';
 import { PauseAnimation } from '../play-pause-animation/PauseAnimation';
 import { PlayAnimation } from '../play-pause-animation/PlayAnimation';
@@ -35,14 +36,17 @@ export const MediaPlayer: FC<MediaPlayerProps> = ({
 	...corePlayerProps
 }) => {
 	const { gridCentered } = useMediaPlayerStyles().classes;
+	const { controls } = useControlsStyles().classes;
 	return (
 		<CorePlayer {...corePlayerProps}>
+			<Grid className={controls}>
+				<CenteredPlayButton />
+				<CenteredBottomPlayback />
+			</Grid>
 			<Controls>
 				{children}
 				<PlayAnimation />
 				<PauseAnimation />
-				<CenteredPlayButton />
-				<CenteredBottomPlayback />
 				<CenteredReplayButton />
 				<BottomControls>
 					<ProgressBar />
