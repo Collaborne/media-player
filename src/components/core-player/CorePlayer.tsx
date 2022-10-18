@@ -34,6 +34,8 @@ export interface CorePlayerProps {
 	/** `CorePlayer` initial state */
 	initialState?: CorePlayerInitialState;
 	children: ReactNode;
+	/** Trigger points (in sec) when an alert event is emitted */
+	alarms?: number[];
 }
 
 export const CorePlayer: FC<CorePlayerProps> = ({
@@ -44,6 +46,7 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	onStoreUpdate,
 	theme,
 	initialState = PROVIDER_INITIAL_STATE,
+	alarms,
 	children,
 }) => {
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
@@ -58,6 +61,7 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 					getHighlightColorBlended={getHighlightColorBlended}
 					onStoreUpdate={onStoreUpdate}
 					highlights={highlights}
+					alarms={alarms}
 				>
 					<MediaContainer className={classNames} url={url}>
 						{children}

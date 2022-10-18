@@ -1,6 +1,7 @@
 import { Emitter } from 'mitt';
 
 export type VoidEventsKey =
+	| '*'
 	| 'play'
 	| 'pause'
 	| 'autoplayStart'
@@ -27,6 +28,7 @@ export type ExtendedEvents = {
 	showControls: ShowControlsEvent;
 	showPipControls: ShowControlsEvent;
 	durationchange: { duration: number };
+	onTimeAlarm: TimeUpdateEvent;
 };
 
 export type MediaEvents = VoidEvents & ExtendedEvents;

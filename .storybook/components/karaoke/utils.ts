@@ -1,3 +1,4 @@
+import { toTwoDigits } from '../../../src/utils/number';
 import { Transcript } from '../../stories/shared/transcript';
 
 /** A utility tool that is used for building `Transcript[]` until `stopPoint` limiter */
@@ -10,8 +11,8 @@ export const createTimestamps = (
 	const result: Transcript[] = [];
 	for (let i = 0; i < stopPointSeconds * secondDivider; i++) {
 		result.push({
-			start: i / secondDivider,
-			end: (i + 1) / secondDivider,
+			start: toTwoDigits(i / secondDivider),
+			end: toTwoDigits((i + 1) / secondDivider),
 			index: i,
 		});
 	}

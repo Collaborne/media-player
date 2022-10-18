@@ -8,6 +8,7 @@ import {
 	MediaPlayer,
 	usePlayerContext,
 } from '../../src';
+import { toTwoDigits } from '../../src/utils';
 import { Timestamp } from '../components/karaoke/Timestamp';
 import { createTimestamps } from '../components/karaoke/utils';
 import { withDemoCard } from '../decorators';
@@ -25,6 +26,7 @@ type TranscriptRef = { ref: HTMLButtonElement | null };
 export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	const [isTimestampsReady, setIsTimestampsReady] = useDelayedState(false);
 	const transcriptsElementRef = React.useRef<TranscriptRef[]>([]);
+	const alarmRef = React.useRef<number[]>([]);
 	const setTranscriptsElementRef = (ref: HTMLButtonElement | null) =>
 		transcriptsElementRef.current.push({ ref });
 	const { setMediaContext, mediaContext } = usePlayerContext();
@@ -61,24 +63,37 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	useMediaListener('seeked', onSeek, listener);
 
 	useMediaListener(
-		'timeupdate',
+		'onTimeAlarm',
 		(e: TimeUpdateEvent) => {
-			if (currentPart.start - 0.2 < e.seconds && currentPart.end > e.seconds) {
-				return;
-			}
 			const res = findMatchingPartOrNext(transcriptRef.current, e.seconds);
 			setCurrentPart(res, 1);
 		},
 		listener,
 	);
+
+	// create alarms from transcript
+	const createAlarms = React.useCallback(() => {
+		for (let sec = 0; sec < mediaDuration; sec++) {
+			for (
+				let secMultiplier = 0;
+				secMultiplier < args.secondsDivider;
+				secMultiplier++
+			) {
+				const secondDigits =
+					secMultiplier === 0 ? 0 : (1 / args.secondsDivider) * secMultiplier;
+				alarmRef.current.push(toTwoDigits(sec + secondDigits));
+			}
+		}
+	}, [mediaDuration, args.secondsDivider]);
 	// Create random timestamps due to media duration
 	React.useEffect(() => {
 		transcriptRef.current = createTimestamps(
 			mediaDuration,
 			args.secondsDivider,
 		);
-		if (transcriptRef.current) {
-			setIsTimestampsReady(true, 1000);
+		createAlarms();
+		if (transcriptRef.current && alarmRef.current) {
+			setIsTimestampsReady(true, 3000);
 		}
 	}, [mediaDuration, args.secondsDivider, ready]);
 
@@ -113,9 +128,14 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		}
 		return null;
 	}, [currentPart, timeStampsMemo]);
+
 	return (
 		<div>
-			<MediaPlayer url={args.url} onStoreUpdate={setMediaContext} />
+			<MediaPlayer
+				url={args.url}
+				onStoreUpdate={setMediaContext}
+				alarms={alarmRef.current}
+			/>
 			<div>{timeStampsMemo}</div>
 			{createActiveSpan()}
 		</div>

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import mitt from 'mitt';
 import screenfull from 'screenfull';
 import create, { StateCreator } from 'zustand';
@@ -9,6 +10,7 @@ import {
 	MediaStateSetters,
 } from '../types';
 import { getMediaEl } from '../utils';
+import { findNextConsecutiveIndex } from '../utils/array';
 
 export type MediaStore = MediaState &
 	MediaStateSetters &
@@ -30,7 +32,6 @@ export const createDefaultMediaSlice: StateCreator<
 	MediaState
 > = () => ({
 	currentTime: 0,
-	currentRelativeTime: 0,
 	playbackRate: 1,
 	startTime: 0,
 	endTime: 0,
@@ -40,7 +41,6 @@ export const createDefaultMediaSlice: StateCreator<
 	ready: false,
 	isPlaying: false,
 	isMuted: false,
-	fullscreen: false,
 	hasPlayedOrSeeked: false,
 	isPip: false,
 	hasPipTriggeredByClick: true,
@@ -49,6 +49,8 @@ export const createDefaultMediaSlice: StateCreator<
 	didPlayAnimationStart: false,
 	didPauseAnimationStart: false,
 	isFullscreen: false,
+	currentTimeAlarm: 0,
+	nextTimeAlarm: 0,
 });
 
 export const createSettersSlice: StateCreator<
@@ -98,6 +100,7 @@ export const createSettersSlice: StateCreator<
 			) {
 				mediaEl.currentTime = state.startTime;
 				return {
+					previousTime: state.currentTime,
 					isPlaying: true,
 					currentTime: state.startTime,
 					hasPlayedOrSeeked: true,
@@ -198,6 +201,7 @@ export const createSettersSlice: StateCreator<
 			}
 
 			return {
+				previousTime: state.currentTime,
 				currentTime: state.startTime + relativeSeconds,
 				hasPlayedOrSeeked: true,
 			};
@@ -226,7 +230,62 @@ export const createSettersSlice: StateCreator<
 				state.endTime,
 				Math.max(0, currentTime - state.startTime),
 			);
+			let newAlarmState = {
+				current: state.currentTimeAlarm,
+				next: state.nextTimeAlarm,
+			};
 
+			// Creating and updating `onTimeAlarm`
+			if (state.alarms.length > 0 && state.isPlaying) {
+				// state.currentTime - was already played(previous state)
+				const previousTime = state.currentTime;
+				// It might happen that first alarm can be at `0` (zero),
+				// so we need to initialize from `0` (zero) interval
+				const isFirstInterval =
+					previousTime === state.currentTimeAlarm &&
+					previousTime === state.nextTimeAlarm;
+				// Run 1 search for 2 consecutive values
+				if (
+					(newAlarmState.next < currentRelativeTime &&
+						newAlarmState.current < currentRelativeTime) ||
+					isFirstInterval
+				) {
+					// Get next index in `timeAlarm`
+					const alarmsIndex = findNextConsecutiveIndex(
+						state.alarms,
+						currentRelativeTime,
+					);
+					newAlarmState = {
+						current: state.alarms[alarmsIndex] ?? -Infinity,
+						next: state.alarms[alarmsIndex + 1] ?? Infinity,
+					};
+				}
+
+				// Check if we should run event on currentTimeAlarm
+				const isCurrentAlarmTriggered =
+					currentRelativeTime > state.currentTimeAlarm;
+				const isNextAlarmTriggered = currentRelativeTime > state.nextTimeAlarm;
+				const hadCurrentAlarmAlreadyBeTriggered =
+					previousTime > state.currentTimeAlarm;
+				const isCurrentAlarmTurnedOn =
+					isCurrentAlarmTriggered &&
+					!isNextAlarmTriggered &&
+					!hadCurrentAlarmAlreadyBeTriggered;
+
+				// Check if we should run event on nextTimeAlarm
+				const hadNextAlarmAlreadyBeTriggered =
+					previousTime > state.nextTimeAlarm;
+				const isNextAlarmTurnedOn =
+					isNextAlarmTriggered && !hadNextAlarmAlreadyBeTriggered;
+				const isAlarmTurnedOn = isCurrentAlarmTurnedOn || isNextAlarmTurnedOn;
+
+				if (isAlarmTurnedOn) {
+					state.emitter.emit('onTimeAlarm', {
+						seconds: currentRelativeTime,
+						duration: state.duration,
+					});
+				}
+			}
 			if (state.isPlaying) {
 				state.emitter.emit('timeupdate', {
 					seconds: currentRelativeTime,
@@ -245,10 +304,11 @@ export const createSettersSlice: StateCreator<
 			if (currentTime >= state.startTime + state.duration) {
 				isPlaying = false;
 			}
-
 			return {
 				currentTime,
 				isPlaying,
+				currentTimeAlarm: newAlarmState.current,
+				nextTimeAlarm: newAlarmState.next,
 			};
 		}),
 });

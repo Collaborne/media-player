@@ -12,4 +12,6 @@ export interface MediaStateExternalInitializers {
 	initialState: CorePlayerInitialState;
 	getHighlightColorBlended?: BlendColors;
 	onStoreUpdate?: (store: MediaStore) => void;
+	/** Trigger points (in sec) when an alert event is emitted */
+	alarms: number[];
 }
