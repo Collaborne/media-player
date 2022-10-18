@@ -1,6 +1,7 @@
 import { Emitter } from 'mitt';
 
 export type VoidEventsKey =
+	| '*'
 	| 'play'
 	| 'pause'
 	| 'autoplayStart'
