@@ -1,3 +1,4 @@
+import { throttle } from 'lodash';
 import { useCallback, useEffect, useRef } from 'react';
 import useIntersection from 'react-use/lib/useIntersection';
 
@@ -17,6 +18,8 @@ interface UsePipHook {
 /** Defines root margin when scrolling to bottom */
 const BOTTOM_ROOT_MARGIN = '48px';
 
+/**  A const for throttling onWheel event in ms */
+const WHEEL_THROTTLE = 1000;
 /** Bind Picture-in-Picture logic to the `<MediaContainer/>`. */
 export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	const [
@@ -82,10 +85,10 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		setHasPipTriggeredByClick,
 	]);
 	useEffect(() => {
-		document.body.addEventListener('wheel', onWheel);
-		console.log('onWheel');
-		return () => document.body.removeEventListener('wheel', onWheel);
-	}, [isVisibleFromScrollingBottom, isVisibleFromScrollingTop, onWheel]);
+		const onWheelThrottled = throttle(onWheel, WHEEL_THROTTLE);
+		document.body.addEventListener('wheel', onWheelThrottled);
+		return () => document.body.removeEventListener('wheel', onWheelThrottled);
+	}, [onWheel]);
 
 	// If the player is mounted, ready and isPlaying then display/hide pip player
 	useEffect(() => {
