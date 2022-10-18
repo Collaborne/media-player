@@ -1,3 +1,4 @@
+import { throttle } from 'lodash';
 import { useCallback, useEffect, useRef } from 'react';
 import useIntersection from 'react-use/lib/useIntersection';
 
@@ -17,6 +18,8 @@ interface UsePipHook {
 /** Defines root margin when scrolling to bottom */
 const BOTTOM_ROOT_MARGIN = '48px';
 
+/**  A const for throttling onWheel event in ms */
+const WHEEL_THROTTLE = 1000;
 /** Bind Picture-in-Picture logic to the `<MediaContainer/>`. */
 export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	const [
@@ -72,16 +75,20 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 
 	// On wheel event - updating that pip isn't triggered by a click on pip icon button
 	// In this way we can evite overlapping of wheel vs click onPip
+	const onWheel = useCallback(() => {
+		if (!isVisibleFromScrollingBottom || !isVisibleFromScrollingTop) {
+			setHasPipTriggeredByClick(false);
+		}
+	}, [
+		isVisibleFromScrollingBottom,
+		isVisibleFromScrollingTop,
+		setHasPipTriggeredByClick,
+	]);
 	useEffect(() => {
-		const onWheel = () => {
-			if (!isVisibleFromScrollingBottom || !isVisibleFromScrollingTop) {
-				setHasPipTriggeredByClick(false);
-			}
-		};
-		document.body.addEventListener('wheel', onWheel);
-		return () => document.body.removeEventListener('wheel', onWheel);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isVisibleFromScrollingBottom, isVisibleFromScrollingTop]);
+		const onWheelThrottled = throttle(onWheel, WHEEL_THROTTLE);
+		document.body.addEventListener('wheel', onWheelThrottled);
+		return () => document.body.removeEventListener('wheel', onWheelThrottled);
+	}, [onWheel]);
 
 	// If the player is mounted, ready and isPlaying then display/hide pip player
 	useEffect(() => {
