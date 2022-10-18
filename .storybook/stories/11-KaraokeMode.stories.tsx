@@ -73,10 +73,15 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 
 	// create alarms from transcript
 	const createAlarms = React.useCallback(() => {
-		for (let i = 0; i < mediaDuration; i++) {
-			for (let j = 0; j < args.secondsDivider; j++) {
-				const secondDigits = j === 0 ? 0 : (1 / args.secondsDivider) * j;
-				alarmRef.current.push(toTwoDigits(i + secondDigits));
+		for (let sec = 0; sec < mediaDuration; sec++) {
+			for (
+				let secMultiplier = 0;
+				secMultiplier < args.secondsDivider;
+				secMultiplier++
+			) {
+				const secondDigits =
+					secMultiplier === 0 ? 0 : (1 / args.secondsDivider) * secMultiplier;
+				alarmRef.current.push(toTwoDigits(sec + secondDigits));
 			}
 		}
 	}, [mediaDuration, args.secondsDivider]);
