@@ -72,16 +72,20 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 
 	// On wheel event - updating that pip isn't triggered by a click on pip icon button
 	// In this way we can evite overlapping of wheel vs click onPip
+	const onWheel = useCallback(() => {
+		if (!isVisibleFromScrollingBottom || !isVisibleFromScrollingTop) {
+			setHasPipTriggeredByClick(false);
+		}
+	}, [
+		isVisibleFromScrollingBottom,
+		isVisibleFromScrollingTop,
+		setHasPipTriggeredByClick,
+	]);
 	useEffect(() => {
-		const onWheel = () => {
-			if (!isVisibleFromScrollingBottom || !isVisibleFromScrollingTop) {
-				setHasPipTriggeredByClick(false);
-			}
-		};
 		document.body.addEventListener('wheel', onWheel);
+		console.log('onWheel');
 		return () => document.body.removeEventListener('wheel', onWheel);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isVisibleFromScrollingBottom, isVisibleFromScrollingTop]);
+	}, [isVisibleFromScrollingBottom, isVisibleFromScrollingTop, onWheel]);
 
 	// If the player is mounted, ready and isPlaying then display/hide pip player
 	useEffect(() => {
