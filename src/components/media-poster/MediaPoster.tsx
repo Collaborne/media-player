@@ -2,16 +2,17 @@ import { styled } from '@mui/material/styles';
 
 interface MediaPosterProps {
 	img?: string;
-	width?: number;
-	height?: number;
+	width?: number | string;
+	height?: number | string;
 }
 
 export const MediaPoster = styled('div')<MediaPosterProps>(
 	({ theme }) =>
 		({ img, width, height }) => ({
-			backgroundImage: img ?? 'none',
+			background: 'black',
+			backgroundImage: img ? `url('${img}')` : 'none',
 			width: width ?? theme.spacing(40),
 			height: height ?? theme.spacing(40),
-			background: 'black',
+			backgroundSize: 'contain',
 		}),
 );

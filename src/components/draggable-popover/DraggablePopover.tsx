@@ -4,6 +4,9 @@ import clsx from 'clsx';
 import { FC } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
+import audioPlaceholder from '../../../static/audio-placeholder.svg';
+import { useIsAudio } from '../../hooks';
+import { MediaPoster } from '../media-poster/MediaPoster';
 import { PipControls } from '../pip-controls/PipControls';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 
@@ -28,6 +31,8 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	rndProps,
 	...props
 }) => {
+	const isAudio = useIsAudio();
+
 	const { defaultPosition, defaultWidth, enableResizing } =
 		useDraggablePopoverHook({ disablePortal: props.disablePortal });
 	const { onMouseEnter, onMouseLeave, onMouseMove } = usePipMouseActivityHook();
@@ -35,6 +40,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	const { paper, progressBar, portalWrapper, resizeSquares } =
 		useDraggablePopoverStyles({
 			isExpanded: Boolean(props.disablePortal),
+			isAudio,
 		}).classes;
 
 	return (
@@ -70,6 +76,11 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 						{children}
 						{!props.disablePortal && (
 							<>
+								<MediaPoster
+									img={audioPlaceholder}
+									width="100%"
+									height="100%"
+								/>
 								<PipControls />
 								<ProgressBar className={progressBar} />
 							</>

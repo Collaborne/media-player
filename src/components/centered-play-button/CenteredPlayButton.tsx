@@ -2,6 +2,7 @@ import { IconButtonProps } from '@mui/material/IconButton';
 import { FC } from 'react';
 
 import { useMediaStore } from '../../context';
+import { useIsAudio } from '../../hooks';
 import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 
@@ -14,9 +15,11 @@ export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 	classNames,
 	iconButtonProps,
 }) => {
+	const isAudio = useIsAudio();
 	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
 	const play = useMediaStore(state => state.play);
-	if (hasStarted) {
+
+	if (hasStarted || isAudio) {
 		return null;
 	}
 

@@ -4,6 +4,7 @@ import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
 
 import { useMediaStore } from '../../context/MediaProvider';
+import { useIsAudio } from '../../hooks';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { MediaPoster } from '../media-poster/MediaPoster';
@@ -27,12 +28,15 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 	url,
 	children,
 }) => {
+	const isAudio = useIsAudio();
 	const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(state => [
 		state.mediaContainerRef,
 		state.isPip,
 		state.isFullscreen,
 	]);
-	const { wrapper, pipText, reactPlayer } = useMediaContainerStyles().classes;
+	const { wrapper, pipText, reactPlayer } = useMediaContainerStyles({
+		isAudio,
+	}).classes;
 
 	const { isPlayerReady, reactPlayerProps } = useReactPlayerHook({ url });
 	const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
@@ -72,7 +76,7 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 							{...reactPlayerProps}
 						/>
 					</DraggablePopover>
-					{isPip && (
+					{isPip && !isAudio && (
 						<MediaPoster
 							width={containerSizeRef?.current?.width || 0}
 							height={containerSizeRef?.current?.height || 0}

@@ -1,11 +1,15 @@
 import { makeStyles } from 'tss-react/mui';
 
-export const useBottomControlButtonsStyles = makeStyles()(theme => ({
-	wrapper: {
-		width: '100%',
-		height: theme.spacing(5.5),
-		padding: `0 ${theme.spacing(0.5)}`,
-		background: theme.palette.background.default,
-		pointerEvents: 'auto',
-	},
-}));
+export const useBottomControlButtonsStyles = makeStyles<{ isAudio: boolean }>()(
+	(theme, { isAudio }) => ({
+		wrapper: {
+			width: '100%',
+			height: theme.spacing(5.5),
+			padding: `0 ${theme.spacing(0.5)}`,
+			pointerEvents: 'auto',
+			...(!isAudio && {
+				background: theme.palette.background.default,
+			}),
+		},
+	}),
+);

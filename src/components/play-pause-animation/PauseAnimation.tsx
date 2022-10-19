@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import { useMediaStore } from '../../context';
-import { useMediaListener } from '../../hooks';
+import { useIsAudio, useMediaListener } from '../../hooks';
 import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
 import { BigPauseIcon } from '../icons';
@@ -16,6 +16,7 @@ interface PauseAnimationProps {
 export const PauseAnimation: FC<PauseAnimationProps> = ({
 	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
 }) => {
+	const isAudio = useIsAudio();
 	const { centeredIcon, isPlaying, hasStarted } = usePlayPauseHook();
 	const [showPauseAnimation, pauseAnimationStart] = useState(false);
 	const listener = useMediaStore(state => state.getListener)();
@@ -41,6 +42,9 @@ export const PauseAnimation: FC<PauseAnimationProps> = ({
 		}
 	}, [pauseAnimationStart, showPauseAnimation]);
 
+	if (isAudio) {
+		return null;
+	}
 	return (
 		<AnimatedIconWrapper
 			durationMs={animationDuration}

@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
 import { MediaProvider } from '../../context/MediaProvider';
+import { MediaTypeContext } from '../../context/mediaType';
 import { MediaStore } from '../../store/media-store';
 import { createPlayerTheme } from '../../theme';
 import { Highlight } from '../../types';
@@ -17,6 +18,7 @@ import { MediaContainer } from '../media-container/MediaContainer';
 import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles';
 
 import { CorePlayerInitialState, PROVIDER_INITIAL_STATE } from './types';
+import { useCorePlayerHook } from './useCorePlayerHook';
 
 export interface CorePlayerProps {
 	/** The url of the media file to be played */
@@ -49,24 +51,28 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	alarms,
 	children,
 }) => {
+	const { mediaType } = useCorePlayerHook({ url });
+	const isAudio = mediaType === 'audio';
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
-	const { wrapper } = useFilePlayerStyles().classes;
+	const { wrapper } = useFilePlayerStyles({ isAudio }).classes;
 	const classNames = clsx(wrapper, className);
 	return (
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>
 				<CssBaseline />
-				<MediaProvider
-					initialState={initialState}
-					getHighlightColorBlended={getHighlightColorBlended}
-					onStoreUpdate={onStoreUpdate}
-					highlights={highlights}
-					alarms={alarms}
-				>
-					<MediaContainer className={classNames} url={url}>
-						{children}
-					</MediaContainer>
-				</MediaProvider>
+				<MediaTypeContext.Provider value={{ mediaType }}>
+					<MediaProvider
+						initialState={initialState}
+						getHighlightColorBlended={getHighlightColorBlended}
+						onStoreUpdate={onStoreUpdate}
+						highlights={highlights}
+						alarms={alarms}
+					>
+						<MediaContainer className={classNames} url={url}>
+							{children}
+						</MediaContainer>
+					</MediaProvider>
+				</MediaTypeContext.Provider>
 			</StyledEngineProvider>
 		</ThemeProvider>
 	);
