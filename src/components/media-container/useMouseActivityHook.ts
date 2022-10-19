@@ -1,5 +1,5 @@
 import { throttle } from 'lodash';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import useEvent from 'react-use/lib/useEvent';
 
 import { useMediaStore } from '../../context';
@@ -17,12 +17,6 @@ export const useMouseActivityHook = (): UseMouseActivityHook => {
 	const [lastMouseMove, setLastMouseMove] = useState<number>(0);
 	const [isContainerHovered, setIsContainerHovered] = useState(false);
 
-	const lastActivityRef = useRef<number>();
-	const markActivity = useCallback(() => {
-		if (lastActivityRef) {
-			lastActivityRef.current = Date.now();
-		}
-	}, []);
 	const [
 		isFullscreen,
 		setShowControls,
@@ -30,6 +24,8 @@ export const useMouseActivityHook = (): UseMouseActivityHook => {
 		isPip,
 		showControls,
 		mediaContainerRef,
+		lastActivityRef,
+		markActivity,
 	] = useMediaStore(state => [
 		state.isFullscreen,
 		state.setShowControls,
@@ -37,6 +33,8 @@ export const useMouseActivityHook = (): UseMouseActivityHook => {
 		state.isPip,
 		state.showControls,
 		state.mediaContainerRef,
+		state.lastActivityRef,
+		state.markActivity,
 	]);
 
 	const updateShowControls = useCallback(() => {
@@ -54,7 +52,14 @@ export const useMouseActivityHook = (): UseMouseActivityHook => {
 			return setShowControls(false);
 		}
 		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
-	}, [isFullscreen, isPlaying, isPip, isContainerHovered, setShowControls]);
+	}, [
+		isFullscreen,
+		lastActivityRef,
+		isPlaying,
+		isPip,
+		isContainerHovered,
+		setShowControls,
+	]);
 
 	useEffect(updateShowControls, [
 		updateShowControls,

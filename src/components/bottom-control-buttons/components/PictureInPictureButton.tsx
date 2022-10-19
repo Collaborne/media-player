@@ -2,6 +2,7 @@ import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
 import { useMediaStore } from '../../../context';
+import { useOnHoveredControlElement } from '../../../hooks/useOnHoveredControlElement';
 import { PiPIcon } from '../../icons';
 
 interface PictureInPictureButtonProps extends IconButtonProps {
@@ -14,6 +15,7 @@ export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
+	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
 	const [isPip, exitPip, requestPip] = useMediaStore(state => [
 		state.isPip,
 		state.exitPip,
@@ -32,6 +34,8 @@ export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 			size="medium"
 			onClick={togglePip}
 			data-testid="icon-pip"
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			{...props}
 		>
 			<Icon fontSize="medium" {...svgIconProps} />
