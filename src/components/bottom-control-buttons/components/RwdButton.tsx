@@ -3,6 +3,7 @@ import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
 import { useMediaStore } from '../../../context/MediaProvider';
+import { useOnHoveredControlElement } from '../../../hooks/useOnHoveredControlElement';
 import { SECONDS_TO_SKIP } from '../../../utils/constants';
 
 interface RwdButtonProps extends IconButtonProps {
@@ -17,12 +18,24 @@ export const RwdButton: FC<RwdButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
-	const currentTime = useMediaStore(state => state.currentTime);
-	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
+	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
+
+	const [currentTime, setCurrentTime] = useMediaStore(state => [
+		state.currentTime,
+		state.setCurrentTime,
+	]);
+
 	const onRwd = () => setCurrentTime(currentTime - skipSeconds);
 
 	return (
-		<IconButton size="medium" onClick={onRwd} data-testid="icon-rwd" {...props}>
+		<IconButton
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			size="medium"
+			onClick={onRwd}
+			data-testid="icon-rwd"
+			{...props}
+		>
 			<Icon fontSize="medium" {...svgIconProps} />
 		</IconButton>
 	);

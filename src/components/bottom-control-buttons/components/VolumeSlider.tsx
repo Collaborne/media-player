@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { useMediaStore } from '../../../context/MediaProvider';
+import { useOnHoveredControlElement } from '../../../hooks/useOnHoveredControlElement';
 import { VOLUME_MULTIPLIER } from '../../../utils/constants';
 
 import { VolumeBarStyled } from './VolumeBarStyled';
@@ -12,8 +13,12 @@ interface VolumeSliderProps {
 export const VolumeSlider: FC<VolumeSliderProps> = ({
 	volumeMultiplier = VOLUME_MULTIPLIER,
 }) => {
-	const setVolume = useMediaStore(state => state.setVolume);
-	const volume = useMediaStore(state => state.volume) * volumeMultiplier;
+	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
+	const [volume, setVolume] = useMediaStore(state => [
+		state.volume * volumeMultiplier,
+		state.setVolume,
+	]);
+
 	const onVolumeChange = (
 		event: Event,
 		value: number | number[],
@@ -28,6 +33,8 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
 
 	return (
 		<VolumeBarStyled
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			min={0}
 			max={volumeMultiplier}
 			value={volume}

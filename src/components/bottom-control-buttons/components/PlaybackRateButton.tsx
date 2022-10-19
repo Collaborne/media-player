@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { FC } from 'react';
 
 import { useMediaStore } from '../../../context';
+import { useOnHoveredControlElement } from '../../../hooks/useOnHoveredControlElement';
 import { PLAYBACK_RATES } from '../../../utils/constants';
 import { MultiplySymbol } from '../../../utils/MultiplySymbol';
 import { usePlaybackRateStyles } from '../hooks/usePlaybackRateStyles';
@@ -15,8 +16,12 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 	variant = 'text',
 	...props
 }) => {
-	const playbackRate = useMediaStore(state => state.playbackRate);
-	const setPlaybackRate = useMediaStore(state => state.setPlaybackRate);
+	const [playbackRate, setPlaybackRate] = useMediaStore(state => [
+		state.playbackRate,
+		state.setPlaybackRate,
+	]);
+	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
+
 	const handleClick = () => {
 		// Gets the next value of playback rate, otherwise get first one
 		const playbackLength = PLAYBACK_RATES.length;
@@ -32,6 +37,8 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 
 	return (
 		<Button
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			variant={variant}
 			color={color}
 			onClick={handleClick}

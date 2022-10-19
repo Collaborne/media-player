@@ -31,11 +31,11 @@ export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 
 	return (
 		<IconButton
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			size="medium"
 			onClick={togglePip}
 			data-testid="icon-pip"
-			onMouseEnter={onMouseEnter}
-			onMouseLeave={onMouseLeave}
 			{...props}
 		>
 			<Icon fontSize="medium" {...svgIconProps} />
