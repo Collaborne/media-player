@@ -3,8 +3,8 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { ComponentType, FC } from 'react';
 
-import { usePlayPauseReplayHook } from '../../../hooks/use-play-pause-replay';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
+import { usePlayPauseReplayHook } from '../../../hooks/use-play-pause-replay';
 
 interface PlayPauseReplayProps extends IconButtonProps {
 	svgClassName?: string;

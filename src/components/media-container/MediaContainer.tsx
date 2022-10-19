@@ -8,10 +8,10 @@ import { PROGRESS_INTERVAL } from '../../utils/constants';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { MediaPoster } from '../media-poster/MediaPoster';
 
-import { useReactPlayerHook } from './useReactPlayerHook';
 import { useMediaContainerStyles } from './useMediaContainerStyles';
-import { usePipHook } from './usePipHook';
 import { useMouseActivityHook } from './useMouseActivityHook';
+import { usePipHook } from './usePipHook';
+import { useReactPlayerHook } from './useReactPlayerHook';
 
 export interface MediaContainerProps {
 	/** The url of the media file to be played */
