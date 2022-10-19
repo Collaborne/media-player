@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { FC } from 'react';
 
+import { useMediaStore } from '../../context';
+import { useOnHoveredPipControlElement } from '../../hooks/use-on-hovered-element';
 import { SECONDS_TO_SKIP } from '../../utils/constants';
 import {
 	PlayPauseReplay,
@@ -23,7 +25,9 @@ interface PipControlsProps {
 export const PipControls: FC<PipControlsProps> = ({
 	skipSeconds = SECONDS_TO_SKIP,
 }) => {
-	const { showPipControls, onClose, onFwd, onRwd } = usePipControlsHook({
+	const showPipControls = useMediaStore(state => state.showPipControls);
+	const { onMouseEnter, onMouseLeave } = useOnHoveredPipControlElement();
+	const { onClose, onFwd, onRwd } = usePipControlsHook({
 		skipSeconds,
 	});
 	const {
@@ -47,10 +51,17 @@ export const PipControls: FC<PipControlsProps> = ({
 				display="inline-flex"
 			>
 				<div>
-					<IconButton size="medium" onClick={onRwd}>
+					<IconButton
+						onClick={onRwd}
+						onMouseEnter={onMouseEnter}
+						onMouseLeave={onMouseLeave}
+						size="medium"
+					>
 						<Replay10 fontSize="medium" />
 					</IconButton>
 					<PlayPauseReplay
+						onMouseEnter={onMouseEnter}
+						onMouseLeave={onMouseLeave}
 						className={centerButtonIcon}
 						svgClassName={centerIcon}
 						size="large"
@@ -61,7 +72,12 @@ export const PipControls: FC<PipControlsProps> = ({
 						}}
 						svgIconSize="large"
 					/>
-					<IconButton size="medium" onClick={onFwd}>
+					<IconButton
+						onClick={onFwd}
+						onMouseEnter={onMouseEnter}
+						onMouseLeave={onMouseLeave}
+						size="medium"
+					>
 						<Forward10 fontSize="medium" />
 					</IconButton>
 				</div>
@@ -74,14 +90,18 @@ export const PipControls: FC<PipControlsProps> = ({
 				alignItems="end"
 			>
 				<IconButton
+					onClick={onClose}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
 					color="primary"
 					size="small"
 					className={iconButton}
-					onClick={onClose}
 				>
 					<CloseIcon fontSize="small" />
 				</IconButton>
 				<PlaybackRateButton
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
 					className={playBackRateWrapper}
 					variant="contained"
 					size="small"

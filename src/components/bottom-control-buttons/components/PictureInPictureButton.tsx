@@ -2,7 +2,7 @@ import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
 import { useMediaStore } from '../../../context';
-import { useOnHoveredControlElement } from '../../../hooks/useOnHoveredControlElement';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { PiPIcon } from '../../icons';
 
 interface PictureInPictureButtonProps extends IconButtonProps {

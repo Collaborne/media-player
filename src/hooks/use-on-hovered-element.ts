@@ -3,17 +3,21 @@ import { useCallback, useEffect, useState } from 'react';
 import { useMediaStore } from '../context';
 import { OVERLAY_HIDE_DELAY } from '../utils/constants';
 
-interface UseOnHoveredControlElement {
+interface UseOnHoveredElement {
 	onMouseEnter: VoidFunction;
 	onMouseLeave: VoidFunction;
 }
 
-export const useOnHoveredControlElement = (): UseOnHoveredControlElement => {
+interface UseOnHoveredElementProps {
+	setShowControls: (isUpdated: boolean) => void;
+	markActivity: VoidFunction;
+}
+
+export const useOnHoveredElement = ({
+	setShowControls,
+	markActivity,
+}: UseOnHoveredElementProps): UseOnHoveredElement => {
 	const [isHovered, setIsHovered] = useState(false);
-	const [setShowControls, markActivity] = useMediaStore(state => [
-		state.setShowControls,
-		state.markActivity,
-	]);
 
 	const onMouseEnter = useCallback(() => {
 		setIsHovered(true);
@@ -43,4 +47,20 @@ export const useOnHoveredControlElement = (): UseOnHoveredControlElement => {
 		onMouseEnter,
 		onMouseLeave,
 	};
+};
+
+export const useOnHoveredControlElement = () => {
+	const [setShowControls, markActivity] = useMediaStore(state => [
+		state.setShowControls,
+		state.markActivity,
+	]);
+	return useOnHoveredElement({ markActivity, setShowControls });
+};
+
+export const useOnHoveredPipControlElement = () => {
+	const [setShowControls, markActivity] = useMediaStore(state => [
+		state.setShowPipControls,
+		state.markPipActivity,
+	]);
+	return useOnHoveredElement({ markActivity, setShowControls });
 };

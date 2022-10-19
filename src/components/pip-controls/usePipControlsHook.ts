@@ -4,7 +4,6 @@ interface UsePipControlsProps {
 	skipSeconds: number;
 }
 interface UsePipControlsHook {
-	showPipControls?: boolean;
 	onRwd: VoidFunction;
 	onFwd: VoidFunction;
 	onClose: VoidFunction;
@@ -14,7 +13,6 @@ export const usePipControlsHook = ({
 	skipSeconds,
 }: UsePipControlsProps): UsePipControlsHook => {
 	const currentTime = useMediaStore(state => state.currentTime);
-	const showPipControls = useMediaStore(state => state.showPipControls);
 	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
 	const onStop = useMediaStore(state => state.pause);
 	const onRwd = () => setCurrentTime(currentTime - skipSeconds);
@@ -26,7 +24,6 @@ export const usePipControlsHook = ({
 	};
 
 	return {
-		showPipControls,
 		onRwd,
 		onFwd,
 		onClose,

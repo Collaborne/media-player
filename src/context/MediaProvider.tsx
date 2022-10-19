@@ -35,9 +35,15 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 	const playPromiseRef = useRef<Promise<void>>();
 	const mediaContainerRef = useRef<HTMLDivElement>(null);
 	const lastActivityRef = useRef<number>(0);
+	const lastPipActivityRef = useRef<number>(0);
 	const markActivity = useCallback(() => {
 		if (lastActivityRef) {
 			lastActivityRef.current = Date.now();
+		}
+	}, []);
+	const markPipActivity = useCallback(() => {
+		if (lastPipActivityRef) {
+			lastPipActivityRef.current = Date.now();
 		}
 	}, []);
 
@@ -55,6 +61,8 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 						alarms,
 						lastActivityRef,
 						markActivity,
+						lastPipActivityRef,
+						markPipActivity,
 					})
 				}
 			>

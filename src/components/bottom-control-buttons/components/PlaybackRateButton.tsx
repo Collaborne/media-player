@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { FC } from 'react';
 
 import { useMediaStore } from '../../../context';
-import { useOnHoveredControlElement } from '../../../hooks/useOnHoveredControlElement';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { PLAYBACK_RATES } from '../../../utils/constants';
 import { MultiplySymbol } from '../../../utils/MultiplySymbol';
 import { usePlaybackRateStyles } from '../hooks/usePlaybackRateStyles';

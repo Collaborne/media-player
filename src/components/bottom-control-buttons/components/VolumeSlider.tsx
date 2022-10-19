@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { useMediaStore } from '../../../context/MediaProvider';
-import { useOnHoveredControlElement } from '../../../hooks/useOnHoveredControlElement';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { VOLUME_MULTIPLIER } from '../../../utils/constants';
 
 import { VolumeBarStyled } from './VolumeBarStyled';
@@ -28,7 +28,7 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
 		if (Array.isArray(value)) {
 			return;
 		}
-		setVolume?.(value / volumeMultiplier);
+		setVolume(value / volumeMultiplier);
 	};
 
 	return (

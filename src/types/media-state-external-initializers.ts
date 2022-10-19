@@ -18,4 +18,8 @@ export interface MediaStateExternalInitializers {
 	markActivity: VoidFunction;
 	/** Store last mouse activity */
 	lastActivityRef: RefObject<number>;
+	/** Marks mouse activity for the PIP player */
+	markPipActivity: VoidFunction;
+	/** Store last mouse activity of the PIP player */
+	lastPipActivityRef: RefObject<number>;
 }
