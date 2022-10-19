@@ -14,8 +14,8 @@ interface UseMouseActivityHook {
 const MOUSE_MOVE_THROTTLE = 1000;
 
 export const useMouseActivityHook = (): UseMouseActivityHook => {
-	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
 	const [lastMouseMove, setLastMouseMove] = useState<number>(0);
+	const [isContainerHovered, setIsContainerHovered] = useState(false);
 
 	const lastActivityRef = useRef<number>();
 	const markActivity = useCallback(() => {
@@ -50,9 +50,11 @@ export const useMouseActivityHook = (): UseMouseActivityHook => {
 		if (isPip) {
 			return setShowControls(true);
 		}
+		if (!isContainerHovered) {
+			return setShowControls(false);
+		}
 		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isFullscreen, lastActivityRef, lastMouseLeave, isPip]);
+	}, [isFullscreen, isPlaying, isPip, isContainerHovered, setShowControls]);
 
 	useEffect(updateShowControls, [
 		updateShowControls,
@@ -62,18 +64,17 @@ export const useMouseActivityHook = (): UseMouseActivityHook => {
 	]);
 
 	const onMouseEnter = useCallback(() => {
-		markActivity();
-		setLastMouseMove(Date.now());
-	}, [markActivity]);
+		setIsContainerHovered(true);
+	}, []);
 
 	const onMouseLeave = useCallback(() => {
-		setShowControls(false);
-	}, [setShowControls]);
+		setIsContainerHovered(false);
+	}, []);
 
 	const onMouseMove = useMemo(() => {
 		const throttled = throttle(() => {
 			markActivity();
-			setLastMouseLeave(Date.now());
+			setLastMouseMove(Date.now());
 		}, MOUSE_MOVE_THROTTLE);
 		return () => {
 			return throttled();
@@ -82,14 +83,14 @@ export const useMouseActivityHook = (): UseMouseActivityHook => {
 
 	// Updating media players bottom control's panel after OVERLAY_HIDE_DELAY time period
 	useEffect(() => {
-		if (!isPlaying) {
+		if (!isPlaying || !isContainerHovered) {
 			return;
 		}
 		const timeoutId = setTimeout(updateShowControls, OVERLAY_HIDE_DELAY + 100);
 		return () => clearTimeout(timeoutId);
-	}, [updateShowControls, lastMouseMove, isPlaying]);
+	}, [updateShowControls, lastMouseMove, isPlaying, isContainerHovered]);
 
-	// Show media controls when controls are focused
+	// Show media controls when MediaContainer is focused
 	useEvent(
 		'focus',
 		() => {
