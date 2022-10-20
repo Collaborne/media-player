@@ -16,7 +16,7 @@ jobs:
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
-      - run: npm run build:doc
+      - run: npm run build:docs
       - run: git config --global user.email "typedoc@nextapp.co"
       - run: git config --global user.name "TypeDoc"
       - run: git commit -m "TypeDoc documentation updated"
