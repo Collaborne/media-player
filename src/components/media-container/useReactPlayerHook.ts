@@ -6,25 +6,21 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import { useEvent } from 'react-use';
 import useUnmount from 'react-use/lib/useUnmount';
 
 import { useMediaStore } from '../../context';
 import { ReactPlayerProps } from '../../types';
-import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
 
-interface UseMediaContainerHookProps {
+interface UseReactPlayerHookProps {
 	url: string;
 }
-interface UseMediaContainerHook {
+interface UseReactPlayerHook {
 	isPlayerReady: boolean;
-	onMouseLeave: () => void;
-	onMouseEnter: () => void;
 	reactPlayerProps: ReactPlayerProps;
 }
-export const useMediaContainerHook = ({
+export const useReactPlayerHook = ({
 	url,
-}: UseMediaContainerHookProps): UseMediaContainerHook => {
+}: UseReactPlayerHookProps): UseReactPlayerHook => {
 	const readyFiredRef = useRef(false);
 	const hasAutoplayedRef = useRef(false);
 	const [
@@ -41,11 +37,8 @@ export const useMediaContainerHook = ({
 		onProgress,
 		onPause,
 		setCurrentTime,
-		isFullscreen,
 		isPip,
 		onPlay,
-		showControls,
-		setShowControls,
 	] = useMediaStore(state => [
 		state.reactPlayerRef,
 		state.mediaContainerRef,
@@ -60,11 +53,8 @@ export const useMediaContainerHook = ({
 		state._handleProgress,
 		state.pause,
 		state.setCurrentTime,
-		state.isFullscreen,
 		state.isPip,
 		state.play,
-		state.showControls,
-		state.setShowControls,
 	]);
 
 	const reactPlayerProps: ReactPlayerProps = {
@@ -145,40 +135,8 @@ export const useMediaContainerHook = ({
 		hasAutoplayedRef.current = true;
 	}, [emitter, initialState, onReadyToSeek, reactPlayerRef]);
 
-	// Store the user's last "activity" (including mousemove over player) within a ref,
-	// so that state re-renders are not triggered every mousemove.
-	const lastActivityRef = useRef<number>();
-	const markActivity = useCallback(() => {
-		if (lastActivityRef) {
-			lastActivityRef.current = Date.now();
-		}
-	}, []);
-	const [lastMouseLeave, setLastMouseLeave] = useState<number>(0);
-	const [lastMouseMove, setLastMouseMove] = useState<number>(0);
 	const [isPlayerReady, setIsPlayerReady] = useState(Boolean(url));
 	const hasAutoFocusedRef = useRef(false);
-
-	const updateShowControls = useCallback(() => {
-		if (isFullscreen) {
-			return setShowControls(true);
-		}
-		const lastActivity = lastActivityRef?.current || 0;
-		if (!isPlaying) {
-			return setShowControls(true);
-		}
-		if (isPip) {
-			return setShowControls(true);
-		}
-		return setShowControls(Date.now() - lastActivity < OVERLAY_HIDE_DELAY);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isFullscreen, lastActivityRef, lastMouseLeave, isPip]);
-
-	useEffect(updateShowControls, [
-		updateShowControls,
-		showControls,
-		isPlaying,
-		lastMouseMove,
-	]);
 
 	useLayoutEffect(() => {
 		if (!url || hasAutoFocusedRef.current) {
@@ -217,13 +175,6 @@ export const useMediaContainerHook = ({
 		return onPause();
 	}, [isPip, isPlaying, onPause, onPlay]);
 
-	const onMouseEnter = useCallback(() => {
-		markActivity();
-		setLastMouseMove(Date.now());
-	}, [markActivity]);
-
-	const onMouseLeave = useCallback(() => setLastMouseLeave(Date.now()), []);
-
 	// Add stop/pause events on clicking to media-player
 	useEffect(() => {
 		const mediaContainerElement = reactPlayerRef?.current?.wrapper;
@@ -238,31 +189,6 @@ export const useMediaContainerHook = ({
 		};
 	}, [reactPlayerRef, togglePlay]);
 
-	// Show media controls when controls are focused
-	useEvent(
-		'focus',
-		() => {
-			markActivity();
-			updateShowControls();
-		},
-		mediaContainerRef?.current,
-		{ capture: true },
-	);
-
-	// Updating media state with show controls
-	useEffect(() => {
-		setShowControls(showControls);
-	}, [showControls]);
-
-	// Updating media players bottom control's panel after OVERLAY_HIDE_DELAY time period
-	useEffect(() => {
-		if (!isPlaying) {
-			return;
-		}
-		const timeoutId = setTimeout(updateShowControls, OVERLAY_HIDE_DELAY + 100);
-		return () => clearTimeout(timeoutId);
-	}, [updateShowControls, lastMouseMove, isPlaying]);
-
 	useEffect(() => {
 		// If media is already loaded with one valid url, don't re-load player.
 		if (isPlayerReady) {
@@ -276,9 +202,7 @@ export const useMediaContainerHook = ({
 	}, [url, isPlayerReady]);
 
 	return {
-		isPlayerReady,
-		onMouseLeave,
-		onMouseEnter,
 		reactPlayerProps,
+		isPlayerReady,
 	};
 };

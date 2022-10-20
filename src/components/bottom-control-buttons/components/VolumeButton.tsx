@@ -2,6 +2,7 @@ import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
 import { useMediaStore } from '../../../context';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { VOLUME_MULTIPLIER } from '../../../utils/constants';
 
 import { VolumeIcon } from './VolumeIcon';
@@ -18,10 +19,13 @@ export const VolumeButton: FC<VolumeButtonProps> = ({
 	volumeMultiplier = VOLUME_MULTIPLIER,
 	...props
 }) => {
-	const volume = useMediaStore(state => state.volume) * volumeMultiplier;
-	const mute = useMediaStore(state => state.mute);
-	const unmute = useMediaStore(state => state.unmute);
-	const isMuted = useMediaStore(state => state.isMuted);
+	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
+	const [volume, mute, unmute, isMuted] = useMediaStore(state => [
+		state.volume * volumeMultiplier,
+		state.mute,
+		state.unmute,
+		state.isMuted,
+	]);
 
 	const onToggleMute = () => {
 		if (isMuted) {
@@ -32,6 +36,8 @@ export const VolumeButton: FC<VolumeButtonProps> = ({
 
 	return (
 		<IconButton
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			size="medium"
 			onClick={onToggleMute}
 			data-testid="icon-volume"

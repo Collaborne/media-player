@@ -2,6 +2,7 @@ import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
 import { useMediaStore } from '../../../context';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { FullscreenEnterIcon, FullscreenExitIcon } from '../../icons';
 type FullscreenIcons = {
 	FullscreenEnter: ComponentType<SvgIconProps>;
@@ -20,12 +21,26 @@ export const FullscreenButton: FC<FullscreenButtonProps> = ({
 	svgIconProps,
 	...props
 }) => {
-	const isFullscreen = useMediaStore(state => state.isFullscreen);
-	const requestFullscreen = useMediaStore(state => state.requestFullscreen);
-	const exitFullscreen = useMediaStore(state => state.exitFullscreen);
+	const [isFullscreen, requestFullscreen, exitFullscreen] = useMediaStore(
+		state => [
+			state.isFullscreen,
+			state.requestFullscreen,
+			state.exitFullscreen,
+		],
+	);
+
+	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
+
 	const onFullscreen = isFullscreen ? exitFullscreen : requestFullscreen;
+
 	return (
-		<IconButton size="medium" onClick={onFullscreen} {...props}>
+		<IconButton
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			size="medium"
+			onClick={onFullscreen}
+			{...props}
+		>
 			{!isFullscreen ? (
 				<Icons.FullscreenEnter fontSize="medium" {...svgIconProps} />
 			) : (

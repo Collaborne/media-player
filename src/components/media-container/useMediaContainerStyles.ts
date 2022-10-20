@@ -13,6 +13,7 @@ export const useMediaContainerStyles = makeStyles()(theme => ({
 		margin: theme.spacing(1, 0, 0, 2),
 	},
 	reactPlayer: {
+		cursor: 'pointer',
 		position: 'relative',
 		display: 'flex',
 		alignItems: 'center',

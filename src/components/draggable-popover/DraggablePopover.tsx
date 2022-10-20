@@ -9,6 +9,7 @@ import { ProgressBar } from '../progress-bar/ProgressBar';
 
 import { useDraggablePopoverHook } from './useDraggablePopoverHook';
 import { useDraggablePopoverStyles } from './useDraggablePopoverStyles';
+import { usePipMouseActivityHook } from './usePipMouseActivity';
 
 export type ContainerSizePosition = {
 	width: number;
@@ -27,13 +28,9 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	rndProps,
 	...props
 }) => {
-	const {
-		defaultPosition,
-		defaultWidth,
-		enableResizing,
-		onMouseMove,
-		onMouseLeave,
-	} = useDraggablePopoverHook({ disablePortal: props.disablePortal });
+	const { defaultPosition, defaultWidth, enableResizing } =
+		useDraggablePopoverHook({ disablePortal: props.disablePortal });
+	const { onMouseEnter, onMouseLeave, onMouseMove } = usePipMouseActivityHook();
 
 	const { paper, progressBar, portalWrapper, resizeSquares } =
 		useDraggablePopoverStyles({
@@ -68,6 +65,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 						className={clsx(paper, className)}
 						onMouseMove={onMouseMove}
 						onMouseLeave={onMouseLeave}
+						onMouseEnter={onMouseEnter}
 					>
 						{children}
 						{!props.disablePortal && (

@@ -8,9 +8,10 @@ import { PROGRESS_INTERVAL } from '../../utils/constants';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { MediaPoster } from '../media-poster/MediaPoster';
 
-import { useMediaContainerHook } from './useMediaContainerHook';
 import { useMediaContainerStyles } from './useMediaContainerStyles';
+import { useMouseActivityHook } from './useMouseActivityHook';
 import { usePipHook } from './usePipHook';
+import { useReactPlayerHook } from './useReactPlayerHook';
 
 export interface MediaContainerProps {
 	/** The url of the media file to be played */
@@ -33,8 +34,8 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 	]);
 	const { wrapper, pipText, reactPlayer } = useMediaContainerStyles().classes;
 
-	const { isPlayerReady, onMouseLeave, onMouseEnter, reactPlayerProps } =
-		useMediaContainerHook({ url });
+	const { isPlayerReady, reactPlayerProps } = useReactPlayerHook({ url });
+	const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
 	const { containerSizeRef } = usePipHook({ isPlayerReady });
 
 	// TODO: Add a UI/UX decision when player is not ready or missing a url
@@ -48,6 +49,7 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 			className={clsx(wrapper, className)}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
+			onMouseMove={onMouseMove}
 		>
 			{Boolean(url) && (
 				<>

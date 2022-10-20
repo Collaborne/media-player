@@ -3,6 +3,7 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { ComponentType, FC } from 'react';
 
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { usePlayPauseReplayHook } from '../../../hooks/use-play-pause-replay';
 
 interface PlayPauseReplayProps extends IconButtonProps {
@@ -21,6 +22,8 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	...props
 }) => {
 	const { isFinished, isPlaying, onPlay, onStop } = usePlayPauseReplayHook();
+	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
+
 	const { Pause, Play, Replay } = Icons;
 
 	const handleClick = () => {
@@ -36,6 +39,8 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 
 	return (
 		<IconButton
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
 			size="medium"
 			className={className}
 			onClick={handleClick}

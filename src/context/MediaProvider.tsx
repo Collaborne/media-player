@@ -2,7 +2,7 @@
  * Context Provider for isPlaying medias
  */
 
-import { FC, useRef } from 'react';
+import { FC, useCallback, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import { StoreApi } from 'zustand';
 import createContext from 'zustand/context';
@@ -34,6 +34,19 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 	const reactPlayerRef = useRef<ReactPlayer>(null);
 	const playPromiseRef = useRef<Promise<void>>();
 	const mediaContainerRef = useRef<HTMLDivElement>(null);
+	const lastActivityRef = useRef<number>(0);
+	const lastPipActivityRef = useRef<number>(0);
+	const markActivity = useCallback(() => {
+		if (lastActivityRef) {
+			lastActivityRef.current = Date.now();
+		}
+	}, []);
+	const markPipActivity = useCallback(() => {
+		if (lastPipActivityRef) {
+			lastPipActivityRef.current = Date.now();
+		}
+	}, []);
+
 	return (
 		<HighlightsProvider highlights={highlights}>
 			<Provider
@@ -46,6 +59,10 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 						mediaContainerRef,
 						onStoreUpdate,
 						alarms,
+						lastActivityRef,
+						markActivity,
+						lastPipActivityRef,
+						markPipActivity,
 					})
 				}
 			>
