@@ -1,4 +1,4 @@
-name: StoryBook Deployment
+name: TypeDoc Update
 
 on:
   push:
