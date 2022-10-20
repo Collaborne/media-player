@@ -19,5 +19,6 @@ jobs:
       - run: npm run build:docs
       - run: git config --global user.email "typedoc@nextapp.co"
       - run: git config --global user.name "TypeDoc"
+      - run: git add README.md docs/*
       - run: git commit -m "TypeDoc documentation updated"
       - run: git push
