@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
 import audioPlaceholder from '../../../static/audio-placeholder.svg';
+import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
 import { MediaPoster } from '../media-poster/MediaPoster';
 import { PipControls } from '../pip-controls/PipControls';
@@ -32,7 +33,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	...props
 }) => {
 	const isAudio = useIsAudio();
-
+	const isPip = useMediaStore(state => state.isPip);
 	const { defaultPosition, defaultWidth, enableResizing } =
 		useDraggablePopoverHook({ disablePortal: props.disablePortal });
 	const { onMouseEnter, onMouseLeave, onMouseMove } = usePipMouseActivityHook();
@@ -41,6 +42,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 		useDraggablePopoverStyles({
 			isExpanded: Boolean(props.disablePortal),
 			isAudio,
+			isPip,
 		}).classes;
 
 	return (

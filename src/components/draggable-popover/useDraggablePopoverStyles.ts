@@ -3,11 +3,12 @@ import { makeStyles } from 'tss-react/mui';
 interface UseDraggablePopoverStylesProps {
 	isExpanded: boolean;
 	isAudio: boolean;
+	isPip: boolean;
 }
 
 export const useDraggablePopoverStyles =
 	makeStyles<UseDraggablePopoverStylesProps>()(
-		(theme, { isExpanded, isAudio }) => ({
+		(theme, { isExpanded, isAudio, isPip }) => ({
 			paper: {
 				height: '100%',
 				width: '100%',
@@ -21,8 +22,13 @@ export const useDraggablePopoverStyles =
 
 				// Styles for audio files
 				...(isAudio && {
+					background: 'transparent',
 					borderRadius: theme.spacing(0.5, 0.5, 0, 0),
 				}),
+				...(isAudio &&
+					isPip && {
+						borderRadius: theme.spacing(0.5),
+					}),
 			},
 			portalWrapper: {
 				height: isExpanded ? '100%' : `calc(100vh - ${theme.spacing(4)})`,

@@ -20,7 +20,7 @@ export const Controls: FC<ControlProps> = ({ children }) => {
 	const { bottomControls } = useBottomControlsStyles().classes;
 
 	// Only <ProgressBar/> should be present if Controls components are not shown
-	if (!showControls) {
+	if (!showControls && !isAudio) {
 		return (
 			<div className={controls}>
 				<div className={bottomControls}>

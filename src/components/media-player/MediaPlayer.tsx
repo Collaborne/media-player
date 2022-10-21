@@ -1,5 +1,6 @@
 import Grid from '@mui/material/Grid';
 import { FC, ReactNode } from 'react';
+import { useIsAudio } from '../../hooks/use-is-audio';
 
 import { BottomControlButtons } from '../bottom-control-buttons/BottomControlButtons';
 import {
@@ -35,8 +36,9 @@ export const MediaPlayer: FC<MediaPlayerProps> = ({
 	children,
 	...corePlayerProps
 }) => {
+	const isAudio = useIsAudio();
 	const { gridCentered } = useMediaPlayerStyles().classes;
-	const { controls } = useControlsStyles().classes;
+	const { controls } = useControlsStyles({ isAudio }).classes;
 	return (
 		<CorePlayer {...corePlayerProps}>
 			<Grid className={controls}>

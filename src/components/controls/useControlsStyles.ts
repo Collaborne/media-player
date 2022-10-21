@@ -7,8 +7,9 @@ export const useControlsStyles = makeStyles<{ isAudio: boolean }>()(
 			height: isAudio ? theme.spacing(8.25) : '100%',
 			position: 'absolute',
 			pointerEvents: 'none',
-			background: theme.palette.background.default,
-			...(isAudio && {}),
+			...(isAudio && {
+				background: theme.palette.background.default,
+			}),
 		},
 	}),
 );
