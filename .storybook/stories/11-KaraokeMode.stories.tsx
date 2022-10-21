@@ -95,6 +95,8 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		if (transcriptRef.current && alarmRef.current) {
 			setIsTimestampsReady(true, 3000);
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [mediaDuration, args.secondsDivider, ready]);
 
 	const timeStampsMemo = React.useMemo(() => {
@@ -113,6 +115,8 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 			});
 		}
 		return null;
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ready, isTimestampsReady, transcriptRef]);
 	const prevCurrent = usePreviousDistinct(currentPart);
 	const createActiveSpan = useCallback(() => {
@@ -127,6 +131,8 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 			}
 		}
 		return null;
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentPart, timeStampsMemo]);
 
 	return (

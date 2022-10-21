@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import { FC, ReactNode } from 'react';
-import { useIsAudio } from '../../hooks/use-is-audio';
 
+import { useIsAudio } from '../../hooks/use-is-audio';
 import { BottomControlButtons } from '../bottom-control-buttons/BottomControlButtons';
 import {
 	TimeDisplay,

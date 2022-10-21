@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { MediaType } from '../../types/media-type';
 import { isMP4AudioOnly } from '../../utils/is-mp4-audio-only';
 
