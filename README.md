@@ -1,4 +1,4 @@
-@collaborne/video-player - v0.1.12 / [Modules](/docs/modules.md)
+@collaborne/video-player - v1.1.1 / [Modules](/docs/modules.md)
 
 # @collaborne/video-player
 A video player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player). With nice 

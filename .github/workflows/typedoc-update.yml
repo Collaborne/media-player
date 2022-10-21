@@ -1,9 +1,6 @@
 name: TypeDoc Update
 
-on:
-  push:
-    branches:
-      - main
+on: pull_request
 
 jobs:
   typedoc-update:
@@ -16,9 +13,17 @@ jobs:
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
-      - run: npm run build:docs
-      - run: git config --global user.email "typedoc@nextapp.co"
-      - run: git config --global user.name "TypeDoc"
-      - run: git add README.md docs/*
-      - run: git commit -m "TypeDoc documentation updated"
-      - run: git push
+      - name: Pull branch
+        run: |
+          git fetch origin ${{ github.head_ref }}:tmp
+          git rebase tmp
+      - name: Create TypeDoc document
+        run: npm run build:docs
+      - name: Commit TypeDoc document update
+        run: |
+          git config --global user.name "TypeDoc"
+          git config --global user.email "typedoc@nextapp.co"
+          git add README.md docs/*
+          git commit -m "TypeDoc documentation updated"
+          git push origin HEAD:${{ github.head_ref }}
+          git branch -D tmp
