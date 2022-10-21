@@ -14,7 +14,7 @@ jobs:
       - run: npm run build
       - run: npm test
       - name: Pull branch
-        run: git pull ${{ github.head_ref }}
+        run: git pull origin ${{ github.head_ref }}
       - name: Create TypeDoc document
         run: npm run build:docs
       - name: Commit TypeDoc update
