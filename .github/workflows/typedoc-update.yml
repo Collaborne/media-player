@@ -19,7 +19,7 @@ jobs:
           git rebase tmp
       - name: Create TypeDoc document
         run: npm run build:docs
-      - name: Commit TypeDoc update
+      - name: Commit TypeDoc document update
         run: |
           git config --global user.name "TypeDoc"
           git config --global user.email "typedoc@nextapp.co"
