@@ -30,7 +30,7 @@ Trigger points (in sec) when an alert event is emitted
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:16](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L16)
+[src/types/media-state-external-initializers.ts:16](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L16)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:13](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L13)
+[src/types/media-state-external-initializers.ts:13](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L13)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:12](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L12)
+[src/types/media-state-external-initializers.ts:12](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L12)
 
 ___
 
@@ -62,7 +62,7 @@ Store last mouse activity
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:20](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L20)
+[src/types/media-state-external-initializers.ts:20](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L20)
 
 ___
 
@@ -74,7 +74,7 @@ Store last mouse activity of the PIP player
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:24](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L24)
+[src/types/media-state-external-initializers.ts:24](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L24)
 
 ___
 
@@ -86,7 +86,7 @@ Marks mouse activity
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:18](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L18)
+[src/types/media-state-external-initializers.ts:18](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L18)
 
 ___
 
@@ -98,7 +98,7 @@ Marks mouse activity for the PIP player
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:22](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L22)
+[src/types/media-state-external-initializers.ts:22](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L22)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:11](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L11)
+[src/types/media-state-external-initializers.ts:11](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L11)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:14](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L14)
+[src/types/media-state-external-initializers.ts:14](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L14)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:10](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L10)
+[src/types/media-state-external-initializers.ts:10](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L10)
 
 ___
 
@@ -152,4 +152,4 @@ ___
 
 #### Defined in
 
-[src/types/media-state-external-initializers.ts:9](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-external-initializers.ts#L9)
+[src/types/media-state-external-initializers.ts:9](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state-external-initializers.ts#L9)

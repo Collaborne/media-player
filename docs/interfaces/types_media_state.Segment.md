@@ -29,7 +29,7 @@ End time of a segment
 
 #### Defined in
 
-[src/types/media-state.ts:8](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state.ts#L8)
+[src/types/media-state.ts:8](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L8)
 
 ___
 
@@ -41,4 +41,4 @@ Starting time of a segment
 
 #### Defined in
 
-[src/types/media-state.ts:6](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state.ts#L6)
+[src/types/media-state.ts:6](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L6)
