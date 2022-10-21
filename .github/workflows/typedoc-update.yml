@@ -14,14 +14,15 @@ jobs:
       - run: npm run build
       - run: npm test
       - name: Pull branch
-        run: git fetch origin ${{ github.head_ref }}:tmp
+        run: |
+          git fetch origin ${{ github.head_ref }}:tmp
+          git rebase tmp
       - name: Create TypeDoc document
         run: npm run build:docs
       - name: Commit TypeDoc update
         run: |
           git config --global user.name "TypeDoc"
           git config --global user.email "typedoc@nextapp.co"
-          git rebase tmp
           git add README.md docs/*
           git commit -m "TypeDoc documentation updated"
           git push origin HEAD:${{ github.head_ref }}
