@@ -24,6 +24,6 @@ jobs:
           git config --global user.name "TypeDoc"
           git config --global user.email "typedoc@nextapp.co"
           git add README.md docs/*
-          git commit -m "TypeDoc documentation updated"
+          git commit --amend --no-edit
           git push origin HEAD:${{ github.head_ref }}
           git branch -D tmp
