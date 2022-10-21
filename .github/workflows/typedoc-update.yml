@@ -13,8 +13,8 @@ jobs:
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
-      - name: Fetch branch
-        run: git fetch origin ${{ github.head_ref }}
+      - name: Pull branch
+        run: git pull ${{ github.head_ref }}
       - name: Create TypeDoc document
         run: npm run build:docs
       - name: Commit TypeDoc update
