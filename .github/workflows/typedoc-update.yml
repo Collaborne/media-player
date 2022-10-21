@@ -6,16 +6,19 @@ jobs:
   typedoc-update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
           node-version: 18
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
-      - run: git config --global user.name "TypeDoc"
-      - run: git config --global user.email "typedoc@nextapp.co"
-      - run: npm run build:docs
-      - run: git add README.md docs/*
-      - run: git commit -m "TypeDoc documentation updated"
-      - run: git push origin HEAD:${{ github.head_ref }}
+      - name: Create TypeDoc document
+        run: npm run build:docs
+      - name: Commit TypeDoc update
+        run: |
+          git config --global user.name "TypeDoc"
+          git config --global user.email "typedoc@nextapp.co"
+          git add README.md docs/*
+          git commit -m "TypeDoc documentation updated"
+          git push origin HEAD:${{ github.head_ref }}
