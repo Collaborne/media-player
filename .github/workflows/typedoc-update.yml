@@ -10,9 +10,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: REMOTE_BRANCH=`git branch -a --contains HEAD | sed -n 2p | awk '{ printf $1 }'`
-      - run: BRANCH=${REMOTE_BRANCH#remotes/origin/}
-      - run: echo $BRANCH
+      - run: echo ${GITHUB_REF##*/}
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
@@ -21,4 +19,4 @@ jobs:
       - run: git config --global user.name "TypeDoc"
       - run: git add README.md docs/*
       - run: git commit -m "TypeDoc documentation updated"
-      - run: git push origin HEAD:$BRANCH
+      - run: git push origin HEAD:${GITHUB_REF##*/}
