@@ -13,9 +13,9 @@ jobs:
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
-      - run: npm run build:docs
-      - run: git config --global user.email "typedoc@nextapp.co"
       - run: git config --global user.name "TypeDoc"
+      - run: git config --global user.email "typedoc@nextapp.co"
+      - run: npm run build:docs
       - run: git add README.md docs/*
       - run: git commit -m "TypeDoc documentation updated"
-      - run: git push origin ${{ github.head_ref }}
+      - run: git push origin HEAD:${{ github.head_ref }}
