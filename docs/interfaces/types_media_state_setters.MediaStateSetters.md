@@ -51,7 +51,7 @@
 
 #### Defined in
 
-[src/types/media-state-setters.ts:23](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L23)
+[src/types/media-state-setters.ts:23](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L23)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:22](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L22)
+[src/types/media-state-setters.ts:22](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L22)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:18](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L18)
+[src/types/media-state-setters.ts:18](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L18)
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:16](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L16)
+[src/types/media-state-setters.ts:16](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L16)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:24](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L24)
+[src/types/media-state-setters.ts:24](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L24)
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:6](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L6)
+[src/types/media-state-setters.ts:6](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L6)
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:5](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L5)
+[src/types/media-state-setters.ts:5](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L5)
 
 ___
 
@@ -177,7 +177,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:4](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L4)
+[src/types/media-state-setters.ts:4](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L4)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:17](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L17)
+[src/types/media-state-setters.ts:17](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L17)
 
 ___
 
@@ -213,7 +213,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:15](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L15)
+[src/types/media-state-setters.ts:15](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L15)
 
 ___
 
@@ -237,7 +237,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:10](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L10)
+[src/types/media-state-setters.ts:10](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L10)
 
 ___
 
@@ -261,7 +261,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:14](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L14)
+[src/types/media-state-setters.ts:14](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L14)
 
 ___
 
@@ -285,7 +285,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:13](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L13)
+[src/types/media-state-setters.ts:13](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L13)
 
 ___
 
@@ -309,7 +309,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:11](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L11)
+[src/types/media-state-setters.ts:11](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L11)
 
 ___
 
@@ -333,7 +333,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:8](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L8)
+[src/types/media-state-setters.ts:8](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L8)
 
 ___
 
@@ -357,7 +357,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:19](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L19)
+[src/types/media-state-setters.ts:19](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L19)
 
 ___
 
@@ -381,7 +381,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:20](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L20)
+[src/types/media-state-setters.ts:20](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L20)
 
 ___
 
@@ -405,7 +405,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:12](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L12)
+[src/types/media-state-setters.ts:12](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L12)
 
 ___
 
@@ -429,7 +429,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:9](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L9)
+[src/types/media-state-setters.ts:9](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L9)
 
 ___
 
@@ -447,4 +447,4 @@ ___
 
 #### Defined in
 
-[src/types/media-state-setters.ts:7](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/media-state-setters.ts#L7)
+[src/types/media-state-setters.ts:7](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/media-state-setters.ts#L7)

@@ -24,4 +24,4 @@
 
 #### Defined in
 
-[src/types/required-and-optional-pick.ts:1](https://github.com/Collaborne/video-player/blob/387ca1f/src/types/required-and-optional-pick.ts#L1)
+[src/types/required-and-optional-pick.ts:1](https://github.com/Collaborne/video-player/blob/4f0c880/src/types/required-and-optional-pick.ts#L1)
