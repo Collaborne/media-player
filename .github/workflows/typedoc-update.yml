@@ -1,9 +1,6 @@
 name: TypeDoc Update
 
-on:
-  push:
-    branches:
-      - main
+on: pull_request
 
 jobs:
   typedoc-update:
