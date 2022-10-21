@@ -10,7 +10,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: echo ${GITHUB_REF##*/}
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - run: echo ${{ steps.extract_branch.outputs.branch }}
+      - run: echo ${{ github.head_ref }}
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
@@ -19,4 +24,4 @@ jobs:
       - run: git config --global user.name "TypeDoc"
       - run: git add README.md docs/*
       - run: git commit -m "TypeDoc documentation updated"
-      - run: git push origin HEAD:${GITHUB_REF##*/}
+      - run: git push origin HEAD:${{ steps.extract_branch.outputs.branch }}
