@@ -37,7 +37,7 @@ State for media. Keeping info about current media player behavior
 
 #### Defined in
 
-[src/types/media-state.ts:31](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L31)
+[src/types/media-state.ts:31](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L31)
 
 ___
 
@@ -49,7 +49,7 @@ Current time value for the conditional time in seconds
 
 #### Defined in
 
-[src/types/media-state.ts:43](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L43)
+[src/types/media-state.ts:43](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L43)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:30](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L30)
+[src/types/media-state.ts:30](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L30)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:24](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L24)
+[src/types/media-state.ts:24](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L24)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:29](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L29)
+[src/types/media-state.ts:29](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L29)
 
 ___
 
@@ -91,7 +91,7 @@ Did pip mode was triggered by click event
 
 #### Defined in
 
-[src/types/media-state.ts:39](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L39)
+[src/types/media-state.ts:39](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L39)
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:34](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L34)
+[src/types/media-state.ts:34](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L34)
 
 ___
 
@@ -113,7 +113,7 @@ Storing wrapper ref of the mediaPlayer
 
 #### Defined in
 
-[src/types/media-state.ts:41](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L41)
+[src/types/media-state.ts:41](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L41)
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:27](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L27)
+[src/types/media-state.ts:27](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L27)
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:35](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L35)
+[src/types/media-state.ts:35](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L35)
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:26](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L26)
+[src/types/media-state.ts:26](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L26)
 
 ___
 
@@ -155,7 +155,7 @@ Next time value for the conditional time in seconds
 
 #### Defined in
 
-[src/types/media-state.ts:45](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L45)
+[src/types/media-state.ts:45](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L45)
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:25](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L25)
+[src/types/media-state.ts:25](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L25)
 
 ___
 
@@ -175,7 +175,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:33](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L33)
+[src/types/media-state.ts:33](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L33)
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:36](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L36)
+[src/types/media-state.ts:36](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L36)
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:37](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L37)
+[src/types/media-state.ts:37](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L37)
 
 ___
 
@@ -205,7 +205,7 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:28](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L28)
+[src/types/media-state.ts:28](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L28)
 
 ___
 
@@ -215,4 +215,4 @@ ___
 
 #### Defined in
 
-[src/types/media-state.ts:32](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/media-state.ts#L32)
+[src/types/media-state.ts:32](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L32)

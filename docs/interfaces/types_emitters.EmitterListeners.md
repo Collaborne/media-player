@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[src/types/emitters.ts:54](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L54)
+[src/types/emitters.ts:54](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L54)
 
 ___
 
@@ -97,4 +97,4 @@ ___
 
 #### Defined in
 
-[src/types/emitters.ts:53](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L53)
+[src/types/emitters.ts:53](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L53)
