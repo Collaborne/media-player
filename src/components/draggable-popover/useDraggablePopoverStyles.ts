@@ -9,12 +9,13 @@ export const useDraggablePopoverStyles =
 		paper: {
 			height: '100%',
 			width: '100%',
-			display: 'inline-block',
+			display: 'inline-flex',
 			position: !isExpanded ? 'sticky' : 'initial',
 			zIndex: 9999,
 			pointerEvents: 'auto',
 			overflow: 'hidden',
 			margin: 0,
+			background: 'unset',
 		},
 		portalWrapper: {
 			height: isExpanded ? '100%' : `calc(100vh - ${theme.spacing(4)})`,
