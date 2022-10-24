@@ -31,7 +31,7 @@
 
 #### Defined in
 
-[src/types/emitters.ts:36](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L36)
+[src/types/emitters.ts:36](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L36)
 
 ___
 
@@ -59,7 +59,7 @@ Events that MediaApi is listening, and have arguments
 
 #### Defined in
 
-[src/types/emitters.ts:23](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L23)
+[src/types/emitters.ts:23](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L23)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/types/emitters.ts:34](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L34)
+[src/types/emitters.ts:34](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L34)
 
 ___
 
@@ -87,7 +87,7 @@ Event emitted when `showControls` was triggered
 
 #### Defined in
 
-[src/types/emitters.ts:41](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L41)
+[src/types/emitters.ts:41](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L41)
 
 ___
 
@@ -99,7 +99,7 @@ Event emitted on `timeupdate`. Same as browsers native
 
 #### Defined in
 
-[src/types/emitters.ts:39](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L39)
+[src/types/emitters.ts:39](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L39)
 
 ___
 
@@ -111,7 +111,7 @@ Events that MediaApi is listening, and have no arguments
 
 #### Defined in
 
-[src/types/emitters.ts:20](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L20)
+[src/types/emitters.ts:20](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L20)
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 #### Defined in
 
-[src/types/emitters.ts:3](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L3)
+[src/types/emitters.ts:3](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L3)
 
 ## Functions
 
@@ -143,7 +143,7 @@ event is ShowControlsEvent
 
 #### Defined in
 
-[src/types/emitters.ts:43](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L43)
+[src/types/emitters.ts:43](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L43)
 
 ___
 
@@ -165,4 +165,4 @@ event is TimeUpdateEvent
 
 #### Defined in
 
-[src/types/emitters.ts:48](https://github.com/Collaborne/video-player/blob/9f9c33d/src/types/emitters.ts#L48)
+[src/types/emitters.ts:48](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L48)
