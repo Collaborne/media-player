@@ -4,30 +4,41 @@
 
 A video player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player).It supports the
 [MUI theming and components](https://mui.com) and **own functionality of the Picture-in-Picture and Fullscreen API**.
-And yes, it is updated to **React v18** :balloon:!  
-*Note: At the moment we only support url from a video file! Other media not yet supported(YouTube/Vimeo/...)*
+And yes, it is updated to **React v18** :balloon:!
+
+You can **play** both, **audio** and **video** files.
+
+*Note: At the moment we support URL to video and audio files. Youtube, twitch and other media streaming services URL's are not supported yet.*
 
 [Live demo](https://collaborne.github.io/video-player/)
 
 ## Introduction
 
-You can use video-player as out of the box, or advanced mode. In **out of the box** version you just need to provide a **videoUrl** and that's it.
-As a **advanced use**, we assume that you will need to **consume VideoApi** (you can **subscribe to video events** or just **call** **setters** or **getters** for the video state).
+`@collaborne/video-player` provides a set of: "draft" player that has own PIP and Fullscreen implementation, UI Controls, a
+high flexibility for composing different players UI Controls, hooks for accessing media store/data, and even a ready to go media player solution
+(with our own customized MUI Themed Components).
 
 ### Installation
 
- Note: @collaborne/video-player has **peer deps** (mui, tss-react, react-use and other libs), so it will require to install them too. You can check them in **package.json** at peerDependencies
+1. Add as a dependency @collaborne/video-player
 
 ```bash
 npm install --save @collaborne/video-player
 ```
 
+2. Install our peer dependencies. As an example we use MUI for theming and it's components, react-transition-group for animation, ...etc.  
+You can check peer dependencies in `package.json`. What is a peer dependency you can check [here](https://nodejs.org/es/blog/npm/peer-dependencies/).
+
 ## How to use
 
-### Out of the box
+### The Players
+
+- **Out of the box**
+
+You can just use a component that contains all the futures. See in [CodeSandbox](https://codesandbox.io/s/media-player-example-wnqwb1).  
+*NOTE: Wait the sandbox until installs all dependencies.*
 
 ```ts
-import React from 'react';
 import { VideoPlayer } from '@collaborne/video-player';
 
 export const MyComponent: React.FC = () => {
@@ -37,54 +48,70 @@ export const MyComponent: React.FC = () => {
 };
 ```
 
-### Advanced usage
+- **Compose own UI Controls**
 
-- **External use**. You just create a ref with video context and you can listen to events or call any api methods.
-
-```ts
-import React from 'react';
-import { useVideoListener, VideoPlayer, usePlayerContext } from '@collaborne/video-player';
-
-export const MyComponent: React.FC = () => {
-  const { videoContextApi, setVideoContext } = usePlayerContext()
-  useVideoListener('play', () => console.log('Play event emitted'), videoContextApi);
- return (
-   <VideoPlayer
-      videoUrl="some-video-url"
-      onContext={setVideoContext}
-   />
- );
-};
-```
-
-- **Internal use** - You add your component as a VideoContext's Consumer. `VideoPlayer` and `CorePlayer` components are already wrapped in `VideoContext.Provider`
+This comes handy when you want to customize controls for the player. [CodeSandbox](https://codesandbox.io/s/core-player-gtlry2?file=/src/App.tsx)  
+*NOTE: Wait the sandbox until installs all dependencies.*
 
 ```ts
-import React from 'react';
-import { useVideoListener, useVideo } from '@collaborne/video-player';
+import { CorePlayer, Controls, BottomControls } from "@collaborne/video-player";
+import { PlayArrow } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
-export const PlayButton:React.FC = () => {
-  const { api } = useVideo()
- return <button onClick={api?.play()}> Play </button>
+const PlayButton = () => {
+  return (
+    <IconButton>
+      <PlayArrow />
+    </IconButton>
+  );
 };
 
-export const MyComponent: React.FC = () => {
-  const { videoContextApi, setVideoContext } = usePlayerContext()
-  useVideoListener('play', () => console.log('Play event emitted'), videoContextApi);
- return (
-   <VideoPlayer
-      videoUrl="some-video-url"
-      onContext={setVideoContext}
-   >
-   <PlayButton/>
-   </VideoPlayer>
- );
-};
+export default function App() {
+  return (
+    <>
+      <CorePlayer url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4">
+        <Controls>
+          <BottomControls>
+            <PlayButton />
+          </BottomControls>
+        </Controls>
+      </CorePlayer>
+      {/* create a container with fixed height to check PIP player */}
+      <div style={{ height: "1200px" }} />
+    </>
+  );
+}
+
 ```
 
-We have exported 2 component: `CorePlayer` and `VideoPlayer`. `VideoPlayer` - is a component with our vision and ideas on how should a player look like(it contains all the UI elements for player).
-On other hand, `CorePlayer` - just a component that has all the functionality(PIP logic integrated here too), but without any UI controls.
-Mathematically speaking, we will have this expression `VideoPlayer = CorePlayer + UI Elements`
+### Recipes  
+
+- **Using Media Store for the children**
+
+We use [zustand](https://github.com/pmndrs/zustand) for storing media state(current time, isPlaying, isMuted...). 
+That's why we can get the state using `zustand` [approach](https://github.com/pmndrs/zustand#then-bind-your-components-and-thats-it).
+
+```ts
+import { useMediaStore } from "@collaborne/video-player";
+import { PlayArrow } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+
+const PlayButton = () => {
+  const play = useMediaStore((state) => state.play);
+  return (
+    <IconButton onClick={play}>
+      <PlayArrow />
+    </IconButton>
+  );
+};
+
+
+```
+
+- **Using MediaStore outside of the player**
+You can get fresh state, via storing its updates in a ref(for best performance practice).
+
+
 
 ## Documentation
 
