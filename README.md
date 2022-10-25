@@ -1,68 +1,137 @@
-@collaborne/video-player - v1.1.1 / [Modules](/docs/modules.md)
+@collaborne/video-player - v1.1.2 / [Modules](/docs/modules.md)
 
 # @collaborne/video-player
-A video player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player). With nice 
-[MUI theming](https://mui.com) support and stylish replacement of browser video controls (UI and PiP event).
+
+A media player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player).It supports the
+[MUI theming and components](https://mui.com) and **own functionality of the Picture-in-Picture and Fullscreen API**.
 And yes, it is updated to **React v18** :balloon:!
 
-*Note: At the moment we only support url from a video file! Other media not yet supported(YouTube/Vimeo/...)* 
+You can **play** both: **audio** and **video** files.
+
+*Note: At the moment we support video and audio files URL. Youtube, twitch and other media streaming services URL's are not supported yet.*
 
 [Live demo](https://collaborne.github.io/video-player/)
 
-## Install
+## Introduction
+
+`@collaborne/video-player` provides a set of: "draft" player that has own PIP and Fullscreen implementation, UI Controls, a
+high flexibility for composing different player's UI Controls, hooks for accessing media store/data and event listeners, a ready to go media player solution
+(with our own customized MUI Themed Components) and many other features.
+
+### Installation
+
+1. Add as a dependency @collaborne/video-player
 
 ```bash
 npm install --save @collaborne/video-player
 ```
 
+2. Install our peer dependencies. As an example we use `mui` for theming and UI Components, `react-transition-group` for animation, `lodash` for throttling, etc.  
+You can check peer dependencies in `package.json`. What is a peer dependency you can check [here](https://nodejs.org/es/blog/npm/peer-dependencies/).
+
 ## How to use
- - **Simplified** or *out of the box* - if you don't need to manage any states by your own, or usage of the api, you can just use VideoPlayer
+
+### The Players
+
+- **Out of the box**
+
+You can just use a component that contains all the futures. See in [CodeSandbox](https://codesandbox.io/s/media-player-example-wnqwb1).  
+*NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
 
 ```ts
-import React from 'react';
-import { VideoPlayer } from '@collaborne/video-player';
+import { MediaPlayer } from '@collaborne/video-player';
 
 export const MyComponent: React.FC = () => {
-	return (
-		<VideoPlayer videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" />
-	);
+ return (
+   <MediaPlayer url="some-video-url" />
+ );
 };
 ```
--  **Composed**  or *individual*-  This case recommended is when you want to control video state (playing, pausing, muting...). 
-You need to wrap your components in `VideoProvider` and add `VideoContainer` as a children too. 
-Then you can consume `VideoContext` via `useVideo` hook.
+
+- **Compose own UI Controls**
+
+This comes handy when you want to customize controls for the player. [CodeSandbox](https://codesandbox.io/s/core-player-gtlry2?file=/src/App.tsx)  
+*NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
+
 ```ts
-import React from 'react';
-import { useVideo, VideoProvider, VideoContainer } from '@collaborne/video-player';
+import { CorePlayer, Controls, BottomControls } from "@collaborne/video-player";
+import { PlayArrow } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
-const App = () => {
-  <VideoProvider
-		controlsConfig={{
-			alwaysShowConfig: true,
-		}}
-	>
-    <MyComponent1/>
-    <MyComponent2/>
-    <VideoContainer videoUrl="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"/>
-    <MyComponent3/>
-    ...
-  </VideoProvider>
+const PlayButton = () => {
+  return (
+    <IconButton>
+      <PlayArrow />
+    </IconButton>
+  );
+};
+
+export default function App() {
+  return (
+    <>
+      <CorePlayer url="some-url">
+        <Controls>
+          <BottomControls>
+            <PlayButton />
+          </BottomControls>
+        </Controls>
+      </CorePlayer>
+    </>
+  );
 }
+```
 
-const MyComponent2: React.FC = () => {
-	const { api } = useVideo();
-	return (
-		<div>
-			<p>Video is playing: {api?.getPlaying?.()}</p>
-			<p>Video is muted: {api?.getMuted?.()}</p>
-			<p>Video total duration: {api?.getDuration?.()}</p>
-		</div>
-	);
+### Recipes  
+
+- **Using Media Store for the children**
+
+We use [zustand](https://github.com/pmndrs/zustand) for storing media state(current time, isPlaying, isMuted...). 
+That's why we can get the state using `zustand` [approach](https://github.com/pmndrs/zustand#then-bind-your-components-and-thats-it).
+
+```ts
+import { useMediaStore } from "@collaborne/video-player";
+import { PlayArrow } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+
+const PlayButton = () => {
+  const play = useMediaStore((state) => state.play);
+  return (
+    <IconButton onClick={play}>
+      <PlayArrow />
+    </IconButton>
+  );
 };
 ```
-[Image](https://i.ibb.co/kxzKhWB/Screenshot-from-2022-07-26-22-41-43.png)
+
+- **Using MediaStore outside of the player**
+All players state is connected to an event emitter. Triggering play, pause, mute, etc will trigger an event, that you can connect too.
+So, subscribing to an event can boost your app and save performance. Code example in [CodeSandbox](https://codesandbox.io/s/media-player-outside-state-oxpko5?file=/src/App.tsx).  
+*NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
+
+```ts
+import {
+  MediaPlayer,
+  usePlayerContext,
+  useMediaListener
+} from "@collaborne/video-player";
+
+export default function App() {
+  const { mediaContext, setMediaContext } = usePlayerContext();
+  const listener = mediaContext?.getListener();
+  useMediaListener("play", () => alert("Play event was triggered"), listener);
+
+  return (
+      <MediaPlayer
+        url="some-url"
+        onStoreUpdate={setMediaContext}
+      />
+  );
+}
+```
 
 ## Documentation
+
+Latest changes, types and interfaces [here](/docs/modules.md).
 
 ## Debugging
 
@@ -72,9 +141,8 @@ you need to add to yours `process.env` a parameter of `DEBUG=*`, that will print
 
 ## FAQ  
 
-- **Q:** How about timing? If we need to stop a video at 1026ms?  
- **A:** For the [ReactPlayer](https://github.com/CookPete/react-player) we set a `progressInterval=50ms`, that means that video will stop at interval 1000-1050ms.
-
+- **Q:** How to use player in a performant way? How to avoid rerenders?  
+ **A:** Subscribe to events. We emit events for almost all use cases(`play`, `pause`, `timeupdate`, `durationchange`, ...etc).
 - **Q:** Do you support Youtube, vimeo sources?  
  **A:** At the moment, no. We support only files.
 

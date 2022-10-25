@@ -1,4 +1,4 @@
-[@collaborne/video-player - v1.1.1](/docs/../README.md) / [Modules](/docs/modules.md) / [types/media-state](/docs/modules/types_media_state.md) / Segment
+[@collaborne/video-player - v1.1.2](/docs/../README.md) / [Modules](/docs/modules.md) / [types/media-state](/docs/modules/types_media_state.md) / Segment
 
 # Interface: Segment
 
@@ -29,7 +29,7 @@ End time of a segment
 
 #### Defined in
 
-[src/types/media-state.ts:8](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L8)
+[src/types/media-state.ts:8](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/media-state.ts#L8)
 
 ___
 
@@ -41,4 +41,4 @@ Starting time of a segment
 
 #### Defined in
 
-[src/types/media-state.ts:6](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L6)
+[src/types/media-state.ts:6](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/media-state.ts#L6)

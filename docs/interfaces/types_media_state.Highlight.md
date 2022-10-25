@@ -1,4 +1,4 @@
-[@collaborne/video-player - v1.1.1](/docs/../README.md) / [Modules](/docs/modules.md) / [types/media-state](/docs/modules/types_media_state.md) / Highlight
+[@collaborne/video-player - v1.1.2](/docs/../README.md) / [Modules](/docs/modules.md) / [types/media-state](/docs/modules/types_media_state.md) / Highlight
 
 # Interface: Highlight
 
@@ -31,7 +31,7 @@ Color of the highlight. This must be a HEX color code
 
 #### Defined in
 
-[src/types/media-state.ts:16](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L16)
+[src/types/media-state.ts:16](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/media-state.ts#L16)
 
 ___
 
@@ -47,7 +47,7 @@ End time of a segment
 
 #### Defined in
 
-[src/types/media-state.ts:8](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L8)
+[src/types/media-state.ts:8](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/media-state.ts#L8)
 
 ___
 
@@ -59,7 +59,7 @@ Id of the highlight
 
 #### Defined in
 
-[src/types/media-state.ts:14](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L14)
+[src/types/media-state.ts:14](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/media-state.ts#L14)
 
 ___
 
@@ -75,4 +75,4 @@ Starting time of a segment
 
 #### Defined in
 
-[src/types/media-state.ts:6](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/media-state.ts#L6)
+[src/types/media-state.ts:6](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/media-state.ts#L6)

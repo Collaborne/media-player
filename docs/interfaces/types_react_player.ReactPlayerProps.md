@@ -1,4 +1,4 @@
-[@collaborne/video-player - v1.1.1](/docs/../README.md) / [Modules](/docs/modules.md) / [types/react-player](/docs/modules/types_react_player.md) / ReactPlayerProps
+[@collaborne/video-player - v1.1.2](/docs/../README.md) / [Modules](/docs/modules.md) / [types/react-player](/docs/modules/types_react_player.md) / ReactPlayerProps
 
 # Interface: ReactPlayerProps
 
@@ -30,7 +30,7 @@ Props that will be provided to ReactPlayer
 
 #### Defined in
 
-[src/types/react-player.ts:8](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L8)
+[src/types/react-player.ts:8](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L8)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:12](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L12)
+[src/types/react-player.ts:12](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L12)
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:17](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L17)
+[src/types/react-player.ts:17](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L17)
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:16](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L16)
+[src/types/react-player.ts:16](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L16)
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:18](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L18)
+[src/types/react-player.ts:18](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L18)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:15](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L15)
+[src/types/react-player.ts:15](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L15)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:10](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L10)
+[src/types/react-player.ts:10](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L10)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:11](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L11)
+[src/types/react-player.ts:11](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L11)
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:9](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L9)
+[src/types/react-player.ts:9](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L9)
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:14](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L14)
+[src/types/react-player.ts:14](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L14)
 
 ___
 
@@ -174,4 +174,4 @@ ___
 
 #### Defined in
 
-[src/types/react-player.ts:13](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/react-player.ts#L13)
+[src/types/react-player.ts:13](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/react-player.ts#L13)

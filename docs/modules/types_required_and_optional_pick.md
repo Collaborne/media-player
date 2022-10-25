@@ -1,4 +1,4 @@
-[@collaborne/video-player - v1.1.1](/docs/../README.md) / [Modules](/docs/modules.md) / types/required-and-optional-pick
+[@collaborne/video-player - v1.1.2](/docs/../README.md) / [Modules](/docs/modules.md) / types/required-and-optional-pick
 
 # Module: types/required-and-optional-pick
 
@@ -24,4 +24,4 @@
 
 #### Defined in
 
-[src/types/required-and-optional-pick.ts:1](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/required-and-optional-pick.ts#L1)
+[src/types/required-and-optional-pick.ts:1](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/required-and-optional-pick.ts#L1)

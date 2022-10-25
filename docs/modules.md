@@ -1,6 +1,6 @@
-[@collaborne/video-player - v1.1.1](/docs/../README.md) / Modules
+[@collaborne/video-player - v1.1.2](/docs/../README.md) / Modules
 
-# @collaborne/video-player - v1.1.1
+# @collaborne/video-player - v1.1.2
 
 ## Table of contents
 
