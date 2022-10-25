@@ -56,6 +56,11 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
 	const { wrapper } = useFilePlayerStyles({ isAudio }).classes;
 	const classNames = clsx(wrapper, className);
+
+	if (mediaType === 'unsupported') {
+		throw new Error(`URL: ${url} is not supported!`);
+	}
+
 	return (
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { MediaType } from '../../types/media-type';
-import { isMP4AudioOnly } from '../../utils/is-mp4-audio-only';
+import { isAudio, isUrlSupported } from '../../utils/is-url-supported';
 
 interface UseCorePlayerHookProps {
 	url?: string;
@@ -15,16 +15,16 @@ export const useCorePlayerHook = ({
 }: UseCorePlayerHookProps): UseCorePlayerHook => {
 	const [mediaType, setMediaType] = useState<MediaType | undefined>();
 	useEffect(() => {
-		async function checkMediaType() {
-			if (url) {
-				const isAudioOnly = await isMP4AudioOnly(url);
-				if (isAudioOnly) {
-					return setMediaType('audio');
-				}
-				setMediaType('video');
-			}
+		if (!url) {
+			return;
 		}
-		void checkMediaType();
+		if (isUrlSupported(url)) {
+			if (isAudio(url)) {
+				return setMediaType('audio');
+			}
+			return setMediaType('video');
+		}
+		return setMediaType('unsupported');
 	}, [url]);
 	return { mediaType };
 };

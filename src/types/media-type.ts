@@ -1,1 +1,2 @@
-export type MediaType = 'audio' | 'video';
+export type SupportedMediaType = 'audio' | 'video';
+export type MediaType = SupportedMediaType | 'unsupported';

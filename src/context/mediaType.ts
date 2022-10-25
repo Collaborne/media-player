@@ -1,9 +1,9 @@
 import { createContext } from 'react';
 
-import { MediaType } from '../types';
+import { SupportedMediaType } from '../types';
 
 export interface MediaTypeContext {
-	mediaType?: MediaType;
+	mediaType?: SupportedMediaType;
 }
 
 export const MediaTypeContext = createContext<MediaTypeContext>({
