@@ -1,4 +1,4 @@
-[@collaborne/video-player - v1.1.1](/docs/../README.md) / [Modules](/docs/modules.md) / [components/media-player/MediaPlayer](/docs/modules/components_media_player_MediaPlayer.md) / MediaPlayerProps
+[@collaborne/video-player - v1.1.2](/docs/../README.md) / [Modules](/docs/modules.md) / [components/media-player/MediaPlayer](/docs/modules/components_media_player_MediaPlayer.md) / MediaPlayerProps
 
 # Interface: MediaPlayerProps
 
@@ -38,7 +38,7 @@ Omit.alarms
 
 #### Defined in
 
-[src/components/core-player/CorePlayer.tsx:38](https://github.com/Collaborne/video-player/blob/0cbe36f/src/components/core-player/CorePlayer.tsx#L38)
+[src/components/core-player/CorePlayer.tsx:38](https://github.com/Collaborne/video-player/blob/1c3dd32/src/components/core-player/CorePlayer.tsx#L38)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[src/components/media-player/MediaPlayer.tsx:30](https://github.com/Collaborne/video-player/blob/0cbe36f/src/components/media-player/MediaPlayer.tsx#L30)
+[src/components/media-player/MediaPlayer.tsx:30](https://github.com/Collaborne/video-player/blob/1c3dd32/src/components/media-player/MediaPlayer.tsx#L30)
 
 ___
 
@@ -64,7 +64,7 @@ Omit.className
 
 #### Defined in
 
-[src/components/core-player/CorePlayer.tsx:25](https://github.com/Collaborne/video-player/blob/0cbe36f/src/components/core-player/CorePlayer.tsx#L25)
+[src/components/core-player/CorePlayer.tsx:25](https://github.com/Collaborne/video-player/blob/1c3dd32/src/components/core-player/CorePlayer.tsx#L25)
 
 ___
 
@@ -80,7 +80,7 @@ Omit.getHighlightColorBlended
 
 #### Defined in
 
-[src/components/core-player/CorePlayer.tsx:31](https://github.com/Collaborne/video-player/blob/0cbe36f/src/components/core-player/CorePlayer.tsx#L31)
+[src/components/core-player/CorePlayer.tsx:31](https://github.com/Collaborne/video-player/blob/1c3dd32/src/components/core-player/CorePlayer.tsx#L31)
 
 ___
 
@@ -96,7 +96,7 @@ Omit.highlights
 
 #### Defined in
 
-[src/components/core-player/CorePlayer.tsx:29](https://github.com/Collaborne/video-player/blob/0cbe36f/src/components/core-player/CorePlayer.tsx#L29)
+[src/components/core-player/CorePlayer.tsx:29](https://github.com/Collaborne/video-player/blob/1c3dd32/src/components/core-player/CorePlayer.tsx#L29)
 
 ___
 
@@ -112,7 +112,7 @@ Omit.initialState
 
 #### Defined in
 
-[src/components/core-player/CorePlayer.tsx:35](https://github.com/Collaborne/video-player/blob/0cbe36f/src/components/core-player/CorePlayer.tsx#L35)
+[src/components/core-player/CorePlayer.tsx:35](https://github.com/Collaborne/video-player/blob/1c3dd32/src/components/core-player/CorePlayer.tsx#L35)
 
 ___
 
@@ -142,7 +142,7 @@ Omit.onStoreUpdate
 
 #### Defined in
 
-[src/components/core-player/CorePlayer.tsx:33](https://github.com/Collaborne/video-player/blob/0cbe36f/src/components/core-player/CorePlayer.tsx#L33)
+[src/components/core-player/CorePlayer.tsx:33](https://github.com/Collaborne/video-player/blob/1c3dd32/src/components/core-player/CorePlayer.tsx#L33)
 
 ___
 
@@ -158,7 +158,7 @@ Omit.theme
 
 #### Defined in
 
-[src/components/core-player/CorePlayer.tsx:27](https://github.com/Collaborne/video-player/blob/0cbe36f/src/components/core-player/CorePlayer.tsx#L27)
+[src/components/core-player/CorePlayer.tsx:27](https://github.com/Collaborne/video-player/blob/1c3dd32/src/components/core-player/CorePlayer.tsx#L27)
 
 ___
 
@@ -174,4 +174,4 @@ Omit.url
 
 #### Defined in
 
-[src/components/core-player/CorePlayer.tsx:23](https://github.com/Collaborne/video-player/blob/0cbe36f/src/components/core-player/CorePlayer.tsx#L23)
+[src/components/core-player/CorePlayer.tsx:23](https://github.com/Collaborne/video-player/blob/1c3dd32/src/components/core-player/CorePlayer.tsx#L23)

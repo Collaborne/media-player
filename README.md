@@ -1,4 +1,4 @@
-@collaborne/video-player - v1.1.1 / [Modules](/docs/modules.md)
+@collaborne/video-player - v1.1.2 / [Modules](/docs/modules.md)
 
 # @collaborne/video-player
 
@@ -107,7 +107,6 @@ const PlayButton = () => {
 All players state is connected to an event emitter. Triggering play, pause, mute, etc will trigger an event, that you can connect too.
 So, subscribing to an event can boost your app and save performance. Code example in [CodeSandbox](https://codesandbox.io/s/media-player-outside-state-oxpko5?file=/src/App.tsx).  
 *NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
-
 
 ```ts
 import {

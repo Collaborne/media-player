@@ -1,4 +1,4 @@
-[@collaborne/video-player - v1.1.1](/docs/../README.md) / [Modules](/docs/modules.md) / [types/emitters](/docs/modules/types_emitters.md) / EmitterListeners
+[@collaborne/video-player - v1.1.2](/docs/../README.md) / [Modules](/docs/modules.md) / [types/emitters](/docs/modules/types_emitters.md) / EmitterListeners
 
 # Interface: EmitterListeners
 
@@ -53,7 +53,7 @@
 
 #### Defined in
 
-[src/types/emitters.ts:54](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L54)
+[src/types/emitters.ts:54](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/emitters.ts#L54)
 
 ___
 
@@ -97,4 +97,4 @@ ___
 
 #### Defined in
 
-[src/types/emitters.ts:53](https://github.com/Collaborne/video-player/blob/0cbe36f/src/types/emitters.ts#L53)
+[src/types/emitters.ts:53](https://github.com/Collaborne/video-player/blob/1c3dd32/src/types/emitters.ts#L53)
