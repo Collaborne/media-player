@@ -8,7 +8,6 @@ import { deepmerge } from '@mui/utils';
 import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
-import AUDIO_PLACEHOLDER from '../../../static/audio-placeholder.svg';
 import { MediaProvider } from '../../context/MediaProvider';
 import { MediaTypeContext } from '../../context/mediaType';
 import { MediaStore } from '../../store/media-store';
@@ -52,8 +51,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	theme,
 	initialState = PROVIDER_INITIAL_STATE,
 	alarms,
+	audioPlaceholder,
 	children,
-	audioPlaceholder = AUDIO_PLACEHOLDER,
 }) => {
 	const { mediaType } = useCorePlayerHook({ url });
 	const isAudio = mediaType === 'audio';
