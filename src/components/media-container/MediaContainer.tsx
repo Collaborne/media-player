@@ -1,11 +1,12 @@
 import clsx from 'clsx';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
 
 import { useMediaStore } from '../../context/MediaProvider';
 import { useIsAudio } from '../../hooks';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
+import { CorePlayerProps } from '../core-player/CorePlayer';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { MediaPoster } from '../media-poster/MediaPoster';
 
@@ -14,19 +15,17 @@ import { useMouseActivityHook } from './useMouseActivityHook';
 import { usePipHook } from './usePipHook';
 import { useReactPlayerHook } from './useReactPlayerHook';
 
-export interface MediaContainerProps {
-	/** The url of the media file to be played */
-	url: string;
-	/** CSS class name applied to component  */
-	className?: string;
-	children?: ReactNode;
-}
+export type MediaContainerProps = Pick<
+	CorePlayerProps,
+	'audioPlaceholder' | 'children' | 'url' | 'className'
+>;
 
 /** A React Component that consumes MediaContext's API and adds UI for the player and media controls  */
 export const MediaContainer: FC<MediaContainerProps> = ({
 	className,
 	url,
 	children,
+	audioPlaceholder,
 }) => {
 	const isAudio = useIsAudio();
 	const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(state => [
@@ -57,7 +56,10 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 		>
 			{Boolean(url) && (
 				<>
-					<DraggablePopover disablePortal={!isPip}>
+					<DraggablePopover
+						disablePortal={!isPip}
+						audioPlaceholder={audioPlaceholder}
+					>
 						<ReactPlayer
 							url={url}
 							progressInterval={PROGRESS_INTERVAL}

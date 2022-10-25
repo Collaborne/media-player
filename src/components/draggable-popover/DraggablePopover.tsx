@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { FC } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
-import audioPlaceholder from '../../../static/audio-placeholder.svg';
 import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
 import { MediaPoster } from '../media-poster/MediaPoster';
@@ -24,12 +23,14 @@ export type ContainerSizePosition = {
 export interface DraggablePopoverProps extends PortalProps {
 	rndProps?: RndProps;
 	className?: string;
+	audioPlaceholder?: string;
 }
 
 export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	className,
 	children,
 	rndProps,
+	audioPlaceholder,
 	...props
 }) => {
 	const isAudio = useIsAudio();

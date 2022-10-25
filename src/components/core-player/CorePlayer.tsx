@@ -8,6 +8,7 @@ import { deepmerge } from '@mui/utils';
 import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
+import AUDIO_PLACEHOLDER from '../../../static/audio-placeholder.svg';
 import { MediaProvider } from '../../context/MediaProvider';
 import { MediaTypeContext } from '../../context/mediaType';
 import { MediaStore } from '../../store/media-store';
@@ -38,6 +39,8 @@ export interface CorePlayerProps {
 	children: ReactNode;
 	/** Trigger points (in sec) when an alert event is emitted */
 	alarms?: number[];
+	/** URL to image that is displayed in PIP player for audio files */
+	audioPlaceholder?: string;
 }
 
 export const CorePlayer: FC<CorePlayerProps> = ({
@@ -50,6 +53,7 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	initialState = PROVIDER_INITIAL_STATE,
 	alarms,
 	children,
+	audioPlaceholder = AUDIO_PLACEHOLDER,
 }) => {
 	const { mediaType } = useCorePlayerHook({ url });
 	const isAudio = mediaType === 'audio';
@@ -73,7 +77,11 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 						highlights={highlights}
 						alarms={alarms}
 					>
-						<MediaContainer className={classNames} url={url}>
+						<MediaContainer
+							className={classNames}
+							url={url}
+							audioPlaceholder={audioPlaceholder}
+						>
 							{children}
 						</MediaContainer>
 					</MediaProvider>
