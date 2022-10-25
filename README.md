@@ -8,15 +8,15 @@ And yes, it is updated to **React v18** :balloon:!
 
 You can **play** both, **audio** and **video** files.
 
-*Note: At the moment we support URL to video and audio files. Youtube, twitch and other media streaming services URL's are not supported yet.*
+*Note: At the moment we support video and audio files URL. Youtube, twitch and other media streaming services URL's are not supported yet.*
 
 [Live demo](https://collaborne.github.io/video-player/)
 
 ## Introduction
 
 `@collaborne/video-player` provides a set of: "draft" player that has own PIP and Fullscreen implementation, UI Controls, a
-high flexibility for composing different players UI Controls, hooks for accessing media store/data, and even a ready to go media player solution
-(with our own customized MUI Themed Components).
+high flexibility for composing different player's UI Controls, hooks for accessing media store/data and event listeners, a ready to go media player solution
+(with our own customized MUI Themed Components) and many other features.
 
 ### Installation
 
@@ -26,7 +26,7 @@ high flexibility for composing different players UI Controls, hooks for accessin
 npm install --save @collaborne/video-player
 ```
 
-2. Install our peer dependencies. As an example we use MUI for theming and it's components, react-transition-group for animation, ...etc.  
+2. Install our peer dependencies. As an example we use `mui` for theming and UI Components, `react-transition-group` for animation, `lodash` for throttling, etc.  
 You can check peer dependencies in `package.json`. What is a peer dependency you can check [here](https://nodejs.org/es/blog/npm/peer-dependencies/).
 
 ## How to use
@@ -36,7 +36,7 @@ You can check peer dependencies in `package.json`. What is a peer dependency you
 - **Out of the box**
 
 You can just use a component that contains all the futures. See in [CodeSandbox](https://codesandbox.io/s/media-player-example-wnqwb1).  
-*NOTE: Wait the sandbox until installs all dependencies.*
+*NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
 
 ```ts
 import { VideoPlayer } from '@collaborne/video-player';
@@ -51,7 +51,7 @@ export const MyComponent: React.FC = () => {
 - **Compose own UI Controls**
 
 This comes handy when you want to customize controls for the player. [CodeSandbox](https://codesandbox.io/s/core-player-gtlry2?file=/src/App.tsx)  
-*NOTE: Wait the sandbox until installs all dependencies.*
+*NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
 
 ```ts
 import { CorePlayer, Controls, BottomControls } from "@collaborne/video-player";
@@ -69,19 +69,16 @@ const PlayButton = () => {
 export default function App() {
   return (
     <>
-      <CorePlayer url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4">
+      <CorePlayer url="some-url">
         <Controls>
           <BottomControls>
             <PlayButton />
           </BottomControls>
         </Controls>
       </CorePlayer>
-      {/* create a container with fixed height to check PIP player */}
-      <div style={{ height: "1200px" }} />
     </>
   );
 }
-
 ```
 
 ### Recipes  
@@ -104,14 +101,34 @@ const PlayButton = () => {
     </IconButton>
   );
 };
-
-
 ```
 
 - **Using MediaStore outside of the player**
-You can get fresh state, via storing its updates in a ref(for best performance practice).
+All players state is connected to an event emitter. Triggering play, pause, mute, etc will trigger an event, that you can connect too.
+So, subscribing to an event can boost your app and save performance. Code example in [CodeSandbox](https://codesandbox.io/s/media-player-outside-state-oxpko5?file=/src/App.tsx).  
+*NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
 
 
+```ts
+import {
+  MediaPlayer,
+  usePlayerContext,
+  useMediaListener
+} from "@collaborne/video-player";
+
+export default function App() {
+  const { mediaContext, setMediaContext } = usePlayerContext();
+  const listener = mediaContext?.getListener();
+  useMediaListener("play", () => alert("Play event was triggered"), listener);
+
+  return (
+      <MediaPlayer
+        url="some-url"
+        onStoreUpdate={setMediaContext}
+      />
+  );
+}
+```
 
 ## Documentation
 
@@ -126,9 +143,7 @@ you need to add to yours `process.env` a parameter of `DEBUG=*`, that will print
 ## FAQ  
 
 - **Q:** How to use player in a performant way? How to avoid rerenders?  
- **A:** Subscribe to events. We emit events for almost all use cases(`play`, `pause`, `timeupdate`, `durationchange`, ...etc) and store videoContext in a `React.RefObject`.  
- In this case, you can check updates by subscribing to player events and call any setter or getter that you need too.
-
+ **A:** Subscribe to events. We emit events for almost all use cases(`play`, `pause`, `timeupdate`, `durationchange`, ...etc).
 - **Q:** Do you support Youtube, vimeo sources?  
  **A:** At the moment, no. We support only files.
 
