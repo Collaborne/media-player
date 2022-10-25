@@ -2,11 +2,11 @@
 
 # @collaborne/video-player
 
-A video player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player).It supports the
+A media player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player).It supports the
 [MUI theming and components](https://mui.com) and **own functionality of the Picture-in-Picture and Fullscreen API**.
 And yes, it is updated to **React v18** :balloon:!
 
-You can **play** both, **audio** and **video** files.
+You can **play** both: **audio** and **video** files.
 
 *Note: At the moment we support video and audio files URL. Youtube, twitch and other media streaming services URL's are not supported yet.*
 
@@ -39,11 +39,11 @@ You can just use a component that contains all the futures. See in [CodeSandbox]
 *NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
 
 ```ts
-import { VideoPlayer } from '@collaborne/video-player';
+import { MediaPlayer } from '@collaborne/video-player';
 
 export const MyComponent: React.FC = () => {
  return (
-   <VideoPlayer videoUrl="some-video-url" />
+   <MediaPlayer url="some-video-url" />
  );
 };
 ```
