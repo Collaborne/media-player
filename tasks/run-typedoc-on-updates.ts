@@ -34,33 +34,21 @@ const TYPEDOC_DIR = path.resolve(__dirname, '../typedoc.json');
 
 const typeDocInput: string[] = readFile(TYPEDOC_DIR)?.entryPoints ?? [];
 
-const getDocumentedFiles = () => {
-	const entryRelativeFiles: string[] = [];
-	typeDocInput.forEach(entryPoint => {
-		const files = glob(entryPoint, { realpath: true });
-		entryRelativeFiles.push(...files);
-	});
+const entryPointFiles = typeDocInput.flatMap(entryPoint =>
+	glob(entryPoint, { realpath: true }),
+);
 
-	return entryRelativeFiles;
-};
-
-const documentedFiles = getDocumentedFiles();
-
-let shouldRunDocUpdate = false;
-const fileUpdated: string[] = [];
-
-documentedFiles.forEach(file => {
-	if (committedRelativeFilePaths.includes(file)) {
-		shouldRunDocUpdate = true;
-		fileUpdated.push(file);
-	}
-});
+const changedFiles = entryPointFiles.filter(file =>
+	committedRelativeFilePaths.includes(file),
+);
+const shouldRunDocUpdate = changedFiles.length > 0;
 
 if (shouldRunDocUpdate) {
-	console.group('Creating new docs due to changes in');
-	console.log(fileUpdated);
+	console.group('Recreating docs due to changes in');
+	console.log(changedFiles);
+	console.groupEnd();
 	execSync('typedoc');
-
 	process.exit(0);
+} else {
+	console.log('No pending updates for Typedoc ');
 }
-console.log('No pending updates for Typedoc ');
