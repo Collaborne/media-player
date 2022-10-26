@@ -11,8 +11,6 @@ jobs:
         with:
           node-version: 18
       - run: npm ci --unsafe-perm
-      - run: npm run build
-      - run: npm test
       - name: Pull branch
         run: |
           git fetch origin ${{ github.head_ref }}:tmp
@@ -24,7 +22,8 @@ jobs:
         id: check_file_changed
         run: |
           # Diff HEAD with the previous commit
-          echo git diff --name-only tmp $( git merge-base tmp origin/main) *.md
+          git remote add origin https://github.com/collaborne/video-player
+          echo git diff --name-only tmp $(git merge-base tmp origin/main) *.md
           $diff = git diff --name-only tmp $( git merge-base tmp origin/main) *.md
 
           # Check if a file under docs/ or with the .md extension has changed (added, modified, deleted)
