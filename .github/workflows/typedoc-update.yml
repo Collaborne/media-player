@@ -21,7 +21,8 @@ jobs:
         run: npm run build:docs
       - name: Commit TypeDoc document update
         uses: stefanzweifel/git-auto-commit-action@v4
-        with: 
+        with:
+          branch: tmp
           commit_message: TypeDoc documentation updated
           commit_user_name: TypeDoc
           commit_user_email: typedoc@nextapp.co 
