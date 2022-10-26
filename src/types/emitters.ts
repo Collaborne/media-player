@@ -53,3 +53,5 @@ export interface EmitterListeners {
 	removeEventListener: EmitterEvents['off'];
 	addEventListener: EmitterEvents['on'];
 }
+
+export interface Test {}
