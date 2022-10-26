@@ -51,6 +51,7 @@ if (shouldRunDocUpdate) {
 	console.group('Recreating docs due to changes in');
 	console.log(changedFiles);
 	console.groupEnd();
+	execSync('npm run build:docs-prepare');
 	execSync('typedoc');
 	process.exit(0);
 } else {

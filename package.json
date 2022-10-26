@@ -15,7 +15,7 @@
 		"build:locales": "cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/prepare-locales.ts .storybook/locales",
 		"build:ts": "tsc -p tsconfig.dist.json --noEmit false",
 		"build:watch": "npm run build -- --watch",
-		"build:docs": "npm run build:docs-prepare && npm run build:typedoc",
+		"build:docs": "npm run build:typedoc",
 		"build:typedoc": "cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/run-typedoc-on-updates.ts",
 		"build:docs-prepare": "cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/prepare-docs.ts",
 		"lint": "npm run lint:ts",
