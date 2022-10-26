@@ -20,10 +20,10 @@ jobs:
       - name: Create TypeDoc document
         run: npm run build:docs
       - name: Commit TypeDoc document update
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          branch: tmp
-          commit_message: TypeDoc documentation updated
-          commit_user_name: TypeDoc
-          commit_user_email: typedoc@nextapp.co 
-          commit_author: Author <typedoc@nextapp.co>
+        run: |
+          git config --global user.name "TypeDoc"
+          git config --global user.email "typedoc@nextapp.co"
+          git add README.md docs/*
+          git commit -m "TypeDoc documentation updated"
+          git push origin HEAD:${{ github.head_ref }}
+          git branch -D tmp
