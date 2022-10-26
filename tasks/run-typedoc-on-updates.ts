@@ -26,9 +26,7 @@ const resolveFilePaths = (paths?: unknown) => {
 	return [];
 };
 
-const committedFilePaths = executeGitCommand(
-	'git diff --name-only origin/main',
-);
+const committedFilePaths = executeGitCommand('git diff --name-only main');
 
 const committedRelativeFilePaths = resolveFilePaths(committedFilePaths);
 
