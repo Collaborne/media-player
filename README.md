@@ -1,4 +1,4 @@
-@collaborne/video-player - v1.1.2 / [Modules](/docs/modules.md)
+
 
 # @collaborne/video-player
 
