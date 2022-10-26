@@ -23,7 +23,7 @@ jobs:
         run: echo "file-changed=${{ git diff --name-only tmp $( git merge-base tmp origin/main) *.md }}" >> $GITHUB_ENV
       - name: Commit TypeDoc document update
         if: "${{ env.file-changed != '' }}"
-        run: |
+        run: | 
           git config --global user.name "TypeDoc"
           git config --global user.email "typedoc@nextapp.co"
           git add README.md docs/*
