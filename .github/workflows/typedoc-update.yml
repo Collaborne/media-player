@@ -25,11 +25,13 @@ jobs:
         run: |
           # Diff HEAD with the previous commit
           $diff = git diff --name-only tmp $( git merge-base tmp origin/main) *.md
-          
+
           # Check if a file under docs/ or with the .md extension has changed (added, modified, deleted)
           $SourceDiff = $diff | Where-Object { $_ -match '^docs/' -or $_ -match '.md$' }
           $HasDiff = $SourceDiff.Length -gt 0
-  
+          echo $diff
+          echo $SourceDiff
+          echo $HasDiff
           # Set the output named "docs_changed"
           Write-Host "::set-output name=docs_changed::$HasDiff"
       - shell: pwsh
