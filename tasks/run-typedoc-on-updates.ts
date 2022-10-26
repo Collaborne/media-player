@@ -26,10 +26,10 @@ const resolveFilePaths = (paths?: unknown) => {
 	return [];
 };
 
-const currentBranch =
-	executeGitCommand('git rev-parse --abbrev-ref HEAD')?.[0] ?? '';
+// current branch is saved as tmp
+const CURRENT_BRANCH = 'tmp';
 const committedFilePaths = executeGitCommand(
-	`git diff --name-only origin/${currentBranch} $(git merge-base origin/${currentBranch} origin/main)`,
+	`git diff --name-only ${CURRENT_BRANCH} $(git merge-base ${CURRENT_BRANCH} origin/main)`,
 );
 
 const committedRelativeFilePaths = resolveFilePaths(committedFilePaths);
