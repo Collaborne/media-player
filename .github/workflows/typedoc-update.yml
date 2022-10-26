@@ -21,6 +21,7 @@ jobs:
         run: npm run build:docs
       - name: Commit TypeDoc document update
         run: |
+          git remote add origin https://github.com/collaborne/video-player
           git config --global user.name "TypeDoc"
           git config --global user.email "typedoc@nextapp.co"
           git add README.md docs/*
