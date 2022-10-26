@@ -59,7 +59,8 @@ documentedFiles.forEach(file => {
 });
 
 if (shouldRunDocUpdate) {
-	console.log(`Creating new docs due to changes in ${fileUpdated.toString()}`);
+	console.group('Creating new docs due to changes in');
+	console.log(fileUpdated);
 	execSync('typedoc');
 
 	process.exit(0);
