@@ -19,7 +19,10 @@ jobs:
           git rebase tmp
       - name: Create TypeDoc document
         run: npm run build:docs
+      - name: Get documentation changes
+        run: echo "file-changed=${{ git diff --name-only tmp $( git merge-base tmp origin/main) *.md }}" >> $GITHUB_ENV
       - name: Commit TypeDoc document update
+        if: "${{ env.file-changed != '' }}"
         run: |
           git config --global user.name "TypeDoc"
           git config --global user.email "typedoc@nextapp.co"
