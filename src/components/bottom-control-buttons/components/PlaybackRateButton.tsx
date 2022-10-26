@@ -24,7 +24,7 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 
 	const handleClick = () => {
 		// Gets the next value of playback rate, otherwise get first one
-		const playbackLength = PLAYBACK_RATES.length;
+		const playbackLength = PLAYBACK_RATES.length - 1;
 		const currentIndex = PLAYBACK_RATES.findIndex(el => el === playbackRate);
 		if (playbackLength === currentIndex) {
 			return setPlaybackRate(PLAYBACK_RATES[0]);
