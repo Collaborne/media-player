@@ -8,7 +8,7 @@ yarn.lock
 # builds
 build/
 dist/
-storybook-static/
+gh-pages-dist/
 .rpt2_cache/
 
 # Dynamically created files

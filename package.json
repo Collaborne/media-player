@@ -23,11 +23,10 @@
 		"test:build": "npm run build:locales && tsc --noEmit -p tsconfig.test.json",
 		"test:unit": "cross-env CI=1 SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom --passWithNoTests",
 		"test:watch": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom",
-		"predeploy": "run-s storybook:build",
-		"deploy": "gh-pages -d storybook-static",
-		"deploy:docs": "gh-pages -d docs",
+		"predeploy": "run-s storybook:build build:docs",
+		"deploy": "gh-pages -d gh-pages-dist",
 		"storybook": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" FAST_REFRESH=false start-storybook -p 9009",
-		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" build-storybook --quiet"
+		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" build-storybook --quiet -o gh-pages-dist"
 	},
 	"peerDependencies": {
 		"@mui/icons-material": "^5.8.0",

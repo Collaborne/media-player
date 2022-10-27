@@ -13,12 +13,12 @@ jobs:
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
-      - run: npm run build:docs
+      - run: npm run predeploy
       - run: git config --global user.email "typedoc@nextapp.co"
       - run: git config --global user.name "TypeDoc"
       - name: Deploy with gh-pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npm run deploy:docs
+          npm run deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
