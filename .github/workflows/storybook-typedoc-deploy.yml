@@ -1,9 +1,12 @@
-name: TypeDoc Update
+name: StoryBook and Typedoc Deployment
 
-on: pull_request
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  typedoc-update:
+  deploy-storybook:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,8 +17,8 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm run predeploy
-      - run: git config --global user.email "typedoc@nextapp.co"
-      - run: git config --global user.name "TypeDoc"
+      - run: git config --global user.email "storybook@nextapp.co"
+      - run: git config --global user.name "StoryBook"
       - name: Deploy with gh-pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git

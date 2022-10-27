@@ -129,7 +129,7 @@ export default function App() {
 
 ## Documentation
 
-Latest changes, types and interfaces [here](/docs/modules.md).
+Latest changes, types and interfaces [here](https://collaborne.github.io/video-player/docs/).
 
 ## Debugging
 
