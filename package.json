@@ -15,8 +15,8 @@
 		"build:locales": "cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/prepare-locales.ts .storybook/locales",
 		"build:ts": "tsc -p tsconfig.dist.json --noEmit false",
 		"build:watch": "npm run build -- --watch",
-		"build:docs": "npm run build:docs-prepare && typedoc",
-		"build:docs-prepare": "cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/prepare-docs.ts",
+		"build:docs": "typedoc",
+		"build:refresh-readme": "cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/refresh-readme.ts",
 		"lint": "npm run lint:ts",
 		"lint:ts": "eslint --report-unused-disable-directives $(node -p 'require(\"./tsconfig.test.json\").include.map(include => `'\\${include}.\\{js,ts,tsx\\}'`).join(\" \")')",
 		"test": "run-s lint test:build test:unit",
@@ -98,7 +98,6 @@
 		"tsconfig-collaborne": "^1.5.0",
 		"tss-react": "^3.7.0",
 		"typedoc": "^0.23.9",
-		"typedoc-plugin-markdown": "^3.13.4",
 		"typescript": "~4.7.4",
 		"webpack": "5.73.0"
 	},

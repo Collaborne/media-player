@@ -1,12 +1,8 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"plugin": ["typedoc-plugin-markdown"],
-	"entryDocument": ["../README.md"],
+	"plugin": [],
 	"excludeExternals": true,
 	"out": "docs/",
-	"entryPoints": ["./src/components/media-player/*.tsx", "./src/types/*.ts"],
-	"name": "@collaborne/video-player",
-	"includeVersion": true,
-	"publicPath": "/docs/",
+	"entryPoints": ["./src/index.ts"],
 	"hideGenerator": true
 }
