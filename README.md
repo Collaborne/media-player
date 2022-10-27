@@ -1,4 +1,6 @@
-# @collaborne/video-player 1.1.3
+@collaborne/video-player - v1.1.2 / [Modules](/docs/modules.md)
+
+# @collaborne/video-player
 
 A media player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player).It supports the
 [MUI theming and components](https://mui.com) and **own functionality of the Picture-in-Picture and Fullscreen API**.
