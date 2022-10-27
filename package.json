@@ -25,6 +25,7 @@
 		"test:watch": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom",
 		"predeploy": "run-s storybook:build",
 		"deploy": "gh-pages -d storybook-static",
+		"deploy:docs": "gh-pages -d docs",
 		"storybook": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" FAST_REFRESH=false start-storybook -p 9009",
 		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" build-storybook --quiet"
 	},

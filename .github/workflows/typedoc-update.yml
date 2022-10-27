@@ -13,17 +13,12 @@ jobs:
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
-      - name: Pull branch
+      - run: npm run docs:build
+      - run: git config --global user.email "typedoc@nextapp.co"
+      - run: git config --global user.name "TypeDoc"
+      - name: Deploy with gh-pages
         run: |
-          git fetch origin ${{ github.head_ref }}:tmp
-          git rebase tmp
-      - name: Create TypeDoc document
-        run: npm run build:docs
-      - name: Commit TypeDoc document update
-        run: |
-          git config --global user.name "TypeDoc"
-          git config --global user.email "typedoc@nextapp.co"
-          git add README.md docs/*
-          git commit -m "TypeDoc documentation updated"
-          git push origin HEAD:${{ github.head_ref }}
-          git branch -D tmp
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npm run deploy:docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

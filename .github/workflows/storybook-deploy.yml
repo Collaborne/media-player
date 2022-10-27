@@ -25,5 +25,3 @@ jobs:
           npm run deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build Docs
-        run: npm run build:docs
