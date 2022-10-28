@@ -1,5 +1,9 @@
 # @collaborne/video-player 1.1.3
 
+![Documentation Coverage](/docs/coverage.svg)
+[![Node version](https://img.shields.io/node/v/@collaborne/video-player.svg?style=flat)](http://nodejs.org/download/)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/auth_plug/Elixir%20CI?label=build&style=flat-square)
+
 A media player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player).It supports the
 [MUI theming and components](https://mui.com) and **own functionality of the Picture-in-Picture and Fullscreen API**.
 And yes, it is updated to **React v18** :balloon:!
