@@ -6,6 +6,7 @@ import { useMediaStore } from '../../../context';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { PLAYBACK_RATES } from '../../../utils/constants';
 import { MultiplySymbol } from '../../../utils/MultiplySymbol';
+import { usePlaybackRateButtonHook } from '../hooks/usePlaybackRateButtonHook';
 import { usePlaybackRateStyles } from '../hooks/usePlaybackRateStyles';
 
 interface PlaybackRateButtonProps extends ButtonProps {}
@@ -21,16 +22,11 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 		state.setPlaybackRate,
 	]);
 	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
-
-	const handleClick = () => {
-		// Gets the next value of playback rate, otherwise get first one
-		const playbackLength = PLAYBACK_RATES.length;
-		const currentIndex = PLAYBACK_RATES.findIndex(el => el === playbackRate);
-		if (playbackLength === currentIndex) {
-			return setPlaybackRate(PLAYBACK_RATES[0]);
-		}
-		return setPlaybackRate(PLAYBACK_RATES[currentIndex + 1]);
-	};
+	const { handleClick } = usePlaybackRateButtonHook({
+		currentRate: playbackRate,
+		setPlaybackRate,
+		playbackRates: PLAYBACK_RATES,
+	});
 
 	const { playBackRateBtn } = usePlaybackRateStyles().classes;
 	const classNames = clsx(playBackRateBtn, className);
