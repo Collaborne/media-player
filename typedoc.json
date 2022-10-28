@@ -1,6 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"plugin": ["typedoc-plugin-coverage"],
+	"plugin": [],
 	"excludeExternals": true,
 	"out": "gh-pages-dist/docs/",
 	"entryPoints": ["./src/index.ts"],
