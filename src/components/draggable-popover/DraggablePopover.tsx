@@ -79,11 +79,13 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 						{children}
 						{!props.disablePortal && (
 							<>
-								<MediaPoster
-									img={audioPlaceholder}
-									width="100%"
-									height="100%"
-								/>
+								{isAudio && (
+									<MediaPoster
+										img={audioPlaceholder}
+										width="100%"
+										height="100%"
+									/>
+								)}
 								<PipControls />
 								<ProgressBar className={progressBar} />
 							</>
