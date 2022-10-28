@@ -31,28 +31,20 @@ function setupPlaybackRate<T extends number>(playbackRates: T[], initial?: T) {
 
 describe('usePlaybackRateButtonHook', () => {
 	describe('initialization', () => {
-		it('currentRate do not belongs to playbackRates', async () => {
+		it('throws an error if the currentRate is not valid value', async () => {
 			const { handleClick } = setupPlaybackRate(playbackRates, 0);
 
 			expect(() => {
 				handleClick();
 			}).toThrowError();
 		});
-		it('default', () => {
+		it('defaults currentRate to first playback value', () => {
 			const { mediaStore } = setupPlaybackRate(playbackRates);
 
 			expect(mediaStore.playbackRate).toBe(playbackRates[0]);
 		});
 	});
 	describe('rotation', () => {
-		it('only 1 item in array', async () => {
-			const { getByTestId, mediaStore } = setupPlaybackRate([1]);
-			expect(mediaStore.playbackRate).toBe(playbackRates[0]);
-			const testButton = getByTestId(TEST_ID);
-
-			await userEvent.click(testButton);
-			expect(mediaStore.playbackRate).toBe(playbackRates[0]);
-		});
 		it('pass to next item', async () => {
 			const { getByTestId, mediaStore } = setupPlaybackRate(playbackRates);
 			const testButton = getByTestId(TEST_ID);
@@ -60,7 +52,15 @@ describe('usePlaybackRateButtonHook', () => {
 			await userEvent.click(testButton);
 			expect(mediaStore.playbackRate).toBe(playbackRates[1]);
 		});
-		it('rotates from beginning', async () => {
+		it('keeps always the same value when clicking if there is only one playback rate', async () => {
+			const { getByTestId, mediaStore } = setupPlaybackRate([1]);
+			expect(mediaStore.playbackRate).toBe(playbackRates[0]);
+			const testButton = getByTestId(TEST_ID);
+
+			await userEvent.click(testButton);
+			expect(mediaStore.playbackRate).toBe(playbackRates[0]);
+		});
+		it('rotates back to the first value when clicking on the last playback rate', async () => {
 			const { getByTestId, mediaStore } = setupPlaybackRate(playbackRates);
 			expect(mediaStore.playbackRate).toBe(playbackRates[0]);
 			const testButton = getByTestId(TEST_ID);

@@ -22,10 +22,9 @@ export const usePlaybackRateButtonHook = <T>({
 				`${currentRate} should belong to ${JSON.stringify(playbackRates)}`,
 			);
 		}
-		if (playbackLength === currentIndex) {
-			return setPlaybackRate(playbackRates[0]);
-		}
-		return setPlaybackRate(playbackRates[currentIndex + 1]);
+		// Rotate back to the beginning when we're at the end of the array
+		const nextIndex = currentIndex < playbackLength ? currentIndex + 1 : 0;
+		return setPlaybackRate(playbackRates[nextIndex]);
 	};
 
 	return { handleClick };
