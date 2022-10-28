@@ -98,6 +98,8 @@
 		"tsconfig-collaborne": "^1.5.0",
 		"tss-react": "^4.4.0",
 		"typedoc": "^0.23.9",
+		"typedoc-plugin-hot-dev": "^0.0.11",
+		"typedoc-plugin-missing-exports": "^1.0.0",
 		"typescript": "~4.7.4",
 		"webpack": "5.73.0"
 	},
