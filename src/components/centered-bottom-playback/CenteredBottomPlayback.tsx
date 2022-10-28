@@ -2,6 +2,7 @@ import { ButtonProps } from '@mui/material';
 import { FC } from 'react';
 
 import { useMediaStore } from '../../context';
+import { useIsAudio } from '../../hooks';
 import { PLAYBACK_RATES } from '../../utils/constants';
 import { MultiplySymbol } from '../../utils/MultiplySymbol';
 
@@ -45,6 +46,7 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 export interface CenteredBottomPlaybackProps {}
 
 export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
+	const isAudio = useIsAudio();
 	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
 	const playbackRate = useMediaStore(state => state.playbackRate);
 	const setPlaybackRate = useMediaStore(state => state.setPlaybackRate);
@@ -56,7 +58,7 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 	const { wrapper, playbackWrapper } =
 		useCenteredBottomPlaybackStyles().classes;
 
-	if (hasStarted) {
+	if (hasStarted || isAudio) {
 		return null;
 	}
 

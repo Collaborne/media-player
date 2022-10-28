@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 
 import { useMediaStore } from '../../context';
+import { useIsAudio } from '../../hooks';
 import { useBottomControlsStyles } from '../bottom-controls/useBottomControlsStyles';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 
@@ -11,13 +12,15 @@ export interface ControlProps {
 }
 
 export const Controls: FC<ControlProps> = ({ children }) => {
+	const isAudio = useIsAudio();
 	const showControls = useMediaStore(state => state.showControls);
+
 	// Controls styles
-	const { controls } = useControlsStyles().classes;
+	const { controls } = useControlsStyles({ isAudio }).classes;
 	const { bottomControls } = useBottomControlsStyles().classes;
 
 	// Only <ProgressBar/> should be present if Controls components are not shown
-	if (!showControls) {
+	if (!showControls && !isAudio) {
 		return (
 			<div className={controls}>
 				<div className={bottomControls}>

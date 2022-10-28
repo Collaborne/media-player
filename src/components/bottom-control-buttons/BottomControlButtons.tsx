@@ -2,6 +2,8 @@ import Grid from '@mui/material/Grid';
 import clsx from 'clsx';
 import { FC, memo, ReactNode } from 'react';
 
+import { useIsAudio } from '../../hooks';
+
 import { useBottomControlButtonsHook } from './useBottomControlButtonsHook';
 import { useBottomControlButtonsStyles } from './useBottomControlButtonsStyles';
 
@@ -12,11 +14,12 @@ export interface BottomControlButtonsProps {
 
 export const BottomControlButtons: FC<BottomControlButtonsProps> = memo(
 	({ className, children }) => {
-		const { wrapper } = useBottomControlButtonsStyles().classes;
+		const isAudio = useIsAudio();
+		const { wrapper } = useBottomControlButtonsStyles({ isAudio }).classes;
 
 		const { hasStarted, showControls } = useBottomControlButtonsHook();
 
-		if (!showControls || !hasStarted) {
+		if ((!showControls || !hasStarted) && !isAudio) {
 			return null;
 		}
 

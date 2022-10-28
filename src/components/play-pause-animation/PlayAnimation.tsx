@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import { useMediaStore } from '../../context';
-import { useMediaListener } from '../../hooks';
+import { useMediaListener, useIsAudio } from '../../hooks';
 import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
 import { BigPlayIcon } from '../icons';
@@ -16,6 +16,7 @@ interface PlayAnimationProps {
 export const PlayAnimation: FC<PlayAnimationProps> = ({
 	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
 }) => {
+	const isAudio = useIsAudio();
 	const { centeredIcon, isPlaying, hasStarted } = usePlayPauseHook();
 	const [showPlayAnimation, playAnimationStart] = useState(false);
 	const listener = useMediaStore(state => state.getListener)();
@@ -41,6 +42,10 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 			playAnimationStart?.(false);
 		}
 	}, [playAnimationStart, showPlayAnimation]);
+
+	if (isAudio) {
+		return null;
+	}
 
 	return (
 		<AnimatedIconWrapper

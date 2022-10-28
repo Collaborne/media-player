@@ -5,3 +5,5 @@ export * from './use-one-ms-delayed-state';
 export * from './use-player-context';
 export * from './use-play-pause-replay';
 export * from './use-on-hovered-element';
+export * from './use-media-type';
+export * from './use-is-audio';
