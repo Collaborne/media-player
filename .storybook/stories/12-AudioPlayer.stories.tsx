@@ -6,13 +6,13 @@ import {
 } from '../../src/components/media-player/MediaPlayer';
 import { withDemoCard, withIntl } from '../decorators';
 
-export const AudioPlayer: Story<MediaPlayerProps> = args => {
+export const Default: Story<MediaPlayerProps> = args => {
 	return <MediaPlayerComponent {...args} />;
 };
 
 export default {
 	title: 'Audio Player',
-	component: AudioPlayer,
+	component: Default,
 	decorators: [withDemoCard, withIntl],
 	args: {
 		url: `https://assets.mixkit.co/sfx/preview/mixkit-game-show-suspense-waiting-667.mp3`,

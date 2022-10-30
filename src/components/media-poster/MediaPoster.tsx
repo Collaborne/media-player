@@ -1,18 +1,19 @@
 import { styled } from '@mui/material/styles';
+import { CSSProperties } from '@mui/styled-engine';
 
-interface MediaPosterProps {
+interface MediaPosterProps extends CSSProperties {
 	img?: string;
-	width?: number | string;
-	height?: number | string;
 }
 
 export const MediaPoster = styled('div')<MediaPosterProps>(
 	({ theme }) =>
-		({ img, width, height }) => ({
+		({ img, ...props }) => ({
 			background: 'black',
 			backgroundImage: img ? `url('${img}')` : 'none',
-			width: width ?? theme.spacing(40),
-			height: height ?? theme.spacing(40),
-			backgroundSize: 'contain',
+			width: props.width ?? theme.spacing(40),
+			height: props.height ?? theme.spacing(40),
+			backgroundSize: 'cover',
+			backgroundPosition: 'center',
+			...props,
 		}),
 );
