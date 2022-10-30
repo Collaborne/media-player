@@ -29,8 +29,8 @@
 		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" build-storybook --quiet -o gh-pages-dist"
 	},
 	"peerDependencies": {
-		"@mui/icons-material": "^5.8.0",
-		"@mui/material": "^5.8.0",
+		"@mui/icons-material": "^5.10.9",
+		"@mui/material": "^5.10.11",
 		"@types/debug": "^4.1.7",
 		"color-blend": "^4.0.0",
 		"debug": "^4.3.4",
@@ -41,10 +41,10 @@
 		"uuidv4": "^6.2.13"
 	},
 	"devDependencies": {
-		"@emotion/react": "^11.9.3",
-		"@emotion/styled": "^11.9.3",
-		"@mui/icons-material": "^5.8.4",
-		"@mui/material": "^5.8.6",
+		"@emotion/react": "^11.10.5",
+		"@emotion/styled": "^11.10.5",
+		"@mui/icons-material": "^5.10.9",
+		"@mui/material": "^5.10.11",
 		"@storybook/addon-actions": "^6.5.9",
 		"@storybook/addon-controls": "^6.5.9",
 		"@storybook/addon-docs": "^6.5.9",
@@ -96,7 +96,7 @@
 		"react-scripts": "5.0.1",
 		"ts-node": "~10.8.1",
 		"tsconfig-collaborne": "^1.5.0",
-		"tss-react": "^3.7.0",
+		"tss-react": "^4.4.0",
 		"typedoc": "^0.23.9",
 		"typescript": "~4.7.4",
 		"webpack": "5.73.0"
@@ -110,7 +110,7 @@
 	"dependencies": {
 		"@use-it/event-listener": "^0.1.7",
 		"bowser": "^2.11.0",
-		"clsx": "^1.1.1",
+		"clsx": "^1.2.1",
 		"mitt": "^3.0.0",
 		"react-player": "^2.10.1",
 		"react-rnd": "^10.3.7",
