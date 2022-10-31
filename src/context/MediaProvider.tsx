@@ -81,4 +81,3 @@ export const MediaProvider: FC<MediaProviderProps> = ({
  * @category MediaStore
  */
 export const useMediaStore = useStore;
-MediaProvider.displayName = 'MediaProvider';

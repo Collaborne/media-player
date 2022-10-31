@@ -1,8 +1,15 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
-	"plugin": ["typedoc-plugin-missing-exports"],
+	"plugin": [
+		"typedoc-plugin-missing-exports",
+		"typedoc-theme-hierarchy",
+		"typedoc-plugin-merge-modules"
+	],
 	"excludeExternals": true,
 	"out": "gh-pages-dist/docs/",
 	"entryPoints": ["./src/index.ts"],
-	"hideGenerator": true
+	"hideGenerator": true,
+	"internalModule": "Non Exported",
+	"theme": "hierarchy",
+	"mergeModulesMergeMode": "module-category"
 }

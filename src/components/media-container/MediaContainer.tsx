@@ -95,5 +95,3 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 		</div>
 	);
 };
-
-MediaContainer.displayName = 'MediaContainer';

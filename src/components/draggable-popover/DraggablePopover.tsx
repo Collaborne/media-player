@@ -101,5 +101,3 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 		</Portal>
 	);
 };
-
-DraggablePopover.displayName = 'DraggablePopover';
