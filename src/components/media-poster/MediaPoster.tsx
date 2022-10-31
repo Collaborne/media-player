@@ -1,22 +1,25 @@
-import { styled } from '@mui/material/styles';
-import { CSSProperties } from '@mui/styled-engine';
+import clsx from 'clsx';
+import { FC, ReactNode } from 'react';
 
-interface MediaPosterProps extends CSSProperties {
-	img?: string;
+import {
+	useMediaPosterStyles,
+	UseMediaPosterStylesProps,
+} from './useMediaPosterStyles';
+
+export interface MediaPosterProps extends UseMediaPosterStylesProps {
+	children?: ReactNode;
+	className?: string;
 }
 /**
  * A styled and flexible `div` container.
  * @category React Component
  */
-export const MediaPoster = styled('div')<MediaPosterProps>(
-	({ theme }) =>
-		({ img, ...props }) => ({
-			background: 'black',
-			backgroundImage: img ? `url('${img}')` : 'none',
-			width: props.width ?? theme.spacing(40),
-			height: props.height ?? theme.spacing(40),
-			backgroundSize: 'cover',
-			backgroundPosition: 'center',
-			...props,
-		}),
-);
+export const MediaPoster: FC<MediaPosterProps> = ({
+	children,
+	className,
+	...restProps
+}) => {
+	const { mediaPoster } = useMediaPosterStyles(restProps).classes;
+	const classNames = clsx(mediaPoster, className);
+	return <div className={classNames}>{children}</div>;
+};
