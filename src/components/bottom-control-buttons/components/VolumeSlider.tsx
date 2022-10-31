@@ -10,6 +10,10 @@ interface VolumeSliderProps {
 	volumeMultiplier?: number;
 }
 
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const VolumeSlider: FC<VolumeSliderProps> = ({
 	volumeMultiplier = VOLUME_MULTIPLIER,
 }) => {

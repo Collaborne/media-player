@@ -20,7 +20,10 @@ export type MediaContainerProps = Pick<
 	'audioPlaceholder' | 'children' | 'url' | 'className'
 >;
 
-/** A React Component that consumes MediaContext's API and adds UI for the player and media controls  */
+/** A React Component that consumes MediaContext's API and adds UI for the player and media controls
+ * @category React Component
+ * @category UI Controls
+ */
 export const MediaContainer: FC<MediaContainerProps> = ({
 	className,
 	url,

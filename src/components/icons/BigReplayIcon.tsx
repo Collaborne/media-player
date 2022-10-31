@@ -1,6 +1,12 @@
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 import { FC } from 'react';
 
+/**
+ * Wrapper that holds all the UI Components for Controls
+ * @category React Component
+ * @category UI Controls
+ * @category Custom Icons
+ */
 // TODO: Integrate BigReplayIcon fill colors into main themes
 export const BigReplayIcon: FC<SvgIconProps> = props => {
 	return (

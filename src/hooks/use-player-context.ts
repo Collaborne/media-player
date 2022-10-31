@@ -8,6 +8,11 @@ interface UsePlayerContext {
 	mediaContext?: MediaStore;
 }
 
+/**
+ * Get the player store external, via assigning it to a `ref` for optimization
+ * @category hooks
+ * @category MediaStore
+ */
 export const usePlayerContext = (): UsePlayerContext => {
 	// Rerender when media context exists/ready
 	const [, setIsReady] = useState(false);

@@ -10,6 +10,10 @@ interface TimeDisplayProps extends TypographyProps {
 }
 const SECONDS_MULTIPLIER = 1000;
 
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const TimeDisplay: FC<TimeDisplayProps> = ({
 	secondsMultiplier = SECONDS_MULTIPLIER,
 	...props

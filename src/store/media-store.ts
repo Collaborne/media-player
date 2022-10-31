@@ -12,6 +12,7 @@ import {
 import { getMediaEl } from '../utils';
 import { findNextConsecutiveIndex } from '../utils/array';
 
+/**  @category MediaStore */
 export type MediaStore = MediaState &
 	MediaStateSetters &
 	MediaStateExternalInitializers;

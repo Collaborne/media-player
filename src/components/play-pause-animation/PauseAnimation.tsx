@@ -12,7 +12,11 @@ interface PauseAnimationProps {
 	animationDuration?: number;
 }
 
-/** Display animation when player emitted "play" event */
+/** Display animation a "pause" event was emitted
+ * @category React Component
+ * @category UI Controls
+ */
+
 export const PauseAnimation: FC<PauseAnimationProps> = ({
 	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
 }) => {

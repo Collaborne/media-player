@@ -13,6 +13,11 @@ interface UseOnHoveredElementProps {
 	markActivity: VoidFunction;
 }
 
+/**
+ * Implements general hover functionality on a any UI Controls Element
+ * @category hooks
+ * @category MediaStore
+ */
 export const useOnHoveredElement = ({
 	setShowControls,
 	markActivity,
@@ -49,6 +54,11 @@ export const useOnHoveredElement = ({
 	};
 };
 
+/**
+ * Implements general hover functionality on a player UI Controls Element
+ * @category hooks
+ * @category MediaStore
+ */
 export const useOnHoveredControlElement = () => {
 	const [setShowControls, markActivity] = useMediaStore(state => [
 		state.setShowControls,
@@ -57,6 +67,11 @@ export const useOnHoveredControlElement = () => {
 	return useOnHoveredElement({ markActivity, setShowControls });
 };
 
+/**
+ * Implements general hover functionality on a PIP player UI Controls Element
+ * @category hooks
+ * @category MediaStore
+ */
 export const useOnHoveredPipControlElement = () => {
 	const [setShowControls, markActivity] = useMediaStore(state => [
 		state.setShowPipControls,

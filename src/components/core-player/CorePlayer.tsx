@@ -42,6 +42,11 @@ export interface CorePlayerProps {
 	audioPlaceholder?: string;
 }
 
+/**
+ * The core of the player. With all media logics and functionality but without any UI Controls .
+ * @category React Component
+ * @category Player
+ */
 export const CorePlayer: FC<CorePlayerProps> = ({
 	url,
 	className,

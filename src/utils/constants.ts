@@ -1,6 +1,8 @@
 /** Indicator that split volumes into a high or down meaning */
 export const MIN_VOLUME = 50;
+/** Playback Rates for media */
 export const PLAYBACK_RATES = [1, 1.2, 1.5, 1.7, 2];
+/** Period of time(in ms), after which controls are hidden */
 export const OVERLAY_HIDE_DELAY = 3000;
 export const PROGRESS_BAR_DIVIDER = 100;
 export const DEFAULT_EVENT_ANIMATION_DURATION = 300;

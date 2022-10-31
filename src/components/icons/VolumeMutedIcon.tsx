@@ -1,6 +1,12 @@
 import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 import { FC } from 'react';
 
+/**
+ * Wrapper that holds all the UI Components for Controls
+ * @category React Component
+ * @category UI Controls
+ * @category Custom Icons
+ */
 export const VolumeMutedIcon: FC<SvgIconProps> = props => (
 	<SvgIcon viewBox="0 0 24 24" {...props}>
 		<path d="M3 9V15H7L12 20V4L7 9H3Z" />

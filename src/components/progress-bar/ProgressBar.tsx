@@ -11,6 +11,10 @@ import { useProgressBarStyles } from './useProgressBarStyles';
 
 interface ProgressBarProps extends SliderProps {}
 
+/** A MUI Slider configured for displaying currentTime/duration values from `MediaStore`
+ * @category React Component
+ * @category UI Controls
+ */
 export const ProgressBar: FC<ProgressBarProps> = props => {
 	const isAudio = useIsAudio();
 	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);

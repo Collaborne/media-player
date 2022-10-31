@@ -5,6 +5,10 @@ import { CorePlayerInitialState } from '../components';
 import { MediaStore } from '../store/media-store';
 import { BlendColors } from '../utils/colors';
 
+/**
+ * State that initializes store external
+ * @category MediaStore
+ */
 export interface MediaStateExternalInitializers {
 	reactPlayerRef: RefObject<ReactPlayer>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;

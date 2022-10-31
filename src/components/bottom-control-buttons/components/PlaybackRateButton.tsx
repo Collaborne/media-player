@@ -11,6 +11,10 @@ import { usePlaybackRateStyles } from '../hooks/usePlaybackRateStyles';
 
 interface PlaybackRateButtonProps extends ButtonProps {}
 
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 	className,
 	color = 'primary',

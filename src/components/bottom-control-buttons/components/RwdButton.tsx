@@ -12,6 +12,10 @@ interface RwdButtonProps extends IconButtonProps {
 	svgIconProps?: SvgIconProps;
 }
 
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const RwdButton: FC<RwdButtonProps> = ({
 	Icon = Replay10Outlined,
 	skipSeconds = SECONDS_TO_SKIP,

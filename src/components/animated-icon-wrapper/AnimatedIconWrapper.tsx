@@ -11,6 +11,10 @@ interface AnimatedIconWrapperProps extends PropsWithChildren {
 	durationMs: number;
 	startAnimation?: boolean;
 }
+/**
+ * Component used as a wrapper for transitions
+ * @category React Component
+ */
 export const AnimatedIconWrapper: FC<AnimatedIconWrapperProps> = ({
 	durationMs,
 	children,

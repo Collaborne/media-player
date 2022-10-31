@@ -22,7 +22,9 @@ export interface MediaProviderProps
 		'onStoreUpdate' | 'highlights' | 'alarms'
 	> {}
 
-/** A provider that should wrap MediaContainer for context consuming */
+/** Keep `MediaStore` in a context to distribute them to UI Controls
+ * @category ContextProvider
+ */
 export const MediaProvider: FC<MediaProviderProps> = ({
 	initialState,
 	getHighlightColorBlended,
@@ -72,5 +74,11 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 	);
 };
 
+/**
+ * A hook for `MediaStore` from `zustand` to use for `MediaProvider` consumers
+ * Use it, like an ordinary `zustand` store: https://github.com/pmndrs/zustand
+ * @category hooks
+ * @category MediaStore
+ */
 export const useMediaStore = useStore;
 MediaProvider.displayName = 'MediaProvider';

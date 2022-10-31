@@ -15,6 +15,11 @@ export interface VolumeIconProps extends SvgIconProps {
 	Icons?: VolumeIcons;
 	minVolume?: number;
 }
+
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const VolumeIcon: FC<VolumeIconProps> = ({
 	volume,
 	Icons = { VolumeUp, VolumeDown, VolumeMuted: VolumeMutedIcon },

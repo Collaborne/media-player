@@ -13,6 +13,10 @@ interface PlayPauseReplayProps extends IconButtonProps {
 	skipSeconds?: number;
 }
 
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	className,
 	svgClassName,
