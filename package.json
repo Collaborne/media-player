@@ -111,7 +111,6 @@
 		"tsconfig.json"
 	],
 	"dependencies": {
-		"@use-it/event-listener": "^0.1.7",
 		"bowser": "^2.11.0",
 		"clsx": "^1.2.1",
 		"mitt": "^3.0.0",
