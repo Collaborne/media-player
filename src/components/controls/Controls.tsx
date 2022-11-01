@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
 import { useMediaStore } from '../../context';
@@ -9,6 +10,7 @@ import { useControlsStyles } from './useControlsStyles';
 
 export interface ControlProps {
 	children: ReactNode;
+	className?: string;
 }
 
 /**
@@ -16,18 +18,19 @@ export interface ControlProps {
  * @category React Component
  * @category UI Controls
  */
-export const Controls: FC<ControlProps> = ({ children }) => {
+export const Controls: FC<ControlProps> = ({ children, className }) => {
 	const isAudio = useIsAudio();
 	const showControls = useMediaStore(state => state.showControls);
 
 	// Controls styles
 	const { controls } = useControlsStyles({ isAudio }).classes;
+	const classNameControls = clsx(controls, className);
 	const { bottomControls } = useBottomControlsStyles().classes;
 
 	// Only <ProgressBar/> should be present if Controls components are not shown
 	if (!showControls && !isAudio) {
 		return (
-			<div className={controls}>
+			<div className={classNameControls}>
 				<div className={bottomControls}>
 					<ProgressBar />
 				</div>
@@ -35,5 +38,5 @@ export const Controls: FC<ControlProps> = ({ children }) => {
 		);
 	}
 
-	return <div className={controls}>{children}</div>;
+	return <div className={classNameControls}>{children}</div>;
 };

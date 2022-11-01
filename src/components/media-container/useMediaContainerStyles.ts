@@ -18,12 +18,9 @@ export const useMediaContainerStyles = makeStyles<{ isAudio: boolean }>()(
 		reactPlayer: {
 			cursor: 'pointer',
 			position: 'relative',
-			display: 'flex',
-			alignItems: 'center',
 			// We do not display ReactPlayer in audio mode
-			...(isAudio && {
-				display: 'none',
-			}),
+			display: isAudio ? 'none' : 'flex',
+			alignItems: 'center',
 		},
 	}),
 );
