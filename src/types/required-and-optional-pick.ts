@@ -1,3 +1,6 @@
+/**
+ * Divide Record keys into Optional and Required
+ */
 export type RequiredAndOptionalPick<
 	T,
 	K extends keyof T,

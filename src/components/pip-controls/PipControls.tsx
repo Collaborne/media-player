@@ -22,6 +22,11 @@ interface PipControlsProps {
 	skipSeconds?: number;
 }
 
+/**
+ * Controls for the PIP player.
+ * @category React Component
+ * @category UI Controls
+ */
 export const PipControls: FC<PipControlsProps> = ({
 	skipSeconds = SECONDS_TO_SKIP,
 }) => {

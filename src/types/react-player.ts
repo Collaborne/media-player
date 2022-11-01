@@ -3,7 +3,10 @@ import type ReactPlayer from 'react-player';
 
 import { MediaState } from '.';
 
-/** Props that will be provided to ReactPlayer */
+/**
+ * Props that will be provided to ReactPlayer
+ * @category MediaStore
+ */
 export interface ReactPlayerProps {
 	autoPlay: boolean;
 	playsinline: boolean;

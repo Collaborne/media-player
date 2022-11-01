@@ -11,6 +11,11 @@ export interface ControlProps {
 	children: ReactNode;
 }
 
+/**
+ * Wrapper that holds all the UI Components for Controls
+ * @category React Component
+ * @category UI Controls
+ */
 export const Controls: FC<ControlProps> = ({ children }) => {
 	const isAudio = useIsAudio();
 	const showControls = useMediaStore(state => state.showControls);

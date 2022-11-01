@@ -10,6 +10,10 @@ interface PictureInPictureButtonProps extends IconButtonProps {
 	svgIconProps?: SvgIconProps;
 }
 
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 	Icon = PiPIcon,
 	svgIconProps,

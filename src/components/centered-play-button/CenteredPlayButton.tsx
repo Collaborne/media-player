@@ -11,6 +11,11 @@ export interface CenteredPlayButtonProps {
 	iconButtonProps?: IconButtonProps;
 }
 
+/**
+ * Component shown before a media has started
+ * @category React Component
+ * @category UI Controls
+ */
 export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 	classNames,
 	iconButtonProps,

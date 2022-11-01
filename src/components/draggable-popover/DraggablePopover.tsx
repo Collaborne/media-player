@@ -26,6 +26,11 @@ export interface DraggablePopoverProps extends PortalProps {
 	audioPlaceholder?: string;
 }
 
+/**
+ * Popover/Portal component that is responsible for PIP logic and UI
+ * @category React Component
+ * @category UI Controls
+ */
 export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	className,
 	children,
@@ -96,5 +101,3 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 		</Portal>
 	);
 };
-
-DraggablePopover.displayName = 'DraggablePopover';

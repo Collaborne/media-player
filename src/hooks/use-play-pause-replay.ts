@@ -9,6 +9,12 @@ interface UsePlayPauseReplayHook {
 	onStop: VoidFunction;
 }
 
+/**
+ * Play, pause, replay handlers
+ * @category hooks
+ * @category MediaStore
+ */
+
 export const usePlayPauseReplayHook = (): UsePlayPauseReplayHook => {
 	const [isFinished, setIsFinished] = useOneMSDelayedState(false);
 	const listener = useMediaStore(state => state.getListener());

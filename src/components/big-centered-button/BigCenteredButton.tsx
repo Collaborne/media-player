@@ -14,6 +14,7 @@ export interface BigCenteredButtonProps {
 
 /**
  * A component that adds a big centered icon button with corresponding styles and backdrop
+ * @category React Component
  */
 export const BigCenteredButton: FC<BigCenteredButtonProps> = ({
 	onClick,

@@ -12,7 +12,10 @@ interface PlayAnimationProps {
 	animationDuration?: number;
 }
 
-/** Display animation when player emitted "play" event */
+/** Display animation a "play" event was emitted
+ * @category React Component
+ * @category UI Controls
+ */
 export const PlayAnimation: FC<PlayAnimationProps> = ({
 	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
 }) => {

@@ -4,7 +4,10 @@ import { CSSProperties } from '@mui/styled-engine';
 interface MediaPosterProps extends CSSProperties {
 	img?: string;
 }
-
+/**
+ * A styled and flexible `div` container.
+ * @category React Component
+ */
 export const MediaPoster = styled('div')<MediaPosterProps>(
 	({ theme }) =>
 		({ img, ...props }) => ({

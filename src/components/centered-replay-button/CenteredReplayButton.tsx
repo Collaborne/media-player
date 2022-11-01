@@ -11,6 +11,10 @@ export interface CenteredReplayButtonProps {
 	iconButtonProps?: IconButtonProps;
 }
 
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const CenteredReplayButton: FC<CenteredReplayButtonProps> = ({
 	classNames,
 	iconButtonProps,

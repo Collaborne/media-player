@@ -1,5 +1,9 @@
 import { EmitterListeners } from './emitters';
 
+/**
+ * Setters or "actions" in flux architecture
+ * @category MediaStore
+ */
 export interface MediaStateSetters {
 	play: () => void;
 	pause: () => void;

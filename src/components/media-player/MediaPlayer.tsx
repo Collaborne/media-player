@@ -31,7 +31,11 @@ export interface MediaPlayerProps extends Omit<CorePlayerProps, 'children'> {
 	children?: ReactNode;
 }
 
-/** A "media-player" from the box. A result of MediaProvider and MediaContainer */
+/**
+ * Out of the box media player, with all functionality and UI included
+ * @category React Component
+ * @category Player
+ */
 export const MediaPlayer: FC<MediaPlayerProps> = ({
 	children,
 	...corePlayerProps

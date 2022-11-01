@@ -13,6 +13,10 @@ interface VolumeButtonProps extends IconButtonProps {
 	volumeMultiplier?: number;
 }
 
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const VolumeButton: FC<VolumeButtonProps> = ({
 	Icon = VolumeIcon,
 	svgIconProps,

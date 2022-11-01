@@ -15,6 +15,11 @@ interface PlayBackButtonProps extends ButtonProps {
 	active: number;
 }
 
+/**
+ * Component shown before a media has started
+ * @category React Component
+ * @category UI Controls
+ */
 const PlayBackButton: FC<PlayBackButtonProps> = ({
 	playbackRate,
 	onChangeRate,

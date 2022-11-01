@@ -12,6 +12,11 @@ export interface BottomControlButtonsProps {
 	children: ReactNode;
 }
 
+/**
+ * Wrapper that includes bottom controls buttons
+ * @category React Component
+ * @category UI Controls
+ */
 export const BottomControlButtons: FC<BottomControlButtonsProps> = memo(
 	({ className, children }) => {
 		const isAudio = useIsAudio();

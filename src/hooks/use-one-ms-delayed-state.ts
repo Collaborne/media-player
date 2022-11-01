@@ -9,6 +9,7 @@ const DELAY_DURATION = 1;
  * This hook is to prevents error (due to race) when updating states that uses
  * useMediaListener hook. See description on the PR
  * (https://github.com/Collaborne/media-player/pull/55) on why we need to delay
+ * @category hooks
  */
 export const useOneMSDelayedState = <T>(
 	initialState: T,

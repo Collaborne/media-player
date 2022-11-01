@@ -12,6 +12,10 @@ interface FwdButtonProps extends IconButtonProps {
 	svgIconProps?: SvgIconProps;
 }
 
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const FwdButton: FC<FwdButtonProps> = ({
 	Icon = Forward10Outlined,
 	skipSeconds = SECONDS_TO_SKIP,

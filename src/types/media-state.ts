@@ -18,6 +18,7 @@ export interface Highlight extends Segment {
 
 /**
  * State for media. Keeping info about current media player behavior
+ * @category MediaStore
  */
 
 export interface MediaState {

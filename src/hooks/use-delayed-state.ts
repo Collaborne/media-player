@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 
-/** Set a state with delay */
+/**
+ * Set a state with delay
+ * @category hooks
+ */
 export const useDelayedState = <T>(
 	initialState: T,
 ): [T, (newSTate: T, delay?: number) => void, VoidFunction] => {

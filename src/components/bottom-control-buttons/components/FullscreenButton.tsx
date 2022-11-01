@@ -13,7 +13,10 @@ interface FullscreenButtonProps extends IconButtonProps {
 	Icons?: FullscreenIcons;
 	svgIconProps?: SvgIconProps;
 }
-
+/**
+ * @category React Component
+ * @category UI Controls
+ */
 export const FullscreenButton: FC<FullscreenButtonProps> = ({
 	Icons = {
 		FullscreenEnter: FullscreenEnterIcon,
