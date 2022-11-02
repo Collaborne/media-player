@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
 import { useMediaStore } from '../../context';
@@ -23,9 +22,11 @@ export const Controls: FC<ControlProps> = ({ children, className }) => {
 	const showControls = useMediaStore(state => state.showControls);
 
 	// Controls styles
-	const { controls } = useControlsStyles({ isAudio }).classes;
-	const classNameControls = clsx(controls, className);
-	const { bottomControls } = useBottomControlsStyles().classes;
+	const { classes, cx } = useControlsStyles({ isAudio });
+	const classNameControls = cx(classes.controls, className);
+	const {
+		classes: { bottomControls },
+	} = useBottomControlsStyles();
 
 	// Only <ProgressBar/> should be present if Controls components are not shown
 	if (!showControls && !isAudio) {

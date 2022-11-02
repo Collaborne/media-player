@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
 import {
@@ -19,7 +18,10 @@ export const MediaPoster: FC<MediaPosterProps> = ({
 	className,
 	...restProps
 }) => {
-	const { mediaPoster } = useMediaPosterStyles(restProps).classes;
-	const classNames = clsx(mediaPoster, className);
+	const {
+		classes: { mediaPoster },
+		cx,
+	} = useMediaPosterStyles(restProps);
+	const classNames = cx(mediaPoster, className);
 	return <div className={classNames}>{children}</div>;
 };

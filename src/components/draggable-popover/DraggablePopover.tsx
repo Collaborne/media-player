@@ -1,6 +1,5 @@
 import Paper from '@mui/material/Paper';
 import Portal, { PortalProps } from '@mui/material/Portal';
-import clsx from 'clsx';
 import { FC } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
@@ -44,12 +43,14 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 		useDraggablePopoverHook({ disablePortal: props.disablePortal });
 	const { onMouseEnter, onMouseLeave, onMouseMove } = usePipMouseActivityHook();
 
-	const { paper, progressBar, portalWrapper, resizeSquares } =
-		useDraggablePopoverStyles({
-			isExpanded: Boolean(props.disablePortal),
-			isAudio,
-			isPip,
-		}).classes;
+	const {
+		classes: { paper, progressBar, portalWrapper, resizeSquares },
+		cx,
+	} = useDraggablePopoverStyles({
+		isExpanded: Boolean(props.disablePortal),
+		isAudio,
+		isPip,
+	});
 
 	return (
 		<Portal {...props}>
@@ -76,7 +77,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 				>
 					<Paper
 						elevation={0}
-						className={clsx(paper, className)}
+						className={cx(paper, className)}
 						onMouseMove={onMouseMove}
 						onMouseLeave={onMouseLeave}
 						onMouseEnter={onMouseEnter}
