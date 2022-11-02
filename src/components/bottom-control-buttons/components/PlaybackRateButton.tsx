@@ -1,5 +1,4 @@
 import Button, { ButtonProps } from '@mui/material/Button';
-import clsx from 'clsx';
 import { FC } from 'react';
 
 import { useMediaStore } from '../../../context';
@@ -32,8 +31,8 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 		playbackRates: PLAYBACK_RATES,
 	});
 
-	const { playBackRateBtn } = usePlaybackRateStyles().classes;
-	const classNames = clsx(playBackRateBtn, className);
+	const { classes, cx } = usePlaybackRateStyles();
+	const classNames = cx(classes.playBackRateBtn, className);
 
 	return (
 		<Button

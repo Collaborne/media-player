@@ -1,6 +1,5 @@
 import { SvgIconProps } from '@mui/material';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import clsx from 'clsx';
 import { ComponentType, FC } from 'react';
 
 import { useBigCenteredButtonStyles } from './useBigCenteredButtonStyles';
@@ -22,10 +21,13 @@ export const BigCenteredButton: FC<BigCenteredButtonProps> = ({
 	iconButtonProps,
 	Icon,
 }) => {
-	const { controlsWrapper, svgStyle } = useBigCenteredButtonStyles().classes;
+	const {
+		classes: { controlsWrapper, svgStyle },
+		cx,
+	} = useBigCenteredButtonStyles();
 
 	return (
-		<div className={clsx(controlsWrapper, classNames)} onClick={onClick}>
+		<div className={cx(controlsWrapper, classNames)} onClick={onClick}>
 			<IconButton {...iconButtonProps}>
 				<Icon className={svgStyle} />
 			</IconButton>

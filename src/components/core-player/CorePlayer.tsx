@@ -5,7 +5,6 @@ import {
 	ThemeProvider,
 } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
-import clsx from 'clsx';
 import { FC, ReactNode } from 'react';
 
 import { MediaProvider } from '../../context/MediaProvider';
@@ -62,8 +61,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	const { mediaType } = useCorePlayerHook({ url });
 	const isAudio = mediaType === 'audio';
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
-	const { wrapper } = useFilePlayerStyles({ isAudio }).classes;
-	const classNames = clsx(wrapper, className);
+	const { classes, cx } = useFilePlayerStyles({ isAudio });
+	const classNames = cx(classes.wrapper, className);
 
 	if (mediaType === 'unsupported') {
 		throw new Error(`URL: ${url} is not supported!`);

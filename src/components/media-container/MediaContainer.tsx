@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { FC } from 'react';
 import intl from 'react-intl-universal';
 import ReactPlayer from 'react-player';
@@ -36,9 +35,12 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 		state.isPip,
 		state.isFullscreen,
 	]);
-	const { wrapper, pipText, reactPlayer } = useMediaContainerStyles({
+	const {
+		classes: { wrapper, pipText, reactPlayer },
+		cx,
+	} = useMediaContainerStyles({
 		isAudio,
-	}).classes;
+	});
 
 	const { isPlayerReady, reactPlayerProps } = useReactPlayerHook({ url });
 	const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
@@ -52,7 +54,7 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 	return (
 		<div
 			ref={mediaContainerRef}
-			className={clsx(wrapper, className)}
+			className={cx(wrapper, className)}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
 			onMouseMove={onMouseMove}
