@@ -13,6 +13,7 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 		},
 
 		'& .MuiSlider-track': {
+			backgroundColor: theme.palette.primaryVeryDark,
 			position: 'absolute',
 			borderRadius: 0,
 			border: 0,
@@ -24,7 +25,7 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 		'& .MuiSlider-thumb': {
 			height: theme.spacing(1.25),
 			width: theme.spacing(1.25),
-			backgroundColor: theme.palette.primary.main,
+			backgroundColor: theme.palette.primaryVeryDark,
 			marginTop: theme.spacing(0.625),
 			marginLeft: 0,
 			'&:focus, &:hover, &$active': {
