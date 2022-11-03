@@ -26,7 +26,7 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 			height: theme.spacing(1.25),
 			width: theme.spacing(1.25),
 			backgroundColor: theme.palette.primaryVeryDark,
-			marginTop: theme.spacing(0.625),
+			marginTop: theme.spacing(0.5),
 			marginLeft: 0,
 			'&:focus, &:hover, &$active': {
 				boxShadow: 'inherit',

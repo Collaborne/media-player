@@ -22,7 +22,7 @@ export const Controls: FC<ControlProps> = ({ children, className }) => {
 	const showControls = useMediaStore(state => state.showControls);
 
 	// Controls styles
-	const { classes, cx } = useControlsStyles({ isAudio });
+	const { classes, cx } = useControlsStyles();
 	const classNameControls = cx(classes.controls, className);
 	const {
 		classes: { bottomControls },

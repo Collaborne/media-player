@@ -19,7 +19,7 @@ export interface BottomControlButtonsProps {
 export const BottomControlButtons: FC<BottomControlButtonsProps> = memo(
 	({ className, children }) => {
 		const isAudio = useIsAudio();
-		const { classes, cx } = useBottomControlButtonsStyles({ isAudio });
+		const { classes, cx } = useBottomControlButtonsStyles();
 
 		const { hasStarted, showControls } = useBottomControlButtonsHook();
 
