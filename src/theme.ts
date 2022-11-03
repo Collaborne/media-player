@@ -5,6 +5,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 	const basePalette = createTheme({
 		palette: {
 			primaryVeryDark: '#8200A3',
+			backgroundBlur: 'blur(2px)',
 			background: {
 				default: 'rgba(0, 0, 0, 0.72)',
 				paper: 'rgba(252,252,252, 0.28)',
@@ -122,6 +123,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 
 						// variant="contained"
 						...(ownerState.variant === 'contained' && {
+							backdropFilter: baseTheme.palette.backgroundBlur,
 							...actionStates,
 							...(ownerState.color === 'primary' && {
 								color: baseTheme.palette.common.white,
@@ -182,6 +184,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 					},
 					colorPrimary: {
 						color: baseTheme.palette.primary.main,
+						backdropFilter: baseTheme.palette.backgroundBlur,
 					},
 				},
 			},
@@ -192,6 +195,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 				styleOverrides: {
 					colorPrimary: {
 						...actionStates,
+						backdropFilter: baseTheme.palette.backgroundBlur,
 					},
 					colorInherit: {
 						color: baseTheme.palette.text.primary,
