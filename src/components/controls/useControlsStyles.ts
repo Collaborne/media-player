@@ -9,6 +9,7 @@ export const useControlsStyles = makeStyles<{ isAudio: boolean }>()(
 			pointerEvents: 'none',
 			...(isAudio && {
 				background: theme.palette.background.default,
+				backdropFilter: theme.palette.backdropFilter,
 			}),
 		},
 	}),

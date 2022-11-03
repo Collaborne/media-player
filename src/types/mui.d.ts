@@ -8,12 +8,12 @@ declare module '@mui/material/styles/createPalette' {
 	interface Palette {
 		primaryVeryDark: string;
 		/** Blurring background for all components that have a background */
-		backgroundBlur: string;
+		backdropFilter: string;
 	}
 
 	interface PaletteOptions {
 		primaryVeryDark: string;
 		/** Blurring background for all components that have a background */
-		backgroundBlur: string;
+		backdropFilter: string;
 	}
 }

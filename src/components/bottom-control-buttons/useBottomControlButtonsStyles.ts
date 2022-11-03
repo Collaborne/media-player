@@ -8,6 +8,7 @@ export const useBottomControlButtonsStyles = makeStyles<{ isAudio: boolean }>()(
 			padding: `0 ${theme.spacing(0.5)}`,
 			pointerEvents: 'auto',
 			background: theme.palette.background.default,
+			backdropFilter: theme.palette.backdropFilter,
 			...(isAudio && {
 				background: 'transparent',
 			}),
