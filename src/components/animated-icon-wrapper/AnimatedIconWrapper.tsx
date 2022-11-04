@@ -10,6 +10,7 @@ import {
 interface AnimatedIconWrapperProps extends PropsWithChildren {
 	durationMs: number;
 	startAnimation?: boolean;
+	className?: string;
 }
 /**
  * Component used as a wrapper for transitions
@@ -19,15 +20,19 @@ export const AnimatedIconWrapper: FC<AnimatedIconWrapperProps> = ({
 	durationMs,
 	children,
 	startAnimation,
+	className,
 }) => {
-	const { root } = useAnimatedIconWrapperStyles().classes;
+	const {
+		classes: { root },
+		cx,
+	} = useAnimatedIconWrapperStyles();
 
 	return (
 		<Transition in={startAnimation} timeout={durationMs}>
 			{state => {
 				return (
 					<div
-						className={root}
+						className={cx(root, className)}
 						style={{
 							...defaultStyle(durationMs),
 							...transitionStyles[state],

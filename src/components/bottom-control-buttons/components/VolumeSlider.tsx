@@ -8,6 +8,7 @@ import { VolumeBarStyled } from './VolumeBarStyled';
 
 interface VolumeSliderProps {
 	volumeMultiplier?: number;
+	className?: string;
 }
 
 /**
@@ -16,6 +17,7 @@ interface VolumeSliderProps {
  */
 export const VolumeSlider: FC<VolumeSliderProps> = ({
 	volumeMultiplier = VOLUME_MULTIPLIER,
+	className,
 }) => {
 	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
 	const [volume, setVolume] = useMediaStore(state => [
@@ -44,6 +46,7 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
 			value={volume}
 			size="small"
 			onChange={onVolumeChange}
+			className={className}
 		/>
 	);
 };

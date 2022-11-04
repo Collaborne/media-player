@@ -16,17 +16,21 @@ const SECONDS_MULTIPLIER = 1000;
  */
 export const TimeDisplay: FC<TimeDisplayProps> = ({
 	secondsMultiplier = SECONDS_MULTIPLIER,
+	className,
 	...props
 }) => {
 	const duration = useMediaStore(state => state.duration);
 	const currentTime = useMediaStore(state => state.currentTime);
 
-	const { timeStampText } = useTimeDisplayStyles().classes;
+	const {
+		classes: { timeStampText },
+		cx,
+	} = useTimeDisplayStyles();
 
 	return (
 		<Typography
 			variant="body2"
-			className={timeStampText}
+			className={cx(timeStampText, className)}
 			color="inherit"
 			{...props}
 		>
