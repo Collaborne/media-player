@@ -30,8 +30,8 @@ export const usePipControlsStyles = makeStyles()(theme => ({
 	},
 	playBackRateWrapper: {
 		marginTop: theme.spacing(1),
-
 		minWidth: 'unset',
 		pointerEvents: 'auto',
+		height: theme.spacing(3),
 	},
 }));

@@ -48,8 +48,9 @@ export const useDraggablePopoverStyles =
 				borderRadius: 'unset',
 
 				'& .MuiSlider-thumb': {
-					width: theme.spacing(0.75),
-					height: theme.spacing(0.75),
+					width: theme.spacing(1),
+					height: theme.spacing(1),
+					marginTop: theme.spacing(0.675),
 				},
 			},
 			resizeSquares: {

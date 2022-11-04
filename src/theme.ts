@@ -4,6 +4,8 @@ import { ThemeOptions } from '@mui/material/styles/createTheme';
 export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 	const basePalette = createTheme({
 		palette: {
+			primaryVeryDark: '#8200A3',
+			backdropFilter: 'blur(2px)',
 			background: {
 				default: 'rgba(0, 0, 0, 0.72)',
 				paper: 'rgba(252,252,252, 0.28)',
@@ -121,6 +123,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 
 						// variant="contained"
 						...(ownerState.variant === 'contained' && {
+							backdropFilter: baseTheme.palette.backdropFilter,
 							...actionStates,
 							...(ownerState.color === 'primary' && {
 								color: baseTheme.palette.common.white,
@@ -181,6 +184,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 					},
 					colorPrimary: {
 						color: baseTheme.palette.primary.main,
+						backdropFilter: baseTheme.palette.backdropFilter,
 					},
 				},
 			},
@@ -191,6 +195,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 				styleOverrides: {
 					colorPrimary: {
 						...actionStates,
+						backdropFilter: baseTheme.palette.backdropFilter,
 					},
 					colorInherit: {
 						color: baseTheme.palette.text.primary,

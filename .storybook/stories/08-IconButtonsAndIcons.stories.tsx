@@ -31,34 +31,42 @@ const UPDATED_SIZES: Array<'large' | 'small' | 'medium'> = [
 	'medium',
 	'small',
 ];
+const UPDATED_COLOR: Array<'primary' | 'inherit'> = ['primary', 'inherit'];
 
 export const IconButtonsAndIcons: React.FC = () => {
 	return (
 		<>
 			<Paper sx={{ padding: 2 }}>
-				{UPDATED_SIZES.map(iconButtonSize => (
-					<div style={{ padding: 8 }}>
-						IconButton size: {iconButtonSize}
-						<Grid container direction="row" display="flex">
-							{UPDATED_SIZES.map(svgSize => (
-								<Grid
-									container
-									direction="column"
-									display={'inline-flex'}
-									width="auto"
-								>
-									<div style={{ padding: 8 }}>
-										<div>
-											<div>icon fontSize: {svgSize}</div>
-										</div>
-										<IconButton size={iconButtonSize}>
-											<PlayArrow fontSize={svgSize} />
-										</IconButton>
-									</div>
+				{UPDATED_COLOR.map(color => (
+					<>
+						<div>
+							<b>color: {color}</b>
+						</div>
+						{UPDATED_SIZES.map(iconButtonSize => (
+							<div style={{ padding: 8 }}>
+								IconButton size: {iconButtonSize}
+								<Grid container direction="row" display="flex">
+									{UPDATED_SIZES.map(svgSize => (
+										<Grid
+											container
+											direction="column"
+											display={'inline-flex'}
+											width="auto"
+										>
+											<div style={{ padding: 8 }}>
+												<div>
+													<div>icon fontSize: {svgSize}</div>
+												</div>
+												<IconButton size={iconButtonSize} color={color}>
+													<PlayArrow fontSize={svgSize} />
+												</IconButton>
+											</div>
+										</Grid>
+									))}
 								</Grid>
-							))}
-						</Grid>
-					</div>
+							</div>
+						))}
+					</>
 				))}
 			</Paper>
 			<Paper sx={{ padding: 2, marginTop: 2 }}>
