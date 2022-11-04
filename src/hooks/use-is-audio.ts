@@ -1,11 +1,11 @@
-import { useMediaType } from './use-media-type';
+import { useMediaStore } from '../context/MediaProvider';
 
 /**
- * Determine if file extension belongs to audio or not (get form `useMediaType` selector)
+ * Selector for `isAudio` from `MediaStore`
  * @category hooks
+ * @category MediaStore
  */
 export const useIsAudio = () => {
-	const { mediaType } = useMediaType();
-	const isAudio = mediaType === 'audio';
+	const isAudio = useMediaStore(state => state.isAudio);
 	return isAudio;
 };

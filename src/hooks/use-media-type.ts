@@ -1,15 +1,13 @@
-import { useContext } from 'react';
-
-import { MediaTypeContext } from '../context/mediaType';
+import { useMediaStore } from '../context/MediaProvider';
+import { SupportedMediaType } from '../types';
 
 /**
- * Selector for `MediaTypeContext` value
+ * Selector for `mediaType` from `MediaStore`
  * @category hooks
+ * @category MediaStore
  */
-export const useMediaType = (): MediaTypeContext => {
-	const context = useContext<MediaTypeContext>(MediaTypeContext);
-	if (!context) {
-		throw new Error('useMediaType must be used in a MediaTypeProvider ');
-	}
-	return context;
+export const useMediaType = (): { mediaType: SupportedMediaType } => {
+	const mediaType = useMediaStore(state => state.mediaType);
+
+	return { mediaType };
 };

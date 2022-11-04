@@ -9,7 +9,7 @@ import createContext from 'zustand/context';
 
 import { CorePlayerProps } from '../components';
 import { createMediaStore, MediaStore } from '../store/media-store';
-import { RequiredAndOptionalPick } from '../types';
+import { RequiredAndOptionalPick, SupportedMediaType } from '../types';
 
 import { HighlightsProvider } from './HighlightsProvider';
 
@@ -20,7 +20,10 @@ export interface MediaProviderProps
 		CorePlayerProps,
 		'initialState' | 'getHighlightColorBlended' | 'children',
 		'onStoreUpdate' | 'highlights' | 'alarms'
-	> {}
+	> {
+	isAudio: boolean;
+	mediaType: SupportedMediaType;
+}
 
 /** Keep `MediaStore` in a context to distribute them to UI Controls
  * @category ContextProvider
@@ -32,6 +35,8 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 	onStoreUpdate,
 	highlights,
 	alarms = [],
+	isAudio,
+	mediaType,
 }) => {
 	const reactPlayerRef = useRef<ReactPlayer>(null);
 	const playPromiseRef = useRef<Promise<void>>();
@@ -65,6 +70,8 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 						markActivity,
 						lastPipActivityRef,
 						markPipActivity,
+						mediaType,
+						isAudio,
 					})
 				}
 			>
