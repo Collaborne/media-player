@@ -4,6 +4,7 @@ import type ReactPlayer from 'react-player';
 import { CorePlayerInitialState } from '../components';
 import { MediaStore } from '../store/media-store';
 import { BlendColors } from '../utils/colors';
+
 import { SupportedMediaType } from './media-type';
 
 /**
