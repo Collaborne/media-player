@@ -4,6 +4,7 @@ import type ReactPlayer from 'react-player';
 import { CorePlayerInitialState } from '../components';
 import { MediaStore } from '../store/media-store';
 import { BlendColors } from '../utils/colors';
+import { SupportedMediaType } from './media-type';
 
 /**
  * State that initializes store external
@@ -26,4 +27,6 @@ export interface MediaStateExternalInitializers {
 	markPipActivity: VoidFunction;
 	/** Store last mouse activity of the PIP player */
 	lastPipActivityRef: RefObject<number>;
+	mediaType: SupportedMediaType;
+	isAudio: boolean;
 }

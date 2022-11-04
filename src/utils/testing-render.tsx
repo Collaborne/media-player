@@ -27,6 +27,8 @@ export const renderWithProviders = (
 		<MediaProvider
 			initialState={PROVIDER_INITIAL_STATE}
 			getHighlightColorBlended={blend}
+			isAudio={false}
+			mediaType="video"
 		>
 			<ThemeProvider theme={playerTheme}>{Component}</ThemeProvider>
 		</MediaProvider>,
@@ -49,6 +51,8 @@ export function setupMediaProvider(
 			<MediaProvider
 				initialState={PROVIDER_INITIAL_STATE}
 				getHighlightColorBlended={blend}
+				mediaType="video"
+				isAudio={false}
 				{...mediaProviderProps}
 			>
 				<ThemeProvider theme={playerTheme}>

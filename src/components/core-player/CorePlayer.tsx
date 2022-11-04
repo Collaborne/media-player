@@ -8,7 +8,6 @@ import { deepmerge } from '@mui/utils';
 import { FC, ReactNode } from 'react';
 
 import { MediaProvider } from '../../context/MediaProvider';
-import { MediaTypeContext } from '../../context/mediaType';
 import { MediaStore } from '../../store/media-store';
 import { createPlayerTheme } from '../../theme';
 import { Highlight } from '../../types';
@@ -64,6 +63,11 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	const { classes, cx } = useFilePlayerStyles({ isAudio });
 	const classNames = cx(classes.wrapper, className);
 
+	// Missing `url` wont display anything
+	if (!mediaType || !url) {
+		return null;
+	}
+
 	if (mediaType === 'unsupported') {
 		throw new Error(`URL: ${url} is not supported!`);
 	}
@@ -72,23 +76,23 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>
 				<CssBaseline />
-				<MediaTypeContext.Provider value={{ mediaType }}>
-					<MediaProvider
-						initialState={initialState}
-						getHighlightColorBlended={getHighlightColorBlended}
-						onStoreUpdate={onStoreUpdate}
-						highlights={highlights}
-						alarms={alarms}
+				<MediaProvider
+					initialState={initialState}
+					getHighlightColorBlended={getHighlightColorBlended}
+					onStoreUpdate={onStoreUpdate}
+					highlights={highlights}
+					alarms={alarms}
+					mediaType={mediaType}
+					isAudio={isAudio}
+				>
+					<MediaContainer
+						className={classNames}
+						url={url}
+						audioPlaceholder={audioPlaceholder}
 					>
-						<MediaContainer
-							className={classNames}
-							url={url}
-							audioPlaceholder={audioPlaceholder}
-						>
-							{children}
-						</MediaContainer>
-					</MediaProvider>
-				</MediaTypeContext.Provider>
+						{children}
+					</MediaContainer>
+				</MediaProvider>
 			</StyledEngineProvider>
 		</ThemeProvider>
 	);
