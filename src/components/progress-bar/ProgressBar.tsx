@@ -9,13 +9,15 @@ import { ProgressBarStyled } from './components/ProgressBarStyled';
 import { Rail } from './components/Rail';
 import { useProgressBarStyles } from './useProgressBarStyles';
 
-interface ProgressBarProps extends SliderProps {}
+interface ProgressBarProps extends SliderProps {
+	className?: string;
+}
 
 /** A MUI Slider configured for displaying currentTime/duration values from `MediaStore`
  * @category React Component
  * @category UI Controls
  */
-export const ProgressBar: FC<ProgressBarProps> = props => {
+export const ProgressBar: FC<ProgressBarProps> = ({ className, ...props }) => {
 	const isAudio = useIsAudio();
 	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
 	const currentTime = useMediaStore(state => state.currentTime);
@@ -46,14 +48,17 @@ export const ProgressBar: FC<ProgressBarProps> = props => {
 		return 0;
 	})();
 
-	const { progressBar } = useProgressBarStyles({ isAudio, isPip }).classes;
+	const {
+		classes: { progressBar },
+		cx,
+	} = useProgressBarStyles({ isAudio, isPip });
 
 	if (!hasStarted && !isAudio) {
 		return null;
 	}
 	return (
 		<ProgressBarStyled
-			className={progressBar}
+			className={cx(progressBar, className)}
 			min={0}
 			max={PROGRESS_BAR_DIVIDER}
 			onChange={onCurrentTimeUpdate}

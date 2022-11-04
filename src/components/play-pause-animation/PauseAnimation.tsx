@@ -10,6 +10,7 @@ import { usePlayPauseHook } from './usePlayPauseHook';
 
 interface PauseAnimationProps {
 	animationDuration?: number;
+	className?: string;
 }
 
 /** Display animation a "pause" event was emitted
@@ -19,6 +20,7 @@ interface PauseAnimationProps {
 
 export const PauseAnimation: FC<PauseAnimationProps> = ({
 	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
+	className,
 }) => {
 	const isAudio = useIsAudio();
 	const { centeredIcon, isPlaying, hasStarted } = usePlayPauseHook();
@@ -53,6 +55,7 @@ export const PauseAnimation: FC<PauseAnimationProps> = ({
 		<AnimatedIconWrapper
 			durationMs={animationDuration}
 			startAnimation={showPauseAnimation}
+			className={className}
 		>
 			<BigPauseIcon className={centeredIcon} />
 		</AnimatedIconWrapper>

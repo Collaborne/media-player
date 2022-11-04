@@ -48,9 +48,13 @@ const PlayBackButton: FC<PlayBackButtonProps> = ({
 	);
 };
 
-export interface CenteredBottomPlaybackProps {}
+export interface CenteredBottomPlaybackProps {
+	className?: string;
+}
 
-export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
+export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = ({
+	className,
+}) => {
 	const isAudio = useIsAudio();
 	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
 	const playbackRate = useMediaStore(state => state.playbackRate);
@@ -60,15 +64,17 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = () => {
 		setPlaybackRate(rate);
 	};
 
-	const { wrapper, playbackWrapper } =
-		useCenteredBottomPlaybackStyles().classes;
+	const {
+		classes: { wrapper, playbackWrapper },
+		cx,
+	} = useCenteredBottomPlaybackStyles();
 
 	if (hasStarted || isAudio) {
 		return null;
 	}
 
 	return (
-		<div className={wrapper} data-testid="c-playbackRate">
+		<div className={cx(wrapper, className)} data-testid="c-playbackRate">
 			<div className={playbackWrapper}>
 				{PLAYBACK_RATES.map(item => (
 					<PlayBackButton
