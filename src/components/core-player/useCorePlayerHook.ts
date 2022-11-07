@@ -7,13 +7,13 @@ interface UseCorePlayerHookProps {
 	url?: string;
 }
 interface UseCorePlayerHook {
-	mediaType?: MediaType;
+	mediaType: MediaType;
 }
 
 export const useCorePlayerHook = ({
 	url,
 }: UseCorePlayerHookProps): UseCorePlayerHook => {
-	const [mediaType, setMediaType] = useState<MediaType | undefined>();
+	const [mediaType, setMediaType] = useState<MediaType>('unknown');
 	useEffect(() => {
 		if (!url) {
 			return;
@@ -24,7 +24,6 @@ export const useCorePlayerHook = ({
 			}
 			return setMediaType('video');
 		}
-		return setMediaType('unsupported');
 	}, [url]);
 	return { mediaType };
 };

@@ -63,13 +63,10 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	const { classes, cx } = useFilePlayerStyles({ isAudio });
 	const classNames = cx(classes.wrapper, className);
 
-	// Missing `url` wont display anything
-	if (!mediaType || !url) {
-		return null;
-	}
-
-	if (mediaType === 'unsupported') {
-		throw new Error(`URL: ${url} is not supported!`);
+	if (mediaType === 'unknown') {
+		console.log(
+			`Could not be defined media type from extension for the URL: ${url} `,
+		);
 	}
 
 	return (

@@ -9,7 +9,7 @@ import createContext from 'zustand/context';
 
 import { CorePlayerProps } from '../components';
 import { createMediaStore, MediaStore } from '../store/media-store';
-import { RequiredAndOptionalPick, SupportedMediaType } from '../types';
+import { MediaType, RequiredAndOptionalPick } from '../types';
 
 import { HighlightsProvider } from './HighlightsProvider';
 
@@ -22,7 +22,7 @@ export interface MediaProviderProps
 		'onStoreUpdate' | 'highlights' | 'alarms'
 	> {
 	isAudio: boolean;
-	mediaType: SupportedMediaType;
+	mediaType: MediaType;
 }
 
 /** Keep `MediaStore` in a context to distribute them to UI Controls
