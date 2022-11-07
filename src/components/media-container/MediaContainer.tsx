@@ -46,8 +46,8 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 	const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
 	const { containerSizeRef } = usePipHook({ isPlayerReady });
 
-	// TODO: Add a UI/UX decision when player is not ready
-	if (!isPlayerReady) {
+	// TODO: Add a UI/UX decision when player is not ready or url is missing
+	if (!isPlayerReady || !url) {
 		return null;
 	}
 
