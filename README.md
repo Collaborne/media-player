@@ -1,4 +1,4 @@
-# @collaborne/video-player 1.1.3
+# @collaborne/video-player 1.1.10
 
 [![Node version](https://img.shields.io/node/v/@collaborne/video-player.svg?style=flat)](http://nodejs.org/download/)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/auth_plug/Elixir%20CI?label=build&style=flat-square)
