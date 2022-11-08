@@ -32,10 +32,7 @@ export const VolumeButton: FC<VolumeButtonProps> = ({
 	]);
 
 	const onToggleMute = () => {
-		if (isMuted) {
-			return unmute();
-		}
-		mute();
+		return isMuted ? unmute() : mute();
 	};
 
 	return (
