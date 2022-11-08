@@ -10,6 +10,11 @@ import { useControlsStyles } from './useControlsStyles';
 export interface ControlProps {
 	children: ReactNode;
 	className?: string;
+	/**
+	 * In `<MediaPlayer />` - we always display a `<ProgressBar/>`(all controls can be hidden, except `<ProgressBar />`)
+	 * This boolean will enforce do not to display all UI Controls(if it's the case)
+	 */
+	hideAllControls?: boolean;
 }
 
 /**
@@ -17,7 +22,11 @@ export interface ControlProps {
  * @category React Component
  * @category UI Controls
  */
-export const Controls: FC<ControlProps> = ({ children, className }) => {
+export const Controls: FC<ControlProps> = ({
+	children,
+	className,
+	hideAllControls = false,
+}) => {
 	const isAudio = useIsAudio();
 	const showControls = useMediaStore(state => state.showControls);
 
@@ -28,8 +37,11 @@ export const Controls: FC<ControlProps> = ({ children, className }) => {
 		classes: { bottomControls },
 	} = useBottomControlsStyles();
 
-	// Only <ProgressBar/> should be present if Controls components are not shown
+	if (!showControls && hideAllControls) {
+		return null;
+	}
 	if (!showControls && !isAudio) {
+		// Only <ProgressBar/> should be present if Controls components are not shown
 		return (
 			<div className={classNameControls}>
 				<div className={bottomControls}>
