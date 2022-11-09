@@ -24,6 +24,7 @@ import { PauseAnimation } from '../play-pause-animation/PauseAnimation';
 import { PlayAnimation } from '../play-pause-animation/PlayAnimation';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 
+import { AdditionalControls } from './components/AdditionalControls';
 import { useMediaPlayerStyles } from './useMediaPlayerStyles';
 
 export interface MediaPlayerProps extends Omit<CorePlayerProps, 'children'> {
@@ -47,6 +48,7 @@ export const MediaPlayer: FC<MediaPlayerProps> = ({
 				<CenteredPlayButton />
 				<CenteredBottomPlayback />
 			</Grid>
+			<AdditionalControls />
 			<Controls>
 				{children}
 				<PlayAnimation />
