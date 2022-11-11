@@ -9,9 +9,9 @@ interface ProgressBarStoryProps {
 	hideAllControls: boolean;
 }
 
-export const ProgressBar: Story<ProgressBarStoryProps> = args => {
+export const ProgressBar: Story<ProgressBarStoryProps> = () => {
 	return (
-		<Controls hideAllControls={args.hideAllControls}>
+		<Controls>
 			<BottomControls>
 				<ProgressBarComponent />
 			</BottomControls>
@@ -23,20 +23,8 @@ export default {
 	title: 'Media Player Controls',
 	component: ProgressBar,
 	decorators: [withCorePlayer, withDemoCard],
-	args: {
-		hideAllControls: false,
-	},
-	argTypes: {
-		hideAllControls: {
-			name: 'hideAllControls',
-			description:
-				'In `<MediaPlayer />` - we always display a `<ProgressBar/>`(all controls can be hidden, except `<ProgressBar />`) This boolean will enforce do not to display all UI Controls(if it is the case)',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: false },
-			},
-		},
-	},
+	args: {},
+	argTypes: {},
 	parameters: {
 		controls: { expanded: true },
 	},
