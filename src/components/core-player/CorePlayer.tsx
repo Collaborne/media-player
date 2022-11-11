@@ -61,19 +61,12 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	children,
 	mediaType: initialMediaType,
 }) => {
-	// Build
 	const { mediaType } = useCorePlayerHook({ url, initialMediaType });
 	const isAudio = mediaType === 'audio';
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
 	const { classes, cx } = useFilePlayerStyles({ isAudio });
 	const classNames = cx(classes.wrapper, className);
 
-	if (mediaType === 'unknown') {
-		console.log(
-			`Could not be defined media type from extension for the URL: ${url} `,
-		);
-	}
-	console.log('media type', mediaType);
 	return (
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>

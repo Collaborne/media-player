@@ -12,7 +12,6 @@ interface ExternalStateUpdaterProps extends Pick<CorePlayerProps, 'alarms'> {
  * Component that updates MediaStore from external values
  * @category React Component
  * @category MediaStore
- * @category hooks
  */
 export const ExternalStateUpdater: FC<ExternalStateUpdaterProps> = ({
 	alarms,
