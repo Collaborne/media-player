@@ -60,6 +60,9 @@ export const createSettersSlice: StateCreator<
 	[],
 	MediaStateSetters
 > = (set, get) => ({
+	replaceAlarms: alarms => set({ alarms }),
+	setIsAudio: isAudio => set({ isAudio }),
+	setMediaType: mediaType => set({ mediaType }),
 	requestFullscreen: () =>
 		set(state => {
 			const mediaEl = getMediaEl(state);

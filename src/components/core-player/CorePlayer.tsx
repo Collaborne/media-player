@@ -10,11 +10,12 @@ import { FC, ReactNode } from 'react';
 import { MediaProvider } from '../../context/MediaProvider';
 import { MediaStore } from '../../store/media-store';
 import { createPlayerTheme } from '../../theme';
-import { Highlight } from '../../types';
+import { Highlight, MediaType } from '../../types';
 import { blend, BlendColors } from '../../utils/colors';
 import { MediaContainer } from '../media-container/MediaContainer';
 import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles';
 
+import { ExternalStateUpdater } from './components/ExternalStateUpdater';
 import { CorePlayerInitialState, PROVIDER_INITIAL_STATE } from './types';
 import { useCorePlayerHook } from './useCorePlayerHook';
 
@@ -38,6 +39,8 @@ export interface CorePlayerProps {
 	alarms?: number[];
 	/** URL to image that is displayed in PIP player for audio files */
 	audioPlaceholder?: string;
+	/** Url file type */
+	mediaType?: MediaType;
 }
 
 /**
@@ -56,8 +59,10 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	alarms,
 	audioPlaceholder,
 	children,
+	mediaType: initialMediaType,
 }) => {
-	const { mediaType } = useCorePlayerHook({ url });
+	// Build
+	const { mediaType } = useCorePlayerHook({ url, initialMediaType });
 	const isAudio = mediaType === 'audio';
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
 	const { classes, cx } = useFilePlayerStyles({ isAudio });
@@ -68,7 +73,7 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 			`Could not be defined media type from extension for the URL: ${url} `,
 		);
 	}
-
+	console.log('media type', mediaType);
 	return (
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>
@@ -82,6 +87,11 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 					mediaType={mediaType}
 					isAudio={isAudio}
 				>
+					<ExternalStateUpdater
+						alarms={alarms}
+						mediaType={mediaType}
+						isAudio={isAudio}
+					/>
 					<MediaContainer
 						className={classNames}
 						url={url}

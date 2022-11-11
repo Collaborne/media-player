@@ -16,6 +16,7 @@ export default {
 	decorators: [withDemoCard, withIntl],
 	args: {
 		url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+		mediaType: undefined,
 	},
 	argTypes: {
 		url: {
@@ -23,6 +24,15 @@ export default {
 			description: 'A media URL. Only file type supported',
 			table: {
 				type: { summary: 'string' },
+				defaultValue: { summary: undefined },
+			},
+		},
+		mediaType: {
+			name: 'props.mediaType',
+			description:
+				'Initial media type that will enforce to build corresponding UI ',
+			table: {
+				type: { summary: 'MediaType' },
 				defaultValue: { summary: undefined },
 			},
 		},

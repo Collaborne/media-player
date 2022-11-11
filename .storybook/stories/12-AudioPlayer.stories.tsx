@@ -17,6 +17,7 @@ export default {
 	args: {
 		url: `https://assets.mixkit.co/sfx/preview/mixkit-game-show-suspense-waiting-667.mp3`,
 		audioPlaceholder: undefined,
+		mediaType: 'audio',
 	},
 	argTypes: {
 		url: {
@@ -33,6 +34,15 @@ export default {
 				'URL to a image to be a placeholder for audio files in PIP mode',
 			table: {
 				type: { summary: 'string' },
+				defaultValue: { summary: undefined },
+			},
+		},
+		mediaType: {
+			name: 'props.mediaType',
+			description:
+				'Initial media type that will enforce to build corresponding UI ',
+			table: {
+				type: { summary: 'MediaType' },
 				defaultValue: { summary: undefined },
 			},
 		},
