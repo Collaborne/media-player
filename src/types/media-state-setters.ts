@@ -1,4 +1,5 @@
 import { EmitterListeners } from './emitters';
+import { MediaType } from './media-type';
 
 /**
  * Setters or "actions" in flux architecture
@@ -26,4 +27,7 @@ export interface MediaStateSetters {
 	_setReady: () => void;
 	_handleProgress: (currentTime: number) => void;
 	getListener: () => EmitterListeners;
+	setMediaType: (type: MediaType) => void;
+	setIsAudio: (isAudio: boolean) => void;
+	replaceAlarms: (alarms: number[]) => void;
 }
