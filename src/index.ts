@@ -4,3 +4,4 @@ export * from './hooks';
 export * from './types';
 export * from './store/media-store';
 export * from './utils';
+export * from './theme';
