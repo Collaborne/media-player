@@ -8,6 +8,7 @@ import { deepmerge } from '@mui/utils';
 import { FC, ReactNode } from 'react';
 
 import { MediaProvider } from '../../context/MediaProvider';
+import { PIPContextProvider } from '../../context/PIPControlsProvider';
 import { MediaStore } from '../../store/media-store';
 import { createPlayerTheme } from '../../theme';
 import { Highlight, MediaType } from '../../types';
@@ -41,6 +42,8 @@ export interface CorePlayerProps {
 	audioPlaceholder?: string;
 	/** Url file type */
 	mediaType?: MediaType;
+	/** Builds UI for the PIP Player */
+	PIPControls?: FC;
 }
 
 /**
@@ -60,6 +63,7 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	audioPlaceholder,
 	children,
 	mediaType: initialMediaType,
+	PIPControls,
 }) => {
 	const { mediaType } = useCorePlayerHook({ url, initialMediaType });
 	const isAudio = mediaType === 'audio';
@@ -71,28 +75,30 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 		<ThemeProvider theme={nestedThemes}>
 			<StyledEngineProvider injectFirst>
 				<CssBaseline />
-				<MediaProvider
-					initialState={initialState}
-					getHighlightColorBlended={getHighlightColorBlended}
-					onStoreUpdate={onStoreUpdate}
-					highlights={highlights}
-					alarms={alarms}
-					mediaType={mediaType}
-					isAudio={isAudio}
-				>
-					<ExternalStateUpdater
+				<PIPContextProvider PIPControls={PIPControls}>
+					<MediaProvider
+						initialState={initialState}
+						getHighlightColorBlended={getHighlightColorBlended}
+						onStoreUpdate={onStoreUpdate}
+						highlights={highlights}
 						alarms={alarms}
 						mediaType={mediaType}
 						isAudio={isAudio}
-					/>
-					<MediaContainer
-						className={classNames}
-						url={url}
-						audioPlaceholder={audioPlaceholder}
 					>
-						{children}
-					</MediaContainer>
-				</MediaProvider>
+						<ExternalStateUpdater
+							alarms={alarms}
+							mediaType={mediaType}
+							isAudio={isAudio}
+						/>
+						<MediaContainer
+							className={classNames}
+							url={url}
+							audioPlaceholder={audioPlaceholder}
+						>
+							{children}
+						</MediaContainer>
+					</MediaProvider>
+				</PIPContextProvider>
 			</StyledEngineProvider>
 		</ThemeProvider>
 	);
