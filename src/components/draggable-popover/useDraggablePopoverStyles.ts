@@ -16,7 +16,7 @@ export const useDraggablePopoverStyles =
 				position: !isExpanded ? 'sticky' : 'initial',
 				zIndex: 9999,
 				pointerEvents: 'auto',
-				overflow: 'hidden',
+				overflow: 'inherit',
 				margin: 0,
 				background: 'unset',
 
@@ -44,13 +44,14 @@ export const useDraggablePopoverStyles =
 			},
 			progressBar: {
 				position: 'absolute',
-				bottom: 0,
+				bottom: theme.spacing(-0.25),
 				borderRadius: 'unset',
+				top: 'unset',
 
 				'& .MuiSlider-thumb': {
 					width: theme.spacing(1),
 					height: theme.spacing(1),
-					marginTop: theme.spacing(0.675),
+					marginTop: theme.spacing(0.5),
 				},
 			},
 			resizeSquares: {

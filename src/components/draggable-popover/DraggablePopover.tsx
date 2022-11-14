@@ -5,8 +5,8 @@ import { Rnd, Props as RndProps } from 'react-rnd';
 
 import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
+import { usePipControlsContext } from '../../hooks/use-pip-controls-context';
 import { MediaPoster } from '../media-poster/MediaPoster';
-import { PipControls } from '../pip-controls/PipControls';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 
 import { useDraggablePopoverHook } from './useDraggablePopoverHook';
@@ -37,6 +37,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	audioPlaceholder,
 	...props
 }) => {
+	const { PIPControls } = usePipControlsContext();
 	const isAudio = useIsAudio();
 	const isPip = useMediaStore(state => state.isPip);
 	const { defaultPosition, defaultWidth, enableResizing } =
@@ -92,7 +93,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 										height="100%"
 									/>
 								)}
-								<PipControls />
+								<PIPControls />
 								<ProgressBar className={progressBar} />
 							</>
 						)}
