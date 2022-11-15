@@ -1,4 +1,5 @@
 export * from './use-delayed-state';
+export * from './use-event-rails-context';
 export * from './use-highlights';
 export * from './use-media-listener';
 export * from './use-one-ms-delayed-state';
@@ -7,3 +8,4 @@ export * from './use-play-pause-replay';
 export * from './use-on-hovered-element';
 export * from './use-media-type';
 export * from './use-is-audio';
+export * from './use-pip-controls-context';

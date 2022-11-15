@@ -1,13 +1,17 @@
 import React from 'react';
+import { uuid } from 'uuidv4';
 
 import {
 	EventProgressBar as EventProgressBarComponent,
+	Highlight,
 	MediaPlayer,
 	usePlayerContext,
 } from '../../src';
+import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
+import { highlightColors, pickRandomItem } from '../utils/highlights';
 
 interface EventProgressBarProps {
 	url: string;
@@ -15,11 +19,43 @@ interface EventProgressBarProps {
 
 export const EventProgressBar: React.FC<EventProgressBarProps> = args => {
 	const { mediaContext, setMediaContext } = usePlayerContext();
+	const [highlights, setHighlights] = React.useState<Highlight[]>([]);
+	const duration = mediaContext?.duration;
+
+	const end = Math.random() * (duration || 0);
+	const start = Math.random() * end;
+	const addHighlightToStart = () => {
+		setHighlights(prev => [
+			...prev,
+			{
+				start,
+				end,
+				colors: [
+					pickRandomItem(highlightColors),
+					pickRandomItem(highlightColors),
+					pickRandomItem(highlightColors),
+				],
+				id: uuid(),
+			},
+		]);
+	};
 	return (
-		<div>
-			<MediaPlayer url={args.url} onStoreUpdate={setMediaContext} />
-			<EventProgressBarComponent mediaListener={mediaContext?.getListener()} />
-		</div>
+		<>
+			<MediaPlayer
+				url={args.url}
+				onStoreUpdate={setMediaContext}
+				highlights={highlights}
+			/>
+			<EventProgressBarComponent
+				mediaListener={mediaContext?.getListener()}
+				setCurrentTime={mediaContext?.setCurrentTime}
+				highlights={highlights}
+			/>
+			<RandomHighlight
+				addHighlightToStart={addHighlightToStart}
+				highlights={highlights}
+			/>
+		</>
 	);
 };
 
