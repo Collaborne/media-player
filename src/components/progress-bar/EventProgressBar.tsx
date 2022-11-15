@@ -66,6 +66,7 @@ export const EventProgressBar: FC<EventProgressBarProps> = ({
 		},
 		mediaListener,
 	);
+
 	return (
 		<EventRailsProvider
 			highlights={highlights}

@@ -8,7 +8,6 @@ import {
 	usePlayerContext,
 } from '../../src';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
-
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
 import { highlightColors, pickRandomItem } from '../utils/highlights';
