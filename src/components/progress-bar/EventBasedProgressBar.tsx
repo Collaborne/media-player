@@ -11,19 +11,20 @@ import { PROGRESS_BAR_DIVIDER } from '../../utils/constants';
 import { EventRail } from './components/EventRail';
 import { ProgressBarStyled } from './components/ProgressBarStyled';
 
-interface EventProgressBarProps extends SliderProps {
+interface EventBasedProgressBarProps extends SliderProps {
 	mediaListener?: EmitterListeners;
 	setCurrentTime?: (relativeSeconds: number) => void;
 	highlights?: Highlight[];
 	getHighlightColorBlended?: BlendColors;
 }
 
-/** A MUI Slider configured for displaying currentTime/duration values from `MediaStore`
+/**
+ * A MUI Slider configured for displaying currentTime/duration values from `MediaStore`
  * uses `EmitterListeners` for displaying data
  * @category React Component
  * @category UI Controls
  */
-export const EventProgressBar: FC<EventProgressBarProps> = ({
+export const EventBasedProgressBar: FC<EventBasedProgressBarProps> = ({
 	mediaListener,
 	highlights = [],
 	getHighlightColorBlended = blend,

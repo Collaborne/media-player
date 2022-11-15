@@ -2,7 +2,7 @@ import React from 'react';
 import { uuid } from 'uuidv4';
 
 import {
-	EventProgressBar as EventProgressBarComponent,
+	EventBasedProgressBar as EventBasedProgressBarComponent,
 	Highlight,
 	MediaPlayer,
 	usePlayerContext,
@@ -12,11 +12,13 @@ import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
 import { highlightColors, pickRandomItem } from '../utils/highlights';
 
-interface EventProgressBarProps {
+interface EventBasedProgressBarProps {
 	url: string;
 }
 
-export const EventProgressBar: React.FC<EventProgressBarProps> = args => {
+export const EventBasedProgressBar: React.FC<
+	EventBasedProgressBarProps
+> = args => {
 	const { mediaContext, setMediaContext } = usePlayerContext();
 	const [highlights, setHighlights] = React.useState<Highlight[]>([]);
 	const duration = mediaContext?.duration;
@@ -45,7 +47,7 @@ export const EventProgressBar: React.FC<EventProgressBarProps> = args => {
 				onStoreUpdate={setMediaContext}
 				highlights={highlights}
 			/>
-			<EventProgressBarComponent
+			<EventBasedProgressBarComponent
 				mediaListener={mediaContext?.getListener()}
 				setCurrentTime={mediaContext?.setCurrentTime}
 				highlights={highlights}
@@ -60,7 +62,7 @@ export const EventProgressBar: React.FC<EventProgressBarProps> = args => {
 
 export default {
 	title: 'Media Player Controls',
-	component: EventProgressBar,
+	component: EventBasedProgressBar,
 	decorators: [withDemoCard, withPlayerTheme],
 	args: {
 		url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
