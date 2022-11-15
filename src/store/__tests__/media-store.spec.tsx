@@ -63,7 +63,7 @@ describe('media-store', () => {
 		});
 	});
 	describe('mediaType', () => {
-		it('initialization', () => {
+		it('initializes state based on properties', () => {
 			const { mediaStore } = setupMediaType({
 				mediaType: 'audio',
 				isAudio: true,
@@ -71,7 +71,7 @@ describe('media-store', () => {
 			expect(mediaStore.mediaType).toBe('audio');
 			expect(mediaStore.isAudio).toBeTruthy();
 		});
-		it('updating', () => {
+		it('updates initialized state when setters are called', () => {
 			const { mediaStore } = setupMediaType({
 				mediaType: 'audio',
 				isAudio: true,

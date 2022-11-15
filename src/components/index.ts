@@ -17,6 +17,7 @@ export * from './pip-controls/PipControls';
 export * from './play-pause-animation/PauseAnimation';
 export * from './play-pause-animation/PlayAnimation';
 export * from './progress-bar/ProgressBar';
+export * from './progress-bar/EventBasedProgressBar';
 export * from './media-container/MediaContainer';
 export * from './media-player/MediaPlayer';
 export * from './media-poster/MediaPoster';
