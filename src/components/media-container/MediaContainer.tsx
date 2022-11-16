@@ -14,10 +14,18 @@ import { useMouseActivityHook } from './useMouseActivityHook';
 import { usePipHook } from './usePipHook';
 import { useReactPlayerHook } from './useReactPlayerHook';
 
-export type MediaContainerProps = Pick<
-	CorePlayerProps,
-	'audioPlaceholder' | 'children' | 'url' | 'className'
->;
+export interface MediaContainerProps
+	extends Pick<
+		CorePlayerProps,
+		| 'audioPlaceholder'
+		| 'children'
+		| 'url'
+		| 'className'
+		| 'reactPlayerClassName'
+	> {
+	xAxisDistance: number;
+	yAxisDistance: number;
+}
 
 /** A React Component that consumes MediaContext's API and adds UI for the player and media controls
  * @category React Component
@@ -27,7 +35,10 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 	className,
 	url,
 	children,
+	xAxisDistance,
+	yAxisDistance,
 	audioPlaceholder,
+	reactPlayerClassName,
 }) => {
 	const isAudio = useIsAudio();
 	const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(state => [
@@ -64,13 +75,15 @@ export const MediaContainer: FC<MediaContainerProps> = ({
 					<DraggablePopover
 						disablePortal={!isPip}
 						audioPlaceholder={audioPlaceholder}
+						xAxisDistance={xAxisDistance}
+						yAxisDistance={yAxisDistance}
 					>
 						<ReactPlayer
 							url={url}
 							progressInterval={PROGRESS_INTERVAL}
 							width="100%"
 							height={isFullscreen ? '100%' : 'unset'}
-							className={reactPlayer}
+							className={cx(reactPlayer, reactPlayerClassName)}
 							data-testid="media-player"
 							config={{
 								file: {

@@ -6,6 +6,7 @@ import {
 } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
 import { FC, ReactNode } from 'react';
+import { useScrollbarWidth } from 'react-use';
 
 import { MediaProvider } from '../../context/MediaProvider';
 import { PIPContextProvider } from '../../context/PIPControlsProvider';
@@ -19,6 +20,9 @@ import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles'
 import { ExternalStateUpdater } from './components/ExternalStateUpdater';
 import { CorePlayerInitialState, PROVIDER_INITIAL_STATE } from './types';
 import { useCorePlayerHook } from './useCorePlayerHook';
+
+/** In case if width is not provided for browsers scrollbar, this constant will be used */
+const SCROLLBAR_WIDTH = 16;
 
 export interface CorePlayerProps {
 	/** The url of the media file to be played */
@@ -44,6 +48,12 @@ export interface CorePlayerProps {
 	mediaType?: MediaType;
 	/** Builds UI for the PIP Player */
 	PIPControls?: FC;
+	/** Distance from window border right, on X axis in `pixels`, for PIP player position initialization */
+	xAxisDistance?: number;
+	/** Distance from window border bottom, on Y axis in `pixels`, for PIP player position initialization */
+	yAxisDistance?: number;
+	/** <video /> tags wrapper className */
+	reactPlayerClassName?: string;
 }
 
 /**
@@ -64,12 +74,16 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	children,
 	mediaType: initialMediaType,
 	PIPControls,
+	xAxisDistance,
+	yAxisDistance,
+	reactPlayerClassName,
 }) => {
 	const { mediaType } = useCorePlayerHook({ url, initialMediaType });
 	const isAudio = mediaType === 'audio';
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
 	const { classes, cx } = useFilePlayerStyles({ isAudio });
 	const classNames = cx(classes.wrapper, className);
+	const scrollbarWidth = useScrollbarWidth();
 
 	return (
 		<ThemeProvider theme={nestedThemes}>
@@ -94,6 +108,9 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 							className={classNames}
 							url={url}
 							audioPlaceholder={audioPlaceholder}
+							xAxisDistance={xAxisDistance ?? scrollbarWidth ?? SCROLLBAR_WIDTH}
+							yAxisDistance={yAxisDistance ?? scrollbarWidth ?? SCROLLBAR_WIDTH}
+							reactPlayerClassName={reactPlayerClassName}
 						>
 							{children}
 						</MediaContainer>

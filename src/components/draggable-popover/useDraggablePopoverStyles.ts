@@ -42,18 +42,6 @@ export const useDraggablePopoverStyles =
 				padding: 0,
 				margin: 0,
 			},
-			progressBar: {
-				position: 'absolute',
-				bottom: theme.spacing(-0.25),
-				borderRadius: 'unset',
-				top: 'unset',
-
-				'& .MuiSlider-thumb': {
-					width: theme.spacing(1),
-					height: theme.spacing(1),
-					marginTop: theme.spacing(0.5),
-				},
-			},
 			resizeSquares: {
 				pointerEvents: 'auto',
 			},

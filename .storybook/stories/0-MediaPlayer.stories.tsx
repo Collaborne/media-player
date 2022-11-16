@@ -17,6 +17,8 @@ export default {
 	args: {
 		url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
 		mediaType: undefined,
+		xAxisDistance: 16,
+		yAxisDistance: 16,
 	},
 	argTypes: {
 		url: {
@@ -34,6 +36,24 @@ export default {
 			table: {
 				type: { summary: 'MediaType' },
 				defaultValue: { summary: undefined },
+			},
+		},
+		yAxisDistance: {
+			name: 'props.yAxisDistance',
+			description:
+				'Distance from window border bottom, on Y axis in `pixels`, for PIP player position initialization ',
+			table: {
+				type: { summary: 'number' },
+				defaultValue: { summary: 16 },
+			},
+		},
+		xAxisDistance: {
+			name: 'props.xAxisDistance',
+			description:
+				'Distance from window border right, on X axis in `pixels`, for PIP player position initialization',
+			table: {
+				type: { summary: 'number' },
+				defaultValue: { summary: 16 },
 			},
 		},
 	},
