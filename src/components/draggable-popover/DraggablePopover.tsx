@@ -7,7 +7,6 @@ import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
 import { usePipControlsContext } from '../../hooks/use-pip-controls-context';
 import { MediaPoster } from '../media-poster/MediaPoster';
-import { ProgressBar } from '../progress-bar/ProgressBar';
 
 import { useDraggablePopoverHook } from './useDraggablePopoverHook';
 import { useDraggablePopoverStyles } from './useDraggablePopoverStyles';
@@ -45,7 +44,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	const { onMouseEnter, onMouseLeave, onMouseMove } = usePipMouseActivityHook();
 
 	const {
-		classes: { paper, progressBar, portalWrapper, resizeSquares },
+		classes: { paper, portalWrapper, resizeSquares },
 		cx,
 	} = useDraggablePopoverStyles({
 		isExpanded: Boolean(props.disablePortal),
@@ -94,7 +93,6 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 									/>
 								)}
 								<PIPControls />
-								<ProgressBar className={progressBar} />
 							</>
 						)}
 					</Paper>
