@@ -1,6 +1,6 @@
 import Paper from '@mui/material/Paper';
 import Portal, { PortalProps } from '@mui/material/Portal';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
 import { useMediaStore } from '../../context';
@@ -32,81 +32,84 @@ export interface DraggablePopoverProps
  * @category React Component
  * @category UI Controls
  */
-export const DraggablePopover: FC<DraggablePopoverProps> = ({
-	className,
-	children,
-	rndProps,
-	audioPlaceholder,
-	xAxisDistance,
-	yAxisDistance,
-	...props
-}) => {
-	const { PIPControls } = usePipControlsContext();
-	const isAudio = useIsAudio();
-	const isPip = useMediaStore(state => state.isPip);
-	const { defaultPosition, defaultWidth, enableResizing } =
-		useDraggablePopoverHook({
-			disablePortal: props.disablePortal,
-			xAxisDistance,
-			yAxisDistance,
+export const DraggablePopover: FC<DraggablePopoverProps> = memo(
+	({
+		className,
+		children,
+		rndProps,
+		audioPlaceholder,
+		xAxisDistance,
+		yAxisDistance,
+		...props
+	}) => {
+		const { PIPControls } = usePipControlsContext();
+		const isAudio = useIsAudio();
+		const isPip = useMediaStore(state => state.isPip);
+		const { defaultPosition, defaultWidth, enableResizing } =
+			useDraggablePopoverHook({
+				disablePortal: props.disablePortal,
+				xAxisDistance,
+				yAxisDistance,
+			});
+		const { onMouseEnter, onMouseLeave, onMouseMove } =
+			usePipMouseActivityHook();
+
+		const {
+			classes: { paper, portalWrapper, resizeSquares },
+			cx,
+		} = useDraggablePopoverStyles({
+			isExpanded: Boolean(props.disablePortal),
+			isAudio,
+			isPip,
 		});
-	const { onMouseEnter, onMouseLeave, onMouseMove } = usePipMouseActivityHook();
 
-	const {
-		classes: { paper, portalWrapper, resizeSquares },
-		cx,
-	} = useDraggablePopoverStyles({
-		isExpanded: Boolean(props.disablePortal),
-		isAudio,
-		isPip,
-	});
-
-	return (
-		<Portal {...props}>
-			<div className={portalWrapper}>
-				<Rnd
-					bounds="parent"
-					default={{
-						...defaultPosition,
-						...defaultWidth,
-					}}
-					disableDragging={props.disablePortal}
-					enableResizing={enableResizing}
-					lockAspectRatio
-					allowAnyClick
-					resizeHandleClasses={{
-						topLeft: resizeSquares,
-						topRight: resizeSquares,
-						bottomLeft: resizeSquares,
-						bottomRight: resizeSquares,
-					}}
-					{...rndProps}
-					minWidth={241}
-					minHeight={146}
-				>
-					<Paper
-						elevation={0}
-						className={cx(paper, className)}
-						onMouseMove={onMouseMove}
-						onMouseLeave={onMouseLeave}
-						onMouseEnter={onMouseEnter}
+		return (
+			<Portal {...props}>
+				<div className={portalWrapper}>
+					<Rnd
+						bounds="parent"
+						default={{
+							...defaultPosition,
+							...defaultWidth,
+						}}
+						disableDragging={props.disablePortal}
+						enableResizing={enableResizing}
+						lockAspectRatio
+						allowAnyClick
+						resizeHandleClasses={{
+							topLeft: resizeSquares,
+							topRight: resizeSquares,
+							bottomLeft: resizeSquares,
+							bottomRight: resizeSquares,
+						}}
+						{...rndProps}
+						minWidth={241}
+						minHeight={146}
 					>
-						{children}
-						{!props.disablePortal && (
-							<>
-								{isAudio && (
-									<MediaPoster
-										img={audioPlaceholder}
-										width="100%"
-										height="100%"
-									/>
-								)}
-								<PIPControls />
-							</>
-						)}
-					</Paper>
-				</Rnd>
-			</div>
-		</Portal>
-	);
-};
+						<Paper
+							elevation={0}
+							className={cx(paper, className)}
+							onMouseMove={onMouseMove}
+							onMouseLeave={onMouseLeave}
+							onMouseEnter={onMouseEnter}
+						>
+							{children}
+							{!props.disablePortal && (
+								<>
+									{isAudio && (
+										<MediaPoster
+											img={audioPlaceholder}
+											width="100%"
+											height="100%"
+										/>
+									)}
+									<PIPControls />
+								</>
+							)}
+						</Paper>
+					</Rnd>
+				</div>
+			</Portal>
+		);
+	},
+);

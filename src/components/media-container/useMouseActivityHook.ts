@@ -1,6 +1,7 @@
 import { throttle } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useEvent from 'react-use/lib/useEvent';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
 import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
@@ -26,16 +27,19 @@ export const useMouseActivityHook = (): UseMouseActivityHook => {
 		mediaContainerRef,
 		lastActivityRef,
 		markActivity,
-	] = useMediaStore(state => [
-		state.isFullscreen,
-		state.setShowControls,
-		state.isPlaying,
-		state.isPip,
-		state.showControls,
-		state.mediaContainerRef,
-		state.lastActivityRef,
-		state.markActivity,
-	]);
+	] = useMediaStore(
+		state => [
+			state.isFullscreen,
+			state.setShowControls,
+			state.isPlaying,
+			state.isPip,
+			state.showControls,
+			state.mediaContainerRef,
+			state.lastActivityRef,
+			state.markActivity,
+		],
+		shallow,
+	);
 
 	const updateShowControls = useCallback(() => {
 		if (isFullscreen) {

@@ -1,18 +1,17 @@
-import { FC } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
-import ReactPlayer from 'react-player';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/MediaProvider';
 import { useIsAudio } from '../../hooks';
-import { PROGRESS_INTERVAL } from '../../utils/constants';
 import { CorePlayerProps } from '../core-player/CorePlayer';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { MediaPoster } from '../media-poster/MediaPoster';
+import { Player } from '../player/Player';
 
 import { useMediaContainerStyles } from './useMediaContainerStyles';
 import { useMouseActivityHook } from './useMouseActivityHook';
 import { usePipHook } from './usePipHook';
-import { useReactPlayerHook } from './useReactPlayerHook';
 
 export interface MediaContainerProps
 	extends Pick<
@@ -31,82 +30,79 @@ export interface MediaContainerProps
  * @category React Component
  * @category UI Controls
  */
-export const MediaContainer: FC<MediaContainerProps> = ({
-	className,
-	url,
-	children,
-	xAxisDistance,
-	yAxisDistance,
-	audioPlaceholder,
-	reactPlayerClassName,
-}) => {
-	const isAudio = useIsAudio();
-	const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(state => [
-		state.mediaContainerRef,
-		state.isPip,
-		state.isFullscreen,
-	]);
-	const {
-		classes: { wrapper, pipText, reactPlayer },
-		cx,
-	} = useMediaContainerStyles({
-		isAudio,
-	});
+export const MediaContainer: FC<MediaContainerProps> = memo(
+	({
+		className,
+		url,
+		children,
+		xAxisDistance,
+		yAxisDistance,
+		audioPlaceholder,
+		reactPlayerClassName,
+	}) => {
+		const isAudio = useIsAudio();
+		const [isPlayerReady, setIsPlayerReady] = useState(false);
+		const [mediaContainerRef, isPip] = useMediaStore(
+			state => [state.mediaContainerRef, state.isPip, state.isFullscreen],
+			shallow,
+		);
+		const {
+			classes: { wrapper, pipText, reactPlayer },
+			cx,
+		} = useMediaContainerStyles({
+			isAudio,
+		});
 
-	const { isPlayerReady, reactPlayerProps } = useReactPlayerHook({ url });
-	const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
-	const { containerSizeRef } = usePipHook({ isPlayerReady });
+		const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
+		const { containerSizeRef } = usePipHook({ isPlayerReady });
 
-	// TODO: Add a UI/UX decision when player is not ready or url is missing
-	if (!isPlayerReady || !url) {
-		return null;
-	}
+		const reactClassNames = cx(reactPlayer, reactPlayerClassName);
 
-	return (
-		<div
-			ref={mediaContainerRef}
-			className={cx(wrapper, className)}
-			onMouseEnter={onMouseEnter}
-			onMouseLeave={onMouseLeave}
-			onMouseMove={onMouseMove}
-		>
-			{Boolean(url) && (
-				<>
-					<DraggablePopover
-						disablePortal={!isPip}
-						audioPlaceholder={audioPlaceholder}
-						xAxisDistance={xAxisDistance}
-						yAxisDistance={yAxisDistance}
+		useEffect(() => {
+			// If media is already loaded with one valid url, don't re-load player.
+			if (isPlayerReady) {
+				return;
+			}
+			if (url) {
+				setIsPlayerReady(true);
+			} else if (!url) {
+				setIsPlayerReady(true);
+			}
+		}, [url, isPlayerReady, setIsPlayerReady]);
+
+		// TODO: Add a UI/UX decision when player is not ready
+		if (!isPlayerReady || !url) {
+			return null;
+		}
+
+		console.log('MEDIA CONTAINER');
+
+		return (
+			<div
+				ref={mediaContainerRef}
+				className={cx(wrapper, className)}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+				onMouseMove={onMouseMove}
+			>
+				<DraggablePopover
+					disablePortal={!isPip}
+					audioPlaceholder={audioPlaceholder}
+					xAxisDistance={xAxisDistance}
+					yAxisDistance={yAxisDistance}
+				>
+					<Player url={url} className={reactClassNames} />
+				</DraggablePopover>
+				{isPip && !isAudio && (
+					<MediaPoster
+						width={containerSizeRef?.current?.width || 0}
+						height={containerSizeRef?.current?.height || 0}
 					>
-						<ReactPlayer
-							url={url}
-							progressInterval={PROGRESS_INTERVAL}
-							width="100%"
-							height={isFullscreen ? '100%' : 'unset'}
-							className={cx(reactPlayer, reactPlayerClassName)}
-							data-testid="media-player"
-							config={{
-								file: {
-									attributes: {
-										crossOrigin: 'anonymous',
-										preload: 'false',
-									},
-								},
-							}}
-							{...reactPlayerProps}
-						/>
-					</DraggablePopover>
-					{isPip && !isAudio && (
-						<MediaPoster
-							width={containerSizeRef?.current?.width || 0}
-							height={containerSizeRef?.current?.height || 0}
-						>
-							<div className={pipText}>{intl.get('media.playing_pip')}</div>
-						</MediaPoster>
-					)}
-					{children}
-				</>
-			)}
-		</div>
-	);
-};
+						<div className={pipText}>{intl.get('media.playing_pip')}</div>
+					</MediaPoster>
+				)}
+				{children}
+			</div>
+		);
+	},
+);

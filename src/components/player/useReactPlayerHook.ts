@@ -1,11 +1,5 @@
 import Bowser from 'bowser';
-import {
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState,
-} from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import useUnmount from 'react-use/lib/useUnmount';
 
 import { useMediaStore } from '../../context';
@@ -15,7 +9,6 @@ interface UseReactPlayerHookProps {
 	url: string;
 }
 interface UseReactPlayerHook {
-	isPlayerReady: boolean;
 	reactPlayerProps: ReactPlayerProps;
 }
 export const useReactPlayerHook = ({
@@ -135,7 +128,6 @@ export const useReactPlayerHook = ({
 		hasAutoplayedRef.current = true;
 	}, [emitter, initialState, onReadyToSeek, reactPlayerRef]);
 
-	const [isPlayerReady, setIsPlayerReady] = useState(Boolean(url));
 	const hasAutoFocusedRef = useRef(false);
 
 	useLayoutEffect(() => {
@@ -189,20 +181,7 @@ export const useReactPlayerHook = ({
 		};
 	}, [reactPlayerRef, togglePlay]);
 
-	useEffect(() => {
-		// If media is already loaded with one valid url, don't re-load player.
-		if (isPlayerReady) {
-			return;
-		}
-		if (url) {
-			setIsPlayerReady(true);
-		} else if (!url) {
-			setIsPlayerReady(true);
-		}
-	}, [url, isPlayerReady]);
-
 	return {
 		reactPlayerProps,
-		isPlayerReady,
 	};
 };
