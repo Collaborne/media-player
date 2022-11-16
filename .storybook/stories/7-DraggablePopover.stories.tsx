@@ -6,9 +6,9 @@ import {
 } from '../../src/components/draggable-popover/DraggablePopover';
 import { withCorePlayer, withDemoCard } from '../decorators';
 
-export const DraggablePopover: Story<Partial<DraggablePopoverProps>> = args => {
+export const DraggablePopover: Story<DraggablePopoverProps> = args => {
 	return (
-		<DraggablePopoverComponent disablePortal={args.disablePortal}>
+		<DraggablePopoverComponent {...args}>
 			<div style={{ background: 'red', width: '100%', height: '100%' }} />
 		</DraggablePopoverComponent>
 	);
@@ -21,6 +21,8 @@ export default {
 	args: {
 		disablePortal: false,
 		className: '',
+		xAxisDistance: 16,
+		yAxisDistance: 16,
 	},
 	argTypes: {
 		disablePortal: {
@@ -38,6 +40,24 @@ export default {
 		table: {
 			type: { summary: 'string' },
 			defaultValue: { summary: undefined },
+		},
+		yAxisDistance: {
+			name: 'props.yAxisDistance',
+			description:
+				'Distance from window border bottom, on Y axis in `pixels`, for PIP player position initialization ',
+			table: {
+				type: { summary: 'number' },
+				defaultValue: { summary: 16 },
+			},
+		},
+		xAxisDistance: {
+			name: 'props.xAxisDistance',
+			description:
+				'Distance from window border right, on X axis in `pixels`, for PIP player position initialization',
+			table: {
+				type: { summary: 'number' },
+				defaultValue: { summary: 16 },
+			},
 		},
 	},
 
