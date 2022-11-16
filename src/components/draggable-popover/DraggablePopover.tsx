@@ -6,6 +6,7 @@ import { Rnd, Props as RndProps } from 'react-rnd';
 import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
 import { usePipControlsContext } from '../../hooks/use-pip-controls-context';
+import { MediaContainerProps } from '../media-container/MediaContainer';
 import { MediaPoster } from '../media-poster/MediaPoster';
 
 import { useDraggablePopoverHook } from './useDraggablePopoverHook';
@@ -18,7 +19,9 @@ export type ContainerSizePosition = {
 	left: number;
 	top: number;
 };
-export interface DraggablePopoverProps extends PortalProps {
+export interface DraggablePopoverProps
+	extends PortalProps,
+		Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'> {
 	rndProps?: RndProps;
 	className?: string;
 	audioPlaceholder?: string;
@@ -34,13 +37,19 @@ export const DraggablePopover: FC<DraggablePopoverProps> = ({
 	children,
 	rndProps,
 	audioPlaceholder,
+	xAxisDistance,
+	yAxisDistance,
 	...props
 }) => {
 	const { PIPControls } = usePipControlsContext();
 	const isAudio = useIsAudio();
 	const isPip = useMediaStore(state => state.isPip);
 	const { defaultPosition, defaultWidth, enableResizing } =
-		useDraggablePopoverHook({ disablePortal: props.disablePortal });
+		useDraggablePopoverHook({
+			disablePortal: props.disablePortal,
+			xAxisDistance,
+			yAxisDistance,
+		});
 	const { onMouseEnter, onMouseLeave, onMouseMove } = usePipMouseActivityHook();
 
 	const {

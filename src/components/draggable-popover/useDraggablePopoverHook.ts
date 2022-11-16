@@ -2,12 +2,14 @@ import { Position, ResizeEnable } from 'react-rnd';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
 import { DEFAULT_PIP_SIZE } from '../../utils/constants';
+import { MediaContainerProps } from '../media-container/MediaContainer';
 
 export type Size = {
 	width: string | number;
 	height: string | number;
 };
-interface UseDraggablePopoverHookProps {
+interface UseDraggablePopoverHookProps
+	extends Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'> {
 	disablePortal?: boolean;
 }
 
@@ -20,12 +22,12 @@ interface UseDraggablePopoverHook {
 	enableResizing: ResizeEnable;
 }
 
-/** Space from viewport borders(vertical and horizontal) */
-const POPOVER_MARGIN = 16;
 const vw = window.innerWidth;
 const vh = window.innerHeight;
 export const useDraggablePopoverHook = ({
 	disablePortal,
+	xAxisDistance,
+	yAxisDistance,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
 	// DraggablePopover DnD params:
 	const windowSize = useWindowSize();
@@ -40,8 +42,8 @@ export const useDraggablePopoverHook = ({
 		}
 
 		// Get player width + margin on 2 sides
-		const pipPlayerWidth = DEFAULT_PIP_SIZE.width + POPOVER_MARGIN * 2;
-		const pipPlayerHight = DEFAULT_PIP_SIZE.height + POPOVER_MARGIN * 2;
+		const pipPlayerWidth = DEFAULT_PIP_SIZE.width + xAxisDistance * 2;
+		const pipPlayerHight = DEFAULT_PIP_SIZE.height + yAxisDistance * 2;
 
 		return {
 			y: (windowSize?.height || vh) - pipPlayerHight,
