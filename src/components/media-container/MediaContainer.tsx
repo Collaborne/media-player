@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useState } from 'react';
+import { FC, memo } from 'react';
 import intl from 'react-intl-universal';
 import shallow from 'zustand/shallow';
 
@@ -9,6 +9,7 @@ import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { MediaPoster } from '../media-poster/MediaPoster';
 import { Player } from '../player/Player';
 
+import { useIsPlayerReadyHook } from './useIsPlayerReadyHook';
 import { useMediaContainerStyles } from './useMediaContainerStyles';
 import { useMouseActivityHook } from './useMouseActivityHook';
 import { usePipHook } from './usePipHook';
@@ -41,7 +42,6 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		reactPlayerClassName,
 	}) => {
 		const isAudio = useIsAudio();
-		const [isPlayerReady, setIsPlayerReady] = useState(false);
 		const [mediaContainerRef, isPip] = useMediaStore(
 			state => [state.mediaContainerRef, state.isPip, state.isFullscreen],
 			shallow,
@@ -53,29 +53,16 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 			isAudio,
 		});
 
-		const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
+		const { isPlayerReady } = useIsPlayerReadyHook({ url });
 		const { containerSizeRef } = usePipHook({ isPlayerReady });
+		const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
 
 		const reactClassNames = cx(reactPlayer, reactPlayerClassName);
-
-		useEffect(() => {
-			// If media is already loaded with one valid url, don't re-load player.
-			if (isPlayerReady) {
-				return;
-			}
-			if (url) {
-				setIsPlayerReady(true);
-			} else if (!url) {
-				setIsPlayerReady(true);
-			}
-		}, [url, isPlayerReady, setIsPlayerReady]);
 
 		// TODO: Add a UI/UX decision when player is not ready
 		if (!isPlayerReady || !url) {
 			return null;
 		}
-
-		console.log('MEDIA CONTAINER');
 
 		return (
 			<div

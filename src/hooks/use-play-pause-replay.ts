@@ -17,7 +17,7 @@ interface UsePlayPauseReplayHook {
 
 export const usePlayPauseReplayHook = (): UsePlayPauseReplayHook => {
 	const [isFinished, setIsFinished] = useOneMSDelayedState(false);
-	const listener = useMediaStore(state => state.getListener());
+	const listener = useMediaStore(state => state.getListener)();
 	const isPlaying = useMediaStore(state => state.isPlaying);
 	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
 	const onPlay = useMediaStore(state => state.play);

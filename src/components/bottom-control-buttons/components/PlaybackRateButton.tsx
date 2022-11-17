@@ -1,5 +1,6 @@
 import Button, { ButtonProps } from '@mui/material/Button';
 import { FC } from 'react';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../../context';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
@@ -20,10 +21,10 @@ export const PlaybackRateButton: FC<PlaybackRateButtonProps> = ({
 	variant = 'text',
 	...props
 }) => {
-	const [playbackRate, setPlaybackRate] = useMediaStore(state => [
-		state.playbackRate,
-		state.setPlaybackRate,
-	]);
+	const [playbackRate, setPlaybackRate] = useMediaStore(
+		state => [state.playbackRate, state.setPlaybackRate],
+		shallow,
+	);
 	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
 	const { handleClick } = usePlaybackRateButtonHook({
 		currentRate: playbackRate,

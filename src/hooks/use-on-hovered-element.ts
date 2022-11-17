@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../context';
 import { OVERLAY_HIDE_DELAY } from '../utils/constants';
@@ -60,10 +61,10 @@ export const useOnHoveredElement = ({
  * @category MediaStore
  */
 export const useOnHoveredControlElement = () => {
-	const [setShowControls, markActivity] = useMediaStore(state => [
-		state.setShowControls,
-		state.markActivity,
-	]);
+	const [setShowControls, markActivity] = useMediaStore(
+		state => [state.setShowControls, state.markActivity],
+		shallow,
+	);
 	return useOnHoveredElement({ markActivity, setShowControls });
 };
 
@@ -73,9 +74,9 @@ export const useOnHoveredControlElement = () => {
  * @category MediaStore
  */
 export const useOnHoveredPipControlElement = () => {
-	const [setShowControls, markActivity] = useMediaStore(state => [
-		state.setShowPipControls,
-		state.markPipActivity,
-	]);
+	const [setShowControls, markActivity] = useMediaStore(
+		state => [state.setShowPipControls, state.markPipActivity],
+		shallow,
+	);
 	return useOnHoveredElement({ markActivity, setShowControls });
 };

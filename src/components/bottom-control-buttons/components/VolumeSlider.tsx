@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../../context/MediaProvider';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
@@ -20,10 +21,10 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
 	className,
 }) => {
 	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
-	const [volume, setVolume] = useMediaStore(state => [
-		state.volume * volumeMultiplier,
-		state.setVolume,
-	]);
+	const [volume, setVolume] = useMediaStore(
+		state => [state.volume * volumeMultiplier, state.setVolume],
+		shallow,
+	);
 
 	const onVolumeChange = (
 		event: Event,

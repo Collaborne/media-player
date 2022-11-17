@@ -40,7 +40,7 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 		}
 		return onPlay();
 	};
-
+	console.log('rerender');
 	return (
 		<IconButton
 			onMouseEnter={onMouseEnter}

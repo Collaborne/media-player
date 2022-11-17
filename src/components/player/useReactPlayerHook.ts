@@ -1,6 +1,7 @@
 import Bowser from 'bowser';
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import useUnmount from 'react-use/lib/useUnmount';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
 import { ReactPlayerProps } from '../../types';
@@ -32,23 +33,26 @@ export const useReactPlayerHook = ({
 		setCurrentTime,
 		isPip,
 		onPlay,
-	] = useMediaStore(state => [
-		state.reactPlayerRef,
-		state.mediaContainerRef,
-		state.initialState,
-		state.playbackRate,
-		state.isPlaying,
-		state.isMuted,
-		state.volume,
-		state.emitter,
-		state._setReady,
-		state.setDuration,
-		state._handleProgress,
-		state.pause,
-		state.setCurrentTime,
-		state.isPip,
-		state.play,
-	]);
+	] = useMediaStore(
+		state => [
+			state.reactPlayerRef,
+			state.mediaContainerRef,
+			state.initialState,
+			state.playbackRate,
+			state.isPlaying,
+			state.isMuted,
+			state.volume,
+			state.emitter,
+			state._setReady,
+			state.setDuration,
+			state._handleProgress,
+			state.pause,
+			state.setCurrentTime,
+			state.isPip,
+			state.play,
+		],
+		shallow,
+	);
 
 	const reactPlayerProps: ReactPlayerProps = {
 		autoPlay: initialState.isPlaying,
