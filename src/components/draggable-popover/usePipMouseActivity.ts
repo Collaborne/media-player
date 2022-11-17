@@ -1,5 +1,6 @@
 import { throttle } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
 import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
@@ -23,14 +24,17 @@ export const usePipMouseActivityHook = (): UsePipMouseActivityHook => {
 		lastPipActivityRef,
 		markPipActivity,
 		isPip,
-	] = useMediaStore(state => [
-		state.setShowPipControls,
-		state.isPlaying,
-		state.showPipControls,
-		state.lastPipActivityRef,
-		state.markPipActivity,
-		state.isPip,
-	]);
+	] = useMediaStore(
+		state => [
+			state.setShowPipControls,
+			state.isPlaying,
+			state.showPipControls,
+			state.lastPipActivityRef,
+			state.markPipActivity,
+			state.isPip,
+		],
+		shallow,
+	);
 
 	const updateShowControls = useCallback(() => {
 		if (!isPip) {

@@ -1,5 +1,6 @@
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../../context';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
@@ -24,12 +25,15 @@ export const VolumeButton: FC<VolumeButtonProps> = ({
 	...props
 }) => {
 	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
-	const [volume, mute, unmute, isMuted] = useMediaStore(state => [
-		state.volume * volumeMultiplier,
-		state.mute,
-		state.unmute,
-		state.isMuted,
-	]);
+	const [volume, mute, unmute, isMuted] = useMediaStore(
+		state => [
+			state.volume * volumeMultiplier,
+			state.mute,
+			state.unmute,
+			state.isMuted,
+		],
+		shallow,
+	);
 
 	const onToggleMute = () => {
 		return isMuted ? unmute() : mute();

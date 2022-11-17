@@ -1,6 +1,7 @@
 import { throttle } from 'lodash';
 import { useCallback, useEffect, useRef } from 'react';
 import useIntersection from 'react-use/lib/useIntersection';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/MediaProvider';
 import { useMediaListener } from '../../hooks/use-media-listener';
@@ -23,9 +24,8 @@ const WHEEL_THROTTLE = 1000;
 /** Bind Picture-in-Picture logic to the `<MediaContainer/>`. */
 export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	const [
-		listener,
+		getListener,
 		isPlaying,
-		currentTime,
 		setCurrentTime,
 		hasPipTriggeredByClick,
 		setHasPipTriggeredByClick,
@@ -34,19 +34,31 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		isPip,
 		exitPip,
 		requestPip,
-	] = useMediaStore(state => [
-		state.getListener(),
-		state.isPlaying,
-		state.currentTime,
-		state.setCurrentTime,
-		state.hasPipTriggeredByClick,
-		state.setHasPipTriggeredByClick,
-		state.mediaContainerRef,
-		state.reactPlayerRef,
-		state.isPip,
-		state.exitPip,
-		state.requestPip,
-	]);
+	] = useMediaStore(
+		state => [
+			state.getListener,
+			state.isPlaying,
+			state.setCurrentTime,
+			state.hasPipTriggeredByClick,
+			state.setHasPipTriggeredByClick,
+			state.mediaContainerRef,
+			state.reactPlayerRef,
+			state.isPip,
+			state.exitPip,
+			state.requestPip,
+		],
+		shallow,
+	);
+
+	const listener = getListener();
+	// Store currentTime into a ref, to avoid rerenders
+	const currentTimeRef = useRef(0);
+
+	useMediaListener(
+		'timeupdate',
+		e => (currentTimeRef.current = e.seconds),
+		listener,
+	);
 
 	// Checks if media container is in viewport when scrolling bottom
 	const entryTop = useIntersection(mediaContainerRef, {
@@ -129,7 +141,7 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		() => {
 			calculateContainerSizes();
 			setTimeout(() => {
-				setCurrentTime?.(currentTime);
+				setCurrentTime?.(currentTimeRef.current);
 			}, PROGRESS_INTERVAL - 1);
 		},
 		listener,
@@ -139,7 +151,7 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		'pipExit',
 		() => {
 			setTimeout(() => {
-				setCurrentTime?.(currentTime);
+				setCurrentTime?.(currentTimeRef.current);
 			}, PROGRESS_INTERVAL - 1);
 		},
 		listener,

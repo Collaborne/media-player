@@ -78,9 +78,10 @@ describe('<BottomControlButtons />', () => {
 		const rwdButton = getByTestId('icon-rwd');
 		await userEvent.click(rwdButton);
 		expect(mediaStore.currentTime).toBe(0);
-		act(() => mediaStore.setCurrentTime(SECONDS_TO_SKIP * 2));
-		await userEvent.click(rwdButton);
+		act(() => mediaStore.setCurrentTime(SECONDS_TO_SKIP));
 		expect(mediaStore.currentTime).toBe(SECONDS_TO_SKIP);
+		await userEvent.click(rwdButton);
+		expect(mediaStore.currentTime).toBe(0);
 	});
 
 	it('click on playbackRate icon', async () => {

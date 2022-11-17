@@ -1,12 +1,7 @@
 import Bowser from 'bowser';
-import {
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState,
-} from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import useUnmount from 'react-use/lib/useUnmount';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
 import { ReactPlayerProps } from '../../types';
@@ -15,7 +10,6 @@ interface UseReactPlayerHookProps {
 	url: string;
 }
 interface UseReactPlayerHook {
-	isPlayerReady: boolean;
 	reactPlayerProps: ReactPlayerProps;
 }
 export const useReactPlayerHook = ({
@@ -39,23 +33,26 @@ export const useReactPlayerHook = ({
 		setCurrentTime,
 		isPip,
 		onPlay,
-	] = useMediaStore(state => [
-		state.reactPlayerRef,
-		state.mediaContainerRef,
-		state.initialState,
-		state.playbackRate,
-		state.isPlaying,
-		state.isMuted,
-		state.volume,
-		state.emitter,
-		state._setReady,
-		state.setDuration,
-		state._handleProgress,
-		state.pause,
-		state.setCurrentTime,
-		state.isPip,
-		state.play,
-	]);
+	] = useMediaStore(
+		state => [
+			state.reactPlayerRef,
+			state.mediaContainerRef,
+			state.initialState,
+			state.playbackRate,
+			state.isPlaying,
+			state.isMuted,
+			state.volume,
+			state.emitter,
+			state._setReady,
+			state.setDuration,
+			state._handleProgress,
+			state.pause,
+			state.setCurrentTime,
+			state.isPip,
+			state.play,
+		],
+		shallow,
+	);
 
 	const reactPlayerProps: ReactPlayerProps = {
 		autoPlay: initialState.isPlaying,
@@ -135,7 +132,6 @@ export const useReactPlayerHook = ({
 		hasAutoplayedRef.current = true;
 	}, [emitter, initialState, onReadyToSeek, reactPlayerRef]);
 
-	const [isPlayerReady, setIsPlayerReady] = useState(Boolean(url));
 	const hasAutoFocusedRef = useRef(false);
 
 	useLayoutEffect(() => {
@@ -189,20 +185,7 @@ export const useReactPlayerHook = ({
 		};
 	}, [reactPlayerRef, togglePlay]);
 
-	useEffect(() => {
-		// If media is already loaded with one valid url, don't re-load player.
-		if (isPlayerReady) {
-			return;
-		}
-		if (url) {
-			setIsPlayerReady(true);
-		} else if (!url) {
-			setIsPlayerReady(true);
-		}
-	}, [url, isPlayerReady]);
-
 	return {
 		reactPlayerProps,
-		isPlayerReady,
 	};
 };

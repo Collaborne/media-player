@@ -49,6 +49,7 @@ export const PipControls: FC<PipControlsProps> = ({
 	if (!showPipControls) {
 		return <ProgressBar className={progressBar} />;
 	}
+
 	return (
 		<>
 			<ProgressBar className={progressBar} />

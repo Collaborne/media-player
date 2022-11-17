@@ -1,3 +1,5 @@
+import shallow from 'zustand/shallow';
+
 import { useMediaStore } from '../../../context';
 import { setupMediaProvider, userEvent } from '../../../utils/testing-render';
 import {
@@ -11,10 +13,10 @@ const TEST_ID = 'test-id';
 function setupPlaybackRate<T extends number>(playbackRates: T[], initial?: T) {
 	const clickHandler = {} as UsePlaybackRateButtonHook;
 	function NullComponent() {
-		const [playbackRate, setPlaybackRate] = useMediaStore(state => [
-			state.playbackRate,
-			state.setPlaybackRate,
-		]);
+		const [playbackRate, setPlaybackRate] = useMediaStore(
+			state => [state.playbackRate, state.setPlaybackRate],
+			shallow,
+		);
 		const { handleClick } = usePlaybackRateButtonHook({
 			currentRate: initial ?? playbackRate,
 			setPlaybackRate,

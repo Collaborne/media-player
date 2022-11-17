@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react';
+import shallow from 'zustand/shallow';
 
 import { CorePlayerProps } from '../..';
 import { useMediaStore } from '../../../context';
@@ -18,11 +19,10 @@ export const ExternalStateUpdater: FC<ExternalStateUpdaterProps> = ({
 	mediaType,
 	isAudio,
 }) => {
-	const [setMediaType, setIsAudio, replaceAlarms] = useMediaStore(state => [
-		state.setMediaType,
-		state.setIsAudio,
-		state.replaceAlarms,
-	]);
+	const [setMediaType, setIsAudio, replaceAlarms] = useMediaStore(
+		state => [state.setMediaType, state.setIsAudio, state.replaceAlarms],
+		shallow,
+	);
 
 	// Update `MediaStore` from external props(esp. for fields that can be updated after the store initialization)
 	useEffect(() => {

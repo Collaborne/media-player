@@ -1,5 +1,6 @@
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
+import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../../context';
 import { useIsAudio } from '../../../hooks/use-is-audio';
@@ -31,6 +32,7 @@ export const FullscreenButton: FC<FullscreenButtonProps> = ({
 			state.requestFullscreen,
 			state.exitFullscreen,
 		],
+		shallow,
 	);
 
 	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();

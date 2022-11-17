@@ -113,7 +113,7 @@
 	"dependencies": {
 		"bowser": "^2.11.0",
 		"mitt": "^3.0.0",
-		"react-player": "^2.10.1",
+		"react-player": "^2.11.0",
 		"react-rnd": "^10.3.7",
 		"resize-observer-polyfill": "^1.5.1",
 		"screenfull": "^5.2.0",

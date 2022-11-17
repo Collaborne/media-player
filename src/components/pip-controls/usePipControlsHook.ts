@@ -1,4 +1,8 @@
+import { useRef } from 'react';
+import shallow from 'zustand/shallow';
+
 import { useMediaStore } from '../../context';
+import { useMediaListener } from '../../hooks';
 
 interface UsePipControlsProps {
 	skipSeconds: number;
@@ -12,12 +16,29 @@ interface UsePipControlsHook {
 export const usePipControlsHook = ({
 	skipSeconds,
 }: UsePipControlsProps): UsePipControlsHook => {
-	const currentTime = useMediaStore(state => state.currentTime);
-	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
-	const onStop = useMediaStore(state => state.pause);
-	const onRwd = () => setCurrentTime(currentTime - skipSeconds);
-	const onFwd = () => setCurrentTime(currentTime + skipSeconds);
-	const exitPip = useMediaStore(state => state.exitPip);
+	const [setCurrentTime, getListener, exitPip, pause] = useMediaStore(
+		state => [
+			state.setCurrentTime,
+			state.getListener,
+			state.exitPip,
+			state.pause,
+		],
+		shallow,
+	);
+	const listener = getListener();
+
+	// Storing current time into a ref, to avoid rerenders
+	const currentTimeRef = useRef(0);
+
+	useMediaListener(
+		'timeupdate',
+		e => (currentTimeRef.current = e.seconds),
+		listener,
+	);
+
+	const onStop = pause;
+	const onRwd = () => setCurrentTime(currentTimeRef.current - skipSeconds);
+	const onFwd = () => setCurrentTime(currentTimeRef.current + skipSeconds);
 	const onClose = () => {
 		onStop();
 		exitPip();
