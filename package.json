@@ -1,10 +1,10 @@
 {
-	"name": "@collaborne/video-player",
+	"name": "@collaborne/media-player",
 	"version": "1.1.16",
-	"description": "Media player for carrot-app",
+	"description": "Customizable React media player that uses @mui design system and own functionality",
 	"author": "Collaborne",
 	"license": "UNLICENSED",
-	"repository": "Collaborne/video-player",
+	"repository": "Collaborne/media-player",
 	"main": "dist/index.js",
 	"source": "src/index.ts",
 	"engines": {

@@ -9,7 +9,7 @@ const packageName = packageJson.name;
 const deleteVersionTag = async () => {
 	const readmeFilePath = resolve(__dirname, '..', 'README.md');
 	const readmeFile = await fsPromises.readFile(readmeFilePath, 'utf-8');
-	const regex = /^.*video-player(.*)/;
+	const regex = /^.*media-player(.*)/;
 	const formatString = (str: string) =>
 		str.replace(regex, `# ${packageName} ${currentVersion}`);
 	const newReadme = formatString(readmeFile);
