@@ -1,6 +1,6 @@
-# @collaborne/video-player 1.1.10
+# @collaborne/media-player 1.1.16
 
-[![Node version](https://img.shields.io/node/v/@collaborne/video-player.svg?style=flat)](http://nodejs.org/download/)
+[![Node version](https://img.shields.io/node/v/@collaborne/media-player.svg?style=flat)](http://nodejs.org/download/)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/auth_plug/Elixir%20CI?label=build&style=flat-square)
 
 A media player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player).It supports the
@@ -11,20 +11,20 @@ You can **play** both: **audio** and **video** files.
 
 *Note: At the moment we support video and audio files URL. Youtube, twitch and other media streaming services URL's are not supported yet.*
 
-[Live demo](https://collaborne.github.io/video-player/)
+[Live demo](https://collaborne.github.io/media-player/)
 
 ## Introduction
 
-`@collaborne/video-player` provides a set of: "draft" player that has own PIP and Fullscreen implementation, UI Controls, a
+`@collaborne/media-player` provides a set of: "draft" player that has own PIP and Fullscreen implementation, UI Controls, a
 high flexibility for composing different player's UI Controls, hooks for accessing media store/data and event listeners, a ready to go media player solution
 (with our own customized MUI Themed Components) and many other features.
 
 ### Installation
 
-1. Add as a dependency @collaborne/video-player
+1. Add as a dependency @collaborne/media-player
 
 ```bash
-npm install --save @collaborne/video-player
+npm install --save @collaborne/media-player
 ```
 
 2. Install our peer dependencies. As an example we use `mui` for theming and UI Components, `react-transition-group` for animation, `lodash` for throttling, etc.  
@@ -40,7 +40,7 @@ You can just use a component that contains all the futures. See in [CodeSandbox]
 *NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
 
 ```ts
-import { MediaPlayer } from '@collaborne/video-player';
+import { MediaPlayer } from '@collaborne/media-player';
 
 export const MyComponent: React.FC = () => {
  return (
@@ -55,7 +55,7 @@ This comes handy when you want to customize controls for the player. [CodeSandbo
 *NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
 
 ```ts
-import { CorePlayer, Controls, BottomControls } from "@collaborne/video-player";
+import { CorePlayer, Controls, BottomControls } from "@collaborne/media-player";
 import { PlayArrow } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
@@ -90,7 +90,7 @@ We use [zustand](https://github.com/pmndrs/zustand) for storing media state(curr
 That's why we can get the state using `zustand` [approach](https://github.com/pmndrs/zustand#then-bind-your-components-and-thats-it).
 
 ```ts
-import { useMediaStore } from "@collaborne/video-player";
+import { useMediaStore } from "@collaborne/media-player";
 import { PlayArrow } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
@@ -114,7 +114,7 @@ import {
   MediaPlayer,
   usePlayerContext,
   useMediaListener
-} from "@collaborne/video-player";
+} from "@collaborne/media-player";
 
 export default function App() {
   const { mediaContext, setMediaContext } = usePlayerContext();
@@ -132,11 +132,11 @@ export default function App() {
 
 ## Documentation
 
-Latest changes, types and interfaces [here](https://collaborne.github.io/video-player/docs/).
+Latest changes, types and interfaces [here](https://collaborne.github.io/media-player/docs/).
 
 ## Debugging
 
-We use [debug](https://github.com/debug-js/debug) package for logging events. As you can see in our [live demo](https://collaborne.github.io/video-player/),
+We use [debug](https://github.com/debug-js/debug) package for logging events. As you can see in our [live demo](https://collaborne.github.io/media-player/),
 player provides you logs for native `<video>` play and pause events, and also when state is changed. To use it in any your environment(we used in our storybook environment)
 you need to add to yours `process.env` a parameter of `DEBUG=*`, that will print all these logs in browser's DevTools.
 
