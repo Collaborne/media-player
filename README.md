@@ -1,7 +1,10 @@
-# @collaborne/media-player 1.1.16
+# Media Player
 
+![GitHub package.json version](https://img.shields.io/github/package-json/v/collaborne/media-player)
 [![Node version](https://img.shields.io/node/v/@collaborne/media-player.svg?style=flat)](http://nodejs.org/download/)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/auth_plug/Elixir%20CI?label=build&style=flat-square)
+![GitHub deployments](https://img.shields.io/github/deployments/collaborne/media-player/github-pages?label=gh-pages)
+![GitHub top language](https://img.shields.io/github/languages/top/collaborne/media-player)
 
 A media player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player).It supports the
 [MUI theming and components](https://mui.com) and **own functionality of the Picture-in-Picture and Fullscreen API**.
