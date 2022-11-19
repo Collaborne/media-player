@@ -203,11 +203,19 @@ export const createSettersSlice: StateCreator<
 					duration: state.duration,
 				});
 			}
+			// Initialize alarms from start(it will trigger a new search)
+			const alarmState = state.alarms
+				? {
+						currentTimeAlarm: 0,
+						nextTimeAlarm: 0,
+				  }
+				: {};
 
 			return {
 				previousTime: state.currentTime,
 				currentTime: state.startTime + relativeSeconds,
 				hasPlayedOrSeeked: true,
+				...alarmState,
 			};
 		}),
 

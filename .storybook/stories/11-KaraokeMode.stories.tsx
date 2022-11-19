@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { usePreviousDistinct } from 'react-use';
+import { usePreviousDistinct, useToggle } from 'react-use';
 
 import {
 	TimeUpdateEvent,
@@ -24,13 +24,13 @@ interface KaraokeModeProps {
 type TranscriptRef = { ref: HTMLButtonElement | null };
 
 export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
-	const [isTimestampsReady, setIsTimestampsReady] = useDelayedState(false);
+	const [isTimestampToggle, toggleReadyTimestapms] = useToggle(false);
+	const [isPlayerReady, setIsPlayerReady] = React.useState(false);
 	const transcriptsElementRef = React.useRef<TranscriptRef[]>([]);
 	const alarmRef = React.useRef<number[]>([]);
 	const setTranscriptsElementRef = (ref: HTMLButtonElement | null) =>
 		transcriptsElementRef.current.push({ ref });
 	const { setMediaContext, mediaContext } = usePlayerContext();
-	const ready = mediaContext?.ready;
 	const mediaDuration = mediaContext?.duration || 0;
 	const transcriptRef = React.useRef<Transcript[]>([]);
 	const listener = mediaContext?.getListener();
@@ -61,6 +61,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	}, [getCurrentTimePart, setCurrentPart]);
 
 	useMediaListener('seeked', onSeek, listener);
+	useMediaListener('ready', () => setIsPlayerReady(true), listener);
 
 	useMediaListener(
 		'onTimeAlarm',
@@ -85,22 +86,21 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 			}
 		}
 	}, [mediaDuration, args.secondsDivider]);
+
 	// Create random timestamps due to media duration
 	React.useEffect(() => {
 		transcriptRef.current = createTimestamps(
 			mediaDuration,
 			args.secondsDivider,
 		);
+		toggleReadyTimestapms();
 		createAlarms();
-		if (transcriptRef.current && alarmRef.current) {
-			setIsTimestampsReady(true, 3000);
-		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [mediaDuration, args.secondsDivider, ready]);
+	}, [mediaDuration, args.secondsDivider, isPlayerReady]);
 
 	const timeStampsMemo = React.useMemo(() => {
-		if (ready && isTimestampsReady && transcriptRef.current.length > 0) {
+		if (isPlayerReady && transcriptRef.current.length > 0) {
 			return transcriptRef.current.map(({ start, end, index }) => {
 				return (
 					<Timestamp
@@ -117,7 +117,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 		return null;
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ready, isTimestampsReady, transcriptRef]);
+	}, [isPlayerReady, isTimestampToggle]);
 	const prevCurrent = usePreviousDistinct(currentPart);
 	const createActiveSpan = useCallback(() => {
 		const element = transcriptsElementRef.current[currentPart.index];
