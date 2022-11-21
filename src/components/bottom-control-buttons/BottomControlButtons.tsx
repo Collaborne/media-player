@@ -2,6 +2,7 @@ import Grid from '@mui/material/Grid';
 import { FC, memo, ReactNode } from 'react';
 
 import { useIsAudio } from '../../hooks';
+import { BOTTOM_CONTROL_BUTTONS } from '../../utils';
 
 import { useBottomControlButtonsHook } from './useBottomControlButtonsHook';
 import { useBottomControlButtonsStyles } from './useBottomControlButtonsStyles';
@@ -9,6 +10,7 @@ import { useBottomControlButtonsStyles } from './useBottomControlButtonsStyles';
 export interface BottomControlButtonsProps {
 	className?: string;
 	children: ReactNode;
+	'data-testid'?: string;
 }
 
 /**
@@ -17,7 +19,11 @@ export interface BottomControlButtonsProps {
  * @category UI Controls
  */
 export const BottomControlButtons: FC<BottomControlButtonsProps> = memo(
-	({ className, children }) => {
+	({
+		className,
+		children,
+		'data-testid': dataTestId = BOTTOM_CONTROL_BUTTONS,
+	}) => {
 		const isAudio = useIsAudio();
 		const { classes, cx } = useBottomControlButtonsStyles();
 
@@ -34,7 +40,7 @@ export const BottomControlButtons: FC<BottomControlButtonsProps> = memo(
 				alignItems="center"
 				justifyContent="space-between"
 				direction="row"
-				data-testid="bottom-control-panel"
+				data-testid={dataTestId}
 			>
 				{children}
 			</Grid>

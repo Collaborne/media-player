@@ -39,3 +39,9 @@ export const REPLAY_ICON = 'REPLAY_ICON';
 export const PAUSE_ICON = 'PAUSE_ICON';
 /** Constant data-testid for <Play/> Icon */
 export const PLAY_ICON = 'PLAY_ICON';
+/** Constant data-testid for <Controls/> */
+export const CONTROLS = 'CONTROLS';
+/** Constant data-testid for <BottomControlButtons/> */
+export const BOTTOM_CONTROL_BUTTONS = 'BOTTOM_CONTROL_BUTTONS';
+/** Constant data-testid for <MediaContainer/> */
+export const MEDIA_CONTAINER = 'MEDIA_CONTAINER';

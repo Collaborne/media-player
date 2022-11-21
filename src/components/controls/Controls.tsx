@@ -1,12 +1,14 @@
 import { FC, ReactNode } from 'react';
 
 import { useMediaStore } from '../../context';
+import { CONTROLS } from '../../utils';
 
 import { useControlsStyles } from './useControlsStyles';
 
 export interface ControlProps {
 	children: ReactNode;
 	className?: string;
+	'data-testid'?: string;
 }
 
 /**
@@ -14,7 +16,11 @@ export interface ControlProps {
  * @category React Component
  * @category UI Controls
  */
-export const Controls: FC<ControlProps> = ({ children, className }) => {
+export const Controls: FC<ControlProps> = ({
+	children,
+	className,
+	'data-testid': dataTestId = CONTROLS,
+}) => {
 	const showControls = useMediaStore(state => state.showControls);
 
 	// Controls styles
@@ -26,5 +32,9 @@ export const Controls: FC<ControlProps> = ({ children, className }) => {
 		return null;
 	}
 
-	return <div className={classNameControls}>{children}</div>;
+	return (
+		<div className={classNameControls} data-testid={dataTestId}>
+			{children}
+		</div>
+	);
 };

@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 import { useMediaStore } from '../../../context/MediaProvider';
 import { MediaStore } from '../../../store/media-store';
 import {
+	BOTTOM_CONTROL_BUTTONS,
 	CENTERED_BOTTOM_PLAYBACK,
 	CENTERED_PLAY_BUTTON,
 	DEFAULT_EVENT_ANIMATION_DURATION,
@@ -46,7 +47,7 @@ const setupMediaPlayer = () => {
 
 describe('<MediaPlayer>', () => {
 	afterEach(cleanup);
-	describe.skip('initialization', () => {
+	describe('initialization', () => {
 		it('media has not started before', async () => {
 			const { getByTestId, mediaStore } = setupMediaPlayer();
 			// wait 1 sec to mount state and load initial data
@@ -162,6 +163,20 @@ describe('<MediaPlayer>', () => {
 			await userEvent.click(playPauseReplayBtn);
 			expect(playEl.style.display).toBe('block');
 			expect(pauseEl.style.display).toBe('none');
+		});
+	});
+	describe('Hovering player layout', () => {
+		it('<BottomControls /> are not displayed if media has not started', async () => {
+			const { getByTestId, queryByTestId } = setupMediaPlayer();
+			// wait 1 sec to mount state and load initial data
+			await act(async () => await sleep(2000));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+			const bottomButtons = queryByTestId(BOTTOM_CONTROL_BUTTONS);
+			expect(bottomButtons).not.toBeInTheDocument();
+
+			await userEvent.click(startBtn);
+			expect(getByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
 		});
 	});
 });
