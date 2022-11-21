@@ -1,5 +1,10 @@
 import '@testing-library/jest-dom';
-import { PLAYBACK_RATES, SECONDS_TO_SKIP } from '../../../utils/constants';
+import {
+	PAUSE_ICON,
+	PLAYBACK_RATES,
+	PLAY_ICON,
+	SECONDS_TO_SKIP,
+} from '../../../utils/constants';
 import {
 	act,
 	setupMediaProvider,
@@ -34,17 +39,17 @@ const BottomControlButtons = () => {
 describe('<BottomControlButtons />', () => {
 	it('displays play button on first mount', async () => {
 		const { getByTestId } = setupMediaProvider(<BottomControlButtons />);
-		expect(getByTestId('icon-play')).toBeInTheDocument();
+		expect(getByTestId(PLAY_ICON)).toBeInTheDocument();
 	});
 
 	it('click on play/pause actions', async () => {
 		const { getByTestId, mediaStore } = setupMediaProvider(
 			<BottomControlButtons />,
 		);
-		const playButton = getByTestId('icon-play');
+		const playButton = getByTestId(PLAY_ICON);
 		await userEvent.click(playButton);
 		expect(mediaStore.isPlaying).toBeTruthy();
-		const pauseButton = getByTestId('icon-pause');
+		const pauseButton = getByTestId(PAUSE_ICON);
 		expect(pauseButton).toBeInTheDocument();
 		await userEvent.click(pauseButton);
 		expect(mediaStore.isPlaying).toBeFalsy();

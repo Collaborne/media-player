@@ -2,7 +2,10 @@ import { FC, useEffect, useState } from 'react';
 
 import { useMediaStore } from '../../context';
 import { useMediaListener, useIsAudio } from '../../hooks';
-import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
+import {
+	DEFAULT_EVENT_ANIMATION_DURATION,
+	PLAY_ANIMATION,
+} from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
 import { BigPlayIcon } from '../icons';
 
@@ -57,6 +60,7 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 			durationMs={animationDuration}
 			startAnimation={showPlayAnimation}
 			className={className}
+			data-testid={PLAY_ANIMATION}
 		>
 			<BigPlayIcon className={centeredIcon} />
 		</AnimatedIconWrapper>

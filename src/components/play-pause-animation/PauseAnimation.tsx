@@ -2,7 +2,10 @@ import { FC, useEffect, useState } from 'react';
 
 import { useMediaStore } from '../../context';
 import { useIsAudio, useMediaListener } from '../../hooks';
-import { DEFAULT_EVENT_ANIMATION_DURATION } from '../../utils/constants';
+import {
+	DEFAULT_EVENT_ANIMATION_DURATION,
+	PAUSE_ANIMATION,
+} from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
 import { BigPauseIcon } from '../icons';
 
@@ -56,6 +59,7 @@ export const PauseAnimation: FC<PauseAnimationProps> = ({
 			durationMs={animationDuration}
 			startAnimation={showPauseAnimation}
 			className={className}
+			data-testid={PAUSE_ANIMATION}
 		>
 			<BigPauseIcon className={centeredIcon} />
 		</AnimatedIconWrapper>
