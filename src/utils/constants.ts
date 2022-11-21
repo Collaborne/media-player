@@ -19,3 +19,8 @@ export const PROGRESS_INTERVAL = 50;
 
 /** Seconds that should be skipped when using Forward/Rewind  buttons */
 export const SECONDS_TO_SKIP = 10;
+
+/** Constant for data-testid for `<CenteredPlayButton />` */
+export const CENTERED_PLAY_BUTTON = 'CENTERED_PLAY_BUTTON';
+/** Constant for data-testid for `<CenteredBottomPlayback />` */
+export const CENTERED_BOTTOM_PLAYBACK = 'CENTERED_BOTTOM_PLAYBACK';

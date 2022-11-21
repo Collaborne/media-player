@@ -3,6 +3,7 @@ import { FC } from 'react';
 
 import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
+import { CENTERED_PLAY_BUTTON } from '../../utils/constants';
 import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';
 import { BigPlayIcon } from '../icons/BigPlayIcon';
 
@@ -33,7 +34,10 @@ export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 			Icon={BigPlayIcon}
 			onClick={play}
 			classNames={classNames}
-			iconButtonProps={iconButtonProps}
+			iconButtonProps={{
+				'data-testid': CENTERED_PLAY_BUTTON,
+				...iconButtonProps,
+			}}
 		/>
 	);
 };

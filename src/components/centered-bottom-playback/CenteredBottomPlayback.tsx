@@ -3,7 +3,10 @@ import { FC } from 'react';
 
 import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
-import { PLAYBACK_RATES } from '../../utils/constants';
+import {
+	CENTERED_BOTTOM_PLAYBACK,
+	PLAYBACK_RATES,
+} from '../../utils/constants';
 import { MultiplySymbol } from '../../utils/MultiplySymbol';
 
 import { PlaybackRateButtonStyled } from './components/PlaybackRateButtonStyled';
@@ -74,7 +77,10 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = ({
 	}
 
 	return (
-		<div className={cx(wrapper, className)} data-testid="c-playbackRate">
+		<div
+			className={cx(wrapper, className)}
+			data-testid={CENTERED_BOTTOM_PLAYBACK}
+		>
 			<div className={playbackWrapper}>
 				{PLAYBACK_RATES.map(item => (
 					<PlayBackButton
@@ -82,7 +88,7 @@ export const CenteredBottomPlayback: FC<CenteredBottomPlaybackProps> = ({
 						active={playbackRate}
 						onChangeRate={onChangePlaybackRate}
 						playbackRate={item}
-						data-testid={`c-playbackRate-${item}`}
+						data-testid={`${CENTERED_BOTTOM_PLAYBACK}-${item}`}
 					/>
 				))}
 			</div>
