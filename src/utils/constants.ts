@@ -51,3 +51,5 @@ export const PIP_BUTTON = 'PIP_BUTTON';
 export const PROGRESS_BAR = 'PROGRESS_BAR';
 /** Constant data-testid for <DraggablePopover/> */
 export const DRAGGABLE_POPOVER = 'DRAGGABLE_POPOVER';
+/** Constant data-testid for <FullscreenButton/> */
+export const FULLSCREEN_BUTTON = 'FULLSCREEN_BUTTON';

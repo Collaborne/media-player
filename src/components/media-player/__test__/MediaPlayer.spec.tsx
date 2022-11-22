@@ -10,6 +10,7 @@ import {
 	CENTERED_PLAY_BUTTON,
 	DEFAULT_EVENT_ANIMATION_DURATION,
 	DRAGGABLE_POPOVER,
+	FULLSCREEN_BUTTON,
 	MEDIA_CONTAINER,
 	OVERLAY_HIDE_DELAY,
 	PAUSE_ANIMATION,
@@ -32,11 +33,11 @@ global.window.HTMLMediaElement.prototype.play = async function playMock() {
 global.window.HTMLMediaElement.prototype.pause = async function playMock() {
 	this.dispatchEvent(new Event('pause'));
 };
-const URL =
-	'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4';
+const VIDEO_URL = 'video.mp4';
+const AUDIO_URL = 'audio.mp3';
 
 // A test setup for MediaPlayer, that can access `MediaStore` from `MediaProvider`
-const setupMediaPlayer = () => {
+const setupMediaPlayer = (url = VIDEO_URL) => {
 	const returnVal = {} as MediaStore;
 	function NullComponent() {
 		const mediaStore = useMediaStore();
@@ -45,7 +46,7 @@ const setupMediaPlayer = () => {
 	}
 	function TestComponent() {
 		return (
-			<MediaPlayer url={URL}>
+			<MediaPlayer url={url}>
 				<NullComponent />
 			</MediaPlayer>
 		);
@@ -119,6 +120,16 @@ describe('<MediaPlayer>', () => {
 		});
 	});
 	describe('Play/Pause animation on triggered event', () => {
+		it('animation is absent for audio files', async () => {
+			const { getByTestId, queryByTestId } = setupMediaPlayer(AUDIO_URL);
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			await userEvent.click(getByTestId(PLAY_PAUSE_REPLAY));
+
+			expect(queryByTestId(PLAY_ANIMATION)).not.toBeInTheDocument();
+			expect(queryByTestId(PAUSE_ANIMATION)).not.toBeInTheDocument();
+		});
 		it('play/pause animation on layout click', async () => {
 			const { getByTestId } = setupMediaPlayer();
 			// wait 1 ms to mount state and load initial data
@@ -335,6 +346,33 @@ describe('<MediaPlayer>', () => {
 			expect(
 				getByTestId(MEDIA_CONTAINER).contains(getByTestId(DRAGGABLE_POPOVER)),
 			).toBeTruthy();
+		});
+	});
+	describe('Fullscreen API', () => {
+		it('FullscreenButton is not present for audio files', async () => {
+			const { getByTestId, queryByTestId } = setupMediaPlayer(AUDIO_URL);
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(PLAY_PAUSE_REPLAY);
+			await userEvent.click(startBtn);
+			expect(queryByTestId(FULLSCREEN_BUTTON)).not.toBeInTheDocument();
+		});
+		it('request/exit fullscreen by clicking on button', async () => {
+			const { getByTestId, mediaStore } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+			await userEvent.click(startBtn);
+			expect(mediaStore.isFullscreen).toBeFalsy();
+			// enable fullscreen
+			await userEvent.click(getByTestId(FULLSCREEN_BUTTON));
+			expect(mediaStore.isFullscreen).toBeTruthy();
+
+			// exit fullscreen
+			await userEvent.click(getByTestId(FULLSCREEN_BUTTON));
+			expect(mediaStore.isFullscreen).toBeFalsy();
 		});
 	});
 });
