@@ -6,6 +6,7 @@ import { Rnd, Props as RndProps } from 'react-rnd';
 import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
 import { usePipControlsContext } from '../../hooks/use-pip-controls-context';
+import { DRAGGABLE_POPOVER } from '../../utils';
 import { MediaContainerProps } from '../media-container/MediaContainer';
 import { MediaPoster } from '../media-poster/MediaPoster';
 
@@ -25,6 +26,7 @@ export interface DraggablePopoverProps
 	rndProps?: RndProps;
 	className?: string;
 	audioPlaceholder?: string;
+	'data-testid'?: string;
 }
 
 /**
@@ -40,6 +42,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		audioPlaceholder,
 		xAxisDistance,
 		yAxisDistance,
+		'data-testid': dataTestId = DRAGGABLE_POPOVER,
 		...props
 	}) => {
 		const { PIPControls } = usePipControlsContext();
@@ -65,7 +68,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 
 		return (
 			<Portal {...props}>
-				<div className={portalWrapper}>
+				<div className={portalWrapper} data-testid={dataTestId}>
 					<Rnd
 						bounds="parent"
 						default={{

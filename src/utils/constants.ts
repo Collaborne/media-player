@@ -47,3 +47,7 @@ export const BOTTOM_CONTROL_BUTTONS = 'BOTTOM_CONTROL_BUTTONS';
 export const MEDIA_CONTAINER = 'MEDIA_CONTAINER';
 /** Constant data-testid for <PictureInPictureButton/> */
 export const PIP_BUTTON = 'PIP_BUTTON';
+/** Constant data-testid for <ProgressBar/> */
+export const PROGRESS_BAR = 'PROGRESS_BAR';
+/** Constant data-testid for <DraggablePopover/> */
+export const DRAGGABLE_POPOVER = 'DRAGGABLE_POPOVER';

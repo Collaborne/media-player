@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 import { useMediaStore } from '../../context';
 import { useMediaListener } from '../../hooks';
 import { useIsAudio } from '../../hooks/use-is-audio';
-import { PROGRESS_BAR_DIVIDER } from '../../utils/constants';
+import { PROGRESS_BAR, PROGRESS_BAR_DIVIDER } from '../../utils/constants';
 import { toTwoDigits } from '../../utils/number';
 
 import { ProgressBarStyled } from './components/ProgressBarStyled';
@@ -13,13 +13,18 @@ import { useProgressBarStyles } from './useProgressBarStyles';
 
 interface ProgressBarProps extends SliderProps {
 	className?: string;
+	'data-testid'?: string;
 }
 
 /** A MUI Slider configured for displaying currentTime/duration values from `MediaStore`
  * @category React Component
  * @category UI Controls
  */
-export const ProgressBar: FC<ProgressBarProps> = ({ className, ...props }) => {
+export const ProgressBar: FC<ProgressBarProps> = ({
+	className,
+	'data-testid': dataTestId = PROGRESS_BAR,
+	...props
+}) => {
 	const isAudio = useIsAudio();
 	const [value, setValue] = useState(0);
 	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
@@ -73,6 +78,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({ className, ...props }) => {
 			onChange={onCurrentTimeUpdate}
 			value={value}
 			components={{ Rail }}
+			data-testid={dataTestId}
 			{...props}
 		/>
 	);

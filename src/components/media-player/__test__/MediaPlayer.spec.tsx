@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { render, cleanup, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
@@ -8,12 +9,14 @@ import {
 	CENTERED_BOTTOM_PLAYBACK,
 	CENTERED_PLAY_BUTTON,
 	DEFAULT_EVENT_ANIMATION_DURATION,
+	DRAGGABLE_POPOVER,
 	MEDIA_CONTAINER,
 	OVERLAY_HIDE_DELAY,
 	PAUSE_ANIMATION,
 	PIP_BUTTON,
 	PLAY_ANIMATION,
 	PLAY_PAUSE_REPLAY,
+	PROGRESS_BAR,
 	REACT_PLAYER,
 	sleep,
 	userEvent,
@@ -258,6 +261,80 @@ describe('<MediaPlayer>', () => {
 			expect(mediaStore.isPip).toBeTruthy();
 
 			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+		});
+	});
+	describe('<ProgressBar>', () => {
+		it('do not display before first time play', async () => {
+			const { queryByTestId } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+			expect(queryByTestId(PROGRESS_BAR)).not.toBeInTheDocument();
+		});
+		it('display it when <BottomControlButtons/> are shown ', async () => {
+			const { getByTestId, queryByTestId } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+			await userEvent.click(startBtn);
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+			expect(queryByTestId(PROGRESS_BAR)).toBeInTheDocument();
+		});
+		it('display it when <BottomControlButtons/> are hidden ', async () => {
+			const { getByTestId, queryByTestId } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+			await userEvent.click(startBtn);
+
+			await userEvent.unhover(getByTestId(MEDIA_CONTAINER));
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).not.toBeInTheDocument();
+			expect(queryByTestId(PROGRESS_BAR)).toBeInTheDocument();
+		});
+	});
+	describe('PIP mode and <PIPControls />', () => {
+		it('show PIP on clicking <PictureInPictureButton />', async () => {
+			const { getByTestId, mediaStore } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+			await userEvent.click(startBtn);
+			expect(mediaStore.isPip).toBeFalsy();
+
+			const draggablePopover = getByTestId(DRAGGABLE_POPOVER);
+			const mediaContainer = getByTestId(MEDIA_CONTAINER);
+			expect(mediaContainer.contains(draggablePopover)).toBeTruthy();
+
+			// start PIP mode  = <DraggablePopover /> wont be a child for <MediaContainer />
+			await userEvent.click(getByTestId(PIP_BUTTON));
+			expect(mediaContainer.contains(draggablePopover)).toBeFalsy();
+			expect(mediaStore.isPip).toBeTruthy();
+		});
+		it('close PIP on clicking <PictureInPictureButton />', async () => {
+			const { getByTestId, mediaStore } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+			await userEvent.click(startBtn);
+
+			const draggablePopover = getByTestId(DRAGGABLE_POPOVER);
+			const mediaContainer = getByTestId(MEDIA_CONTAINER);
+			expect(mediaContainer.contains(draggablePopover)).toBeTruthy();
+
+			// start PIP mode  = <DraggablePopover /> wont be a child for <MediaContainer />
+			await userEvent.click(getByTestId(PIP_BUTTON));
+			expect(mediaContainer.contains(draggablePopover)).toBeFalsy();
+			expect(mediaStore.isPip).toBeTruthy();
+
+			// close pip = <DraggablePopover /> is a child for <MediaContainer />
+			await userEvent.click(getByTestId(PIP_BUTTON));
+			expect(mediaStore.isPip).toBeFalsy();
+			expect(
+				getByTestId(MEDIA_CONTAINER).contains(getByTestId(DRAGGABLE_POPOVER)),
+			).toBeTruthy();
 		});
 	});
 });
