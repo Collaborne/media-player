@@ -5,6 +5,7 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dwyl/auth_plug/Elixir%20CI?label=build&style=flat-square)
 ![GitHub deployments](https://img.shields.io/github/deployments/collaborne/media-player/github-pages?label=gh-pages)
 ![GitHub top language](https://img.shields.io/github/languages/top/collaborne/media-player)
+[![Code Coverage](https://collaborne.github.io/media-player/coverage/badge-statements.svg)](https://collaborne.github.io/media-player/coverage/lcov-report/)
 
 A media player build in React on top of [CookPete/react-player](https://github.com/CookPete/react-player).It supports the
 [MUI theming and components](https://mui.com) and **own functionality of the Picture-in-Picture and Fullscreen API**.
