@@ -16,14 +16,17 @@
 		"build:ts": "tsc -p tsconfig.dist.json --noEmit false",
 		"build:watch": "npm run build -- --watch",
 		"build:docs": "typedoc",
+		"build:coverage": "run-s test:badges test:move-coverage",
 		"lint": "npm run lint:ts",
 		"lint:ts": "eslint --report-unused-disable-directives $(node -p 'require(\"./tsconfig.test.json\").include.map(include => `'\\${include}.\\{js,ts,tsx\\}'`).join(\" \")')",
 		"test:coverage": "cross-env CI=1 SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom --coverage .",
+		"test:badges": "npm run test:coverage && cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/create-coverage-badge.ts",
+		"test:move-coverage": "copyfiles -a 'coverage/**' 'gh-pages-dist/' && echo 'coverage files copied'",
 		"test": "run-s lint test:build test:unit",
 		"test:build": "npm run build:locales && tsc --noEmit -p tsconfig.test.json",
 		"test:unit": "cross-env CI=1 SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom --passWithNoTests",
 		"test:watch": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom",
-		"predeploy": "run-s storybook:build build:docs",
+		"predeploy": "run-s storybook:build build:docs build:coverage",
 		"deploy": "gh-pages -d gh-pages-dist",
 		"storybook": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" FAST_REFRESH=false start-storybook -p 9009",
 		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" build-storybook --quiet -o gh-pages-dist"
@@ -68,6 +71,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.30.0",
 		"babel-loader": "^8.2.5",
 		"chromatic": "^6.10.1",
+		"copyfiles": "^2.4.1",
 		"cross-env": "^7.0.3",
 		"dotenv": "^16.0.1",
 		"eslint": "^8.18.0",
@@ -130,7 +134,9 @@
 			"./src/**"
 		],
 		"coverageReporters": [
-			"text"
+			"json-summary",
+			"text",
+			"lcov"
 		],
 		"coveragePathIgnorePatterns": [
 			"/src/types",

@@ -10,6 +10,7 @@ build/
 dist/
 gh-pages-dist/
 .rpt2_cache/
+coverage/
 
 # Dynamically created files
 /.storybook/locales/*
