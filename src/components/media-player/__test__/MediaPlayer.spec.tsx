@@ -8,6 +8,8 @@ import {
 	CENTERED_BOTTOM_PLAYBACK,
 	CENTERED_PLAY_BUTTON,
 	DEFAULT_EVENT_ANIMATION_DURATION,
+	MEDIA_CONTAINER,
+	OVERLAY_HIDE_DELAY,
 	PAUSE_ANIMATION,
 	PLAY_ANIMATION,
 	PLAY_PAUSE_REPLAY,
@@ -21,6 +23,8 @@ import { MediaPlayer } from '../MediaPlayer';
 global.window.HTMLMediaElement.prototype.play = async function playMock() {
 	this.dispatchEvent(new Event('play'));
 };
+
+// Pause the playback.
 global.window.HTMLMediaElement.prototype.pause = async function playMock() {
 	this.dispatchEvent(new Event('pause'));
 };
@@ -50,8 +54,8 @@ describe('<MediaPlayer>', () => {
 	describe('initialization', () => {
 		it('media has not started before', async () => {
 			const { getByTestId, mediaStore } = setupMediaPlayer();
-			// wait 1 sec to mount state and load initial data
-			await act(async () => await sleep(1000));
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
 
 			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
 			const playbackRateDiv = getByTestId(CENTERED_BOTTOM_PLAYBACK);
@@ -66,8 +70,8 @@ describe('<MediaPlayer>', () => {
 		describe('first time play', () => {
 			it('click on <CenteredPlayButton /> start playing', async () => {
 				const { getByTestId, mediaStore } = setupMediaPlayer();
-				// wait 1 sec to mount state and load initial data
-				await act(async () => await sleep(1000));
+				// wait 1 ms to mount state and load initial data
+				await act(async () => await sleep(1));
 
 				const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
 				const playbackRateDiv = getByTestId(CENTERED_BOTTOM_PLAYBACK);
@@ -81,8 +85,8 @@ describe('<MediaPlayer>', () => {
 			});
 			it('click on <CenteredBottomPlayback /> do not start playing', async () => {
 				const { getByTestId, mediaStore } = setupMediaPlayer();
-				// wait 1 sec to mount state and load initial data
-				await act(async () => await sleep(1000));
+				// wait 1 ms to mount state and load initial data
+				await act(async () => await sleep(1));
 
 				const playbackRate2Btn = getByTestId(`${CENTERED_BOTTOM_PLAYBACK}-2`);
 
@@ -94,8 +98,8 @@ describe('<MediaPlayer>', () => {
 			});
 			it('click on media-player layout start playing and hide <CenteredPlayButton /> and <CenteredPlayButton /> ', async () => {
 				const { getByTestId, mediaStore } = setupMediaPlayer();
-				// wait 1 sec to mount state and load initial data
-				await act(async () => await sleep(1000));
+				// wait 1 ms to mount state and load initial data
+				await act(async () => await sleep(1));
 
 				const mediaPlayerDiv = getByTestId(REACT_PLAYER);
 				const playbackRateDiv = getByTestId(CENTERED_BOTTOM_PLAYBACK);
@@ -113,8 +117,8 @@ describe('<MediaPlayer>', () => {
 	describe('Play/Pause animation on triggered event', () => {
 		it('play/pause animation on layout click', async () => {
 			const { getByTestId } = setupMediaPlayer();
-			// wait 1 sec to mount state and load initial data
-			await act(async () => await sleep(2000));
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
 
 			const mediaPlayerDiv = getByTestId(REACT_PLAYER);
 			const playEl = getByTestId(PLAY_ANIMATION);
@@ -139,8 +143,8 @@ describe('<MediaPlayer>', () => {
 		});
 		it('play/pause animation on clicking <PlayPauseReplay />', async () => {
 			const { getByTestId } = setupMediaPlayer();
-			// wait 1 sec to mount state and load initial data
-			await act(async () => await sleep(2000));
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
 
 			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
 			const playEl = getByTestId(PLAY_ANIMATION);
@@ -165,11 +169,11 @@ describe('<MediaPlayer>', () => {
 			expect(pauseEl.style.display).toBe('none');
 		});
 	});
-	describe('Hovering player layout', () => {
-		it('<BottomControls /> are not displayed if media has not started', async () => {
+	describe('<BottomControls />: hovering player layout', () => {
+		it('do not display on first time play', async () => {
 			const { getByTestId, queryByTestId } = setupMediaPlayer();
-			// wait 1 sec to mount state and load initial data
-			await act(async () => await sleep(2000));
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
 
 			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
 			const bottomButtons = queryByTestId(BOTTOM_CONTROL_BUTTONS);
@@ -177,6 +181,35 @@ describe('<MediaPlayer>', () => {
 
 			await userEvent.click(startBtn);
 			expect(getByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+		});
+		it('do not display when leaving <MediaContainer />', async () => {
+			const { getByTestId, queryByTestId } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+
+			await userEvent.click(startBtn);
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+
+			await userEvent.unhover(getByTestId(MEDIA_CONTAINER));
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).not.toBeInTheDocument();
+		});
+		it(`do not display after ${OVERLAY_HIDE_DELAY}ms on hovered <MediaContainer /> layout`, async () => {
+			const { getByTestId, queryByTestId } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+
+			await userEvent.click(startBtn);
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+
+			await userEvent.hover(getByTestId(MEDIA_CONTAINER));
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+			// because onMouseEvent is throttled, overlay can be hidden for a +-1sec
+			await act(async () => await sleep(OVERLAY_HIDE_DELAY + 1000));
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).not.toBeInTheDocument();
 		});
 	});
 });
