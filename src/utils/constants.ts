@@ -45,3 +45,5 @@ export const CONTROLS = 'CONTROLS';
 export const BOTTOM_CONTROL_BUTTONS = 'BOTTOM_CONTROL_BUTTONS';
 /** Constant data-testid for <MediaContainer/> */
 export const MEDIA_CONTAINER = 'MEDIA_CONTAINER';
+/** Constant data-testid for <PictureInPictureButton/> */
+export const PIP_BUTTON = 'PIP_BUTTON';

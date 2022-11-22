@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import {
 	PAUSE_ICON,
+	PIP_BUTTON,
 	PLAYBACK_RATES,
 	PLAY_ICON,
 	SECONDS_TO_SKIP,
@@ -104,7 +105,7 @@ describe('<BottomControlButtons />', () => {
 		const { getByTestId, mediaStore } = setupMediaProvider(
 			<BottomControlButtons />,
 		);
-		const pip = getByTestId('icon-pip');
+		const pip = getByTestId(PIP_BUTTON);
 		await userEvent.click(pip);
 		expect(mediaStore.isPip).toBeTruthy();
 		expect(mediaStore.hasPipTriggeredByClick).toBeTruthy();

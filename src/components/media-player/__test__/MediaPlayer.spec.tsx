@@ -11,6 +11,7 @@ import {
 	MEDIA_CONTAINER,
 	OVERLAY_HIDE_DELAY,
 	PAUSE_ANIMATION,
+	PIP_BUTTON,
 	PLAY_ANIMATION,
 	PLAY_PAUSE_REPLAY,
 	REACT_PLAYER,
@@ -207,9 +208,56 @@ describe('<MediaPlayer>', () => {
 
 			await userEvent.hover(getByTestId(MEDIA_CONTAINER));
 			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
-			// because onMouseEvent is throttled, overlay can be hidden for a +-1sec
+			// because onMouseEvent is throttled, hiding can occur for a upt to 1sec delay
 			await act(async () => await sleep(OVERLAY_HIDE_DELAY + 1000));
 			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).not.toBeInTheDocument();
+		});
+		it(`display when paused`, async () => {
+			const { getByTestId, queryByTestId, mediaStore } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+
+			await userEvent.click(startBtn);
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+
+			await userEvent.click(getByTestId(PLAY_PAUSE_REPLAY));
+			expect(mediaStore.isPlaying).toBeFalsy();
+
+			await userEvent.unhover(getByTestId(MEDIA_CONTAINER));
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+		});
+		it(`always display when an button of <BottomControlsButtons/> is hovered`, async () => {
+			const { getByTestId, queryByTestId, mediaStore } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+
+			await userEvent.click(startBtn);
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+			expect(mediaStore.isPlaying).toBeTruthy();
+
+			await userEvent.hover(getByTestId(PLAY_PAUSE_REPLAY));
+			// add delay 1sec - for be certain sure that should wait enough
+			await act(async () => await sleep(OVERLAY_HIDE_DELAY + 1000));
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
+		});
+		it(`always display when PIP mode is on`, async () => {
+			const { getByTestId, queryByTestId, mediaStore } = setupMediaPlayer();
+			// wait 1 ms to mount state and load initial data
+			await act(async () => await sleep(1));
+
+			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
+
+			await userEvent.click(startBtn);
+
+			await userEvent.click(getByTestId(PIP_BUTTON));
+			expect(mediaStore.isPlaying).toBeTruthy();
+			expect(mediaStore.isPip).toBeTruthy();
+
+			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
 		});
 	});
 });

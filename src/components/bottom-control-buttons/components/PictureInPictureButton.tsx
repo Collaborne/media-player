@@ -4,11 +4,13 @@ import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../../context';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
+import { PIP_BUTTON } from '../../../utils';
 import { PiPIcon } from '../../icons';
 
 interface PictureInPictureButtonProps extends IconButtonProps {
 	Icon?: ComponentType<SvgIconProps>;
 	svgIconProps?: SvgIconProps;
+	'data-testid'?: string;
 }
 
 /**
@@ -18,6 +20,7 @@ interface PictureInPictureButtonProps extends IconButtonProps {
 export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 	Icon = PiPIcon,
 	svgIconProps,
+	'data-testid': dataTestId = PIP_BUTTON,
 	...props
 }) => {
 	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
@@ -39,7 +42,7 @@ export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 			onMouseLeave={onMouseLeave}
 			size="medium"
 			onClick={togglePip}
-			data-testid="icon-pip"
+			data-testid={dataTestId}
 			{...props}
 		>
 			<Icon fontSize="medium" {...svgIconProps} />
