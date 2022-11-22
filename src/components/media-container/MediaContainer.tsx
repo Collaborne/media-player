@@ -4,6 +4,7 @@ import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/MediaProvider';
 import { useIsAudio } from '../../hooks';
+import { MEDIA_CONTAINER } from '../../utils';
 import { CorePlayerProps } from '../core-player/CorePlayer';
 import { DraggablePopover } from '../draggable-popover/DraggablePopover';
 import { MediaPoster } from '../media-poster/MediaPoster';
@@ -71,6 +72,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 				onMouseEnter={onMouseEnter}
 				onMouseLeave={onMouseLeave}
 				onMouseMove={onMouseMove}
+				data-testid={MEDIA_CONTAINER}
 			>
 				<DraggablePopover
 					disablePortal={!isPip}

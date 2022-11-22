@@ -19,3 +19,37 @@ export const PROGRESS_INTERVAL = 50;
 
 /** Seconds that should be skipped when using Forward/Rewind  buttons */
 export const SECONDS_TO_SKIP = 10;
+
+// Constants for testing
+/** Constant data-testid for `<CenteredPlayButton />` */
+export const CENTERED_PLAY_BUTTON = 'CENTERED_PLAY_BUTTON';
+/** Constant data-testid for `<CenteredBottomPlayback />` */
+export const CENTERED_BOTTOM_PLAYBACK = 'CENTERED_BOTTOM_PLAYBACK';
+/** Constant data-testid for `ReactPlayer` */
+export const REACT_PLAYER = 'REACT_PLAYER';
+/** Constant data-testid for <PlayAnimation/> */
+export const PLAY_ANIMATION = 'PLAY_ANIMATION';
+/** Constant data-testid for <PauseAnimation/> */
+export const PAUSE_ANIMATION = 'PAUSE_ANIMATION';
+/** Constant data-testid for <PlayPauseReplay/> */
+export const PLAY_PAUSE_REPLAY = 'PLAY_PAUSE_REPLAY';
+/** Constant data-testid for <Replay/> Icon */
+export const REPLAY_ICON = 'REPLAY_ICON';
+/** Constant data-testid for <Pause/> Icon */
+export const PAUSE_ICON = 'PAUSE_ICON';
+/** Constant data-testid for <Play/> Icon */
+export const PLAY_ICON = 'PLAY_ICON';
+/** Constant data-testid for <Controls/> */
+export const CONTROLS = 'CONTROLS';
+/** Constant data-testid for <BottomControlButtons/> */
+export const BOTTOM_CONTROL_BUTTONS = 'BOTTOM_CONTROL_BUTTONS';
+/** Constant data-testid for <MediaContainer/> */
+export const MEDIA_CONTAINER = 'MEDIA_CONTAINER';
+/** Constant data-testid for <PictureInPictureButton/> */
+export const PIP_BUTTON = 'PIP_BUTTON';
+/** Constant data-testid for <ProgressBar/> */
+export const PROGRESS_BAR = 'PROGRESS_BAR';
+/** Constant data-testid for <DraggablePopover/> */
+export const DRAGGABLE_POPOVER = 'DRAGGABLE_POPOVER';
+/** Constant data-testid for <FullscreenButton/> */
+export const FULLSCREEN_BUTTON = 'FULLSCREEN_BUTTON';

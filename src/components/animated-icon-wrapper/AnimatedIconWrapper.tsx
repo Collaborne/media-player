@@ -11,6 +11,7 @@ interface AnimatedIconWrapperProps extends PropsWithChildren {
 	durationMs: number;
 	startAnimation?: boolean;
 	className?: string;
+	'data-testid'?: string;
 }
 /**
  * Component used as a wrapper for transitions
@@ -21,6 +22,7 @@ export const AnimatedIconWrapper: FC<AnimatedIconWrapperProps> = ({
 	children,
 	startAnimation,
 	className,
+	'data-testid': dataTestId,
 }) => {
 	const {
 		classes: { root },
@@ -28,7 +30,7 @@ export const AnimatedIconWrapper: FC<AnimatedIconWrapperProps> = ({
 	} = useAnimatedIconWrapperStyles();
 
 	return (
-		<Transition in={startAnimation} timeout={durationMs}>
+		<Transition in={startAnimation} timeout={durationMs} data-testid="asdasd">
 			{state => {
 				return (
 					<div
@@ -37,6 +39,7 @@ export const AnimatedIconWrapper: FC<AnimatedIconWrapperProps> = ({
 							...defaultStyle(durationMs),
 							...transitionStyles[state],
 						}}
+						data-testid={dataTestId}
 					>
 						{children}
 					</div>

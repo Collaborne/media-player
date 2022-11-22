@@ -5,12 +5,19 @@ import { ComponentType, FC } from 'react';
 
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { usePlayPauseReplayHook } from '../../../hooks/use-play-pause-replay';
+import {
+	PAUSE_ICON,
+	PLAY_ICON,
+	PLAY_PAUSE_REPLAY,
+	REPLAY_ICON,
+} from '../../../utils';
 
 interface PlayPauseReplayProps extends IconButtonProps {
 	svgClassName?: string;
 	Icons?: Record<'Play' | 'Replay' | 'Pause', ComponentType<SvgIconProps>>;
 	svgIconSize?: SvgIconProps['fontSize'];
 	skipSeconds?: number;
+	'data-testid'?: string;
 }
 
 /**
@@ -23,6 +30,7 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	Icons = { Pause: PauseOutlined, Play: PlayArrow, Replay: ReplayOutlined },
 	svgIconSize = 'inherit',
 	skipSeconds,
+	'data-testid': dataTestId = PLAY_PAUSE_REPLAY,
 	...props
 }) => {
 	const { isFinished, isPlaying, onPlay, onStop } = usePlayPauseReplayHook();
@@ -48,27 +56,28 @@ export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 			size="medium"
 			className={className}
 			onClick={handleClick}
+			data-testid={dataTestId}
 			{...props}
 		>
 			{isFinished && (
 				<Replay
 					className={svgClassName}
 					fontSize={svgIconSize}
-					data-testid="icon-replay"
+					data-testid={REPLAY_ICON}
 				/>
 			)}
 			{isPlaying && (
 				<Pause
 					className={svgClassName}
 					fontSize={svgIconSize}
-					data-testid="icon-pause"
+					data-testid={PAUSE_ICON}
 				/>
 			)}
 			{!isFinished && !isPlaying && (
 				<Play
 					className={svgClassName}
 					fontSize={svgIconSize}
-					data-testid="icon-play"
+					data-testid={PLAY_ICON}
 				/>
 			)}
 		</IconButton>

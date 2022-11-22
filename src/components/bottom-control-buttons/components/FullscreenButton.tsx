@@ -5,6 +5,7 @@ import shallow from 'zustand/shallow';
 import { useMediaStore } from '../../../context';
 import { useIsAudio } from '../../../hooks/use-is-audio';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
+import { FULLSCREEN_BUTTON } from '../../../utils';
 import { FullscreenEnterIcon, FullscreenExitIcon } from '../../icons';
 type FullscreenIcons = {
 	FullscreenEnter: ComponentType<SvgIconProps>;
@@ -13,6 +14,7 @@ type FullscreenIcons = {
 interface FullscreenButtonProps extends IconButtonProps {
 	Icons?: FullscreenIcons;
 	svgIconProps?: SvgIconProps;
+	'data-test-id'?: string;
 }
 /**
  * @category React Component
@@ -24,6 +26,7 @@ export const FullscreenButton: FC<FullscreenButtonProps> = ({
 		FullscreenExit: FullscreenExitIcon,
 	},
 	svgIconProps,
+	'data-test-id': dataTestId = FULLSCREEN_BUTTON,
 	...props
 }) => {
 	const [isFullscreen, requestFullscreen, exitFullscreen] = useMediaStore(
@@ -49,6 +52,7 @@ export const FullscreenButton: FC<FullscreenButtonProps> = ({
 			onMouseLeave={onMouseLeave}
 			size="medium"
 			onClick={onFullscreen}
+			data-testid={dataTestId}
 			{...props}
 		>
 			{!isFullscreen ? (

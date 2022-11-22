@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 import ReactPlayer from 'react-player';
 
 import { useMediaStore } from '../../context';
-import { PROGRESS_INTERVAL } from '../../utils';
+import { PROGRESS_INTERVAL, REACT_PLAYER } from '../../utils';
 
 import { useReactPlayerHook } from './useReactPlayerHook';
 
@@ -28,7 +28,7 @@ export const Player: FC<PlayerProps> = memo(({ url, className }) => {
 			width="100%"
 			height={isFullscreen ? '100%' : 'unset'}
 			className={className}
-			data-testid="media-player"
+			data-testid={REACT_PLAYER}
 			config={{
 				file: {
 					attributes: {

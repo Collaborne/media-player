@@ -8,7 +8,7 @@ export interface BigCenteredButtonProps {
 	Icon: ComponentType<SvgIconProps>;
 	onClick?: VoidFunction;
 	classNames?: string;
-	iconButtonProps?: IconButtonProps;
+	iconButtonProps?: IconButtonProps & { 'data-testid'?: string };
 }
 
 /**
