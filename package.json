@@ -136,7 +136,8 @@
 			"/src/types",
 			"/src/react-app-env.d.ts",
 			"/src/theme.ts",
-			"/src/.eslintrc.json"
+			"/src/.eslintrc.json",
+			"index.ts"
 		]
 	}
 }
