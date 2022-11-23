@@ -10,7 +10,13 @@ describe('array', () => {
 			findNextConsecutiveIndex(array, 2, 0);
 		}).toThrow(Error);
 	});
+	it('split in 3 chunks', () => {
+		expect(findNextConsecutiveIndex(array, 3, 3)).toBe(3);
+	});
 	it('no values found', () => {
 		expect(findNextConsecutiveIndex(array, 6)).toBe(-1);
+	});
+	it('split in 3 chunks and no found values', () => {
+		expect(findNextConsecutiveIndex(array, 6, 3)).toBe(-1);
 	});
 });

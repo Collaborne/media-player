@@ -1,4 +1,4 @@
-/** Find closest higher `number` in a `Array<numbers>` with a delta approximate */
+/** Find an index of an integer number into an array of consecutive integers by splitting into chunks */
 export function findNextConsecutiveIndex(
 	arr: number[],
 	num: number,
@@ -31,6 +31,11 @@ export function findNextConsecutiveIndex(
 			arrToSearch.push(...item);
 		}
 
+		// No next chunk available
+		if (!arrChunks[index + 1]) {
+			return;
+		}
+
 		if (
 			arr[arrChunks[index][1]] <= num &&
 			arr[arrChunks[index + 1][0]] >= num
@@ -38,20 +43,17 @@ export function findNextConsecutiveIndex(
 			arrToSearch.push(arrChunks[index][1], arrChunks[index + 1][0]);
 		}
 	});
-	if (!arrToSearch) {
+
+	if (arrToSearch.length === 0) {
 		return -1;
 	}
-	let startIndex = arrToSearch[0];
 	const endIndex = arrToSearch[1];
-
-	// Iterate while do not find first element that is bigger than the number
-	while (startIndex <= endIndex) {
+	// Return first number that is greater or equal from the chunk interval that it belongs
+	for (let startIndex = arrToSearch[0]; startIndex <= endIndex; startIndex++) {
 		const element = arr[startIndex];
 		if (element >= num) {
 			return startIndex;
 		}
-		startIndex = startIndex + 1;
 	}
-
 	return -1;
 }
