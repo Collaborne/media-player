@@ -55,7 +55,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		});
 
 		const { isPlayerReady } = useIsPlayerReadyHook({ url });
-		const { containerSizeRef } = usePipHook({ isPlayerReady });
+		usePipHook({ isPlayerReady });
 		const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
 
 		const reactClassNames = cx(reactPlayer, reactPlayerClassName);
@@ -83,10 +83,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 					<Player url={url} className={reactClassNames} />
 				</DraggablePopover>
 				{isPip && !isAudio && (
-					<MediaPoster
-						width={containerSizeRef?.current?.width || 0}
-						height={containerSizeRef?.current?.height || 0}
-					>
+					<MediaPoster width="100%" height="100%">
 						<div className={pipText}>{intl.get('media.playing_pip')}</div>
 					</MediaPoster>
 				)}

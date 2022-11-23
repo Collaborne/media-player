@@ -6,15 +6,11 @@ import shallow from 'zustand/shallow';
 import { useMediaStore } from '../../context/MediaProvider';
 import { useMediaListener } from '../../hooks/use-media-listener';
 import { PROGRESS_INTERVAL } from '../../utils/constants';
-import { getElementOffset } from '../../utils/html-elements';
-import { ContainerSizePosition } from '../draggable-popover/DraggablePopover';
 
 interface UsePipHookProps {
 	isPlayerReady: boolean;
 }
-interface UsePipHook {
-	containerSizeRef: React.MutableRefObject<ContainerSizePosition | undefined>;
-}
+interface UsePipHook {}
 
 /** Defines root margin when scrolling to bottom */
 const BOTTOM_ROOT_MARGIN = '48px';
@@ -70,21 +66,6 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	const entryBottom = useIntersection(mediaContainerRef, {});
 	const isVisibleFromScrollingBottom = Boolean(entryBottom?.isIntersecting);
 
-	const containerSizeRef = useRef<ContainerSizePosition>();
-
-	const calculateContainerSizes = useCallback(() => {
-		const width = mediaContainerRef?.current?.offsetWidth;
-		const height = mediaContainerRef?.current?.offsetHeight;
-		const rect = mediaContainerRef?.current
-			? getElementOffset(mediaContainerRef.current)
-			: undefined;
-		if (width && height && rect) {
-			containerSizeRef.current = { width, height, ...rect };
-		}
-		// Calculates only on mounting the MediaContainer and passes this size to <MediaPoster/>
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	// On wheel event - updating that pip isn't triggered by a click on pip icon button
 	// In this way we can evite overlapping of wheel vs click onPip
 	const onWheel = useCallback(() => {
@@ -139,7 +120,6 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	useMediaListener(
 		'pipEnter',
 		() => {
-			calculateContainerSizes();
 			setTimeout(() => {
 				setCurrentTime?.(currentTimeRef.current);
 			}, PROGRESS_INTERVAL - 1);
@@ -157,5 +137,5 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		listener,
 	);
 
-	return { containerSizeRef };
+	return {};
 };

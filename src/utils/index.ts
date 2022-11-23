@@ -2,7 +2,6 @@ export * from './array';
 export * from './colors';
 export * from './constants';
 export * from './highlights';
-export * from './html-elements';
 export * from './is-url-supported';
 export * from './media-utils';
 export * from './MultiplySymbol';
