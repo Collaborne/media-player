@@ -19,10 +19,11 @@ export const toTimestamp = (ms: number, short = true) => {
 	const min = minutes % 60;
 
 	if (hours) {
+		if (!short) {
+			return `${padTime(hours)}:${padTime(min)}:${padTime(sec)}`;
+		}
 		return `${hours}:${padTime(min)}:${padTime(sec)}`;
 	}
-	if (seconds >= 60 * 60) {
-		return `${padTime(min)}:${padTime(sec)}`;
-	}
+
 	return `${short ? min : padTime(min)}:${padTime(sec)}`;
 };
