@@ -1,16 +1,16 @@
 import { getPercentFromDuration } from '../highlights';
 
 describe('getPercentFromDuration', () => {
-	it('percentage with 0 values', () => {
+	it('returns 0% for file without duration', () => {
 		expect(getPercentFromDuration(0, 0)).toBe(0);
 	});
-	it('percentage for 0 mediaDuration', () => {
+	it('returns 0% at beginning of file', () => {
 		expect(getPercentFromDuration(10, 0)).toBe(0);
 	});
-	it('percentage from 100 media duration at 10t', () => {
+	it('returns percentage in middle of file', () => {
 		expect(getPercentFromDuration(10, 100)).toBe(10);
 	});
-	it('percentage for a 50 barDivider', () => {
+	it('returns absolute value if max range is provided', () => {
 		expect(getPercentFromDuration(10, 100, 50)).toBe(5);
 	});
 });
