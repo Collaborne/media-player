@@ -55,4 +55,5 @@ export function findNextConsecutiveIndex(
 			return startIndex;
 		}
 	}
+	return -1;
 }
