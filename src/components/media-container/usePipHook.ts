@@ -69,10 +69,9 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	// On wheel event - updating that pip isn't triggered by a click on pip icon button
 	// In this way we can evite overlapping of wheel vs click onPip
 	const onWheel = useCallback(() => {
-		if (!isVisibleFromScrollingBottom || !isVisibleFromScrollingTop) {
-			return setHasPipTriggeredByClick(false);
-		}
-		setHasPipTriggeredByClick(true);
+		const isInsideScrollingArea =
+			isVisibleFromScrollingBottom && isVisibleFromScrollingTop;
+		setHasPipTriggeredByClick(isInsideScrollingArea);
 	}, [
 		isVisibleFromScrollingBottom,
 		isVisibleFromScrollingTop,
