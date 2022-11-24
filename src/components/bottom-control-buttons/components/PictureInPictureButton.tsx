@@ -24,13 +24,19 @@ export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
 	...props
 }) => {
 	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
-	const [isPip, exitPip, requestPip] = useMediaStore(
-		state => [state.isPip, state.exitPip, state.requestPip],
+	const [isPip, exitPip, requestPip, setHasPipTriggeredByClick] = useMediaStore(
+		state => [
+			state.isPip,
+			state.exitPip,
+			state.requestPip,
+			state.setHasPipTriggeredByClick,
+		],
 		shallow,
 	);
 
 	const togglePip = () => {
 		if (isPip) {
+			setHasPipTriggeredByClick(true);
 			return exitPip();
 		}
 		return requestPip();

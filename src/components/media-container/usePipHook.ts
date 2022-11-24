@@ -70,8 +70,9 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	// In this way we can evite overlapping of wheel vs click onPip
 	const onWheel = useCallback(() => {
 		if (!isVisibleFromScrollingBottom || !isVisibleFromScrollingTop) {
-			setHasPipTriggeredByClick(false);
+			return setHasPipTriggeredByClick(false);
 		}
+		setHasPipTriggeredByClick(true);
 	}, [
 		isVisibleFromScrollingBottom,
 		isVisibleFromScrollingTop,
