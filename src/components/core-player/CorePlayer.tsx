@@ -6,7 +6,6 @@ import {
 } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
 import { FC, ReactNode } from 'react';
-import { useScrollbarWidth } from 'react-use';
 
 import { MediaProvider } from '../../context/MediaProvider';
 import { PIPContextProvider } from '../../context/PIPControlsProvider';
@@ -21,8 +20,8 @@ import { ExternalStateUpdater } from './components/ExternalStateUpdater';
 import { CorePlayerInitialState, PROVIDER_INITIAL_STATE } from './types';
 import { useCorePlayerHook } from './useCorePlayerHook';
 
-/** In case if width is not provided for browsers scrollbar, this constant will be used */
-const SCROLLBAR_WIDTH = 16;
+/** Default positioning on X and Y axis of PIP player */
+const DEFAULT_AXIS_DISTANCE = 16;
 
 export interface CorePlayerProps {
 	/** The url of the media file to be played */
@@ -83,7 +82,6 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
 	const { classes, cx } = useFilePlayerStyles({ isAudio });
 	const classNames = cx(classes.wrapper, className);
-	const scrollbarWidth = useScrollbarWidth();
 
 	return (
 		<ThemeProvider theme={nestedThemes}>
@@ -108,8 +106,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 							className={classNames}
 							url={url}
 							audioPlaceholder={audioPlaceholder}
-							xAxisDistance={xAxisDistance ?? scrollbarWidth ?? SCROLLBAR_WIDTH}
-							yAxisDistance={yAxisDistance ?? scrollbarWidth ?? SCROLLBAR_WIDTH}
+							xAxisDistance={xAxisDistance ?? DEFAULT_AXIS_DISTANCE}
+							yAxisDistance={yAxisDistance ?? DEFAULT_AXIS_DISTANCE}
 							reactPlayerClassName={reactPlayerClassName}
 						>
 							{children}

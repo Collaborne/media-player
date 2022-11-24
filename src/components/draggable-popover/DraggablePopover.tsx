@@ -48,7 +48,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		const { PIPControls } = usePipControlsContext();
 		const isAudio = useIsAudio();
 		const isPip = useMediaStore(state => state.isPip);
-		const { defaultPosition, defaultWidth, enableResizing } =
+		const { dimensions, enableResizing, handleDragStop, handleResizeStop } =
 			useDraggablePopoverHook({
 				disablePortal: props.disablePortal,
 				xAxisDistance,
@@ -71,10 +71,6 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 				<div className={portalWrapper} data-testid={dataTestId}>
 					<Rnd
 						bounds="parent"
-						default={{
-							...defaultPosition,
-							...defaultWidth,
-						}}
 						disableDragging={props.disablePortal}
 						enableResizing={enableResizing}
 						lockAspectRatio
@@ -88,6 +84,10 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 						{...rndProps}
 						minWidth={241}
 						minHeight={146}
+						onDragStop={handleDragStop}
+						onResizeStop={handleResizeStop}
+						size={{ height: dimensions.height, width: dimensions.width }}
+						position={{ x: dimensions.x, y: dimensions.y }}
 					>
 						<Paper
 							elevation={0}
