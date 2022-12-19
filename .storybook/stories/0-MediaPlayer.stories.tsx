@@ -16,12 +16,11 @@ const useStyles = makeStyles()(theme => ({
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: theme.spacing(60),
 		position: 'fixed',
 		bottom: 0,
 		left: 0,
 		width: '100%',
-		height: theme.spacing(30),
+		height: theme.spacing(20),
 	},
 	pipLayout: {
 		position: 'absolute',
@@ -47,7 +46,6 @@ export const PIPModifiers: Story<MediaPlayerProps> = args => {
 
 	const { classes } = useStyles();
 
-	console.log(node);
 	return (
 		<div className={classes.wrapper}>
 			<MediaPlayer

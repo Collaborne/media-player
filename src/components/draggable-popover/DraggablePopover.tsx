@@ -57,6 +57,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 				disablePortal: props.disablePortal,
 				xAxisDistance,
 				yAxisDistance,
+				pipContainer: props.container,
 			});
 		const { onMouseEnter, onMouseLeave, onMouseMove } =
 			usePipMouseActivityHook();
@@ -69,7 +70,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			isAudio,
 			isPip,
 		});
-
+		console.log(props.container);
 		return (
 			<Portal {...props}>
 				<div

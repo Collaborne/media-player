@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
 	Position,
 	ResizeEnable,
 	RndDragCallback,
 	RndResizeCallback,
 } from 'react-rnd';
-import { usePrevious, useScrollbarWidth } from 'react-use';
+import { usePrevious, useScrollbarWidth, useSize } from 'react-use';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
+import { isHTMLElement } from '../../utils';
 import { DEFAULT_PIP_SIZE } from '../../utils/constants';
 import { MediaContainerProps } from '../media-container/MediaContainer';
 
@@ -16,7 +17,10 @@ export type Size = {
 	height: string | number;
 };
 interface UseDraggablePopoverHookProps
-	extends Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'> {
+	extends Pick<
+		MediaContainerProps,
+		'xAxisDistance' | 'yAxisDistance' | 'pipContainer'
+	> {
 	disablePortal?: boolean;
 }
 
@@ -46,9 +50,21 @@ export const useDraggablePopoverHook = ({
 	disablePortal,
 	xAxisDistance,
 	yAxisDistance,
+	pipContainer,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
 	// DraggablePopover DnD params:
 	const windowSize = useWindowSize();
+
+	const containerSize = useMemo(() => {
+		if (isHTMLElement(pipContainer)) {
+			return {
+				width: pipContainer.offsetWidth,
+				height: pipContainer.offsetHeight,
+			};
+		}
+		return undefined;
+	}, [pipContainer]);
+
 	const prevWindowSize = usePrevious(windowSize);
 	const scrollbarWidth = useScrollbarWidth() ?? SCROLLBAR_WIDTH;
 
@@ -65,8 +81,8 @@ export const useDraggablePopoverHook = ({
 			return setDimensions({
 				width: DEFAULT_PIP_SIZE.width,
 				height: DEFAULT_PIP_SIZE.height,
-				y: (windowSize?.height || vh) - pipPlayerHight,
-				x: (windowSize?.width || vw) - pipPlayerWidth,
+				y: (containerSize?.height || windowSize?.height || vh) - pipPlayerHight,
+				x: (containerSize?.width || windowSize?.width || vw) - pipPlayerWidth,
 			});
 		}
 
