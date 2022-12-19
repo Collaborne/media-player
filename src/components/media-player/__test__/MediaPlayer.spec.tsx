@@ -8,6 +8,7 @@ import {
 	BOTTOM_CONTROL_BUTTONS,
 	CENTERED_BOTTOM_PLAYBACK,
 	CENTERED_PLAY_BUTTON,
+	CONTROLS,
 	DEFAULT_EVENT_ANIMATION_DURATION,
 	DRAGGABLE_POPOVER,
 	FULLSCREEN_BUTTON,
@@ -373,6 +374,22 @@ describe('<MediaPlayer>', () => {
 			// exit fullscreen
 			await userEvent.click(getByTestId(FULLSCREEN_BUTTON));
 			expect(mediaStore.isFullscreen).toBeFalsy();
+		});
+		describe('audio player', () => {
+			it('controls visible on unhovering the audio player', async () => {
+				const { getByTestId } = setupMediaPlayer(AUDIO_URL);
+				// wait 1 ms to mount state and load initial data
+				await act(async () => await sleep(1));
+
+				const playBtn = getByTestId(PLAY_PAUSE_REPLAY);
+				await userEvent.click(playBtn);
+				const controls = getByTestId(CONTROLS);
+				expect(controls).toBeInTheDocument();
+
+				const mediaContainer = getByTestId(MEDIA_CONTAINER);
+				await userEvent.unhover(mediaContainer);
+				expect(controls).toBeInTheDocument();
+			});
 		});
 	});
 });

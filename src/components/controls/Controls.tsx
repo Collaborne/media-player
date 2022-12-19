@@ -22,13 +22,14 @@ export const Controls: FC<ControlProps> = ({
 	'data-testid': dataTestId = CONTROLS,
 }) => {
 	const showControls = useMediaStore(state => state.showControls);
+	const isAudio = useMediaStore(state => state.isAudio);
 
 	// Controls styles
 	const { classes, cx } = useControlsStyles();
 	const classNameControls = cx(classes.controls, className);
 
 	// Only <ProgressBar/> should be present if Controls components are not shown
-	if (!showControls) {
+	if (!showControls && !isAudio) {
 		return null;
 	}
 
