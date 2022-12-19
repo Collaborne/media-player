@@ -1,3 +1,4 @@
+import { PortalProps } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import {
 	StyledEngineProvider,
@@ -53,6 +54,10 @@ export interface CorePlayerProps {
 	yAxisDistance?: number;
 	/** <video /> tags wrapper className */
 	reactPlayerClassName?: string;
+	/** Container where PIP player will be inserted to */
+	pipContainer?: PortalProps['container'];
+	/** ClassName for pip container where PIP player layout belongs too */
+	pipPortalClassName?: string;
 }
 
 /**
@@ -76,6 +81,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	xAxisDistance,
 	yAxisDistance,
 	reactPlayerClassName,
+	pipContainer,
+	pipPortalClassName,
 }) => {
 	const { mediaType } = useCorePlayerHook({ url, initialMediaType });
 	const isAudio = mediaType === 'audio';
@@ -109,6 +116,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 							xAxisDistance={xAxisDistance ?? DEFAULT_AXIS_DISTANCE}
 							yAxisDistance={yAxisDistance ?? DEFAULT_AXIS_DISTANCE}
 							reactPlayerClassName={reactPlayerClassName}
+							pipContainer={pipContainer}
+							pipPortalClassName={pipPortalClassName}
 						>
 							{children}
 						</MediaContainer>

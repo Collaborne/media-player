@@ -22,7 +22,10 @@ export type ContainerSizePosition = {
 };
 export interface DraggablePopoverProps
 	extends PortalProps,
-		Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'> {
+		Pick<
+			MediaContainerProps,
+			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName'
+		> {
 	rndProps?: RndProps;
 	className?: string;
 	audioPlaceholder?: string;
@@ -43,6 +46,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		xAxisDistance,
 		yAxisDistance,
 		'data-testid': dataTestId = DRAGGABLE_POPOVER,
+		pipPortalClassName,
 		...props
 	}) => {
 		const { PIPControls } = usePipControlsContext();
@@ -68,7 +72,10 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 
 		return (
 			<Portal {...props}>
-				<div className={portalWrapper} data-testid={dataTestId}>
+				<div
+					className={cx(portalWrapper, pipPortalClassName)}
+					data-testid={dataTestId}
+				>
 					<Rnd
 						bounds="parent"
 						disableDragging={props.disablePortal}
