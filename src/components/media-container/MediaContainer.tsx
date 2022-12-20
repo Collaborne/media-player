@@ -83,7 +83,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 					audioPlaceholder={audioPlaceholder}
 					xAxisDistance={xAxisDistance}
 					yAxisDistance={yAxisDistance}
-					container={pipContainer}
+					pipContainer={pipContainer}
 					pipPortalClassName={pipPortalClassName}
 				>
 					<Player url={url} className={reactClassNames} />

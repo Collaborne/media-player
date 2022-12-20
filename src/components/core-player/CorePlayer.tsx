@@ -1,4 +1,3 @@
-import { PortalProps } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import {
 	StyledEngineProvider,
@@ -6,7 +5,7 @@ import {
 	ThemeProvider,
 } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, RefObject } from 'react';
 
 import { MediaProvider } from '../../context/MediaProvider';
 import { PIPContextProvider } from '../../context/PIPControlsProvider';
@@ -54,8 +53,8 @@ export interface CorePlayerProps {
 	yAxisDistance?: number;
 	/** <video /> tags wrapper className */
 	reactPlayerClassName?: string;
-	/** Container where PIP player will be inserted to */
-	pipContainer?: PortalProps['container'];
+	/** Container where PIP player will be mounted By default PIP player is added as a child of document.body */
+	pipContainer?: RefObject<HTMLElement>;
 	/** ClassName for pip container where PIP player layout belongs too */
 	pipPortalClassName?: string;
 }

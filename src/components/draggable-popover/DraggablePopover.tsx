@@ -1,6 +1,7 @@
 import Paper from '@mui/material/Paper';
 import Portal, { PortalProps } from '@mui/material/Portal';
-import { FC, memo } from 'react';
+import { isElement } from 'lodash';
+import { FC, memo, useRef } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
 import { useMediaStore } from '../../context';
@@ -24,7 +25,7 @@ export interface DraggablePopoverProps
 	extends PortalProps,
 		Pick<
 			MediaContainerProps,
-			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName'
+			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName' | 'pipContainer'
 		> {
 	rndProps?: RndProps;
 	className?: string;
@@ -47,18 +48,27 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		yAxisDistance,
 		'data-testid': dataTestId = DRAGGABLE_POPOVER,
 		pipPortalClassName,
+		pipContainer,
 		...props
 	}) => {
 		const { PIPControls } = usePipControlsContext();
+
+		const pipPortalRef = useRef<HTMLDivElement>(null);
 		const isAudio = useIsAudio();
 		const isPip = useMediaStore(state => state.isPip);
-		const { dimensions, enableResizing, handleDragStop, handleResizeStop } =
-			useDraggablePopoverHook({
-				disablePortal: props.disablePortal,
-				xAxisDistance,
-				yAxisDistance,
-				pipContainer: props.container,
-			});
+		const {
+			dimensions,
+			enableResizing,
+			handleDragStop,
+			handleResizeStop,
+			portalWrapperRef,
+			isPipPositioning,
+		} = useDraggablePopoverHook({
+			disablePortal: props.disablePortal,
+			xAxisDistance,
+			yAxisDistance,
+			pipPortalRef,
+		});
 		const { onMouseEnter, onMouseLeave, onMouseMove } =
 			usePipMouseActivityHook();
 
@@ -70,55 +80,60 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			isAudio,
 			isPip,
 		});
-		console.log(props.container);
+
 		return (
-			<Portal {...props}>
+			<Portal container={pipContainer?.current} {...props}>
 				<div
 					className={cx(portalWrapper, pipPortalClassName)}
 					data-testid={dataTestId}
+					ref={el => {
+						isElement(el) && el !== null && portalWrapperRef(el);
+					}}
 				>
-					<Rnd
-						bounds="parent"
-						disableDragging={props.disablePortal}
-						enableResizing={enableResizing}
-						lockAspectRatio
-						allowAnyClick
-						resizeHandleClasses={{
-							topLeft: resizeSquares,
-							topRight: resizeSquares,
-							bottomLeft: resizeSquares,
-							bottomRight: resizeSquares,
-						}}
-						{...rndProps}
-						minWidth={241}
-						minHeight={146}
-						onDragStop={handleDragStop}
-						onResizeStop={handleResizeStop}
-						size={{ height: dimensions.height, width: dimensions.width }}
-						position={{ x: dimensions.x, y: dimensions.y }}
-					>
-						<Paper
-							elevation={0}
-							className={cx(paper, className)}
-							onMouseMove={onMouseMove}
-							onMouseLeave={onMouseLeave}
-							onMouseEnter={onMouseEnter}
+					{!isPipPositioning && (
+						<Rnd
+							bounds="parent"
+							disableDragging={props.disablePortal}
+							enableResizing={enableResizing}
+							lockAspectRatio
+							allowAnyClick
+							resizeHandleClasses={{
+								topLeft: resizeSquares,
+								topRight: resizeSquares,
+								bottomLeft: resizeSquares,
+								bottomRight: resizeSquares,
+							}}
+							{...rndProps}
+							minWidth={241}
+							minHeight={146}
+							onDragStop={handleDragStop}
+							onResizeStop={handleResizeStop}
+							size={{ height: dimensions.height, width: dimensions.width }}
+							position={{ x: dimensions.x, y: dimensions.y }}
 						>
-							{children}
-							{!props.disablePortal && (
-								<>
-									{isAudio && (
-										<MediaPoster
-											img={audioPlaceholder}
-											width="100%"
-											height="100%"
-										/>
-									)}
-									<PIPControls />
-								</>
-							)}
-						</Paper>
-					</Rnd>
+							<Paper
+								elevation={0}
+								className={cx(paper, className)}
+								onMouseMove={onMouseMove}
+								onMouseLeave={onMouseLeave}
+								onMouseEnter={onMouseEnter}
+							>
+								{children}
+								{!props.disablePortal && (
+									<>
+										{isAudio && (
+											<MediaPoster
+												img={audioPlaceholder}
+												width="100%"
+												height="100%"
+											/>
+										)}
+										<PIPControls />
+									</>
+								)}
+							</Paper>
+						</Rnd>
+					)}
 				</div>
 			</Portal>
 		);

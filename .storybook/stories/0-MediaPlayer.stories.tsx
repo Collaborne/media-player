@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 import { Meta, Story } from '@storybook/react';
 import * as React from 'react';
 import { makeStyles } from 'tss-react/mui';
@@ -17,10 +17,10 @@ const useStyles = makeStyles()(theme => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 		position: 'fixed',
-		bottom: 0,
-		left: 0,
-		width: '100%',
-		height: theme.spacing(20),
+		bottom: theme.spacing(1),
+		left: theme.spacing(1),
+		width: `calc(100% - ${theme.spacing(2)})`,
+		height: theme.spacing(30),
 	},
 	pipLayout: {
 		position: 'absolute',
@@ -42,22 +42,17 @@ export const Basic: Story<MediaPlayerProps> = args => {
 };
 
 export const PIPModifiers: Story<MediaPlayerProps> = args => {
-	const [node, setNode] = React.useState<HTMLDivElement | null>(null);
-
+	const pipContainer = React.useRef<HTMLDivElement>(null);
 	const { classes } = useStyles();
 
 	return (
 		<div className={classes.wrapper}>
 			<MediaPlayer
-				pipContainer={node}
+				pipContainer={pipContainer}
 				pipPortalClassName={classes.pipLayout}
 				{...args}
 			/>
-			<Paper
-				elevation={3}
-				ref={node => setNode(node)}
-				className={classes.pipContainer}
-			>
+			<Paper elevation={3} ref={pipContainer} className={classes.pipContainer}>
 				PIP can be dragged only here
 			</Paper>
 		</div>
@@ -70,8 +65,8 @@ export default {
 	args: {
 		url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
 		mediaType: undefined,
-		xAxisDistance: 16,
-		yAxisDistance: 16,
+		xAxisDistance: 0,
+		yAxisDistance: 0,
 	},
 	argTypes: {
 		url: {

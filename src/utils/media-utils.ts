@@ -19,8 +19,8 @@ export const getMediaEl = (state: MediaStore): HTMLMediaElement | undefined => {
 };
 
 /**
- * HTMLElement typeguard
+ * Element typeguard
  */
 
-export const isHTMLElement = (obj: unknown): obj is HTMLElement =>
-	obj instanceof HTMLElement;
+export const isElement = (obj: unknown): obj is Element =>
+	obj instanceof Element;
