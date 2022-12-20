@@ -5,7 +5,7 @@ import {
 	ThemeProvider,
 } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, RefObject } from 'react';
 
 import { MediaProvider } from '../../context/MediaProvider';
 import { PIPContextProvider } from '../../context/PIPControlsProvider';
@@ -53,6 +53,10 @@ export interface CorePlayerProps {
 	yAxisDistance?: number;
 	/** <video /> tags wrapper className */
 	reactPlayerClassName?: string;
+	/** Container where PIP player will be mounted By default PIP player is added as a child of document.body */
+	pipContainer?: RefObject<HTMLElement>;
+	/** ClassName for pip container where PIP player layout belongs too */
+	pipPortalClassName?: string;
 }
 
 /**
@@ -76,6 +80,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 	xAxisDistance,
 	yAxisDistance,
 	reactPlayerClassName,
+	pipContainer,
+	pipPortalClassName,
 }) => {
 	const { mediaType } = useCorePlayerHook({ url, initialMediaType });
 	const isAudio = mediaType === 'audio';
@@ -109,6 +115,8 @@ export const CorePlayer: FC<CorePlayerProps> = ({
 							xAxisDistance={xAxisDistance ?? DEFAULT_AXIS_DISTANCE}
 							yAxisDistance={yAxisDistance ?? DEFAULT_AXIS_DISTANCE}
 							reactPlayerClassName={reactPlayerClassName}
+							pipContainer={pipContainer}
+							pipPortalClassName={pipPortalClassName}
 						>
 							{children}
 						</MediaContainer>

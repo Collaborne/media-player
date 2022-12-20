@@ -23,6 +23,8 @@ export interface MediaContainerProps
 		| 'url'
 		| 'className'
 		| 'reactPlayerClassName'
+		| 'pipContainer'
+		| 'pipPortalClassName'
 	> {
 	xAxisDistance: number;
 	yAxisDistance: number;
@@ -41,6 +43,8 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		yAxisDistance,
 		audioPlaceholder,
 		reactPlayerClassName,
+		pipContainer,
+		pipPortalClassName,
 	}) => {
 		const isAudio = useIsAudio();
 		const [mediaContainerRef, isPip] = useMediaStore(
@@ -79,6 +83,8 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 					audioPlaceholder={audioPlaceholder}
 					xAxisDistance={xAxisDistance}
 					yAxisDistance={yAxisDistance}
+					pipContainer={pipContainer}
+					pipPortalClassName={pipPortalClassName}
 				>
 					<Player url={url} className={reactClassNames} />
 				</DraggablePopover>
