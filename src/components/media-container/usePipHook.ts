@@ -1,5 +1,4 @@
-import { throttle } from 'lodash';
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useIntersection from 'react-use/lib/useIntersection';
 import shallow from 'zustand/shallow';
 
@@ -12,11 +11,6 @@ interface UsePipHookProps {
 }
 interface UsePipHook {}
 
-/** Defines root margin when scrolling to bottom */
-const BOTTOM_ROOT_MARGIN = '48px';
-
-/**  A const for throttling onWheel event in ms */
-const WHEEL_THROTTLE = 1000;
 /** Bind Picture-in-Picture logic to the `<MediaContainer/>`. */
 export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	const [
@@ -57,31 +51,17 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	);
 
 	// Checks if media container is in viewport when scrolling bottom
-	const entryTop = useIntersection(mediaContainerRef, {
-		rootMargin: BOTTOM_ROOT_MARGIN,
+	const intersectionObservable = useIntersection(mediaContainerRef, {
+		threshold: 0.1,
 	});
-	const isVisibleFromScrollingTop = Boolean(entryTop?.isIntersecting);
 
-	// Checks if media container is in viewport when scrolling top
-	const entryBottom = useIntersection(mediaContainerRef, {});
-	const isVisibleFromScrollingBottom = Boolean(entryBottom?.isIntersecting);
+	const isVisible = Boolean(intersectionObservable?.isIntersecting);
 
-	// On wheel event - updating that pip isn't triggered by a click on pip icon button
-	// In this way we can evite overlapping of wheel vs click onPip
-	const onWheel = useCallback(() => {
-		const isInsideScrollingArea =
-			isVisibleFromScrollingBottom && isVisibleFromScrollingTop;
-		setHasPipTriggeredByClick(isInsideScrollingArea);
-	}, [
-		isVisibleFromScrollingBottom,
-		isVisibleFromScrollingTop,
-		setHasPipTriggeredByClick,
-	]);
+	// If we have called PIP events via click, refresh hasPipTriggeredByClick
+	// eg: triggering PIP by click, being in viewport wont overlap events
 	useEffect(() => {
-		const onWheelThrottled = throttle(onWheel, WHEEL_THROTTLE);
-		document.body.addEventListener('wheel', onWheelThrottled);
-		return () => document.body.removeEventListener('wheel', onWheelThrottled);
-	}, [onWheel]);
+		setHasPipTriggeredByClick(isVisible);
+	}, [isVisible, setHasPipTriggeredByClick]);
 
 	// If the player is mounted, ready and isPlaying then display/hide pip player
 	useEffect(() => {
@@ -93,12 +73,12 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		if (!isPlaying || !isPlayerReady || !mediaEl) {
 			return;
 		}
-		if (!isPip && !isVisibleFromScrollingTop) {
+		if (!isPip && !isVisible) {
 			// New MediaStore context wont be ready to be passed into PIP mode(it will be again initialized),
 			// so need to await all processes via creating a macrotask
 			setTimeout(requestPip, 1);
 		}
-		if (isPip && isVisibleFromScrollingBottom) {
+		if (isPip && isVisible) {
 			// New MediaStore context wont be ready to be passed into PIP mode(it will be again initialized),
 			// so need to await all processes via creating a macrotask
 			setTimeout(exitPip, 1);
@@ -106,8 +86,7 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 	}, [
 		isPlayerReady,
 		isPlaying,
-		isVisibleFromScrollingTop,
-		isVisibleFromScrollingBottom,
+		isVisible,
 		reactPlayerRef,
 		isPip,
 		hasPipTriggeredByClick,

@@ -30,6 +30,9 @@ export const useDraggablePopoverStyles =
 						borderRadius: theme.spacing(0.5),
 					}),
 			},
+			paperPositioning: {
+				display: 'none',
+			},
 			portalWrapper: {
 				height: isExpanded ? '100%' : `calc(100% - ${theme.spacing(4)})`,
 				width: isExpanded ? '100%' : `calc(100% - ${theme.spacing(4)})`,
