@@ -55,12 +55,14 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		threshold: 0.1,
 	});
 
-	const isVisible = Boolean(intersectionObservable?.isIntersecting);
+	const isVisible = intersectionObservable?.isIntersecting;
 
 	// If we have called PIP events via click, refresh hasPipTriggeredByClick
 	// eg: triggering PIP by click, being in viewport wont overlap events
 	useEffect(() => {
-		setHasPipTriggeredByClick(isVisible);
+		if (isVisible !== undefined) {
+			setHasPipTriggeredByClick(isVisible);
+		}
 	}, [isVisible, setHasPipTriggeredByClick]);
 
 	// If the player is mounted, ready and isPlaying then display/hide pip player
