@@ -10,6 +10,7 @@ interface UsePipHookProps {
 	isPlayerReady: boolean;
 }
 interface UsePipHook {}
+const ROOT_MARGIN = '-48px 0px -0px 0px';
 
 /** Bind Picture-in-Picture logic to the `<MediaContainer/>`. */
 export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
@@ -52,7 +53,8 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 
 	// Checks if media container is in viewport when scrolling bottom
 	const intersectionObservable = useIntersection(mediaContainerRef, {
-		threshold: 0.1,
+		rootMargin: ROOT_MARGIN,
+		threshold: 0,
 	});
 
 	const isVisible = intersectionObservable?.isIntersecting;
