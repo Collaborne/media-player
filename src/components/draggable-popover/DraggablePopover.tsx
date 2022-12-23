@@ -73,7 +73,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			usePipMouseActivityHook();
 
 		const {
-			classes: { paper, portalWrapper, resizeSquares },
+			classes: { paper, portalWrapper, resizeSquares, paperPositioning },
 			cx,
 		} = useDraggablePopoverStyles({
 			isExpanded: Boolean(props.disablePortal),
@@ -90,50 +90,50 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 						isElement(el) && el !== null && portalWrapperRef(el);
 					}}
 				>
-					{!isPipPositioning && (
-						<Rnd
-							bounds="parent"
-							disableDragging={props.disablePortal}
-							enableResizing={enableResizing}
-							lockAspectRatio
-							allowAnyClick
-							resizeHandleClasses={{
-								topLeft: resizeSquares,
-								topRight: resizeSquares,
-								bottomLeft: resizeSquares,
-								bottomRight: resizeSquares,
-							}}
-							{...rndProps}
-							minWidth={241}
-							minHeight={146}
-							onDragStop={handleDragStop}
-							onResizeStop={handleResizeStop}
-							size={{ height: dimensions.height, width: dimensions.width }}
-							position={{ x: dimensions.x, y: dimensions.y }}
+					<Rnd
+						bounds="parent"
+						disableDragging={props.disablePortal}
+						enableResizing={enableResizing}
+						lockAspectRatio
+						allowAnyClick
+						resizeHandleClasses={{
+							topLeft: resizeSquares,
+							topRight: resizeSquares,
+							bottomLeft: resizeSquares,
+							bottomRight: resizeSquares,
+						}}
+						{...rndProps}
+						minWidth={241}
+						minHeight={146}
+						onDragStop={handleDragStop}
+						onResizeStop={handleResizeStop}
+						size={{ height: dimensions.height, width: dimensions.width }}
+						position={{ x: dimensions.x, y: dimensions.y }}
+					>
+						<Paper
+							elevation={0}
+							className={cx(paper, className, {
+								[paperPositioning]: isPipPositioning,
+							})}
+							onMouseMove={onMouseMove}
+							onMouseLeave={onMouseLeave}
+							onMouseEnter={onMouseEnter}
 						>
-							<Paper
-								elevation={0}
-								className={cx(paper, className)}
-								onMouseMove={onMouseMove}
-								onMouseLeave={onMouseLeave}
-								onMouseEnter={onMouseEnter}
-							>
-								{children}
-								{!props.disablePortal && (
-									<>
-										{isAudio && (
-											<MediaPoster
-												img={audioPlaceholder}
-												width="100%"
-												height="100%"
-											/>
-										)}
-										<PIPControls />
-									</>
-								)}
-							</Paper>
-						</Rnd>
-					)}
+							{children}
+							{!props.disablePortal && (
+								<>
+									{isAudio && (
+										<MediaPoster
+											img={audioPlaceholder}
+											width="100%"
+											height="100%"
+										/>
+									)}
+									<PIPControls />
+								</>
+							)}
+						</Paper>
+					</Rnd>
 				</div>
 			</Portal>
 		);
