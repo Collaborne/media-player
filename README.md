@@ -1,3 +1,5 @@
+TEST
+
 # Media Player
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/collaborne/media-player)
