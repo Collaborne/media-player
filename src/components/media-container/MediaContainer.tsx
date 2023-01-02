@@ -14,6 +14,7 @@ import { useIsPlayerReadyHook } from './useIsPlayerReadyHook';
 import { useMediaContainerStyles } from './useMediaContainerStyles';
 import { useMouseActivityHook } from './useMouseActivityHook';
 import { usePipHook } from './usePipHook';
+import { useReactPlayerProps } from './useReactPlayerProps';
 
 export interface MediaContainerProps
 	extends Pick<
@@ -47,7 +48,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		pipPortalClassName,
 	}) => {
 		const isAudio = useIsAudio();
-		const [mediaContainerRef, isPip] = useMediaStore(
+		const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(
 			state => [state.mediaContainerRef, state.isPip, state.isFullscreen],
 			shallow,
 		);
@@ -61,7 +62,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		const { isPlayerReady } = useIsPlayerReadyHook({ url });
 		usePipHook({ isPlayerReady });
 		const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
-
+		const { reactPlayerProps } = useReactPlayerProps();
 		const reactClassNames = cx(reactPlayer, reactPlayerClassName);
 
 		// TODO: Add a UI/UX decision when player is not ready
@@ -79,14 +80,18 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 				data-testid={MEDIA_CONTAINER}
 			>
 				<DraggablePopover
-					disablePortal={!isPip}
 					audioPlaceholder={audioPlaceholder}
 					xAxisDistance={xAxisDistance}
 					yAxisDistance={yAxisDistance}
 					pipContainer={pipContainer}
 					pipPortalClassName={pipPortalClassName}
 				>
-					<Player url={url} className={reactClassNames} />
+					<Player
+						url={url}
+						className={reactClassNames}
+						isFullscreen={isFullscreen}
+						reactPlayerProps={reactPlayerProps}
+					/>
 				</DraggablePopover>
 				{isPip && !isAudio && (
 					<MediaPoster width="100%" height="100%">

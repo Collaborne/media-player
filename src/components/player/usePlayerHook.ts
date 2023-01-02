@@ -4,79 +4,50 @@ import useUnmount from 'react-use/lib/useUnmount';
 import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
-import { ReactPlayerProps } from '../../types';
+import { useMediaListener } from '../../hooks/use-media-listener';
 
-interface UseReactPlayerHookProps {
+interface UsePlayerHookProps {
 	url: string;
 }
-interface UseReactPlayerHook {
-	reactPlayerProps: ReactPlayerProps;
-}
-export const useReactPlayerHook = ({
-	url,
-}: UseReactPlayerHookProps): UseReactPlayerHook => {
-	const readyFiredRef = useRef(false);
+
+export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 	const hasAutoplayedRef = useRef(false);
 	const [
 		reactPlayerRef,
 		mediaContainerRef,
 		initialState,
-		playbackRate,
 		isPlaying,
-		isMuted,
-		volume,
 		emitter,
-		setReady,
-		setDuration,
-		onProgress,
 		onPause,
 		setCurrentTime,
 		isPip,
 		onPlay,
+		getListener,
 	] = useMediaStore(
 		state => [
 			state.reactPlayerRef,
 			state.mediaContainerRef,
 			state.initialState,
-			state.playbackRate,
 			state.isPlaying,
-			state.isMuted,
-			state.volume,
 			state.emitter,
-			state._setReady,
-			state.setDuration,
-			state._handleProgress,
 			state.pause,
 			state.setCurrentTime,
 			state.isPip,
 			state.play,
+			state.getListener,
 		],
 		shallow,
 	);
 
-	const reactPlayerProps: ReactPlayerProps = {
-		autoPlay: initialState.isPlaying,
-		playsinline: true,
-		playbackRate,
-		playing: isPlaying,
-		muted: isMuted,
-		volume,
-		ref: reactPlayerRef,
-		onReady: () => {
-			emitter.emit('ready');
-			if (!readyFiredRef?.current) {
-				emitter.emit('firstReady');
-				readyFiredRef.current = true;
-			}
-			setReady();
-		},
-		onEnded: () => emitter.emit('ended'),
-		onDuration: duration => {
-			emitter.emit('durationchange', { duration });
-			setDuration(duration);
-		},
-		onProgress: ({ playedSeconds }) => onProgress(playedSeconds),
-	};
+	const listener = getListener();
+	// Store currentTime into a ref, to avoid rerenders
+	const currentTimeRef = useRef(0);
+
+	useMediaListener(
+		'timeupdate',
+		e => (currentTimeRef.current = e.seconds),
+		listener,
+	);
 
 	// Force a ready event for safari when the media has been loaded
 	useEffect(() => {
@@ -185,7 +156,6 @@ export const useReactPlayerHook = ({
 		};
 	}, [reactPlayerRef, togglePlay]);
 
-	return {
-		reactPlayerProps,
-	};
+	useUnmount(() => setCurrentTime(currentTimeRef.current));
+	return {};
 };

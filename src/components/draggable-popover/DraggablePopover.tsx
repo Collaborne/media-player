@@ -1,11 +1,11 @@
 import Paper from '@mui/material/Paper';
 import Portal, { PortalProps } from '@mui/material/Portal';
 import { isElement } from 'lodash';
-import { FC, memo, useRef } from 'react';
+import { FC, memo, useRef, useState } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
 import { useMediaStore } from '../../context';
-import { useIsAudio } from '../../hooks';
+import { useIsAudio, useMediaListener } from '../../hooks';
 import { usePipControlsContext } from '../../hooks/use-pip-controls-context';
 import { DRAGGABLE_POPOVER } from '../../utils';
 import { MediaContainerProps } from '../media-container/MediaContainer';
@@ -22,7 +22,7 @@ export type ContainerSizePosition = {
 	top: number;
 };
 export interface DraggablePopoverProps
-	extends PortalProps,
+	extends Omit<PortalProps, 'disablePortal'>,
 		Pick<
 			MediaContainerProps,
 			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName' | 'pipContainer'
@@ -56,6 +56,21 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		const pipPortalRef = useRef<HTMLDivElement>(null);
 		const isAudio = useIsAudio();
 		const isPip = useMediaStore(state => state.isPip);
+		const getListener = useMediaStore(state => state.getListener);
+
+		const [isDisabledPortal, setIsDisabledPortal] = useState(false);
+
+		useMediaListener(
+			'firstReady',
+			() => setIsDisabledPortal(true),
+			getListener(),
+		);
+		useMediaListener(
+			'pipEnter',
+			() => setIsDisabledPortal(false),
+			getListener(),
+		);
+		useMediaListener('pipExit', () => setIsDisabledPortal(true), getListener());
 		const {
 			dimensions,
 			enableResizing,
@@ -64,7 +79,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			portalWrapperRef,
 			isPipPositioning,
 		} = useDraggablePopoverHook({
-			disablePortal: props.disablePortal,
+			disablePortal: isDisabledPortal,
 			xAxisDistance,
 			yAxisDistance,
 			pipPortalRef,
@@ -76,13 +91,17 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			classes: { paper, portalWrapper, resizeSquares, paperPositioning },
 			cx,
 		} = useDraggablePopoverStyles({
-			isExpanded: Boolean(props.disablePortal),
+			isExpanded: isDisabledPortal,
 			isAudio,
 			isPip,
 		});
 
 		return (
-			<Portal container={pipContainer?.current} {...props}>
+			<Portal
+				disablePortal={isDisabledPortal}
+				container={pipContainer?.current}
+				{...props}
+			>
 				<div
 					className={cx(portalWrapper, pipPortalClassName)}
 					data-testid={dataTestId}
@@ -92,7 +111,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 				>
 					<Rnd
 						bounds="parent"
-						disableDragging={props.disablePortal}
+						disableDragging={isDisabledPortal}
 						enableResizing={enableResizing}
 						lockAspectRatio
 						allowAnyClick
@@ -120,7 +139,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 							onMouseEnter={onMouseEnter}
 						>
 							{children}
-							{!props.disablePortal && (
+							{!isDisabledPortal && (
 								<>
 									{isAudio && (
 										<MediaPoster
