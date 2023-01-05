@@ -30,6 +30,7 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 		isPip,
 		getListener,
 		setCurrentTime,
+		hasStarted,
 	] = useMediaStore(
 		state => [
 			state.reactPlayerRef,
@@ -45,6 +46,7 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 			state.isPip,
 			state.getListener,
 			state.setCurrentTime,
+			state.hasPlayedOrSeeked,
 		],
 		shallow,
 	);
@@ -89,8 +91,11 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 	// When PIP mode was triggered, we unmount ReactPlayer, that will cause to start media from 0 (onProgress prop is initialized)
 	// to avoid playing from 0, we will jump to previous time
 	useEffect(() => {
+		if (!hasStarted) {
+			return;
+		}
 		setCurrentTime(currentTimeRef.current);
-	}, [hasPipCalled, setCurrentTime]);
+	}, [hasPipCalled, hasStarted, setCurrentTime]);
 
 	return {
 		reactPlayerProps,
