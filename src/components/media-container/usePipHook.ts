@@ -4,7 +4,6 @@ import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/MediaProvider';
 import { useMediaListener } from '../../hooks/use-media-listener';
-import { PROGRESS_INTERVAL } from '../../utils/constants';
 
 interface UsePipHookProps {
 	isPlayerReady: boolean;
@@ -74,18 +73,16 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 			return;
 		}
 		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
+
 		if (!isPlaying || !isPlayerReady || !mediaEl) {
 			return;
 		}
+
 		if (!isPip && !isVisible) {
-			// New MediaStore context wont be ready to be passed into PIP mode(it will be again initialized),
-			// so need to await all processes via creating a macrotask
-			setTimeout(requestPip, 1);
+			requestPip();
 		}
 		if (isPip && isVisible) {
-			// New MediaStore context wont be ready to be passed into PIP mode(it will be again initialized),
-			// so need to await all processes via creating a macrotask
-			setTimeout(exitPip, 1);
+			exitPip();
 		}
 	}, [
 		isPlayerReady,
@@ -98,24 +95,16 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		exitPip,
 	]);
 
-	// Listening for pip events and updating currentTime for ProgressBar
-	// This is used for covering bugs with ReactPlayer
-	useMediaListener(
-		'pipEnter',
-		() => {
-			setTimeout(() => {
-				setCurrentTime?.(currentTimeRef.current);
-			}, PROGRESS_INTERVAL - 1);
-		},
-		listener,
-	);
+	// When entering for the first time in PIP, react player got unmounted
 
 	useMediaListener(
-		'pipExit',
-		() => {
-			setTimeout(() => {
+		'pipEnter',
+		async () => {
+			const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
+			if (mediaEl) {
+				mediaEl.currentTime = currentTimeRef.current;
 				setCurrentTime?.(currentTimeRef.current);
-			}, PROGRESS_INTERVAL - 1);
+			}
 		},
 		listener,
 	);
