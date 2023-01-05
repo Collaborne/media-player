@@ -204,7 +204,11 @@
 <a name='L139'></a><a href='#L139'>139</a>
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -257,43 +261,47 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">129x</span>
+<span class="cline-any cline-yes">130x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">129x</span>
-<span class="cline-any cline-yes">129x</span>
-<span class="cline-any cline-yes">298x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">129x</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-yes">323x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">129x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">129x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">129x</span>
+<span class="cline-any cline-yes">130x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">218x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">220x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -369,7 +377,7 @@ export type ContainerSizePosition = {
 	top: number;
 };
 export interface DraggablePopoverProps
-	extends PortalProps,
+	extends Omit&lt;PortalProps, 'disablePortal'&gt;,
 		Pick&lt;
 			MediaContainerProps,
 			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName' | 'pipContainer'
@@ -403,6 +411,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 		const pipPortalRef = useRef&lt;HTMLDivElement&gt;(null);
 		const isAudio = useIsAudio();
 		const isPip = useMediaStore(state =&gt; state.isPip);
+&nbsp;
 		const {
 			dimensions,
 			enableResizing,
@@ -411,7 +420,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 			portalWrapperRef,
 			isPipPositioning,
 		} = useDraggablePopoverHook({
-			disablePortal: props.disablePortal,
+			disablePortal: !isPip,
 			xAxisDistance,
 			yAxisDistance,
 			pipPortalRef,
@@ -423,13 +432,16 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 			classes: { paper, portalWrapper, resizeSquares, paperPositioning },
 			cx,
 		} = useDraggablePopoverStyles({
-			isExpanded: Boolean(props.disablePortal),
 			isAudio,
 			isPip,
 		});
 &nbsp;
 		return (
-			&lt;Portal container={pipContainer?.current} {...props}&gt;
+			&lt;Portal
+				disablePortal={!isPip}
+				container={pipContainer?.current}
+				{...props}
+			&gt;
 				&lt;div
 					className={cx(portalWrapper, pipPortalClassName)}
 					data-testid={dataTestId}
@@ -439,7 +451,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 				&gt;
 					&lt;Rnd
 						bounds="parent"
-						disableDragging={props.disablePortal}
+						disableDragging={!isPip}
 						enableResizing={enableResizing}
 						lockAspectRatio
 						allowAnyClick
@@ -467,7 +479,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 							onMouseEnter={onMouseEnter}
 						&gt;
 							{children}
-							{!props.disablePortal &amp;&amp; (
+							{isPip &amp;&amp; (
 								&lt;&gt;
 									{isAudio &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >										&lt;MediaPoster</span>
@@ -493,7 +505,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jan 05 2023 07:24:11 GMT+0000 (Coordinated Universal Time)
+                at Thu Jan 05 2023 08:15:26 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

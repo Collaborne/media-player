@@ -149,8 +149,7 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,11 +189,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,7 +236,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Grid from '@mui/material/Grid';
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 &nbsp;
 import { BottomControlButtons } from '../bottom-control-buttons/BottomControlButtons';
 import {
@@ -275,55 +273,54 @@ export interface MediaPlayerProps extends Omit&lt;CorePlayerProps, 'children'&gt
  * @category React Component
  * @category Player
  */
-export const MediaPlayer: FC&lt;MediaPlayerProps&gt; = ({
-	children,
-	...corePlayerProps
-}) =&gt; {
-	const { gridCentered } = useMediaPlayerStyles().classes;
-	const { controls } = useControlsStyles().classes;
-	return (
-		&lt;CorePlayer {...corePlayerProps}&gt;
-			&lt;Grid className={controls}&gt;
-				&lt;CenteredPlayButton /&gt;
-				&lt;CenteredBottomPlayback /&gt;
-			&lt;/Grid&gt;
-			&lt;AdditionalControls /&gt;
-			&lt;Controls&gt;
-				{children}
-				&lt;PlayAnimation /&gt;
-				&lt;PauseAnimation /&gt;
-				&lt;CenteredReplayButton /&gt;
-				&lt;BottomControls&gt;
-					&lt;ProgressBar /&gt;
-					&lt;BottomControlButtons&gt;
-						&lt;Grid item className={gridCentered} xs&gt;
-							&lt;Grid
-								item
-								className={gridCentered}
-								xs
-								justifyContent="flex-start"
-							&gt;
-								&lt;PlayPauseReplay svgIconSize="medium" /&gt;
-								&lt;RwdButton /&gt;
-								&lt;FwdButton /&gt;
-								&lt;VolumeButton /&gt;
-								&lt;VolumeSlider /&gt;
+export const MediaPlayer: FC&lt;MediaPlayerProps&gt; = memo(
+	({ children, ...corePlayerProps }) =&gt; {
+		const { gridCentered } = useMediaPlayerStyles().classes;
+		const { controls } = useControlsStyles().classes;
+		return (
+			&lt;CorePlayer {...corePlayerProps}&gt;
+				&lt;Grid className={controls}&gt;
+					&lt;CenteredPlayButton /&gt;
+					&lt;CenteredBottomPlayback /&gt;
+				&lt;/Grid&gt;
+				&lt;AdditionalControls /&gt;
+				&lt;Controls&gt;
+					{children}
+					&lt;PlayAnimation /&gt;
+					&lt;PauseAnimation /&gt;
+					&lt;CenteredReplayButton /&gt;
+					&lt;BottomControls&gt;
+						&lt;ProgressBar /&gt;
+						&lt;BottomControlButtons&gt;
+							&lt;Grid item className={gridCentered} xs&gt;
+								&lt;Grid
+									item
+									className={gridCentered}
+									xs
+									justifyContent="flex-start"
+								&gt;
+									&lt;PlayPauseReplay svgIconSize="medium" /&gt;
+									&lt;RwdButton /&gt;
+									&lt;FwdButton /&gt;
+									&lt;VolumeButton /&gt;
+									&lt;VolumeSlider /&gt;
+								&lt;/Grid&gt;
 							&lt;/Grid&gt;
-						&lt;/Grid&gt;
-						&lt;Grid item className={gridCentered} xs justifyContent="center"&gt;
-							&lt;TimeDisplay /&gt;
-						&lt;/Grid&gt;
-						&lt;Grid item className={gridCentered} xs justifyContent="flex-end"&gt;
-							&lt;PlaybackRateButton /&gt;
-							&lt;PictureInPictureButton /&gt;
-							&lt;FullscreenButton /&gt;
-						&lt;/Grid&gt;
-					&lt;/BottomControlButtons&gt;
-				&lt;/BottomControls&gt;
-			&lt;/Controls&gt;
-		&lt;/CorePlayer&gt;
-	);
-};
+							&lt;Grid item className={gridCentered} xs justifyContent="center"&gt;
+								&lt;TimeDisplay /&gt;
+							&lt;/Grid&gt;
+							&lt;Grid item className={gridCentered} xs justifyContent="flex-end"&gt;
+								&lt;PlaybackRateButton /&gt;
+								&lt;PictureInPictureButton /&gt;
+								&lt;FullscreenButton /&gt;
+							&lt;/Grid&gt;
+						&lt;/BottomControlButtons&gt;
+					&lt;/BottomControls&gt;
+				&lt;/Controls&gt;
+			&lt;/CorePlayer&gt;
+		);
+	},
+);
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -331,7 +328,7 @@ export const MediaPlayer: FC&lt;MediaPlayerProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Thu Jan 05 2023 07:24:11 GMT+0000 (Coordinated Universal Time)
+                at Thu Jan 05 2023 08:15:26 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
