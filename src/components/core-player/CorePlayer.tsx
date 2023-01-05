@@ -5,7 +5,7 @@ import {
 	ThemeProvider,
 } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
-import { FC, ReactNode, RefObject } from 'react';
+import { FC, ReactNode, RefObject, memo } from 'react';
 
 import { MediaProvider } from '../../context/MediaProvider';
 import { PIPContextProvider } from '../../context/PIPControlsProvider';
@@ -64,65 +64,67 @@ export interface CorePlayerProps {
  * @category React Component
  * @category Player
  */
-export const CorePlayer: FC<CorePlayerProps> = ({
-	url,
-	className,
-	getHighlightColorBlended = blend,
-	highlights,
-	onStoreUpdate,
-	theme,
-	initialState = PROVIDER_INITIAL_STATE,
-	alarms,
-	audioPlaceholder,
-	children,
-	mediaType: initialMediaType,
-	PIPControls,
-	xAxisDistance,
-	yAxisDistance,
-	reactPlayerClassName,
-	pipContainer,
-	pipPortalClassName,
-}) => {
-	const { mediaType } = useCorePlayerHook({ url, initialMediaType });
-	const isAudio = mediaType === 'audio';
-	const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
-	const { classes, cx } = useFilePlayerStyles({ isAudio });
-	const classNames = cx(classes.wrapper, className);
+export const CorePlayer: FC<CorePlayerProps> = memo(
+	({
+		url,
+		className,
+		getHighlightColorBlended = blend,
+		highlights,
+		onStoreUpdate,
+		theme,
+		initialState = PROVIDER_INITIAL_STATE,
+		alarms,
+		audioPlaceholder,
+		children,
+		mediaType: initialMediaType,
+		PIPControls,
+		xAxisDistance,
+		yAxisDistance,
+		reactPlayerClassName,
+		pipContainer,
+		pipPortalClassName,
+	}) => {
+		const { mediaType } = useCorePlayerHook({ url, initialMediaType });
+		const isAudio = mediaType === 'audio';
+		const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
+		const { classes, cx } = useFilePlayerStyles({ isAudio });
+		const classNames = cx(classes.wrapper, className);
 
-	return (
-		<ThemeProvider theme={nestedThemes}>
-			<StyledEngineProvider injectFirst>
-				<CssBaseline />
-				<PIPContextProvider PIPControls={PIPControls}>
-					<MediaProvider
-						initialState={initialState}
-						getHighlightColorBlended={getHighlightColorBlended}
-						onStoreUpdate={onStoreUpdate}
-						highlights={highlights}
-						alarms={alarms}
-						mediaType={mediaType}
-						isAudio={isAudio}
-					>
-						<ExternalStateUpdater
+		return (
+			<ThemeProvider theme={nestedThemes}>
+				<StyledEngineProvider injectFirst>
+					<CssBaseline />
+					<PIPContextProvider PIPControls={PIPControls}>
+						<MediaProvider
+							initialState={initialState}
+							getHighlightColorBlended={getHighlightColorBlended}
+							onStoreUpdate={onStoreUpdate}
+							highlights={highlights}
 							alarms={alarms}
 							mediaType={mediaType}
 							isAudio={isAudio}
-						/>
-						<MediaContainer
-							className={classNames}
-							url={url}
-							audioPlaceholder={audioPlaceholder}
-							xAxisDistance={xAxisDistance ?? DEFAULT_AXIS_DISTANCE}
-							yAxisDistance={yAxisDistance ?? DEFAULT_AXIS_DISTANCE}
-							reactPlayerClassName={reactPlayerClassName}
-							pipContainer={pipContainer}
-							pipPortalClassName={pipPortalClassName}
 						>
-							{children}
-						</MediaContainer>
-					</MediaProvider>
-				</PIPContextProvider>
-			</StyledEngineProvider>
-		</ThemeProvider>
-	);
-};
+							<ExternalStateUpdater
+								alarms={alarms}
+								mediaType={mediaType}
+								isAudio={isAudio}
+							/>
+							<MediaContainer
+								className={classNames}
+								url={url}
+								audioPlaceholder={audioPlaceholder}
+								xAxisDistance={xAxisDistance ?? DEFAULT_AXIS_DISTANCE}
+								yAxisDistance={yAxisDistance ?? DEFAULT_AXIS_DISTANCE}
+								reactPlayerClassName={reactPlayerClassName}
+								pipContainer={pipContainer}
+								pipPortalClassName={pipPortalClassName}
+							>
+								{children}
+							</MediaContainer>
+						</MediaProvider>
+					</PIPContextProvider>
+				</StyledEngineProvider>
+			</ThemeProvider>
+		);
+	},
+);

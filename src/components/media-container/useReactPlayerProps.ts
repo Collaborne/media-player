@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
+import { useMediaListener } from '../../hooks';
 import { ReactPlayerProps } from '../../types';
 
 interface UseReactPlayerProps {
@@ -10,6 +11,11 @@ interface UseReactPlayerProps {
 
 export const useReactPlayerProps = (): UseReactPlayerProps => {
 	const readyFiredRef = useRef(false);
+	// get current time in a ref
+	const currentTimeRef = useRef(0);
+	// store last pip call as a boolean(need to trigger after PIP mode was entered)
+	const [hasPipCalled, setHasPipCalled] = useState(false);
+
 	const [
 		reactPlayerRef,
 		initialState,
@@ -21,6 +27,9 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 		setReady,
 		setDuration,
 		onProgress,
+		isPip,
+		getListener,
+		setCurrentTime,
 	] = useMediaStore(
 		state => [
 			state.reactPlayerRef,
@@ -33,9 +42,15 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 			state._setReady,
 			state.setDuration,
 			state._handleProgress,
+			state.isPip,
+			state.getListener,
+			state.setCurrentTime,
 		],
 		shallow,
 	);
+
+	const listener = getListener();
+
 	const reactPlayerProps: ReactPlayerProps = {
 		autoPlay: initialState.isPlaying,
 		playsinline: true,
@@ -59,6 +74,23 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 		},
 		onProgress: ({ playedSeconds }) => onProgress(playedSeconds),
 	};
+
+	useEffect(() => {
+		setHasPipCalled(prev => !prev);
+	}, [isPip]);
+
+	// store current time in a ref
+	useMediaListener(
+		'timeupdate',
+		e => (currentTimeRef.current = e.seconds),
+		listener,
+	);
+
+	// When PIP mode was triggered, we unmount ReactPlayer, that will cause to start media from 0 (onProgress prop is initialized)
+	// to avoid playing from 0, we will jump to previous time
+	useEffect(() => {
+		setCurrentTime(currentTimeRef.current);
+	}, [hasPipCalled, setCurrentTime]);
 
 	return {
 		reactPlayerProps,

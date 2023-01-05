@@ -1,11 +1,11 @@
 import Paper from '@mui/material/Paper';
 import Portal, { PortalProps } from '@mui/material/Portal';
 import { isElement } from 'lodash';
-import { FC, memo, useRef, useState } from 'react';
+import { FC, memo, useRef } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
 import { useMediaStore } from '../../context';
-import { useIsAudio, useMediaListener } from '../../hooks';
+import { useIsAudio } from '../../hooks';
 import { usePipControlsContext } from '../../hooks/use-pip-controls-context';
 import { DRAGGABLE_POPOVER } from '../../utils';
 import { MediaContainerProps } from '../media-container/MediaContainer';
@@ -56,21 +56,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		const pipPortalRef = useRef<HTMLDivElement>(null);
 		const isAudio = useIsAudio();
 		const isPip = useMediaStore(state => state.isPip);
-		const getListener = useMediaStore(state => state.getListener);
 
-		const [isDisabledPortal, setIsDisabledPortal] = useState(false);
-
-		useMediaListener(
-			'firstReady',
-			() => setIsDisabledPortal(true),
-			getListener(),
-		);
-		useMediaListener(
-			'pipEnter',
-			() => setIsDisabledPortal(false),
-			getListener(),
-		);
-		useMediaListener('pipExit', () => setIsDisabledPortal(true), getListener());
 		const {
 			dimensions,
 			enableResizing,
@@ -79,7 +65,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			portalWrapperRef,
 			isPipPositioning,
 		} = useDraggablePopoverHook({
-			disablePortal: isDisabledPortal,
+			disablePortal: !isPip,
 			xAxisDistance,
 			yAxisDistance,
 			pipPortalRef,
@@ -91,14 +77,13 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			classes: { paper, portalWrapper, resizeSquares, paperPositioning },
 			cx,
 		} = useDraggablePopoverStyles({
-			isExpanded: isDisabledPortal,
 			isAudio,
 			isPip,
 		});
 
 		return (
 			<Portal
-				disablePortal={isDisabledPortal}
+				disablePortal={!isPip}
 				container={pipContainer?.current}
 				{...props}
 			>
@@ -111,7 +96,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 				>
 					<Rnd
 						bounds="parent"
-						disableDragging={isDisabledPortal}
+						disableDragging={!isPip}
 						enableResizing={enableResizing}
 						lockAspectRatio
 						allowAnyClick
@@ -139,7 +124,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 							onMouseEnter={onMouseEnter}
 						>
 							{children}
-							{!isDisabledPortal && (
+							{isPip && (
 								<>
 									{isAudio && (
 										<MediaPoster

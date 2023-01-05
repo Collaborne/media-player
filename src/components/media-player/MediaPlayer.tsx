@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 
 import { BottomControlButtons } from '../bottom-control-buttons/BottomControlButtons';
 import {
@@ -36,52 +36,51 @@ export interface MediaPlayerProps extends Omit<CorePlayerProps, 'children'> {
  * @category React Component
  * @category Player
  */
-export const MediaPlayer: FC<MediaPlayerProps> = ({
-	children,
-	...corePlayerProps
-}) => {
-	const { gridCentered } = useMediaPlayerStyles().classes;
-	const { controls } = useControlsStyles().classes;
-	return (
-		<CorePlayer {...corePlayerProps}>
-			<Grid className={controls}>
-				<CenteredPlayButton />
-				<CenteredBottomPlayback />
-			</Grid>
-			<AdditionalControls />
-			<Controls>
-				{children}
-				<PlayAnimation />
-				<PauseAnimation />
-				<CenteredReplayButton />
-				<BottomControls>
-					<ProgressBar />
-					<BottomControlButtons>
-						<Grid item className={gridCentered} xs>
-							<Grid
-								item
-								className={gridCentered}
-								xs
-								justifyContent="flex-start"
-							>
-								<PlayPauseReplay svgIconSize="medium" />
-								<RwdButton />
-								<FwdButton />
-								<VolumeButton />
-								<VolumeSlider />
+export const MediaPlayer: FC<MediaPlayerProps> = memo(
+	({ children, ...corePlayerProps }) => {
+		const { gridCentered } = useMediaPlayerStyles().classes;
+		const { controls } = useControlsStyles().classes;
+		return (
+			<CorePlayer {...corePlayerProps}>
+				<Grid className={controls}>
+					<CenteredPlayButton />
+					<CenteredBottomPlayback />
+				</Grid>
+				<AdditionalControls />
+				<Controls>
+					{children}
+					<PlayAnimation />
+					<PauseAnimation />
+					<CenteredReplayButton />
+					<BottomControls>
+						<ProgressBar />
+						<BottomControlButtons>
+							<Grid item className={gridCentered} xs>
+								<Grid
+									item
+									className={gridCentered}
+									xs
+									justifyContent="flex-start"
+								>
+									<PlayPauseReplay svgIconSize="medium" />
+									<RwdButton />
+									<FwdButton />
+									<VolumeButton />
+									<VolumeSlider />
+								</Grid>
 							</Grid>
-						</Grid>
-						<Grid item className={gridCentered} xs justifyContent="center">
-							<TimeDisplay />
-						</Grid>
-						<Grid item className={gridCentered} xs justifyContent="flex-end">
-							<PlaybackRateButton />
-							<PictureInPictureButton />
-							<FullscreenButton />
-						</Grid>
-					</BottomControlButtons>
-				</BottomControls>
-			</Controls>
-		</CorePlayer>
-	);
-};
+							<Grid item className={gridCentered} xs justifyContent="center">
+								<TimeDisplay />
+							</Grid>
+							<Grid item className={gridCentered} xs justifyContent="flex-end">
+								<PlaybackRateButton />
+								<PictureInPictureButton />
+								<FullscreenButton />
+							</Grid>
+						</BottomControlButtons>
+					</BottomControls>
+				</Controls>
+			</CorePlayer>
+		);
+	},
+);

@@ -4,7 +4,6 @@ import useUnmount from 'react-use/lib/useUnmount';
 import shallow from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
-import { useMediaListener } from '../../hooks/use-media-listener';
 
 interface UsePlayerHookProps {
 	url: string;
@@ -22,7 +21,6 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 		setCurrentTime,
 		isPip,
 		onPlay,
-		getListener,
 	] = useMediaStore(
 		state => [
 			state.reactPlayerRef,
@@ -34,19 +32,8 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 			state.setCurrentTime,
 			state.isPip,
 			state.play,
-			state.getListener,
 		],
 		shallow,
-	);
-
-	const listener = getListener();
-	// Store currentTime into a ref, to avoid rerenders
-	const currentTimeRef = useRef(0);
-
-	useMediaListener(
-		'timeupdate',
-		e => (currentTimeRef.current = e.seconds),
-		listener,
 	);
 
 	// Force a ready event for safari when the media has been loaded
@@ -156,6 +143,5 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 		};
 	}, [reactPlayerRef, togglePlay]);
 
-	useUnmount(() => setCurrentTime(currentTimeRef.current));
 	return {};
 };
