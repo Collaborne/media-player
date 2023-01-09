@@ -28,17 +28,15 @@ export const useDraggablePopoverStyles =
 					borderRadius: theme.spacing(0.5),
 				}),
 		},
-		paperPositioning: {
-			display: 'none',
-		},
+
 		portalWrapper: {
-			height: !isPip ? '100%' : `calc(100% - ${theme.spacing(4)})`,
-			width: !isPip ? '100%' : `calc(100% - ${theme.spacing(4)})`,
+			height: '100%',
+			width: '100%',
 			zIndex: !isPip ? 0 : 9999,
 			background: 'transparent',
-			position: !isPip ? 'relative' : 'fixed',
-			top: !isPip ? 0 : theme.spacing(2),
-			left: !isPip ? 0 : theme.spacing(2),
+			position: 'relative',
+			top: 0,
+			left: 0,
 			pointerEvents: 'none',
 			padding: 0,
 			margin: 0,

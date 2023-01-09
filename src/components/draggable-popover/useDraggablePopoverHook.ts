@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 import {
 	Position,
 	ResizeEnable,
@@ -8,7 +8,6 @@ import {
 import { useMeasure, usePrevious } from 'react-use';
 import { UseMeasureRef } from 'react-use/lib/useMeasure';
 
-import { sleep } from '../../utils';
 import { DEFAULT_PIP_SIZE } from '../../utils/constants';
 import { MediaContainerProps } from '../media-container/MediaContainer';
 
@@ -20,6 +19,7 @@ interface UseDraggablePopoverHookProps
 	extends Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'> {
 	disablePortal?: boolean;
 	pipPortalRef: RefObject<HTMLDivElement>;
+	pipContainer: RefObject<HTMLDivElement>;
 }
 
 type Dimensions = Size & Position;
@@ -31,8 +31,6 @@ interface UseDraggablePopoverHook {
 	handleResizeStop: RndResizeCallback;
 	/** Ref for the layout where PIP player will be mounted. Also used for a box for resizing and dragging */
 	portalWrapperRef: UseMeasureRef<Element>;
-	/** Controls if PIP player was calculated and ready to be mounted into the new container */
-	isPipPositioning: boolean;
 }
 
 const vw = window.innerWidth;
@@ -48,12 +46,19 @@ export const useDraggablePopoverHook = ({
 	disablePortal,
 	xAxisDistance,
 	yAxisDistance,
+	pipContainer,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
 	// DraggablePopover DnD params:
 	const [portalWrapperRef, containerSize] = useMeasure();
 	const [isFirstMeasure, setIsFirstMeasure] = useState(true);
-	const [isPipPositioning, setIsPipPositioning] = useState(false);
+
 	const prevContainerSize = usePrevious(containerSize);
+	const firstPositionRef = useRef<Dimensions>({
+		width: DEFAULT_PIP_SIZE.width,
+		height: DEFAULT_PIP_SIZE.height,
+		x: 0,
+		y: 0,
+	});
 
 	// Get player width + margin on 2 sides
 	const pipPlayerWidth = DEFAULT_PIP_SIZE.width + xAxisDistance;
@@ -81,6 +86,7 @@ export const useDraggablePopoverHook = ({
 		_delta,
 		position,
 	) => {
+		setIsFirstMeasure(true);
 		setDimensions(prev => ({
 			...prev,
 			width: ref.style.width,
@@ -89,37 +95,33 @@ export const useDraggablePopoverHook = ({
 		}));
 	};
 
+	useEffect(() => {
+		if (!pipContainer.current) {
+			return;
+		}
+		const width = pipContainer.current.offsetWidth;
+		const height = pipContainer.current.offsetHeight;
+
+		firstPositionRef.current = {
+			x: width - pipPlayerWidth,
+			y: height - pipPlayerHight,
+			width: DEFAULT_PIP_SIZE.width,
+			height: DEFAULT_PIP_SIZE.height,
+		};
+	}, [containerSize]);
+
+	console.log(firstPositionRef.current);
+
 	// Get second measure. When portal is first enabled - it gets sizes from the MEDIA_CONTAINER, not from pip portal layout
 	useEffect(() => {
 		if (!disablePortal) {
-			return setIsFirstMeasure(false);
+			return setDimensions(firstPositionRef.current);
 		}
-		setIsFirstMeasure(true);
-	}, [containerSize, disablePortal]);
+		setDimensions(DEFAULT_DIMENSIONS);
+	}, [disablePortal]);
 
 	useEffect(() => {
-		const computeOnPortalOpen = async () => {
-			if (!disablePortal && !isFirstMeasure) {
-				setIsPipPositioning(true);
-				await sleep(1);
-				setIsPipPositioning(false);
-				return setDimensions({
-					width: DEFAULT_PIP_SIZE.width,
-					height: DEFAULT_PIP_SIZE.height,
-					y: containerSize?.height - pipPlayerHight,
-					x: containerSize?.width - pipPlayerWidth,
-				});
-			}
-			setDimensions(DEFAULT_DIMENSIONS);
-		};
-		void computeOnPortalOpen();
-
-		// should occur only on switching PIP mode(isPip=disablePortal)
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [disablePortal, isFirstMeasure]);
-
-	useEffect(() => {
-		if (!disablePortal) {
+		if (!disablePortal && !isFirstMeasure) {
 			const width = containerSize?.width ?? document.body.offsetWidth;
 
 			const prevWidth = prevContainerSize?.width ?? vw;
@@ -141,6 +143,5 @@ export const useDraggablePopoverHook = ({
 		handleDragStop,
 		handleResizeStop,
 		portalWrapperRef,
-		isPipPositioning,
 	};
 };

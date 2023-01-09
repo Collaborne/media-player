@@ -1,7 +1,7 @@
 import Paper from '@mui/material/Paper';
 import Portal, { PortalProps } from '@mui/material/Portal';
 import { isElement } from 'lodash';
-import { FC, memo, useRef } from 'react';
+import { FC, memo, RefObject, useRef } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
 import { useMediaStore } from '../../context';
@@ -25,12 +25,13 @@ export interface DraggablePopoverProps
 	extends Omit<PortalProps, 'disablePortal'>,
 		Pick<
 			MediaContainerProps,
-			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName' | 'pipContainer'
+			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName'
 		> {
 	rndProps?: RndProps;
 	className?: string;
 	audioPlaceholder?: string;
 	'data-testid'?: string;
+	pipContainer: RefObject<HTMLElement>;
 }
 
 /**
@@ -49,6 +50,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		'data-testid': dataTestId = DRAGGABLE_POPOVER,
 		pipPortalClassName,
 		pipContainer,
+
 		...props
 	}) => {
 		const { PIPControls } = usePipControlsContext();
@@ -63,18 +65,18 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			handleDragStop,
 			handleResizeStop,
 			portalWrapperRef,
-			isPipPositioning,
 		} = useDraggablePopoverHook({
 			disablePortal: !isPip,
 			xAxisDistance,
 			yAxisDistance,
 			pipPortalRef,
+			pipContainer,
 		});
 		const { onMouseEnter, onMouseLeave, onMouseMove } =
 			usePipMouseActivityHook();
 
 		const {
-			classes: { paper, portalWrapper, resizeSquares, paperPositioning },
+			classes: { paper, portalWrapper, resizeSquares },
 			cx,
 		} = useDraggablePopoverStyles({
 			isAudio,
@@ -116,9 +118,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 					>
 						<Paper
 							elevation={0}
-							className={cx(paper, className, {
-								[paperPositioning]: isPipPositioning,
-							})}
+							className={cx(paper, className)}
 							onMouseMove={onMouseMove}
 							onMouseLeave={onMouseLeave}
 							onMouseEnter={onMouseEnter}

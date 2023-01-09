@@ -1,4 +1,5 @@
-import { FC, memo } from 'react';
+import Grid from '@mui/material/Grid';
+import { FC, memo, useRef } from 'react';
 import intl from 'react-intl-universal';
 import shallow from 'zustand/shallow';
 
@@ -48,12 +49,13 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		pipPortalClassName,
 	}) => {
 		const isAudio = useIsAudio();
+		const pipAreaRef = useRef<HTMLElement>(null);
 		const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(
 			state => [state.mediaContainerRef, state.isPip, state.isFullscreen],
 			shallow,
 		);
 		const {
-			classes: { wrapper, pipText, reactPlayer },
+			classes: { wrapper, pipText, reactPlayer, pipArea },
 			cx,
 		} = useMediaContainerStyles({
 			isAudio,
@@ -70,36 +72,43 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 			return null;
 		}
 
+		console.log(pipContainer);
+
 		return (
-			<div
-				ref={mediaContainerRef}
-				className={cx(wrapper, className)}
-				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}
-				onMouseMove={onMouseMove}
-				data-testid={MEDIA_CONTAINER}
-			>
-				<DraggablePopover
-					audioPlaceholder={audioPlaceholder}
-					xAxisDistance={xAxisDistance}
-					yAxisDistance={yAxisDistance}
-					pipContainer={pipContainer}
-					pipPortalClassName={pipPortalClassName}
-				>
-					<Player
-						url={url}
-						className={reactClassNames}
-						isFullscreen={isFullscreen}
-						reactPlayerProps={reactPlayerProps}
-					/>
-				</DraggablePopover>
-				{isPip && !isAudio && (
-					<MediaPoster width="100%" height="100%">
-						<div className={pipText}>{intl.get('media.playing_pip')}</div>
-					</MediaPoster>
+			<>
+				{!pipContainer && (
+					<Grid ref={pipAreaRef} className={cx(pipArea, pipPortalClassName)} />
 				)}
-				{children}
-			</div>
+				<div
+					ref={mediaContainerRef}
+					className={cx(wrapper, className)}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
+					onMouseMove={onMouseMove}
+					data-testid={MEDIA_CONTAINER}
+				>
+					<DraggablePopover
+						audioPlaceholder={audioPlaceholder}
+						xAxisDistance={xAxisDistance}
+						yAxisDistance={yAxisDistance}
+						pipContainer={pipContainer || pipAreaRef}
+						pipPortalClassName={pipPortalClassName}
+					>
+						<Player
+							url={url}
+							className={reactClassNames}
+							isFullscreen={isFullscreen}
+							reactPlayerProps={reactPlayerProps}
+						/>
+					</DraggablePopover>
+					{isPip && !isAudio && (
+						<MediaPoster width="100%" height="100%">
+							<div className={pipText}>{intl.get('media.playing_pip')}</div>
+						</MediaPoster>
+					)}
+					{children}
+				</div>
+			</>
 		);
 	},
 );
