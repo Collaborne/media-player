@@ -50,8 +50,10 @@ export const useDraggablePopoverHook = ({
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
 	// DraggablePopover DnD params:
 	const [portalWrapperRef, containerSize] = useMeasure();
-	const hasMovedOrResizedRef = useRef(false);
-	const hasWindowResized = useRef(false);
+	// Track for PIP window(was it resized or moved before)
+	const hasPipMovedOrResizedRef = useRef(false);
+	// Track for window(was it resized or not) when PIP mode was active
+	const hasWindowResizedRef = useRef(false);
 
 	const prevContainerSize = usePrevious(containerSize);
 	const firstPositionRef = useRef<Dimensions>({
@@ -77,7 +79,7 @@ export const useDraggablePopoverHook = ({
 		  };
 
 	const handleDragStop: RndDragCallback = (_e, d) => {
-		hasMovedOrResizedRef.current = true;
+		hasPipMovedOrResizedRef.current = true;
 		setDimensions(prev => ({ ...prev, x: d.x, y: d.y }));
 	};
 
@@ -88,7 +90,7 @@ export const useDraggablePopoverHook = ({
 		_delta,
 		position,
 	) => {
-		hasMovedOrResizedRef.current = true;
+		hasPipMovedOrResizedRef.current = true;
 		setDimensions(prev => ({
 			...prev,
 			width: ref.style.width,
@@ -97,28 +99,22 @@ export const useDraggablePopoverHook = ({
 		}));
 	};
 
+	// Track window resize events
 	useEffect(() => {
 		const onWindowResize = () => {
 			if (!isPip) {
-				hasWindowResized.current = false;
+				hasWindowResizedRef.current = false;
+				return;
 			}
-			hasWindowResized.current = true;
+			hasWindowResizedRef.current = true;
 		};
-
 		window.addEventListener('resize', onWindowResize);
 		return () => window.removeEventListener('resize', onWindowResize);
 	}, [isPip]);
 
-	// When media goes off from PIP mode, reset hasMovedOrResizedRef
-	useEffect(() => {
-		if (!isPip) {
-			hasMovedOrResizedRef.current = false;
-		}
-	}, [isPip]);
-
 	// Get first mounting positions for the PIP player
 	useEffect(() => {
-		if (!pipContainer.current || hasMovedOrResizedRef.current) {
+		if (!pipContainer.current || hasPipMovedOrResizedRef.current) {
 			return;
 		}
 		const width = pipContainer.current.offsetWidth;
@@ -130,29 +126,33 @@ export const useDraggablePopoverHook = ({
 			width: DEFAULT_PIP_SIZE.width,
 			height: DEFAULT_PIP_SIZE.height,
 		};
-		// Recalculate default position size depending on Portal resizing
+		// containerSize as a dependency means that we always will have right initial dimensions(user can resize browser on any stage)
 	}, [containerSize]);
 
+	// Set first mounting position when PIP was switched
 	useEffect(() => {
 		// If: media is in PIP mode and wasn't resized or moved
 		// then position it with initial values
-		if (isPip && !hasMovedOrResizedRef.current) {
+		if (isPip && !hasPipMovedOrResizedRef.current) {
 			return setDimensions(firstPositionRef.current);
 		}
 
 		if (!isPip) {
+			hasPipMovedOrResizedRef.current = false;
 			setDimensions(DEFAULT_DIMENSIONS);
 		}
 	}, [isPip]);
 
+	// Calculates positions and dimensions
 	useEffect(() => {
 		const hasOnlyWindowResized =
-			hasWindowResized.current && !hasMovedOrResizedRef.current;
+			hasWindowResizedRef.current && !hasPipMovedOrResizedRef.current;
+
 		if (isPip && hasOnlyWindowResized) {
 			return setDimensions(firstPositionRef.current);
 		}
-		if (isPip && hasMovedOrResizedRef.current) {
-			console.log('calculating new params');
+
+		if (isPip && hasPipMovedOrResizedRef.current) {
 			const width = containerSize?.width ?? document.body.offsetWidth;
 
 			const prevWidth = prevContainerSize?.width ?? vw;
