@@ -49,7 +49,8 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		pipPortalClassName,
 	}) => {
 		const isAudio = useIsAudio();
-		const pipAreaRef = useRef<HTMLElement>(null);
+		// ref for the PIP area(pip will appear there)
+		const pipAreaRef = useRef<HTMLDivElement>(null);
 		const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(
 			state => [state.mediaContainerRef, state.isPip, state.isFullscreen],
 			shallow,
@@ -71,8 +72,6 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		if (!isPlayerReady || !url) {
 			return null;
 		}
-
-		console.log(pipContainer);
 
 		return (
 			<>

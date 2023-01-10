@@ -31,7 +31,7 @@ export interface DraggablePopoverProps
 	className?: string;
 	audioPlaceholder?: string;
 	'data-testid'?: string;
-	pipContainer: RefObject<HTMLElement>;
+	pipContainer: RefObject<HTMLDivElement>;
 }
 
 /**
@@ -66,7 +66,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			handleResizeStop,
 			portalWrapperRef,
 		} = useDraggablePopoverHook({
-			disablePortal: !isPip,
+			isPip,
 			xAxisDistance,
 			yAxisDistance,
 			pipPortalRef,

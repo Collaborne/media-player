@@ -17,7 +17,7 @@ export type Size = {
 };
 interface UseDraggablePopoverHookProps
 	extends Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'> {
-	disablePortal?: boolean;
+	isPip: boolean;
 	pipPortalRef: RefObject<HTMLDivElement>;
 	pipContainer: RefObject<HTMLDivElement>;
 }
@@ -43,7 +43,7 @@ const DEFAULT_DIMENSIONS: Dimensions = {
 };
 
 export const useDraggablePopoverHook = ({
-	disablePortal,
+	isPip,
 	xAxisDistance,
 	yAxisDistance,
 	pipContainer,
@@ -66,7 +66,7 @@ export const useDraggablePopoverHook = ({
 
 	const [dimensions, setDimensions] = useState<Dimensions>(DEFAULT_DIMENSIONS);
 
-	const enableResizing = disablePortal
+	const enableResizing = !isPip
 		? false
 		: {
 				topLeft: true,
@@ -108,20 +108,19 @@ export const useDraggablePopoverHook = ({
 			width: DEFAULT_PIP_SIZE.width,
 			height: DEFAULT_PIP_SIZE.height,
 		};
+		// Recalculate default position size depending on Portal resizing
 	}, [containerSize]);
-
-	console.log(firstPositionRef.current);
 
 	// Get second measure. When portal is first enabled - it gets sizes from the MEDIA_CONTAINER, not from pip portal layout
 	useEffect(() => {
-		if (!disablePortal) {
+		if (isPip) {
 			return setDimensions(firstPositionRef.current);
 		}
 		setDimensions(DEFAULT_DIMENSIONS);
-	}, [disablePortal]);
+	}, [isPip]);
 
 	useEffect(() => {
-		if (!disablePortal && !isFirstMeasure) {
+		if (isPip && !isFirstMeasure) {
 			const width = containerSize?.width ?? document.body.offsetWidth;
 
 			const prevWidth = prevContainerSize?.width ?? vw;
@@ -135,7 +134,7 @@ export const useDraggablePopoverHook = ({
 		}
 		// Should occur only in PIP mode and when is browser resized(windowSize changed)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [disablePortal, containerSize]);
+	}, [isPip, containerSize]);
 
 	return {
 		enableResizing,
