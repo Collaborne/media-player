@@ -127,6 +127,7 @@ export const useDraggablePopoverHook = ({
 			height: DEFAULT_PIP_SIZE.height,
 		};
 		// containerSize as a dependency means that we always will have right initial dimensions(user can resize browser on any stage)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [containerSize]);
 
 	// Set first mounting position when PIP was switched
