@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -168,7 +168,16 @@
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,6 +225,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">163x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">163x</span>
 <span class="cline-any cline-yes">163x</span>
@@ -273,7 +284,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, memo } from 'react';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Grid from '@mui/material/Grid';
+import { FC, memo, useRef } from 'react';
 import intl from 'react-intl-universal';
 import shallow from 'zustand/shallow';
 &nbsp;
@@ -323,12 +340,14 @@ export const MediaContainer: FC&lt;MediaContainerProps&gt; = memo(
 		pipPortalClassName,
 	}) =&gt; {
 		const isAudio = useIsAudio();
+		// ref for the PIP area(pip will appear there)
+		const pipAreaRef = useRef&lt;HTMLDivElement&gt;(null);
 		const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(
 			state =&gt; [state.mediaContainerRef, state.isPip, state.isFullscreen],
 			shallow,
 		);
 		const {
-			classes: { wrapper, pipText, reactPlayer },
+			classes: { wrapper, pipText, reactPlayer, pipArea },
 			cx,
 		} = useMediaContainerStyles({
 			isAudio,
@@ -346,35 +365,40 @@ export const MediaContainer: FC&lt;MediaContainerProps&gt; = memo(
 		}
 &nbsp;
 		return (
-			&lt;div
-				ref={mediaContainerRef}
-				className={cx(wrapper, className)}
-				onMouseEnter={onMouseEnter}
-				onMouseLeave={onMouseLeave}
-				onMouseMove={onMouseMove}
-				data-testid={MEDIA_CONTAINER}
-			&gt;
-				&lt;DraggablePopover
-					audioPlaceholder={audioPlaceholder}
-					xAxisDistance={xAxisDistance}
-					yAxisDistance={yAxisDistance}
-					pipContainer={pipContainer}
-					pipPortalClassName={pipPortalClassName}
-				&gt;
-					&lt;Player
-						url={url}
-						className={reactClassNames}
-						isFullscreen={isFullscreen}
-						reactPlayerProps={reactPlayerProps}
-					/&gt;
-				&lt;/DraggablePopover&gt;
-				{isPip &amp;&amp; !isAudio &amp;&amp; (
-					&lt;MediaPoster width="100%" height="100%"&gt;
-						&lt;div className={pipText}&gt;{intl.get('media.playing_pip')}&lt;/div&gt;
-					&lt;/MediaPoster&gt;
+			&lt;&gt;
+				{!pipContainer &amp;&amp; (
+					&lt;Grid ref={pipAreaRef} className={cx(pipArea, pipPortalClassName)} /&gt;
 				)}
-				{children}
-			&lt;/div&gt;
+				&lt;div
+					ref={mediaContainerRef}
+					className={cx(wrapper, className)}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
+					onMouseMove={onMouseMove}
+					data-testid={MEDIA_CONTAINER}
+				&gt;
+					&lt;DraggablePopover
+						audioPlaceholder={audioPlaceholder}
+						xAxisDistance={xAxisDistance}
+						yAxisDistance={yAxisDistance}
+						pipContainer={pipContainer || pipAreaRef}
+						pipPortalClassName={pipPortalClassName}
+					&gt;
+						&lt;Player
+							url={url}
+							className={reactClassNames}
+							isFullscreen={isFullscreen}
+							reactPlayerProps={reactPlayerProps}
+						/&gt;
+					&lt;/DraggablePopover&gt;
+					{isPip &amp;&amp; !isAudio &amp;&amp; (
+						&lt;MediaPoster width="100%" height="100%"&gt;
+							&lt;div className={pipText}&gt;{intl.get('media.playing_pip')}&lt;/div&gt;
+						&lt;/MediaPoster&gt;
+					)}
+					{children}
+				&lt;/div&gt;
+			&lt;/&gt;
 		);
 	},
 );
@@ -385,7 +409,7 @@ export const MediaContainer: FC&lt;MediaContainerProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jan 09 2023 09:41:47 GMT+0000 (Coordinated Universal Time)
+                at Tue Jan 10 2023 18:39:24 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

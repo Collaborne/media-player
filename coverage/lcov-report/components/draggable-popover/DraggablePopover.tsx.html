@@ -248,6 +248,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,37 +262,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">130x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">130x</span>
-<span class="cline-any cline-yes">130x</span>
-<span class="cline-any cline-yes">322x</span>
+<span class="cline-any cline-yes">125x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">130x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">130x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">130x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">130x</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-yes">317x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -299,11 +275,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">220x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">125x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">212x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -356,7 +356,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Paper from '@mui/material/Paper';
 import Portal, { PortalProps } from '@mui/material/Portal';
 import { isElement } from 'lodash';
-import { FC, memo, useRef } from 'react';
+import { FC, memo, RefObject, useRef } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 &nbsp;
 import { useMediaStore } from '../../context';
@@ -380,12 +380,13 @@ export interface DraggablePopoverProps
 	extends Omit&lt;PortalProps, 'disablePortal'&gt;,
 		Pick&lt;
 			MediaContainerProps,
-			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName' | 'pipContainer'
+			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName'
 		&gt; {
 	rndProps?: RndProps;
 	className?: string;
 	audioPlaceholder?: string;
 	'data-testid'?: string;
+	pipContainer: RefObject&lt;HTMLDivElement&gt;;
 }
 &nbsp;
 /**
@@ -404,6 +405,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 		'data-testid': dataTestId = DRAGGABLE_POPOVER,
 		pipPortalClassName,
 		pipContainer,
+&nbsp;
 		...props
 	}) =&gt; {
 		const { PIPControls } = usePipControlsContext();
@@ -418,18 +420,18 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 			handleDragStop,
 			handleResizeStop,
 			portalWrapperRef,
-			isPipPositioning,
 		} = useDraggablePopoverHook({
-			disablePortal: !isPip,
+			isPip,
 			xAxisDistance,
 			yAxisDistance,
 			pipPortalRef,
+			pipContainer,
 		});
 		const { onMouseEnter, onMouseLeave, onMouseMove } =
 			usePipMouseActivityHook();
 &nbsp;
 		const {
-			classes: { paper, portalWrapper, resizeSquares, paperPositioning },
+			classes: { paper, portalWrapper, resizeSquares },
 			cx,
 		} = useDraggablePopoverStyles({
 			isAudio,
@@ -471,9 +473,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 					&gt;
 						&lt;Paper
 							elevation={0}
-							className={cx(paper, className, {
-								[paperPositioning]: isPipPositioning,
-							})}
+							className={cx(paper, className)}
 							onMouseMove={onMouseMove}
 							onMouseLeave={onMouseLeave}
 							onMouseEnter={onMouseEnter}
@@ -505,7 +505,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jan 09 2023 09:41:47 GMT+0000 (Coordinated Universal Time)
+                at Tue Jan 10 2023 18:39:24 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
