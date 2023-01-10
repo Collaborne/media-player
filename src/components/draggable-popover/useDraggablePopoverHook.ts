@@ -50,7 +50,8 @@ export const useDraggablePopoverHook = ({
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
 	// DraggablePopover DnD params:
 	const [portalWrapperRef, containerSize] = useMeasure();
-	const [isFirstMeasure, setIsFirstMeasure] = useState(true);
+	const hasMovedOrResizedRef = useRef(false);
+	const hasWindowResized = useRef(false);
 
 	const prevContainerSize = usePrevious(containerSize);
 	const firstPositionRef = useRef<Dimensions>({
@@ -76,6 +77,7 @@ export const useDraggablePopoverHook = ({
 		  };
 
 	const handleDragStop: RndDragCallback = (_e, d) => {
+		hasMovedOrResizedRef.current = true;
 		setDimensions(prev => ({ ...prev, x: d.x, y: d.y }));
 	};
 
@@ -86,7 +88,7 @@ export const useDraggablePopoverHook = ({
 		_delta,
 		position,
 	) => {
-		setIsFirstMeasure(true);
+		hasMovedOrResizedRef.current = true;
 		setDimensions(prev => ({
 			...prev,
 			width: ref.style.width,
@@ -96,7 +98,27 @@ export const useDraggablePopoverHook = ({
 	};
 
 	useEffect(() => {
-		if (!pipContainer.current) {
+		const onWindowResize = () => {
+			if (!isPip) {
+				hasWindowResized.current = false;
+			}
+			hasWindowResized.current = true;
+		};
+
+		window.addEventListener('resize', onWindowResize);
+		return () => window.removeEventListener('resize', onWindowResize);
+	}, [isPip]);
+
+	// When media goes off from PIP mode, reset hasMovedOrResizedRef
+	useEffect(() => {
+		if (!isPip) {
+			hasMovedOrResizedRef.current = false;
+		}
+	}, [isPip]);
+
+	// Get first mounting positions for the PIP player
+	useEffect(() => {
+		if (!pipContainer.current || hasMovedOrResizedRef.current) {
 			return;
 		}
 		const width = pipContainer.current.offsetWidth;
@@ -111,16 +133,26 @@ export const useDraggablePopoverHook = ({
 		// Recalculate default position size depending on Portal resizing
 	}, [containerSize]);
 
-	// Get second measure. When portal is first enabled - it gets sizes from the MEDIA_CONTAINER, not from pip portal layout
 	useEffect(() => {
-		if (isPip) {
+		// If: media is in PIP mode and wasn't resized or moved
+		// then position it with initial values
+		if (isPip && !hasMovedOrResizedRef.current) {
 			return setDimensions(firstPositionRef.current);
 		}
-		setDimensions(DEFAULT_DIMENSIONS);
+
+		if (!isPip) {
+			setDimensions(DEFAULT_DIMENSIONS);
+		}
 	}, [isPip]);
 
 	useEffect(() => {
-		if (isPip && !isFirstMeasure) {
+		const hasOnlyWindowResized =
+			hasWindowResized.current && !hasMovedOrResizedRef.current;
+		if (isPip && hasOnlyWindowResized) {
+			return setDimensions(firstPositionRef.current);
+		}
+		if (isPip && hasMovedOrResizedRef.current) {
+			console.log('calculating new params');
 			const width = containerSize?.width ?? document.body.offsetWidth;
 
 			const prevWidth = prevContainerSize?.width ?? vw;
