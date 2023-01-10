@@ -22,6 +22,18 @@ export const useMediaContainerStyles = makeStyles<{ isAudio: boolean }>()(
 			display: isAudio ? 'none' : 'flex',
 			alignItems: 'center',
 		},
+		pipArea: {
+			width: `calc(100% - ${theme.spacing(4)})`,
+			height: `calc(100% - ${theme.spacing(4)})`,
+			zIndex: 9999,
+			background: 'unset',
+			position: 'fixed',
+			top: theme.spacing(2),
+			left: theme.spacing(2),
+			pointerEvents: 'none',
+			padding: 0,
+			margin: 0,
+		},
 	}),
 );
 

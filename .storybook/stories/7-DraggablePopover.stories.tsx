@@ -1,17 +1,29 @@
+import Grid from '@mui/material/Grid/Grid';
 import { Meta, Story } from '@storybook/react';
+import * as React from 'react';
+import shallow from 'zustand/shallow';
 
-import {
-	DraggablePopover as DraggablePopoverComponent,
-	DraggablePopoverProps,
-} from '../../src/components/draggable-popover/DraggablePopover';
+import { DraggablePopoverProps } from '../../src/components/draggable-popover/DraggablePopover';
+import { useMediaStore } from '../../src/context';
 import { withCorePlayer, withDemoCard } from '../decorators';
 
-export const DraggablePopover: Story<DraggablePopoverProps> = args => {
-	return (
-		<DraggablePopoverComponent {...args}>
-			<div style={{ background: 'red', width: '100%', height: '100%' }} />
-		</DraggablePopoverComponent>
+export const DraggablePopover: Story<
+	DraggablePopoverProps & { isPip: boolean }
+> = args => {
+	const [requestPip, exitPip] = useMediaStore(
+		state => [state.requestPip, state.exitPip],
+		shallow,
 	);
+
+	React.useEffect(() => {
+		if (args.isPip) {
+			requestPip();
+			return;
+		}
+		exitPip();
+	}, [args.isPip, exitPip, requestPip]);
+
+	return <Grid />;
 };
 
 export default {
@@ -19,15 +31,15 @@ export default {
 	component: DraggablePopover,
 	decorators: [withCorePlayer, withDemoCard],
 	args: {
-		disablePortal: false,
+		isPip: false,
 		className: '',
 		xAxisDistance: 16,
 		yAxisDistance: 16,
 	},
 	argTypes: {
-		disablePortal: {
-			name: 'props.disablePortal',
-			description: 'Moves React component into a *portal*',
+		isPip: {
+			name: 'isPip',
+			description: 'is Pip mode on',
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: false },
