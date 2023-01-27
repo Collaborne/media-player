@@ -1,15 +1,13 @@
 /* eslint-disable max-lines */
-import mitt from 'mitt';
 import screenfull from 'screenfull';
 import create, { StateCreator } from 'zustand';
 
 import {
-	MediaEvents,
 	MediaState,
 	MediaStateExternalInitializers,
 	MediaStateSetters,
 } from '../types';
-import { getMediaEl } from '../utils';
+import { DEFAULT_MEDIA_STATE, getMediaEl } from '../utils';
 import { findNextConsecutiveIndex } from '../utils/array';
 
 /**  @category MediaStore */
@@ -31,28 +29,7 @@ export const createDefaultMediaSlice: StateCreator<
 	[],
 	[],
 	MediaState
-> = () => ({
-	currentTime: 0,
-	playbackRate: 1,
-	startTime: 0,
-	endTime: 0,
-	duration: 0,
-	volume: 1,
-	emitter: mitt<MediaEvents>(),
-	ready: false,
-	isPlaying: false,
-	isMuted: false,
-	hasPlayedOrSeeked: false,
-	isPip: false,
-	hasPipTriggeredByClick: true,
-	showControls: true,
-	showPipControls: false,
-	didPlayAnimationStart: false,
-	didPauseAnimationStart: false,
-	isFullscreen: false,
-	currentTimeAlarm: 0,
-	nextTimeAlarm: 0,
-});
+> = () => DEFAULT_MEDIA_STATE;
 
 export const createSettersSlice: StateCreator<
 	MediaState & MediaStateSetters & MediaStateExternalInitializers,
@@ -327,10 +304,10 @@ export const createSettersSlice: StateCreator<
 
 type onStoreUpdate = <T>(
 	fn?: (store: T) => void,
-) => (initializer: StateCreator<T, [], [], T>) => StateCreator<T, [], [], T>;
+) => (initializer: StateCreator<T, [], [], T>) => StateCreator<T, [], []>;
 
 const onStoreUpdateMiddleware: onStoreUpdate =
-	fn => config => (set, get, api, info) =>
+	fn => config => (set, get, api) =>
 		config(
 			state => {
 				set(state);
@@ -338,7 +315,6 @@ const onStoreUpdateMiddleware: onStoreUpdate =
 			},
 			get,
 			api,
-			info,
 		);
 
 export const createMediaStore = ({

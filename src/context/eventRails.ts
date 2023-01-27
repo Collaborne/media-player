@@ -1,14 +1,13 @@
 import { createContext } from 'react';
 
 import { Highlight } from '../types';
-import { BlendColors } from '../utils';
+import { BlendColors, NO_OP } from '../utils';
 
 export interface EventRailsContext {
 	highlights?: Highlight[];
 	duration: number;
 	getHighlightColorBlended: BlendColors;
 }
-const NO_OP = () => undefined;
 /** Context for storing `EventRailsContext` to distribute it to `<EventRails />`
  * @category React Context
  */

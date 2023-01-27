@@ -14,7 +14,7 @@ export interface CorePlayerInitialState {
 	highlights: Highlight[];
 }
 
-export const PROVIDER_INITIAL_STATE: CorePlayerInitialState = {
+export const CORE_PLAYER_INITIAL_STATE: CorePlayerInitialState = {
 	isPlaying: false,
 	startTime: 0,
 	endTime: 0,

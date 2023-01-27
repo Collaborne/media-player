@@ -2,7 +2,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { render as renderRTL, RenderOptions } from '@testing-library/react';
 import { ReactNode } from 'react';
 
-import { PROVIDER_INITIAL_STATE } from '../components/core-player/types';
+import { CORE_PLAYER_INITIAL_STATE } from '../components/core-player/types';
 import {
 	MediaProvider,
 	MediaProviderProps,
@@ -25,7 +25,7 @@ export const renderWithProviders = (
 ) =>
 	renderRTL(
 		<MediaProvider
-			initialState={PROVIDER_INITIAL_STATE}
+			initialState={CORE_PLAYER_INITIAL_STATE}
 			getHighlightColorBlended={blend}
 			isAudio={false}
 			mediaType="video"
@@ -49,7 +49,7 @@ export function setupMediaProvider(
 	function TestComponent() {
 		return (
 			<MediaProvider
-				initialState={PROVIDER_INITIAL_STATE}
+				initialState={CORE_PLAYER_INITIAL_STATE}
 				getHighlightColorBlended={blend}
 				mediaType="video"
 				isAudio={false}

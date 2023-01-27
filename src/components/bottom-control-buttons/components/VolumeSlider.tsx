@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../../context/MediaProvider';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';

@@ -1,4 +1,4 @@
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../../context';
 import { setupMediaProvider, userEvent } from '../../../utils/testing-render';

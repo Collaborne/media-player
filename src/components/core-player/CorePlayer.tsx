@@ -17,7 +17,7 @@ import { MediaContainer } from '../media-container/MediaContainer';
 import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles';
 
 import { ExternalStateUpdater } from './components/ExternalStateUpdater';
-import { CorePlayerInitialState, PROVIDER_INITIAL_STATE } from './types';
+import { CorePlayerInitialState, CORE_PLAYER_INITIAL_STATE } from './types';
 import { useCorePlayerHook } from './useCorePlayerHook';
 
 /** Default positioning on X and Y axis of PIP player */
@@ -72,7 +72,7 @@ export const CorePlayer: FC<CorePlayerProps> = memo(
 		highlights,
 		onStoreUpdate,
 		theme,
-		initialState = PROVIDER_INITIAL_STATE,
+		initialState = CORE_PLAYER_INITIAL_STATE,
 		alarms,
 		audioPlaceholder,
 		children,

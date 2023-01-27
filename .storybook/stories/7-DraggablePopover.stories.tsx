@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid/Grid';
 import { Meta, Story } from '@storybook/react';
 import * as React from 'react';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { DraggablePopoverProps } from '../../src/components/draggable-popover/DraggablePopover';
 import { useMediaStore } from '../../src/context';

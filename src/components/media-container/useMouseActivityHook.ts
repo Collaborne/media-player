@@ -1,7 +1,7 @@
 import { throttle } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useEvent from 'react-use/lib/useEvent';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
 import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
