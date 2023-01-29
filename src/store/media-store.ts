@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import screenfull from 'screenfull';
-import create, { StateCreator } from 'zustand';
+import { create, StateCreator } from 'zustand';
 
 import {
 	MediaState,
