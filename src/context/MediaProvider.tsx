@@ -8,7 +8,7 @@ import { StoreApi, useStore } from 'zustand';
 
 import { CorePlayerProps } from '../components';
 import { createMediaStore, MediaStore } from '../store/media-store';
-import { MediaType, RequiredAndOptionalPick } from '../types';
+import { MediaType, RequiredAndOptionalPick, StateSelector } from '../types';
 import { DEFAULT_MEDIA_STORE_CONTEXT } from '../utils';
 
 import { HighlightsProvider } from './HighlightsProvider';
@@ -85,47 +85,24 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 };
 
 /**
- * A hook for `MediaStore` from `zustand` to use for `MediaProvider` consumers
- * Use it, like an ordinary `zustand` store: https://github.com/pmndrs/zustand
+ * A hook to consume MediaStore.
+ * Must be used only for components that are Consumers of MediaProvider
  * @category hooks
  * @category MediaStore
  */
-type ExtractState<S> = S extends {
-	getState: () => infer T;
-}
-	? T
-	: never;
-type WithReact<S extends StoreApi<unknown>> = S & {
-	getServerState?: () => ExtractState<S>;
-};
 
-export function useMediaStore<TState, StateSlice>(selector, equalityFn) {
-	const context = useContext<StoreApi<MediaStore>>(MediaStoreContext);
+export const useMediaStore = <StateSlice,>(
+	selector?: StateSelector<MediaStore, StateSlice>,
+	equalityFn = Object.is,
+): StateSlice => {
+	const context = useContext(MediaStoreContext);
 	if (!context) {
-		throw new Error('useMediaStore must be used in a MediaProvider ');
+		throw Error('useMediaStoreContext cannot be used outside of the ');
 	}
 
-	const store = useStore(context, selector, equalityFn);
-	return store;
-}
-
-// type ExtractState<S> = S extends {
-// 	getState: () => infer T;
-// }
-// 	? T
-// 	: never;
-
-// type WithReact<S extends StoreApi<unknown>> = S & {
-// 	getServerState?: () => ExtractState<S>;
-// };
-// // /<S extends WithReact<StoreApi<unknown>>, U>(api: S, selector: (state: ExtractState<S>) => U, equalityFn?: (a: U, b: U) => boolean): U;
-// export function useMediaStore<S extends WithReact<StoreApi<MediaStore>>, U>(
-// 	selector: (state: ExtractState<S>) => U,
-// 	equalityFn?: (a: U, b: U) => boolean,
-// ): U {
-// 	const store = useMediaStoreContext();
-// 	return useStore(store, selector, equalityFn);
-// }
-
-// type MediaStoreKey = keyof MediaStore;
-// const a: MediaStore[MediaStoreKey] = {};
+	return useStore(
+		context,
+		selector as StateSelector<MediaStore, StateSlice>,
+		equalityFn,
+	);
+};
