@@ -97,7 +97,7 @@ export const useMediaStore = <StateSlice,>(
 ): StateSlice => {
 	const context = useContext(MediaStoreContext);
 	if (!context) {
-		throw Error('useMediaStoreContext cannot be used outside of the ');
+		throw Error('useMediaStore cannot be used outside of the MediaProvider');
 	}
 
 	return useStore(
