@@ -45,3 +45,9 @@ export interface MediaState {
 	/** Next time value for the conditional time in seconds */
 	nextTimeAlarm: number;
 }
+
+export type State = unknown;
+export type PartialState<T extends State> =
+	| Partial<T>
+	| ((state: T) => Partial<T>);
+export type StateSelector<T extends State, U extends State> = (state: T) => U;

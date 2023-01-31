@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import useIntersection from 'react-use/lib/useIntersection';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/MediaProvider';
 import { useMediaListener } from '../../hooks/use-media-listener';

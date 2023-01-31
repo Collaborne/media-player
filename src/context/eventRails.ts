@@ -8,12 +8,11 @@ export interface EventRailsContext {
 	duration: number;
 	getHighlightColorBlended: BlendColors;
 }
-const NO_OP = () => undefined;
 /** Context for storing `EventRailsContext` to distribute it to `<EventRails />`
  * @category React Context
  */
 export const EventRailsContext = createContext<EventRailsContext>({
 	highlights: [],
-	getHighlightColorBlended: NO_OP,
+	getHighlightColorBlended: () => '',
 	duration: 0,
 });

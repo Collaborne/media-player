@@ -2,7 +2,7 @@ import { StoryContext } from '@storybook/addons';
 import * as React from 'react';
 
 import { CorePlayer } from '../../src/components/core-player/CorePlayer';
-import { PROVIDER_INITIAL_STATE } from '../../src/components/core-player/types';
+import { CORE_PLAYER_INITIAL_STATE } from '../../src/components/core-player/types';
 
 // TODO: When all dump components will be added to storybook,
 // merge provider into with-media-wrapper decorator
@@ -14,7 +14,7 @@ export const withCorePlayer = (
 	return (
 		<CorePlayer
 			url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
-			initialState={{ ...PROVIDER_INITIAL_STATE }}
+			initialState={{ ...CORE_PLAYER_INITIAL_STATE }}
 		>
 			<Story {...context} />
 		</CorePlayer>

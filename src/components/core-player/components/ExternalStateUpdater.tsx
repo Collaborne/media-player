@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { CorePlayerProps } from '../..';
 import { useMediaStore } from '../../../context';

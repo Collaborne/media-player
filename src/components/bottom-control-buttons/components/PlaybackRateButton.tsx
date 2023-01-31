@@ -1,6 +1,6 @@
 import Button, { ButtonProps } from '@mui/material/Button';
 import { FC } from 'react';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../../context';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';

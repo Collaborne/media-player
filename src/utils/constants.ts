@@ -1,3 +1,13 @@
+import mitt from 'mitt';
+
+import { CORE_PLAYER_INITIAL_STATE } from '../components/core-player/types';
+import { MediaStore } from '../store/media-store';
+import { MediaStateExternalInitializers, MediaStateSetters } from '../types';
+import { MediaEvents } from '../types/emitters';
+import { MediaState } from '../types/media-state';
+
+export const NO_OP = () => [];
+
 /** Indicator that split volumes into a high or down meaning */
 export const MIN_VOLUME = 50;
 /** Playback Rates for media */
@@ -53,3 +63,75 @@ export const PROGRESS_BAR = 'PROGRESS_BAR';
 export const DRAGGABLE_POPOVER = 'DRAGGABLE_POPOVER';
 /** Constant data-testid for <FullscreenButton/> */
 export const FULLSCREEN_BUTTON = 'FULLSCREEN_BUTTON';
+
+export const DEFAULT_MEDIA_STATE: MediaState = {
+	currentTime: 0,
+	playbackRate: 1,
+	startTime: 0,
+	endTime: 0,
+	duration: 0,
+	volume: 1,
+	emitter: mitt<MediaEvents>(),
+	ready: false,
+	isPlaying: false,
+	isMuted: false,
+	hasPlayedOrSeeked: false,
+	isPip: false,
+	hasPipTriggeredByClick: true,
+	showControls: true,
+	showPipControls: false,
+	isFullscreen: false,
+	currentTimeAlarm: 0,
+	nextTimeAlarm: 0,
+};
+
+export const DEFAULT_MEDIA_STATE_SETTERS: MediaStateSetters = {
+	play: NO_OP,
+	pause: NO_OP,
+	mute: NO_OP,
+	unmute: NO_OP,
+	setPlaybackRate: NO_OP,
+	setVolume: NO_OP,
+	setCurrentTime: NO_OP,
+	setHasPipTriggeredByClick: NO_OP,
+	setStartTime: NO_OP,
+	setEndTime: NO_OP,
+	setDuration: NO_OP,
+	requestPip: NO_OP,
+	exitPip: NO_OP,
+	requestFullscreen: NO_OP,
+	exitFullscreen: NO_OP,
+	setShowControls: NO_OP,
+	setShowPipControls: NO_OP,
+	_setReady: NO_OP,
+	_handleProgress: NO_OP,
+	getListener: () => ({ addEventListener: NO_OP, removeEventListener: NO_OP }),
+	setMediaType: NO_OP,
+	setIsAudio: NO_OP,
+	replaceAlarms: NO_OP,
+};
+
+export const DEFAULT_EXTERNAL_STATE_SETTERS: MediaStateExternalInitializers = {
+	reactPlayerRef: { current: null },
+	playPromiseRef: { current: undefined },
+	mediaContainerRef: { current: null },
+	initialState: CORE_PLAYER_INITIAL_STATE,
+	getHighlightColorBlended: undefined,
+	onStoreUpdate: NO_OP,
+	alarms: [],
+	markActivity: NO_OP,
+	/** Store last mouse activity */
+	lastActivityRef: { current: 0 },
+	/** Marks mouse activity for the PIP player */
+	markPipActivity: NO_OP,
+	/** Store last mouse activity of the PIP player */
+	lastPipActivityRef: { current: 0 },
+	mediaType: 'video',
+	isAudio: false,
+};
+
+export const DEFAULT_MEDIA_STORE_CONTEXT: MediaStore = {
+	...DEFAULT_MEDIA_STATE,
+	...DEFAULT_MEDIA_STATE_SETTERS,
+	...DEFAULT_EXTERNAL_STATE_SETTERS,
+};

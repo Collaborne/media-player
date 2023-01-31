@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
 import { useMediaListener } from '../../hooks';

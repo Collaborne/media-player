@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import { FC, memo, useRef } from 'react';
 import intl from 'react-intl-universal';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/MediaProvider';
 import { useIsAudio } from '../../hooks';
