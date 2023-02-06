@@ -11,14 +11,14 @@ import { MediaProvider } from '../../context/MediaProvider';
 import { PIPContextProvider } from '../../context/PIPControlsProvider';
 import { MediaStore } from '../../store/media-store';
 import { createPlayerTheme } from '../../theme';
-import { Highlight, MediaType } from '../../types';
+import { Highlight } from '../../types';
 import { blend, BlendColors } from '../../utils/colors';
 import { MediaContainer } from '../media-container/MediaContainer';
 import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles';
 
 import { ExternalStateUpdater } from './components/ExternalStateUpdater';
+import { useCorePlayerHook } from './hooks/useCorePlayerHook';
 import { CorePlayerInitialState, CORE_PLAYER_INITIAL_STATE } from './types';
-import { useCorePlayerHook } from './useCorePlayerHook';
 
 /** Default positioning on X and Y axis of PIP player */
 const DEFAULT_AXIS_DISTANCE = 16;
@@ -43,8 +43,8 @@ export interface CorePlayerProps {
 	alarms?: number[];
 	/** URL to image that is displayed in PIP player for audio files */
 	audioPlaceholder?: string;
-	/** Url file type */
-	mediaType?: MediaType;
+	/** Url mime type */
+	mediaType?: string;
 	/** Builds UI for the PIP Player */
 	PIPControls?: FC;
 	/** Distance from window border right, on X axis in `pixels`, for PIP player position initialization */
