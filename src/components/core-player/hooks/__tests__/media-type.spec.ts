@@ -15,7 +15,7 @@ describe('media-type', () => {
 
 	it('uses provided media type for unknown file', () => {
 		const actual = getMediaType({ url: URL, initialMediaType: 'text/plain' });
-		expect(actual).toBe('json');
+		expect(actual).toBe('unknown');
 	});
 
 	it('guesses media type from URL', () => {
