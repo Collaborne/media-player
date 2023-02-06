@@ -15,7 +15,13 @@ export function getMediaType({
 	}
 	// If mediaType was initialized external => we use it
 	if (initialMediaType) {
-		return initialMediaType.startsWith('audio/') ? 'audio' : 'video';
+		if (initialMediaType.startsWith('audio/')) {
+			return 'audio';
+		} else if (initialMediaType.startsWith('video/')) {
+			return 'video';
+		} else {
+			return 'unknown';
+		}
 	}
 	// Otherwise we define it from URL
 	if (isUrlSupported(url)) {
