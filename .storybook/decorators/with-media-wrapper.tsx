@@ -11,7 +11,8 @@ const WrappedStyled = styled(Paper)(({ theme }) => ({
 	borderRadius: `${theme.shape.borderRadius} ${theme.shape.borderRadius} 0 0`,
 	borderColor: theme.palette.grey[500],
 	overflow: 'hidden',
-	backgroundImage: 'url("https://picsum.photos/640/480")',
+	backgroundImage:
+		'url("https://images.unsplash.com/photo-1533827432537-70133748f5c8")',
 	position: 'relative',
 }));
 /**

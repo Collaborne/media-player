@@ -37,7 +37,7 @@ export const Customized: Story<CorePlayerProps> = args => {
 		<CorePlayer className={dimension} {...args}>
 			<div className={placeholder}>
 				<MediaPoster
-					img="https://picsum.photos/300/200"
+					img="https://images.unsplash.com/photo-1533827432537-70133748f5c8"
 					width="100%"
 					height="100%"
 				/>
