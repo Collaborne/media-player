@@ -1,6 +1,6 @@
 {
 	"name": "@collaborne/media-player",
-	"version": "1.4.1",
+	"version": "1.5.0",
 	"description": "Customizable React media player that uses @mui design system and own functionality",
 	"author": "Collaborne",
 	"license": "UNLICENSED",
