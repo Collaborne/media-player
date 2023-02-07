@@ -59,25 +59,27 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 		}
 	}, []);
 
+	const contextValueRef = useRef(
+		createMediaStore({
+			initialState,
+			getHighlightColorBlended,
+			playPromiseRef,
+			reactPlayerRef,
+			mediaContainerRef,
+			onStoreUpdate,
+			alarms,
+			lastActivityRef,
+			markActivity,
+			lastPipActivityRef,
+			markPipActivity,
+			mediaType,
+			isAudio,
+		}),
+	);
+
 	return (
 		<HighlightsProvider highlights={highlights}>
-			<MediaStoreContext.Provider
-				value={createMediaStore({
-					initialState,
-					getHighlightColorBlended,
-					playPromiseRef,
-					reactPlayerRef,
-					mediaContainerRef,
-					onStoreUpdate,
-					alarms,
-					lastActivityRef,
-					markActivity,
-					lastPipActivityRef,
-					markPipActivity,
-					mediaType,
-					isAudio,
-				})}
-			>
+			<MediaStoreContext.Provider value={contextValueRef.current}>
 				{children}
 			</MediaStoreContext.Provider>
 		</HighlightsProvider>
