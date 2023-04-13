@@ -7,7 +7,10 @@ import { useMediaStore } from '../../context/MediaProvider';
 import { useIsAudio } from '../../hooks';
 import { MEDIA_CONTAINER } from '../../utils';
 import { CorePlayerProps } from '../core-player/CorePlayer';
-import { DraggablePopover } from '../draggable-popover/DraggablePopover';
+import {
+	DraggablePopover,
+	DraggablePopoverProps,
+} from '../draggable-popover/DraggablePopover';
 import { MediaPoster } from '../media-poster/MediaPoster';
 import { Player } from '../player/Player';
 
@@ -19,17 +22,17 @@ import { useReactPlayerProps } from './useReactPlayerProps';
 
 export interface MediaContainerProps
 	extends Pick<
-		CorePlayerProps,
-		| 'audioPlaceholder'
-		| 'children'
-		| 'url'
-		| 'className'
-		| 'reactPlayerClassName'
-		| 'pipContainer'
-		| 'pipPortalClassName'
-	> {
-	xAxisDistance: number;
-	yAxisDistance: number;
+			CorePlayerProps,
+			'children' | 'url' | 'className' | 'reactPlayerClassName' | 'pipContainer'
+		>,
+		Pick<
+			DraggablePopoverProps,
+			| 'audioPlaceholder'
+			| 'xAxisDistance'
+			| 'yAxisDistance'
+			| 'pipPortalClassName'
+		> {
+	url: string;
 }
 
 /** A React Component that consumes MediaContext's API and adds UI for the player and media controls
@@ -87,7 +90,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 						audioPlaceholder={audioPlaceholder}
 						xAxisDistance={xAxisDistance}
 						yAxisDistance={yAxisDistance}
-						pipContainer={pipContainer || pipAreaRef}
+						pipDraggableAreaRef={pipContainer || pipAreaRef}
 						pipPortalClassName={pipPortalClassName}
 					>
 						<Player {...playerProps} />

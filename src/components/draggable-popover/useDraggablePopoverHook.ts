@@ -16,10 +16,12 @@ export type Size = {
 	height: string | number;
 };
 interface UseDraggablePopoverHookProps
-	extends Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'> {
+	extends Required<
+		Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'>
+	> {
 	isPip: boolean;
 	pipPortalRef: RefObject<HTMLDivElement>;
-	pipContainer: RefObject<HTMLDivElement>;
+	pipDraggableAreaRef: RefObject<HTMLDivElement>;
 }
 
 type Dimensions = Size & Position;
@@ -46,7 +48,7 @@ export const useDraggablePopoverHook = ({
 	isPip,
 	xAxisDistance,
 	yAxisDistance,
-	pipContainer,
+	pipDraggableAreaRef,
 }: UseDraggablePopoverHookProps): UseDraggablePopoverHook => {
 	// DraggablePopover DnD params:
 	const [portalWrapperRef, containerSize] = useMeasure();
@@ -114,11 +116,11 @@ export const useDraggablePopoverHook = ({
 
 	// Get first mounting positions for the PIP player
 	useEffect(() => {
-		if (!pipContainer.current || hasPipMovedOrResizedRef.current) {
+		if (!pipDraggableAreaRef.current || hasPipMovedOrResizedRef.current) {
 			return;
 		}
-		const width = pipContainer.current.offsetWidth;
-		const height = pipContainer.current.offsetHeight;
+		const width = pipDraggableAreaRef.current.offsetWidth;
+		const height = pipDraggableAreaRef.current.offsetHeight;
 
 		firstPositionRef.current = {
 			x: width - pipPlayerWidth,

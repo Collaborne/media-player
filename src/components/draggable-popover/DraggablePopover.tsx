@@ -1,14 +1,13 @@
 import Paper from '@mui/material/Paper';
-import Portal, { PortalProps } from '@mui/material/Portal';
+import Portal from '@mui/material/Portal';
 import { isElement } from 'lodash';
-import { FC, memo, RefObject, useRef } from 'react';
+import { FC, memo, ReactNode, RefObject, useRef } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
 import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
 import { usePipControlsContext } from '../../hooks/use-pip-controls-context';
 import { DRAGGABLE_POPOVER } from '../../utils';
-import { MediaContainerProps } from '../media-container/MediaContainer';
 import { MediaPoster } from '../media-poster/MediaPoster';
 
 import { useDraggablePopoverHook } from './useDraggablePopoverHook';
@@ -21,17 +20,23 @@ export type ContainerSizePosition = {
 	left: number;
 	top: number;
 };
-export interface DraggablePopoverProps
-	extends Omit<PortalProps, 'disablePortal'>,
-		Pick<
-			MediaContainerProps,
-			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName'
-		> {
+/** Default positioning on X and Y axis of PIP player */
+const DEFAULT_AXIS_DISTANCE = 16;
+export interface DraggablePopoverProps {
 	rndProps?: RndProps;
 	className?: string;
+	/** URL to image that is displayed in PIP player for audio files */
 	audioPlaceholder?: string;
 	'data-testid'?: string;
-	pipContainer: RefObject<HTMLDivElement>;
+	// Ref to a div, that will be used as a container for dragging PIP player
+	pipDraggableAreaRef: RefObject<HTMLDivElement>;
+	/** ClassName for pip container where PIP player layout belongs too */
+	pipPortalClassName?: string;
+	/** Distance from window border right, on X axis in `pixels`, for PIP player position initialization */
+	xAxisDistance?: number;
+	/** Distance from window border bottom, on Y axis in `pixels`, for PIP player position initialization */
+	yAxisDistance?: number;
+	children: ReactNode;
 }
 
 /**
@@ -45,13 +50,11 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		children,
 		rndProps,
 		audioPlaceholder,
-		xAxisDistance,
-		yAxisDistance,
+		xAxisDistance = DEFAULT_AXIS_DISTANCE,
+		yAxisDistance = DEFAULT_AXIS_DISTANCE,
 		'data-testid': dataTestId = DRAGGABLE_POPOVER,
 		pipPortalClassName,
-		pipContainer,
-
-		...props
+		pipDraggableAreaRef,
 	}) => {
 		const { PIPControls } = usePipControlsContext();
 
@@ -70,7 +73,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 			xAxisDistance,
 			yAxisDistance,
 			pipPortalRef,
-			pipContainer,
+			pipDraggableAreaRef,
 		});
 		const { onMouseEnter, onMouseLeave, onMouseMove } =
 			usePipMouseActivityHook();
@@ -84,11 +87,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 		});
 
 		return (
-			<Portal
-				disablePortal={!isPip}
-				container={pipContainer?.current}
-				{...props}
-			>
+			<Portal disablePortal={!isPip} container={pipDraggableAreaRef?.current}>
 				<div
 					className={cx(portalWrapper, pipPortalClassName)}
 					data-testid={dataTestId}

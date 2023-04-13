@@ -11,6 +11,7 @@ import { MediaProvider, MediaProviderProps } from '../../context/MediaProvider';
 import { PIPContextProvider } from '../../context/PIPControlsProvider';
 import { createPlayerTheme } from '../../theme';
 import { blend } from '../../utils/colors';
+import { DraggablePopoverProps } from '../draggable-popover/DraggablePopover';
 import { MediaContainer } from '../media-container/MediaContainer';
 import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles';
 
@@ -18,21 +19,25 @@ import { ExternalStateUpdater } from './components/ExternalStateUpdater';
 import { useCorePlayerHook } from './hooks/useCorePlayerHook';
 import { CORE_PLAYER_INITIAL_STATE } from './types';
 
-/** Default positioning on X and Y axis of PIP player */
-const DEFAULT_AXIS_DISTANCE = 16;
-
 export interface CorePlayerProps
 	extends Partial<
+			Pick<
+				MediaProviderProps,
+				| 'initialState'
+				| 'getHighlightColorBlended'
+				| 'onStoreUpdate'
+				| 'highlights'
+				| 'alarms'
+				| 'isPipEnabled'
+			>
+		>,
 		Pick<
-			MediaProviderProps,
-			| 'initialState'
-			| 'getHighlightColorBlended'
-			| 'onStoreUpdate'
-			| 'highlights'
-			| 'alarms'
-			| 'isPipEnabled'
-		>
-	> {
+			DraggablePopoverProps,
+			| 'audioPlaceholder'
+			| 'xAxisDistance'
+			| 'yAxisDistance'
+			| 'pipPortalClassName'
+		> {
 	/** The url of the media file to be played */
 	url: string;
 	/** CSS class name applied to component  */
@@ -41,22 +46,15 @@ export interface CorePlayerProps
 	theme?: Theme;
 	children: ReactNode;
 
-	/** URL to image that is displayed in PIP player for audio files */
-	audioPlaceholder?: string;
 	/** Url mime type */
 	mediaType?: string;
 	/** Builds UI for the PIP Player */
 	PIPControls?: FC;
-	/** Distance from window border right, on X axis in `pixels`, for PIP player position initialization */
-	xAxisDistance?: number;
-	/** Distance from window border bottom, on Y axis in `pixels`, for PIP player position initialization */
-	yAxisDistance?: number;
+
 	/** <video /> tags wrapper className */
 	reactPlayerClassName?: string;
 	/** Container where PIP player will be mounted By default PIP player is added as a child of document.body */
 	pipContainer?: RefObject<HTMLDivElement>;
-	/** ClassName for pip container where PIP player layout belongs too */
-	pipPortalClassName?: string;
 }
 
 /**
@@ -116,8 +114,8 @@ export const CorePlayer: FC<CorePlayerProps> = memo(
 								className={classNames}
 								url={url}
 								audioPlaceholder={audioPlaceholder}
-								xAxisDistance={xAxisDistance ?? DEFAULT_AXIS_DISTANCE}
-								yAxisDistance={yAxisDistance ?? DEFAULT_AXIS_DISTANCE}
+								xAxisDistance={xAxisDistance}
+								yAxisDistance={yAxisDistance}
 								reactPlayerClassName={reactPlayerClassName}
 								pipContainer={pipContainer}
 								pipPortalClassName={pipPortalClassName}
