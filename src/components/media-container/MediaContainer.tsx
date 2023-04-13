@@ -125,7 +125,6 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 					data-testid={MEDIA_CONTAINER}
 				>
 					{renderPlayer()}
-
 					{children}
 				</div>
 			</>
