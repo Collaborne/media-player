@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>9/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -207,26 +207,7 @@
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,6 +233,27 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -294,10 +296,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">122x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -354,16 +352,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Paper from '@mui/material/Paper';
-import Portal, { PortalProps } from '@mui/material/Portal';
+import Portal from '@mui/material/Portal';
 import { isElement } from 'lodash';
-import { FC, memo, RefObject, useRef } from 'react';
+import { FC, memo, ReactNode, RefObject, useRef } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 &nbsp;
 import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
 import { usePipControlsContext } from '../../hooks/use-pip-controls-context';
 import { DRAGGABLE_POPOVER } from '../../utils';
-import { MediaContainerProps } from '../media-container/MediaContainer';
 import { MediaPoster } from '../media-poster/MediaPoster';
 &nbsp;
 import { useDraggablePopoverHook } from './useDraggablePopoverHook';
@@ -376,17 +373,23 @@ export type ContainerSizePosition = {
 	left: number;
 	top: number;
 };
-export interface DraggablePopoverProps
-	extends Omit&lt;PortalProps, 'disablePortal'&gt;,
-		Pick&lt;
-			MediaContainerProps,
-			'xAxisDistance' | 'yAxisDistance' | 'pipPortalClassName'
-		&gt; {
+/** Default positioning on X and Y axis of PIP player */
+const DEFAULT_AXIS_DISTANCE = 16;
+export interface DraggablePopoverProps {
 	rndProps?: RndProps;
 	className?: string;
+	/** URL to image that is displayed in PIP player for audio files */
 	audioPlaceholder?: string;
 	'data-testid'?: string;
-	pipContainer: RefObject&lt;HTMLDivElement&gt;;
+	// Ref to a div, that will be used as a container for dragging PIP player
+	pipDraggableAreaRef: RefObject&lt;HTMLDivElement&gt;;
+	/** ClassName for pip container where PIP player layout belongs too */
+	pipPortalClassName?: string;
+	/** Distance from window border right, on X axis in `pixels`, for PIP player position initialization */
+	xAxisDistance?: number;
+	/** Distance from window border bottom, on Y axis in `pixels`, for PIP player position initialization */
+	yAxisDistance?: number;
+	children: ReactNode;
 }
 &nbsp;
 /**
@@ -400,13 +403,11 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 		children,
 		rndProps,
 		audioPlaceholder,
-		xAxisDistance,
-		yAxisDistance,
+		xAxisDistance = DEFAULT_AXIS_DISTANCE,
+		yAxisDistance = DEFAULT_AXIS_DISTANCE,
 		'data-testid': dataTestId = DRAGGABLE_POPOVER,
 		pipPortalClassName,
-		pipContainer,
-&nbsp;
-		...props
+		pipDraggableAreaRef,
 	}) =&gt; {
 		const { PIPControls } = usePipControlsContext();
 &nbsp;
@@ -425,7 +426,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 			xAxisDistance,
 			yAxisDistance,
 			pipPortalRef,
-			pipContainer,
+			pipDraggableAreaRef,
 		});
 		const { onMouseEnter, onMouseLeave, onMouseMove } =
 			usePipMouseActivityHook();
@@ -439,11 +440,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 		});
 &nbsp;
 		return (
-			&lt;Portal
-				disablePortal={!isPip}
-				container={pipContainer?.current}
-				{...props}
-			&gt;
+			&lt;Portal disablePortal={!isPip} container={pipDraggableAreaRef?.current}&gt;
 				&lt;div
 					className={cx(portalWrapper, pipPortalClassName)}
 					data-testid={dataTestId}
@@ -505,7 +502,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-06T07:47:16.312Z
+                at 2023-04-13T20:32:22.158Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

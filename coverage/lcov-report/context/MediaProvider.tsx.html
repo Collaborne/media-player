@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">44.44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>4/9</span>
             </div>
         
             
@@ -173,7 +173,30 @@
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,7 +231,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,6 +283,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -272,12 +304,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4017x</span>
-<span class="cline-any cline-yes">4017x</span>
+<span class="cline-any cline-yes">3960x</span>
+<span class="cline-any cline-yes">3960x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4017x</span>
+<span class="cline-any cline-yes">3960x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,14 +319,21 @@
  * Context Provider for isPlaying medias
  */
 &nbsp;
-import { FC, useCallback, useRef, createContext, useContext } from 'react';
+import {
+	FC,
+	useCallback,
+	useRef,
+	createContext,
+	useContext,
+	ReactNode,
+} from 'react';
 import ReactPlayer from 'react-player';
 import { StoreApi, useStore } from 'zustand';
 &nbsp;
-import { CorePlayerProps } from '../components';
+import { CorePlayerInitialState } from '../components';
 import { createMediaStore, MediaStore } from '../store/media-store';
-import { MediaType, RequiredAndOptionalPick, StateSelector } from '../types';
-import { DEFAULT_MEDIA_STORE_CONTEXT } from '../utils';
+import { Highlight, MediaType, StateSelector } from '../types';
+import { BlendColors, DEFAULT_MEDIA_STORE_CONTEXT } from '../utils';
 &nbsp;
 import { HighlightsProvider } from './HighlightsProvider';
 &nbsp;
@@ -305,14 +344,21 @@ const MediaStoreContext = createContext&lt;StoreApi&lt;MediaStore&gt;&gt;({
 	destroy: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >[],</span></span>
 });
 &nbsp;
-export interface MediaProviderProps
-	extends RequiredAndOptionalPick&lt;
-		CorePlayerProps,
-		'initialState' | 'getHighlightColorBlended' | 'children',
-		'onStoreUpdate' | 'highlights' | 'alarms'
-	&gt; {
+export interface MediaProviderProps {
 	isAudio: boolean;
 	mediaType: MediaType;
+	isPipEnabled: boolean;
+	/** Highlights to be displayed in the scrub bar */
+	highlights?: Highlight[];
+	/** Blend highlights colors in the scrub bar */
+	getHighlightColorBlended?: BlendColors;
+	/** Callback for media store update */
+	onStoreUpdate?: (store: MediaStore) =&gt; void;
+	/** `CorePlayer` initial state */
+	initialState: CorePlayerInitialState;
+	/** Trigger points (in sec) when an alert event is emitted */
+	alarms?: number[];
+	children: ReactNode;
 }
 &nbsp;
 /** Keep `MediaStore` in a context to distribute them to UI Controls
@@ -327,6 +373,7 @@ export const MediaProvider: FC&lt;MediaProviderProps&gt; = ({
 	alarms = [],
 	isAudio,
 	mediaType,
+	isPipEnabled = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span>
 }) =&gt; {
 	const reactPlayerRef = useRef&lt;ReactPlayer&gt;(null);
 	const playPromiseRef = useRef&lt;Promise&lt;void&gt;&gt;();
@@ -359,6 +406,7 @@ export const MediaProvider: FC&lt;MediaProviderProps&gt; = ({
 			markPipActivity,
 			mediaType,
 			isAudio,
+			isPipEnabled,
 		}),
 	);
 &nbsp;
@@ -400,7 +448,7 @@ export const useMediaStore = &lt;StateSlice,&gt;(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-04-06T07:47:16.312Z
+                at 2023-04-13T20:32:22.158Z
             </div>
         <script src="../prettify.js"></script>
         <script>
