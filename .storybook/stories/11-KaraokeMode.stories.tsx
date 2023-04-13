@@ -19,6 +19,7 @@ import { findMatchingPartOrNext, Transcript } from './shared/transcript';
 interface KaraokeModeProps {
 	secondsDivider: number;
 	url: string;
+	isPipEnabled: boolean;
 }
 
 type TranscriptRef = { ref: HTMLButtonElement | null };
@@ -141,6 +142,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 				url={args.url}
 				onStoreUpdate={setMediaContext}
 				alarms={alarmRef.current}
+				isPipEnabled={args.isPipEnabled}
 			/>
 			<div>{timeStampsMemo}</div>
 			{createActiveSpan()}
@@ -155,6 +157,7 @@ export default {
 	args: {
 		url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
 		secondsDivider: 2,
+		isPipEnabled: true,
 	},
 	argTypes: {
 		url: {
@@ -171,6 +174,16 @@ export default {
 			table: {
 				type: { summary: 'number' },
 				defaultValue: { summary: 2 },
+			},
+		},
+		isPipEnabled: {
+			name: 'props.isPipEnabled',
+			description:
+				'Enables/disables all pip features(scrolling, entering/leaving PIP mode)',
+
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: true },
 			},
 		},
 	},

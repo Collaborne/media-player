@@ -7,56 +7,54 @@ import {
 import { deepmerge } from '@mui/utils';
 import { FC, ReactNode, RefObject, memo } from 'react';
 
-import { MediaProvider } from '../../context/MediaProvider';
+import { MediaProvider, MediaProviderProps } from '../../context/MediaProvider';
 import { PIPContextProvider } from '../../context/PIPControlsProvider';
-import { MediaStore } from '../../store/media-store';
 import { createPlayerTheme } from '../../theme';
-import { Highlight } from '../../types';
-import { blend, BlendColors } from '../../utils/colors';
+import { blend } from '../../utils/colors';
+import { DraggablePopoverProps } from '../draggable-popover/DraggablePopover';
 import { MediaContainer } from '../media-container/MediaContainer';
 import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles';
 
 import { ExternalStateUpdater } from './components/ExternalStateUpdater';
 import { useCorePlayerHook } from './hooks/useCorePlayerHook';
-import { CorePlayerInitialState, CORE_PLAYER_INITIAL_STATE } from './types';
+import { CORE_PLAYER_INITIAL_STATE } from './types';
 
-/** Default positioning on X and Y axis of PIP player */
-const DEFAULT_AXIS_DISTANCE = 16;
-
-export interface CorePlayerProps {
+export interface CorePlayerProps
+	extends Partial<
+			Pick<
+				MediaProviderProps,
+				| 'initialState'
+				| 'getHighlightColorBlended'
+				| 'onStoreUpdate'
+				| 'highlights'
+				| 'alarms'
+				| 'isPipEnabled'
+			>
+		>,
+		Pick<
+			DraggablePopoverProps,
+			| 'audioPlaceholder'
+			| 'xAxisDistance'
+			| 'yAxisDistance'
+			| 'pipPortalClassName'
+		> {
 	/** The url of the media file to be played */
 	url: string;
 	/** CSS class name applied to component  */
 	className?: string;
 	/** A MUI theme to control the stylization of the player . */
 	theme?: Theme;
-	/** Highlights to be displayed in the scrub bar */
-	highlights?: Highlight[];
-	/** Blend highlights colors in the scrub bar */
-	getHighlightColorBlended?: BlendColors;
-	/** Callback for media store update */
-	onStoreUpdate?: (store: MediaStore) => void;
-	/** `CorePlayer` initial state */
-	initialState?: CorePlayerInitialState;
 	children: ReactNode;
-	/** Trigger points (in sec) when an alert event is emitted */
-	alarms?: number[];
-	/** URL to image that is displayed in PIP player for audio files */
-	audioPlaceholder?: string;
+
 	/** Url mime type */
 	mediaType?: string;
 	/** Builds UI for the PIP Player */
 	PIPControls?: FC;
-	/** Distance from window border right, on X axis in `pixels`, for PIP player position initialization */
-	xAxisDistance?: number;
-	/** Distance from window border bottom, on Y axis in `pixels`, for PIP player position initialization */
-	yAxisDistance?: number;
+
 	/** <video /> tags wrapper className */
 	reactPlayerClassName?: string;
 	/** Container where PIP player will be mounted By default PIP player is added as a child of document.body */
 	pipContainer?: RefObject<HTMLDivElement>;
-	/** ClassName for pip container where PIP player layout belongs too */
-	pipPortalClassName?: string;
 }
 
 /**
@@ -68,11 +66,9 @@ export const CorePlayer: FC<CorePlayerProps> = memo(
 	({
 		url,
 		className,
-		getHighlightColorBlended = blend,
 		highlights,
 		onStoreUpdate,
 		theme,
-		initialState = CORE_PLAYER_INITIAL_STATE,
 		alarms,
 		audioPlaceholder,
 		children,
@@ -83,6 +79,9 @@ export const CorePlayer: FC<CorePlayerProps> = memo(
 		reactPlayerClassName,
 		pipContainer,
 		pipPortalClassName,
+		getHighlightColorBlended = blend,
+		initialState = CORE_PLAYER_INITIAL_STATE,
+		isPipEnabled = true,
 	}) => {
 		const { mediaType } = useCorePlayerHook({ url, initialMediaType });
 		const isAudio = mediaType === 'audio';
@@ -103,18 +102,20 @@ export const CorePlayer: FC<CorePlayerProps> = memo(
 							alarms={alarms}
 							mediaType={mediaType}
 							isAudio={isAudio}
+							isPipEnabled={isPipEnabled}
 						>
 							<ExternalStateUpdater
 								alarms={alarms}
 								mediaType={mediaType}
 								isAudio={isAudio}
+								isPipEnabled={isPipEnabled}
 							/>
 							<MediaContainer
 								className={classNames}
 								url={url}
 								audioPlaceholder={audioPlaceholder}
-								xAxisDistance={xAxisDistance ?? DEFAULT_AXIS_DISTANCE}
-								yAxisDistance={yAxisDistance ?? DEFAULT_AXIS_DISTANCE}
+								xAxisDistance={xAxisDistance}
+								yAxisDistance={yAxisDistance}
 								reactPlayerClassName={reactPlayerClassName}
 								pipContainer={pipContainer}
 								pipPortalClassName={pipPortalClassName}
