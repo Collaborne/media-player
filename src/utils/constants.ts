@@ -109,6 +109,7 @@ export const DEFAULT_MEDIA_STATE_SETTERS: MediaStateSetters = {
 	setMediaType: NO_OP,
 	setIsAudio: NO_OP,
 	replaceAlarms: NO_OP,
+	setIsPipEnabled: NO_OP,
 };
 
 export const DEFAULT_EXTERNAL_STATE_SETTERS: MediaStateExternalInitializers = {
@@ -128,6 +129,7 @@ export const DEFAULT_EXTERNAL_STATE_SETTERS: MediaStateExternalInitializers = {
 	lastPipActivityRef: { current: 0 },
 	mediaType: 'video',
 	isAudio: false,
+	isPipEnabled: true,
 };
 
 export const DEFAULT_MEDIA_STORE_CONTEXT: MediaStore = {

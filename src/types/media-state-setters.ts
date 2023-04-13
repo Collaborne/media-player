@@ -30,4 +30,5 @@ export interface MediaStateSetters {
 	setMediaType: (type: MediaType) => void;
 	setIsAudio: (isAudio: boolean) => void;
 	replaceAlarms: (alarms: number[]) => void;
+	setIsPipEnabled: (isPipEnabled: boolean) => void;
 }

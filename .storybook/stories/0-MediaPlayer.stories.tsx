@@ -67,6 +67,7 @@ export default {
 		mediaType: undefined,
 		xAxisDistance: 0,
 		yAxisDistance: 0,
+		isPipEnabled: true,
 	},
 	argTypes: {
 		url: {
@@ -84,6 +85,15 @@ export default {
 			table: {
 				type: { summary: 'MediaType' },
 				defaultValue: { summary: undefined },
+			},
+		},
+		isPipEnabled: {
+			name: 'props.isPipEnabled',
+			description:
+				'Enables/disables all pip features(scrolling, entering/leaving PIP mode)',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: true },
 			},
 		},
 		yAxisDistance: {

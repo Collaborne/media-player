@@ -25,6 +25,7 @@ export const renderWithProviders = (
 ) =>
 	renderRTL(
 		<MediaProvider
+			isPipEnabled
 			initialState={CORE_PLAYER_INITIAL_STATE}
 			getHighlightColorBlended={blend}
 			isAudio={false}
@@ -49,6 +50,7 @@ export function setupMediaProvider(
 	function TestComponent() {
 		return (
 			<MediaProvider
+				isPipEnabled
 				initialState={CORE_PLAYER_INITIAL_STATE}
 				getHighlightColorBlended={blend}
 				mediaType="video"

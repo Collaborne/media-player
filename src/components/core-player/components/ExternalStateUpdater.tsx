@@ -8,6 +8,7 @@ import { MediaType } from '../../../types';
 interface ExternalStateUpdaterProps extends Pick<CorePlayerProps, 'alarms'> {
 	mediaType: MediaType;
 	isAudio: boolean;
+	isPipEnabled: boolean;
 }
 /**
  * Component that updates MediaStore from external values
@@ -18,11 +19,18 @@ export const ExternalStateUpdater: FC<ExternalStateUpdaterProps> = ({
 	alarms,
 	mediaType,
 	isAudio,
+	isPipEnabled,
 }) => {
-	const [setMediaType, setIsAudio, replaceAlarms] = useMediaStore(
-		state => [state.setMediaType, state.setIsAudio, state.replaceAlarms],
-		shallow,
-	);
+	const [setMediaType, setIsAudio, replaceAlarms, setIsPipEnabled] =
+		useMediaStore(
+			state => [
+				state.setMediaType,
+				state.setIsAudio,
+				state.replaceAlarms,
+				state.setIsPipEnabled,
+			],
+			shallow,
+		);
 
 	// Update `MediaStore` from external props(esp. for fields that can be updated after the store initialization)
 	useEffect(() => {
@@ -34,7 +42,15 @@ export const ExternalStateUpdater: FC<ExternalStateUpdaterProps> = ({
 	useEffect(() => {
 		setIsAudio(isAudio);
 		setMediaType(mediaType);
-	}, [isAudio, mediaType, setIsAudio, setMediaType]);
+		setIsPipEnabled(isPipEnabled);
+	}, [
+		isAudio,
+		isPipEnabled,
+		mediaType,
+		setIsAudio,
+		setIsPipEnabled,
+		setMediaType,
+	]);
 
 	return null;
 };

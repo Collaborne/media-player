@@ -162,6 +162,7 @@ export const createSettersSlice: StateCreator<
 		}),
 
 	setStartTime: (startTime: number) => set({ startTime }),
+	setIsPipEnabled: (isPipEnabled: boolean) => set({ isPipEnabled }),
 	setEndTime: (endTime: number) => set({ endTime }),
 	setHasPipTriggeredByClick: (hasPipTriggeredByClick: boolean) =>
 		set({

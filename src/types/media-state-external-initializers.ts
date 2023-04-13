@@ -30,4 +30,5 @@ export interface MediaStateExternalInitializers {
 	lastPipActivityRef: RefObject<number>;
 	mediaType: MediaType;
 	isAudio: boolean;
+	isPipEnabled: boolean;
 }

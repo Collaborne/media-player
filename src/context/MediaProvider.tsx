@@ -2,14 +2,21 @@
  * Context Provider for isPlaying medias
  */
 
-import { FC, useCallback, useRef, createContext, useContext } from 'react';
+import {
+	FC,
+	useCallback,
+	useRef,
+	createContext,
+	useContext,
+	ReactNode,
+} from 'react';
 import ReactPlayer from 'react-player';
 import { StoreApi, useStore } from 'zustand';
 
-import { CorePlayerProps } from '../components';
+import { CorePlayerInitialState } from '../components';
 import { createMediaStore, MediaStore } from '../store/media-store';
-import { MediaType, RequiredAndOptionalPick, StateSelector } from '../types';
-import { DEFAULT_MEDIA_STORE_CONTEXT } from '../utils';
+import { Highlight, MediaType, StateSelector } from '../types';
+import { BlendColors, DEFAULT_MEDIA_STORE_CONTEXT } from '../utils';
 
 import { HighlightsProvider } from './HighlightsProvider';
 
@@ -20,14 +27,21 @@ const MediaStoreContext = createContext<StoreApi<MediaStore>>({
 	destroy: () => () => [],
 });
 
-export interface MediaProviderProps
-	extends RequiredAndOptionalPick<
-		CorePlayerProps,
-		'initialState' | 'getHighlightColorBlended' | 'children',
-		'onStoreUpdate' | 'highlights' | 'alarms'
-	> {
+export interface MediaProviderProps {
 	isAudio: boolean;
 	mediaType: MediaType;
+	isPipEnabled: boolean;
+	/** Highlights to be displayed in the scrub bar */
+	highlights?: Highlight[];
+	/** Blend highlights colors in the scrub bar */
+	getHighlightColorBlended?: BlendColors;
+	/** Callback for media store update */
+	onStoreUpdate?: (store: MediaStore) => void;
+	/** `CorePlayer` initial state */
+	initialState: CorePlayerInitialState;
+	/** Trigger points (in sec) when an alert event is emitted */
+	alarms?: number[];
+	children: ReactNode;
 }
 
 /** Keep `MediaStore` in a context to distribute them to UI Controls
@@ -42,6 +56,7 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 	alarms = [],
 	isAudio,
 	mediaType,
+	isPipEnabled = true,
 }) => {
 	const reactPlayerRef = useRef<ReactPlayer>(null);
 	const playPromiseRef = useRef<Promise<void>>();
@@ -74,6 +89,7 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 			markPipActivity,
 			mediaType,
 			isAudio,
+			isPipEnabled,
 		}),
 	);
 
