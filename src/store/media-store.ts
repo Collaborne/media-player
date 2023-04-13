@@ -133,6 +133,11 @@ export const createSettersSlice: StateCreator<
 
 	requestPip: () =>
 		set(state => {
+			if (!state.isPipEnabled) {
+				// We cannot return a undefined in media-store, so assuming this
+				// if pip would be disabled, then we just return same PIP state itself
+				return { isPip: state.isPip };
+			}
 			if (state.isFullscreen) {
 				state.exitFullscreen();
 			}
@@ -143,6 +148,11 @@ export const createSettersSlice: StateCreator<
 		}),
 	exitPip: () =>
 		set(state => {
+			if (!state.isPipEnabled) {
+				// We cannot return a undefined in media-store, so assuming this
+				// if pip would be disabled, then we just return same PIP state itself
+				return { isPip: state.isPip };
+			}
 			state.emitter.emit('pipExit');
 			return { isPip: false };
 		}),

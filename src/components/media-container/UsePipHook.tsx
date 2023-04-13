@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import useIntersection from 'react-use/lib/useIntersection';
 import { shallow } from 'zustand/shallow';
 
@@ -8,11 +8,10 @@ import { useMediaListener } from '../../hooks/use-media-listener';
 interface UsePipHookProps {
 	isPlayerReady: boolean;
 }
-interface UsePipHook {}
 const ROOT_MARGIN = '-48px 0px -0px 0px';
 
 /** Bind Picture-in-Picture logic to the `<MediaContainer/>`. */
-export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
+export const UsePipHook: FC<UsePipHookProps> = ({ isPlayerReady }) => {
 	const [
 		getListener,
 		isPlaying,
@@ -109,5 +108,5 @@ export const usePipHook = ({ isPlayerReady }: UsePipHookProps): UsePipHook => {
 		listener,
 	);
 
-	return {};
+	return null;
 };

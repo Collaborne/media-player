@@ -14,7 +14,7 @@ import { Player } from '../player/Player';
 import { useIsPlayerReadyHook } from './useIsPlayerReadyHook';
 import { useMediaContainerStyles } from './useMediaContainerStyles';
 import { useMouseActivityHook } from './useMouseActivityHook';
-import { usePipHook } from './usePipHook';
+import { UsePipHook } from './UsePipHook';
 import { useReactPlayerProps } from './useReactPlayerProps';
 
 export interface MediaContainerProps
@@ -51,10 +51,16 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		const isAudio = useIsAudio();
 		// ref for the PIP area(pip will appear there)
 		const pipAreaRef = useRef<HTMLDivElement>(null);
-		const [mediaContainerRef, isPip, isFullscreen] = useMediaStore(
-			state => [state.mediaContainerRef, state.isPip, state.isFullscreen],
-			shallow,
-		);
+		const [mediaContainerRef, isPip, isFullscreen, isPipEnabled] =
+			useMediaStore(
+				state => [
+					state.mediaContainerRef,
+					state.isPip,
+					state.isFullscreen,
+					state.isPipEnabled,
+				],
+				shallow,
+			);
 		const {
 			classes: { wrapper, pipText, reactPlayer, pipArea },
 			cx,
@@ -63,10 +69,38 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		});
 
 		const { isPlayerReady } = useIsPlayerReadyHook({ url });
-		usePipHook({ isPlayerReady });
 		const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
 		const { reactPlayerProps } = useReactPlayerProps();
 		const reactClassNames = cx(reactPlayer, reactPlayerClassName);
+
+		const playerProps = {
+			url,
+			className: reactClassNames,
+			isFullscreen,
+			reactPlayerProps,
+		};
+
+		const renderPlayer = () =>
+			isPipEnabled ? (
+				<>
+					<DraggablePopover
+						audioPlaceholder={audioPlaceholder}
+						xAxisDistance={xAxisDistance}
+						yAxisDistance={yAxisDistance}
+						pipContainer={pipContainer || pipAreaRef}
+						pipPortalClassName={pipPortalClassName}
+					>
+						<Player {...playerProps} />
+					</DraggablePopover>
+					{isPip && !isAudio && (
+						<MediaPoster width="100%" height="100%">
+							<div className={pipText}>{intl.get('media.playing_pip')}</div>
+						</MediaPoster>
+					)}
+				</>
+			) : (
+				<Player {...playerProps} />
+			);
 
 		// TODO: Add a UI/UX decision when player is not ready
 		if (!isPlayerReady || !url) {
@@ -75,6 +109,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 
 		return (
 			<>
+				{isPipEnabled && <UsePipHook isPlayerReady={isPlayerReady} />}
 				{!pipContainer && (
 					<Grid ref={pipAreaRef} className={cx(pipArea, pipPortalClassName)} />
 				)}
@@ -86,25 +121,8 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 					onMouseMove={onMouseMove}
 					data-testid={MEDIA_CONTAINER}
 				>
-					<DraggablePopover
-						audioPlaceholder={audioPlaceholder}
-						xAxisDistance={xAxisDistance}
-						yAxisDistance={yAxisDistance}
-						pipContainer={pipContainer || pipAreaRef}
-						pipPortalClassName={pipPortalClassName}
-					>
-						<Player
-							url={url}
-							className={reactClassNames}
-							isFullscreen={isFullscreen}
-							reactPlayerProps={reactPlayerProps}
-						/>
-					</DraggablePopover>
-					{isPip && !isAudio && (
-						<MediaPoster width="100%" height="100%">
-							<div className={pipText}>{intl.get('media.playing_pip')}</div>
-						</MediaPoster>
-					)}
+					{renderPlayer()}
+
 					{children}
 				</div>
 			</>
