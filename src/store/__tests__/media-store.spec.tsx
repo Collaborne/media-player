@@ -10,6 +10,7 @@ const setupMediaType = (mediaProviderProps: {
 }) => {
 	const setupResults = setupMediaProvider(
 		<ExternalStateUpdater
+			isPipEnabled
 			isAudio={mediaProviderProps.isAudio}
 			mediaType={mediaProviderProps.mediaType}
 		/>,
