@@ -37,11 +37,11 @@ export interface MediaPlayerProps extends Omit<CorePlayerProps, 'children'> {
  * @category Player
  */
 export const MediaPlayer: FC<MediaPlayerProps> = memo(
-	({ children, ...corePlayerProps }) => {
+	({ children, isPipEnabled = true, ...corePlayerProps }) => {
 		const { gridCentered } = useMediaPlayerStyles().classes;
 		const { controls } = useControlsStyles().classes;
 		return (
-			<CorePlayer {...corePlayerProps}>
+			<CorePlayer isPipEnabled={isPipEnabled} {...corePlayerProps}>
 				<Grid className={controls}>
 					<CenteredPlayButton />
 					<CenteredBottomPlayback />
@@ -74,7 +74,7 @@ export const MediaPlayer: FC<MediaPlayerProps> = memo(
 							</Grid>
 							<Grid item className={gridCentered} xs justifyContent="flex-end">
 								<PlaybackRateButton />
-								<PictureInPictureButton />
+								{isPipEnabled && <PictureInPictureButton />}
 								<FullscreenButton />
 							</Grid>
 						</BottomControlButtons>
