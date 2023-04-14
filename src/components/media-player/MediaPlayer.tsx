@@ -74,7 +74,7 @@ export const MediaPlayer: FC<MediaPlayerProps> = memo(
 							</Grid>
 							<Grid item className={gridCentered} xs justifyContent="flex-end">
 								<PlaybackRateButton />
-								<PictureInPictureButton />
+								{corePlayerProps.isPipEnabled && <PictureInPictureButton />}
 								<FullscreenButton />
 							</Grid>
 						</BottomControlButtons>
