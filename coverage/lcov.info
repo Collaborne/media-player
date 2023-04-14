@@ -676,11 +676,11 @@ LF:7
 LH:7
 BRDA:82,0,0,21
 BRDA:83,1,0,21
-BRDA:84,2,0,21
+BRDA:84,2,0,0
 BRDA:88,3,0,21
 BRDA:88,3,1,21
 BRF:5
-BRH:5
+BRH:4
 end_of_record
 TN:
 SF:src/components/core-player/types.ts
@@ -1446,8 +1446,11 @@ DA:42,21
 DA:43,21
 LF:4
 LH:4
-BRF:0
-BRH:0
+BRDA:40,0,0,21
+BRDA:77,1,0,21
+BRDA:77,1,1,21
+BRF:3
+BRH:3
 end_of_record
 TN:
 SF:src/components/media-player/useMediaPlayerStyles.ts
