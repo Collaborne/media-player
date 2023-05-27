@@ -4,7 +4,6 @@ import { ThemeOptions } from '@mui/material/styles/createTheme';
 export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 	const basePalette = createTheme({
 		palette: {
-			primaryVeryDark: '#8200A3',
 			backdropFilter: 'blur(2px)',
 			background: {
 				default: 'rgba(0, 0, 0, 0.72)',
