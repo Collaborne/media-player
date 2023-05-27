@@ -127,7 +127,6 @@ export const Colors: React.FC = () => {
 					backdropFilter
 				</div>
 			</ImageCard>
-			<ColorBox label="primary VeryDark" bgColor={palette.primaryVeryDark} />
 			<ColorBox label="common black" bgColor={palette.common.black} />
 
 			<h2>Text</h2>
