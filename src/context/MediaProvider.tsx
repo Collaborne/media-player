@@ -76,7 +76,7 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 
 	const contextValueRef = useRef(
 		createMediaStore({
-			initialState,
+			...initialState,
 			getHighlightColorBlended,
 			playPromiseRef,
 			reactPlayerRef,

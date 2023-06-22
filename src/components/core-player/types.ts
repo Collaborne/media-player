@@ -1,24 +1,12 @@
-import { Highlight } from '../../types';
-
-/** MediaStore initialization state */
+/**
+ * MediaStore initialization state.
+ * These values are added only when `MediaStore` was initialized, further updates wont be triggered.
+ * */
 export interface CorePlayerInitialState {
-	isPlaying: boolean;
-	/** Initial start time in seconds */
-	startTime: number;
-	/** Initial time for pausing in seconds */
-	endTime: number;
-	/** Media total time(duration) in seconds */
-	duration: number;
-	/** Current played time in seconds */
-	currentTime: number;
-	highlights: Highlight[];
+	/** Autoplay state. Forwarded to ReactPlayer */
+	autoPlay: boolean;
 }
 
 export const CORE_PLAYER_INITIAL_STATE: CorePlayerInitialState = {
-	isPlaying: false,
-	startTime: 0,
-	endTime: 0,
-	duration: 0,
-	currentTime: 0,
-	highlights: [],
+	autoPlay: false,
 };

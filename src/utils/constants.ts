@@ -116,7 +116,6 @@ export const DEFAULT_EXTERNAL_STATE_SETTERS: MediaStateExternalInitializers = {
 	reactPlayerRef: { current: null },
 	playPromiseRef: { current: undefined },
 	mediaContainerRef: { current: null },
-	initialState: CORE_PLAYER_INITIAL_STATE,
 	getHighlightColorBlended: undefined,
 	onStoreUpdate: NO_OP,
 	alarms: [],
@@ -130,6 +129,7 @@ export const DEFAULT_EXTERNAL_STATE_SETTERS: MediaStateExternalInitializers = {
 	mediaType: 'video',
 	isAudio: false,
 	isPipEnabled: true,
+	...CORE_PLAYER_INITIAL_STATE,
 };
 
 export const DEFAULT_MEDIA_STORE_CONTEXT: MediaStore = {

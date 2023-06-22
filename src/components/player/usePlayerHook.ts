@@ -14,7 +14,7 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 	const [
 		reactPlayerRef,
 		mediaContainerRef,
-		initialState,
+		autoPlay,
 		isPlaying,
 		emitter,
 		onPause,
@@ -25,7 +25,7 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 		state => [
 			state.reactPlayerRef,
 			state.mediaContainerRef,
-			state.initialState,
+			state.autoPlay,
 			state.isPlaying,
 			state.emitter,
 			state.pause,
@@ -73,11 +73,7 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 	}, [emitter, onReadyToPlay, setCurrentTime]);
 
 	useLayoutEffect(() => {
-		if (
-			!hasAutoplayedRef.current &&
-			reactPlayerRef?.current &&
-			initialState?.isPlaying
-		) {
+		if (!hasAutoplayedRef.current && reactPlayerRef?.current && autoPlay) {
 			const el = reactPlayerRef?.current?.getInternalPlayer();
 			if (el && el.parentElement) {
 				el.parentElement?.focus();
@@ -88,7 +84,7 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 			emitter.on('ready', onReadyToSeek);
 		}
 		hasAutoplayedRef.current = true;
-	}, [emitter, initialState, onReadyToSeek, reactPlayerRef]);
+	}, [emitter, autoPlay, onReadyToSeek, reactPlayerRef]);
 
 	const hasAutoFocusedRef = useRef(false);
 
