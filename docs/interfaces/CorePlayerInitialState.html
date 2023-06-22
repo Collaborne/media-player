@@ -16,14 +16,17 @@
 <li><a href="CorePlayerInitialState.html">CorePlayerInitialState</a></li></ul>
 <h1>Interface CorePlayerInitialState</h1></div>
 <section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>MediaStore initialization state</p>
+<div class="tsd-comment tsd-typography"><p>MediaStore initialization state.
+These values are added only when <code>MediaStore</code> was initialized, further updates wont be triggered.</p>
 </div></section>
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
-<li><span class="target">CorePlayerInitialState</span></li></ul></section><aside class="tsd-sources">
+<li><span class="target">CorePlayerInitialState</span>
+<ul class="tsd-hierarchy">
+<li><a href="MediaStateExternalInitializers.html" class="tsd-signature-type" data-tsd-kind="Interface">MediaStateExternalInitializers</a></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Collaborne/media-player/blob/1249424/src/components/core-player/types.ts#L4">src/components/core-player/types.ts:4</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/Collaborne/media-player/blob/5910ac7/src/components/core-player/types.ts#L5">src/components/core-player/types.ts:5</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -31,53 +34,17 @@
 <div class="tsd-accordion-details">
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading">Properties</h3>
-<div class="tsd-index-list"><a href="CorePlayerInitialState.html#currentTime" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-1024-path"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)" id="icon-1024-text"></path></svg><span>current<wbr/>Time</span></a>
-<a href="CorePlayerInitialState.html#duration" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>duration</span></a>
-<a href="CorePlayerInitialState.html#endTime" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>end<wbr/>Time</span></a>
-<a href="CorePlayerInitialState.html#highlights" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>highlights</span></a>
-<a href="CorePlayerInitialState.html#isPlaying" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>is<wbr/>Playing</span></a>
-<a href="CorePlayerInitialState.html#startTime" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>start<wbr/>Time</span></a>
+<div class="tsd-index-list"><a href="CorePlayerInitialState.html#autoPlay" class="tsd-index-link tsd-kind-property tsd-parent-kind-interface"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-1024-path"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)" id="icon-1024-text"></path></svg><span>auto<wbr/>Play</span></a>
 </div></section></div></details></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="currentTime" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>current<wbr/>Time</span><a href="#currentTime" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
-<div class="tsd-signature">current<wbr/>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>Current played time in seconds</p>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="autoPlay" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>auto<wbr/>Play</span><a href="#autoPlay" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
+<div class="tsd-signature">auto<wbr/>Play<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>Autoplay state. Forwarded to ReactPlayer</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/Collaborne/media-player/blob/1249424/src/components/core-player/types.ts#L13">src/components/core-player/types.ts:13</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="duration" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>duration</span><a href="#duration" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">duration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>Media total time(duration) in seconds</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/Collaborne/media-player/blob/1249424/src/components/core-player/types.ts#L11">src/components/core-player/types.ts:11</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="endTime" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>end<wbr/>Time</span><a href="#endTime" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">end<wbr/>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>Initial time for pausing in seconds</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/Collaborne/media-player/blob/1249424/src/components/core-player/types.ts#L9">src/components/core-player/types.ts:9</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="highlights" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>highlights</span><a href="#highlights" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">highlights<span class="tsd-signature-symbol">:</span> <a href="Highlight.html" class="tsd-signature-type" data-tsd-kind="Interface">Highlight</a><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/Collaborne/media-player/blob/1249424/src/components/core-player/types.ts#L14">src/components/core-player/types.ts:14</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="isPlaying" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>is<wbr/>Playing</span><a href="#isPlaying" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">is<wbr/>Playing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/Collaborne/media-player/blob/1249424/src/components/core-player/types.ts#L5">src/components/core-player/types.ts:5</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface"><a id="startTime" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>start<wbr/>Time</span><a href="#startTime" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">start<wbr/>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-<div class="tsd-comment tsd-typography"><p>Initial start time in seconds</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/Collaborne/media-player/blob/1249424/src/components/core-player/types.ts#L7">src/components/core-player/types.ts:7</a></li></ul></aside></section></section></div>
+<li>Defined in <a href="https://github.com/Collaborne/media-player/blob/5910ac7/src/components/core-player/types.ts#L7">src/components/core-player/types.ts:7</a></li></ul></aside></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tree">
 <div class="tree-settings">
@@ -210,12 +177,7 @@
 <ul class="js-category-list category" data-id="root-src-components-core-player">
 <li><a class="category__link js-category-link category__link--ts" href="CorePlayerInitialState.html" data-id="/interfaces/CorePlayerInitialState.html">types.ts</a>
 <ul>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="CorePlayerInitialState.html#currentTime" data-id="/interfaces/CorePlayerInitialState.html#currentTime"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>currentTime</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="CorePlayerInitialState.html#duration" data-id="/interfaces/CorePlayerInitialState.html#duration"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>duration</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="CorePlayerInitialState.html#endTime" data-id="/interfaces/CorePlayerInitialState.html#endTime"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>endTime</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="CorePlayerInitialState.html#highlights" data-id="/interfaces/CorePlayerInitialState.html#highlights"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>highlights</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="CorePlayerInitialState.html#isPlaying" data-id="/interfaces/CorePlayerInitialState.html#isPlaying"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>isPlaying</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="CorePlayerInitialState.html#startTime" data-id="/interfaces/CorePlayerInitialState.html#startTime"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>startTime</a></li></ul></li>
+<li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="CorePlayerInitialState.html#autoPlay" data-id="/interfaces/CorePlayerInitialState.html#autoPlay"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>autoPlay</a></li></ul></li>
 <li><a class="category__link js-category-link category__link--ts" href="CorePlayerProps.html" data-id="/interfaces/CorePlayerProps.html">CorePlayer.tsx</a>
 <ul>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="CorePlayerProps.html#PIPControls" data-id="/interfaces/CorePlayerProps.html#PIPControls"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>PIPControls</a></li>
@@ -393,8 +355,8 @@
 <li><a class="category__link js-category-link category__link--ts" href="MediaStateExternalInitializers.html" data-id="/interfaces/MediaStateExternalInitializers.html">media-state-external-initializers.ts</a>
 <ul>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="MediaStateExternalInitializers.html#alarms" data-id="/interfaces/MediaStateExternalInitializers.html#alarms"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>alarms</a></li>
+<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a class="category__link js-category-link" href="MediaStateExternalInitializers.html#autoPlay" data-id="/interfaces/MediaStateExternalInitializers.html#autoPlay"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>autoPlay</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="MediaStateExternalInitializers.html#getHighlightColorBlended" data-id="/interfaces/MediaStateExternalInitializers.html#getHighlightColorBlended"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>getHighlightColorBlended</a></li>
-<li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="MediaStateExternalInitializers.html#initialState" data-id="/interfaces/MediaStateExternalInitializers.html#initialState"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>initialState</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="MediaStateExternalInitializers.html#isAudio" data-id="/interfaces/MediaStateExternalInitializers.html#isAudio"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>isAudio</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="MediaStateExternalInitializers.html#isPipEnabled" data-id="/interfaces/MediaStateExternalInitializers.html#isPipEnabled"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>isPipEnabled</a></li>
 <li class="tsd-kind-property tsd-parent-kind-interface"><a class="category__link js-category-link" href="MediaStateExternalInitializers.html#lastActivityRef" data-id="/interfaces/MediaStateExternalInitializers.html#lastActivityRef"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>lastActivityRef</a></li>
