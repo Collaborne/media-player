@@ -18,8 +18,8 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 
 	const [
 		reactPlayerRef,
-		initialState,
 		playbackRate,
+		autoPlay,
 		isPlaying,
 		isMuted,
 		volume,
@@ -34,8 +34,8 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 	] = useMediaStore(
 		state => [
 			state.reactPlayerRef,
-			state.initialState,
 			state.playbackRate,
+			state.autoPlay,
 			state.isPlaying,
 			state.isMuted,
 			state.volume,
@@ -54,7 +54,7 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 	const listener = getListener();
 
 	const reactPlayerProps: ReactPlayerProps = {
-		autoPlay: initialState.isPlaying,
+		autoPlay,
 		playsinline: true,
 		playbackRate,
 		playing: isPlaying,

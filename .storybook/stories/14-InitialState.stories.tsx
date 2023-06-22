@@ -48,7 +48,7 @@ export const InitialState: Story<CorePlayerProps> = Template.bind({});
 InitialState.args = {
 	initialState: {
 		...CORE_PLAYER_INITIAL_STATE,
-		isPlaying: true,
+		autoPlay: true,
 	},
 };
 
