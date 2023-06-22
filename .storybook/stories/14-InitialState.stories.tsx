@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
 	BottomControls,
 	CORE_PLAYER_INITIAL_STATE,
