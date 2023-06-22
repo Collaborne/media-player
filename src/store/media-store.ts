@@ -286,6 +286,27 @@ export const createSettersSlice: StateCreator<
 					});
 				}
 			}
+			// If autoplay is turned on, and video haven't played before
+			// then emit all "play" events
+			if (state.autoPlay && !state.hasPlayedOrSeeked) {
+				state.emitter.emit('timeupdate', {
+					seconds: currentRelativeTime,
+					duration: state.duration,
+				});
+				state.emitter.emit('progress', {
+					seconds: currentRelativeTime,
+					duration: state.duration,
+				});
+
+				return {
+					currentTime,
+					isPlaying: true,
+					currentTimeAlarm: newAlarmState.current,
+					nextTimeAlarm: newAlarmState.next,
+					hasPlayedOrSeeked: true,
+				};
+			}
+
 			if (state.isPlaying) {
 				state.emitter.emit('timeupdate', {
 					seconds: currentRelativeTime,
