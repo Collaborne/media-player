@@ -1,6 +1,6 @@
 /**
  * MediaStore initialization state.
- * These values are added only on `MediaStore` was initialized, further updates wont be triggered.
+ * These values are added only when `MediaStore` was initialized, further updates wont be triggered.
  * */
 export interface CorePlayerInitialState {
 	/** Autoplay state. Forwarded to ReactPlayer */
