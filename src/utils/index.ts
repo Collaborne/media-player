@@ -9,3 +9,7 @@ export * from './number';
 export * from './sleep';
 export * from './time';
 export * from './testing-render';
+export * from './create-image-from-blob';
+export * from './create-video-blob';
+export * from './create-blob-from-image';
+export * from './create-video-from-image';
