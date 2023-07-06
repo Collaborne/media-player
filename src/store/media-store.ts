@@ -2,6 +2,7 @@
 import screenfull from 'screenfull';
 import { create, StateCreator } from 'zustand';
 
+import { CorePlayerInitialState } from '../components';
 import {
 	MediaState,
 	MediaStateExternalInitializers,
@@ -13,7 +14,7 @@ import { findNextConsecutiveIndex } from '../utils/array';
 /**  @category MediaStore */
 export type MediaStore = MediaState &
 	MediaStateSetters &
-	MediaStateExternalInitializers;
+	MediaStateExternalInitializers & { initialState: CorePlayerInitialState };
 
 type CreatePropsSlice = (
 	args: MediaStateExternalInitializers,
@@ -31,8 +32,19 @@ export const createDefaultMediaSlice: StateCreator<
 	MediaState
 > = () => DEFAULT_MEDIA_STATE;
 
+type CreateCorePlayerInitialStateSlice = (
+	args: CorePlayerInitialState,
+) => StateCreator<MediaStore, [], [], { initialState: CorePlayerInitialState }>;
+
+export const createCorePlayerInitialState: CreateCorePlayerInitialStateSlice =
+	(initialState: CorePlayerInitialState) => () => ({
+		initialState,
+	});
+
 export const createSettersSlice: StateCreator<
-	MediaState & MediaStateSetters & MediaStateExternalInitializers,
+	MediaState &
+		MediaStateSetters &
+		MediaStateExternalInitializers & { initialState: CorePlayerInitialState },
 	[],
 	[],
 	MediaStateSetters
@@ -158,13 +170,15 @@ export const createSettersSlice: StateCreator<
 		}),
 	setDuration: (duration: number) =>
 		set(state => {
-			state.emitter.emit('durationchange', { duration });
-			if (state.duration === duration) {
+			const mediaDuration = state.initialState.durationSeconds || duration;
+			state.emitter.emit('durationchange', { duration: mediaDuration });
+			if (state.duration === mediaDuration) {
 				return state;
 			}
+
 			return {
-				duration,
-				endTime: state.startTime + duration,
+				duration: mediaDuration,
+				endTime: state.startTime + mediaDuration,
 				currentRelativeTime: 0,
 				startTime: 0,
 				currentTime: 0,
@@ -288,7 +302,7 @@ export const createSettersSlice: StateCreator<
 			}
 			// If autoplay is turned on, and video haven't played before
 			// then emit all "play" events
-			if (state.autoPlay && !state.hasPlayedOrSeeked) {
+			if (state.initialState.autoPlay && !state.hasPlayedOrSeeked) {
 				state.emitter.emit('timeupdate', {
 					seconds: currentRelativeTime,
 					duration: state.duration,
@@ -349,14 +363,20 @@ const onStoreUpdateMiddleware: onStoreUpdate =
 			api,
 		);
 
+interface CreateMediaStoreArgs extends MediaStateExternalInitializers {
+	initialState: CorePlayerInitialState;
+}
+
 export const createMediaStore = ({
 	onStoreUpdate,
+	initialState,
 	...externalProps
-}: MediaStateExternalInitializers) =>
+}: CreateMediaStoreArgs) =>
 	create<MediaStore>()(
 		onStoreUpdateMiddleware(onStoreUpdate)((...a) => ({
 			...createDefaultMediaSlice(...a),
 			...createSettersSlice(...a),
 			...createPropsSlice(externalProps)(...a),
+			...createCorePlayerInitialState(initialState)(...a),
 		})),
 	);

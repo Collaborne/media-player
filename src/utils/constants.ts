@@ -129,11 +129,11 @@ export const DEFAULT_EXTERNAL_STATE_SETTERS: MediaStateExternalInitializers = {
 	mediaType: 'video',
 	isAudio: false,
 	isPipEnabled: true,
-	...CORE_PLAYER_INITIAL_STATE,
 };
 
 export const DEFAULT_MEDIA_STORE_CONTEXT: MediaStore = {
 	...DEFAULT_MEDIA_STATE,
 	...DEFAULT_MEDIA_STATE_SETTERS,
 	...DEFAULT_EXTERNAL_STATE_SETTERS,
+	initialState: CORE_PLAYER_INITIAL_STATE,
 };
