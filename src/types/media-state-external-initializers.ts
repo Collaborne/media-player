@@ -1,7 +1,6 @@
 import { RefObject, MutableRefObject } from 'react';
 import type ReactPlayer from 'react-player';
 
-import { CorePlayerInitialState } from '../components';
 import { MediaStore } from '../store/media-store';
 import { BlendColors } from '../utils/colors';
 
@@ -11,7 +10,7 @@ import { MediaType } from './media-type';
  * State that initializes store external
  * @category MediaStore
  */
-export interface MediaStateExternalInitializers extends CorePlayerInitialState {
+export interface MediaStateExternalInitializers {
 	reactPlayerRef: RefObject<ReactPlayer>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
 	mediaContainerRef: RefObject<HTMLDivElement>;
