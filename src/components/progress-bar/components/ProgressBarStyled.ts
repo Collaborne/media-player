@@ -34,7 +34,6 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 
 			opacity: 0,
 			zIndex: 1,
-			transition: '.3s opacity ease-out',
 		},
 
 		'&:hover .MuiSlider-thumb': {
