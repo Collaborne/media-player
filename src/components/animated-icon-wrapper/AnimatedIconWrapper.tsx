@@ -37,7 +37,7 @@ export const AnimatedIconWrapper: FC<AnimatedIconWrapperProps> = ({
 						className={cx(root, className)}
 						style={{
 							...defaultStyle(durationMs),
-							...transitionStyles[state],
+							...transitionStyles[state as keyof typeof transitionStyles],
 						}}
 						data-testid={dataTestId}
 					>
