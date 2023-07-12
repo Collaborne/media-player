@@ -10,7 +10,7 @@ function setup<T>(arg: T) {
 		return null;
 	}
 	render(<TestComponent />);
-	return returnVal;
+	return returnVal as { [key: number]: any };
 }
 
 const INITIAL_STATE = 'initial state';
