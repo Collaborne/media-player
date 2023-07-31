@@ -75,6 +75,17 @@ export const createSettersSlice: StateCreator<
 			}
 			return { isFullscreen: false };
 		}),
+	setIsFullscreen: (isFullscreen: boolean) =>
+		set(state => {
+			if (state.isFullscreen !== isFullscreen) {
+				if (isFullscreen) {
+					state.emitter.emit('fullscreenEnter');
+				} else {
+					state.emitter.emit('fullscreenEnter');
+				}
+			}
+			return { isFullscreen };
+		}),
 	getListener: () => ({
 		addEventListener: get().emitter.on,
 		removeEventListener: get().emitter.off,

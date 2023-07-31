@@ -21,6 +21,8 @@ export interface MediaStateSetters {
 	exitPip: () => void;
 	requestFullscreen: () => void;
 	exitFullscreen: () => void;
+	/** Setter for tracking fullscreen state. Do not calls `screenfull` methods */
+	setIsFullscreen: (isFullscreen: boolean) => void;
 	setShowControls: (isUpdated: boolean) => void;
 	setShowPipControls: (isUpdated: boolean) => void;
 	// Private Methods

@@ -1,6 +1,7 @@
 import Grid from '@mui/material/Grid';
-import { FC, memo, useRef } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import intl from 'react-intl-universal';
+import screenfull from 'screenfull';
 import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/MediaProvider';
@@ -54,16 +55,22 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		const isAudio = useIsAudio();
 		// ref for the PIP area(pip will appear there)
 		const pipAreaRef = useRef<HTMLDivElement>(null);
-		const [mediaContainerRef, isPip, isFullscreen, isPipEnabled] =
-			useMediaStore(
-				state => [
-					state.mediaContainerRef,
-					state.isPip,
-					state.isFullscreen,
-					state.isPipEnabled,
-				],
-				shallow,
-			);
+		const [
+			mediaContainerRef,
+			isPip,
+			isFullscreen,
+			isPipEnabled,
+			setIsFullscreen,
+		] = useMediaStore(
+			state => [
+				state.mediaContainerRef,
+				state.isPip,
+				state.isFullscreen,
+				state.isPipEnabled,
+				state.setIsFullscreen,
+			],
+			shallow,
+		);
 		const {
 			classes: { wrapper, pipText, reactPlayer, pipArea },
 			cx,
@@ -82,6 +89,14 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 			isFullscreen,
 			reactPlayerProps,
 		};
+
+		useEffect(() => {
+			if (screenfull.isEnabled) {
+				screenfull.on('change', () => {
+					setIsFullscreen(screenfull.isFullscreen);
+				});
+			}
+		}, [mediaContainerRef, setIsFullscreen]);
 
 		const renderPlayer = () =>
 			isPipEnabled ? (
