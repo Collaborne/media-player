@@ -110,6 +110,7 @@ export const DEFAULT_MEDIA_STATE_SETTERS: MediaStateSetters = {
 	setIsAudio: NO_OP,
 	replaceAlarms: NO_OP,
 	setIsPipEnabled: NO_OP,
+	setIsFullscreen: NO_OP,
 };
 
 export const DEFAULT_EXTERNAL_STATE_SETTERS: MediaStateExternalInitializers = {

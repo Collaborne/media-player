@@ -81,7 +81,7 @@ export const createSettersSlice: StateCreator<
 				if (isFullscreen) {
 					state.emitter.emit('fullscreenEnter');
 				} else {
-					state.emitter.emit('fullscreenEnter');
+					state.emitter.emit('fullscreenExit');
 				}
 			}
 			return { isFullscreen };
