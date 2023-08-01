@@ -112,6 +112,7 @@
 	"files": [
 		"dist",
 		"locales",
+		"src",
 		"tsconfig.json"
 	],
 	"dependencies": {
