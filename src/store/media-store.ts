@@ -350,6 +350,14 @@ export const createSettersSlice: StateCreator<
 			if (currentTime >= state.startTime + state.duration) {
 				isPlaying = false;
 			}
+			// Stop ReactPlayer if a currentTime exceeds initial duration
+			if (
+				state.initialState.durationSeconds &&
+				currentRelativeTime >= state.initialState.durationSeconds
+			) {
+				state.reactPlayerRef.current?.getInternalPlayer()?.pause();
+			}
+
 			return {
 				currentTime,
 				isPlaying,
