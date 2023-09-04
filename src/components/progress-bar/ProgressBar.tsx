@@ -1,8 +1,8 @@
 import { SliderProps } from '@mui/material/Slider/Slider';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../context';
-import { useMediaListener } from '../../hooks';
 import { useIsAudio } from '../../hooks/use-is-audio';
 import { PROGRESS_BAR, PROGRESS_BAR_DIVIDER } from '../../utils/constants';
 import { toTwoDigits } from '../../utils/number';
@@ -26,12 +26,17 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 	...props
 }) => {
 	const isAudio = useIsAudio();
-	const [value, setValue] = useState(0);
-	const hasStarted = useMediaStore(state => state.hasPlayedOrSeeked);
-	const duration = useMediaStore(state => state.duration);
-	const setCurrentTime = useMediaStore(state => state.setCurrentTime);
-	const isPip = useMediaStore(state => state.isPip);
-	const listener = useMediaStore(state => state.getListener)();
+	const [hasStarted, duration, setCurrentTime, isPip, currentTime] =
+		useMediaStore(
+			state => [
+				state.hasPlayedOrSeeked,
+				state.duration,
+				state.setCurrentTime,
+				state.isPip,
+				state.currentTime,
+			],
+			shallow,
+		);
 
 	const onCurrentTimeUpdate = (
 		e: Event,
@@ -47,21 +52,6 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 		setCurrentTime(seekTime);
 	};
 
-	useMediaListener(
-		'timeupdate',
-		({ duration, seconds }) => {
-			if (duration && seconds) {
-				// Keep progress value as 0.01, 0.02, 0.03,
-				// doing them as 0.0000001, 0.00121121 - you wont feel difference
-				return setValue(
-					toTwoDigits((seconds / duration) * PROGRESS_BAR_DIVIDER),
-				);
-			}
-			return setValue(0);
-		},
-		listener,
-	);
-
 	const {
 		classes: { progressBar },
 		cx,
@@ -70,13 +60,14 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 	if (!hasStarted && !isAudio) {
 		return null;
 	}
+
 	return (
 		<ProgressBarStyled
 			className={cx(progressBar, className)}
 			min={0}
 			max={PROGRESS_BAR_DIVIDER}
 			onChange={onCurrentTimeUpdate}
-			value={value}
+			value={toTwoDigits((currentTime / duration) * PROGRESS_BAR_DIVIDER)}
 			components={{ Rail }}
 			data-testid={dataTestId}
 			{...props}
