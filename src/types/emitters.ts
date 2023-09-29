@@ -9,7 +9,9 @@ export type VoidEventsKey =
 	| 'play'
 	| 'pause'
 	| 'autoplayStart'
+	/**  Emitted each time when player is ready to play(ex: we have bites loaded and ready to play content) */
 	| 'ready'
+	/** Emitted for first time when player is mounted and first bites are ready to be player(it happens only once) */
 	| 'firstReady'
 	| 'ended'
 	| 'mute'
@@ -32,12 +34,16 @@ export type VoidEvents = Record<VoidEventsKey, void>;
  */
 export type ExtendedEvents = {
 	setPlaybackRate: { playbackRate: number };
+	/** See details here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/seeked_event */
 	seeked: { diffMs: number };
+	/** See details here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/timeupdate_event */
 	timeupdate: TimeUpdateEvent;
+	/** See details here: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/progress_event */
 	progress: TimeUpdateEvent;
 	showControls: ShowControlsEvent;
 	showPipControls: ShowControlsEvent;
 	durationchange: { duration: number };
+	/** Emitted when an alarm timestamp matched current playing duration  */
 	onTimeAlarm: TimeUpdateEvent;
 };
 

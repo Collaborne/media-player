@@ -55,7 +55,7 @@ export const MyComponent: React.FC = () => {
 
 - **Compose own UI Controls**
 
-This comes handy when you want to customize controls for the player. [CodeSandbox](https://codesandbox.io/s/core-player-gtlry2?file=/src/App.tsx)  
+This comes handy when you want to customize controls for the player. [CodeSandbox](https://codesandbox.io/s/core-player-gtlry2)  
 *NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
 
 ```ts
@@ -110,7 +110,7 @@ const PlayButton = () => {
 
 - **Using MediaStore outside of the player**
 All players state is connected to an event emitter. Triggering play, pause, mute, etc will trigger an event, that you can connect too.
-So, subscribing to an event can boost your app and save performance. Code example in [CodeSandbox](https://codesandbox.io/s/media-player-outside-state-oxpko5?file=/src/App.tsx).  
+So, subscribing to an event can boost your app and save performance. Code example in [CodeSandbox](https://codesandbox.io/s/media-player-outside-state-oxpko5).  
 *NOTE: Wait the sandbox until installs all dependencies and refresh it in case if it got "staled"*
 
 ```ts
@@ -120,9 +120,12 @@ import {
   useMediaListener
 } from "@collaborne/media-player";
 
+// `<App />` can control MediaStore not being a children of MediaPlayer
 export default function App() {
+  // mediaContext is a ref value. Use only setters and media listener
   const { mediaContext, setMediaContext } = usePlayerContext();
   const listener = mediaContext?.getListener();
+  // useMediaListener - custom hooks that improves usability of emitted events
   useMediaListener("play", () => alert("Play event was triggered"), listener);
 
   return (
@@ -135,6 +138,20 @@ export default function App() {
 ```
 
 ## Documentation
+
+**@collaborne/media-player** categorizes its functionality as follows:
+
+*Note: Functions may belong to multiple categories. For example, the `<VolumeButton />` is both a React Component and a UI Control.*
+
+- React Component
+- UI Controls: Components used to build player UI elements
+- Players: Ready-to-use player implementations
+- Custom Icons: Icons used for player controls
+- React Context
+- Context Providers
+- Hooks: React hooks that simplify package usage
+- MediaStore: Internal player storage
+- Events: Events triggered by player activity, many of which are similar to standard video/audio web events (see [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#events)).
 
 Latest changes, types and interfaces [here](https://collaborne.github.io/media-player/docs/).
 
