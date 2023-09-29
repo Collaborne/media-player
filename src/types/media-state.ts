@@ -29,6 +29,7 @@ export interface MediaState {
 	startTime: number;
 	endTime: number;
 	duration: number;
+	/** *Note: Current time changes every 50ms. You can get current time from media listeners too.* */
 	currentTime: number;
 	volume: number;
 	ready: boolean;
@@ -36,9 +37,8 @@ export interface MediaState {
 	isPip: boolean;
 	showControls: boolean;
 	showPipControls: boolean;
-	/** Did pip mode was triggered by click event */
+	/** PIP can be triggered by click, or when player is not in the viewport. */
 	hasPipTriggeredByClick: boolean;
-	/** Storing wrapper ref of the mediaPlayer */
 	isFullscreen: boolean;
 	/** Current time value for the conditional time in seconds */
 	currentTimeAlarm: number;
