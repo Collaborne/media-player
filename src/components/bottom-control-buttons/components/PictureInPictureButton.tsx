@@ -1,11 +1,11 @@
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
+import { PiPictureInPicture } from 'react-icons/pi';
 import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../../context';
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { PIP_BUTTON } from '../../../utils';
-import { PiPIcon } from '../../icons';
 
 interface PictureInPictureButtonProps extends IconButtonProps {
 	Icon?: ComponentType<SvgIconProps>;
@@ -18,7 +18,7 @@ interface PictureInPictureButtonProps extends IconButtonProps {
  * @category UI Controls
  */
 export const PictureInPictureButton: FC<PictureInPictureButtonProps> = ({
-	Icon = PiPIcon,
+	Icon = PiPictureInPicture,
 	svgIconProps,
 	'data-testid': dataTestId = PIP_BUTTON,
 	...props

@@ -1,6 +1,6 @@
-import { Forward10Outlined } from '@mui/icons-material';
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC, useRef } from 'react';
+import { PiArrowClockwise } from 'react-icons/pi';
 
 import { useMediaStore } from '../../../context';
 import { useMediaListener } from '../../../hooks';
@@ -18,7 +18,7 @@ interface FwdButtonProps extends IconButtonProps {
  * @category UI Controls
  */
 export const FwdButton: FC<FwdButtonProps> = ({
-	Icon = Forward10Outlined,
+	Icon = PiArrowClockwise,
 	skipSeconds = SECONDS_TO_SKIP,
 	svgIconProps,
 	...props

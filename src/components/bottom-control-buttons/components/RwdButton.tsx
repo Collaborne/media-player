@@ -1,6 +1,6 @@
-import { Replay10Outlined } from '@mui/icons-material';
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC, useRef } from 'react';
+import { PiArrowCounterClockwise } from 'react-icons/pi';
 
 import { useMediaStore } from '../../../context/MediaProvider';
 import { useMediaListener } from '../../../hooks';
@@ -18,7 +18,7 @@ interface RwdButtonProps extends IconButtonProps {
  * @category UI Controls
  */
 export const RwdButton: FC<RwdButtonProps> = ({
-	Icon = Replay10Outlined,
+	Icon = PiArrowCounterClockwise,
 	skipSeconds = SECONDS_TO_SKIP,
 	svgIconProps,
 	...props

@@ -1,9 +1,12 @@
-import { VolumeDown, VolumeUp } from '@mui/icons-material';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { ComponentType, FC } from 'react';
+import {
+	PiSpeakerSimpleHigh,
+	PiSpeakerSimpleLow,
+	PiSpeakerSimpleX,
+} from 'react-icons/pi';
 
 import { MIN_VOLUME } from '../../../utils/constants';
-import { VolumeMutedIcon } from '../../icons/VolumeMutedIcon';
 
 type VolumeIcons = {
 	VolumeMuted: ComponentType<SvgIconProps>;
@@ -22,7 +25,11 @@ export interface VolumeIconProps extends SvgIconProps {
  */
 export const VolumeIcon: FC<VolumeIconProps> = ({
 	volume,
-	Icons = { VolumeUp, VolumeDown, VolumeMuted: VolumeMutedIcon },
+	Icons = {
+		VolumeUp: PiSpeakerSimpleHigh,
+		VolumeDown: PiSpeakerSimpleLow,
+		VolumeMuted: PiSpeakerSimpleX,
+	},
 	minVolume = MIN_VOLUME,
 	...props
 }) => {

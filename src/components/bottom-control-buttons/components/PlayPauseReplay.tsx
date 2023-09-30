@@ -1,7 +1,7 @@
-import { PauseOutlined, PlayArrow, ReplayOutlined } from '@mui/icons-material';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import { SvgIconProps } from '@mui/material/SvgIcon';
 import { ComponentType, FC } from 'react';
+import { PiArrowCounterClockwise, PiPause, PiPlay } from 'react-icons/pi';
 
 import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
 import { usePlayPauseReplayHook } from '../../../hooks/use-play-pause-replay';
@@ -27,7 +27,11 @@ interface PlayPauseReplayProps extends IconButtonProps {
 export const PlayPauseReplay: FC<PlayPauseReplayProps> = ({
 	className,
 	svgClassName,
-	Icons = { Pause: PauseOutlined, Play: PlayArrow, Replay: ReplayOutlined },
+	Icons = {
+		Pause: PiPause,
+		Play: PiPlay,
+		Replay: PiArrowCounterClockwise,
+	},
 	svgIconSize = 'inherit',
 	skipSeconds,
 	'data-testid': dataTestId = PLAY_PAUSE_REPLAY,

@@ -1,8 +1,7 @@
-import { Forward10, Replay10 } from '@mui/icons-material';
-import CloseIcon from '@mui/icons-material/Close';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { FC } from 'react';
+import { PiX, PiArrowClockwise, PiArrowCounterClockwise } from 'react-icons/pi';
 
 import { useMediaStore } from '../../context';
 import { useOnHoveredPipControlElement } from '../../hooks/use-on-hovered-element';
@@ -67,7 +66,7 @@ export const PipControls: FC<PipControlsProps> = ({
 							onMouseLeave={onMouseLeave}
 							size="medium"
 						>
-							<Replay10 fontSize="medium" />
+							<PiArrowCounterClockwise fontSize="medium" />
 						</IconButton>
 						<PlayPauseReplay
 							onMouseEnter={onMouseEnter}
@@ -88,7 +87,7 @@ export const PipControls: FC<PipControlsProps> = ({
 							onMouseLeave={onMouseLeave}
 							size="medium"
 						>
-							<Forward10 fontSize="medium" />
+							<PiArrowClockwise fontSize="medium" />
 						</IconButton>
 					</div>
 				</Grid>
@@ -107,7 +106,7 @@ export const PipControls: FC<PipControlsProps> = ({
 						size="small"
 						className={iconButton}
 					>
-						<CloseIcon fontSize="small" />
+						<PiX fontSize="small" />
 					</IconButton>
 					<PlaybackRateButton
 						onMouseEnter={onMouseEnter}
