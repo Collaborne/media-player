@@ -149,8 +149,13 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,9 +194,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,7 +263,6 @@ import { RwdButton } from '../bottom-control-buttons/components/RwdButton';
 import { VolumeButton } from '../bottom-control-buttons/components/VolumeButton';
 import { VolumeSlider } from '../bottom-control-buttons/components/VolumeSlider';
 import { BottomControls } from '../bottom-controls/BottomControls';
-import { CenteredBottomPlayback } from '../centered-bottom-playback/CenteredBottomPlayback';
 import { CenteredPlayButton } from '../centered-play-button/CenteredPlayButton';
 import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
 import { Controls } from '../controls/Controls';
@@ -275,13 +286,12 @@ export interface MediaPlayerProps extends Omit&lt;CorePlayerProps, 'children'&gt
  */
 export const MediaPlayer: FC&lt;MediaPlayerProps&gt; = memo(
 	({ children, isPipEnabled = true, ...corePlayerProps }) =&gt; {
-		const { gridCentered } = useMediaPlayerStyles().classes;
+		const { classes: playerClasses } = useMediaPlayerStyles();
 		const { controls } = useControlsStyles().classes;
 		return (
 			&lt;CorePlayer isPipEnabled={isPipEnabled} {...corePlayerProps}&gt;
 				&lt;Grid className={controls}&gt;
 					&lt;CenteredPlayButton /&gt;
-					&lt;CenteredBottomPlayback /&gt;
 				&lt;/Grid&gt;
 				&lt;AdditionalControls /&gt;
 				&lt;Controls&gt;
@@ -290,27 +300,35 @@ export const MediaPlayer: FC&lt;MediaPlayerProps&gt; = memo(
 					&lt;PauseAnimation /&gt;
 					&lt;CenteredReplayButton /&gt;
 					&lt;BottomControls&gt;
-						&lt;ProgressBar /&gt;
 						&lt;BottomControlButtons&gt;
-							&lt;Grid item className={gridCentered} xs&gt;
-								&lt;Grid
-									item
-									className={gridCentered}
-									xs
-									justifyContent="flex-start"
-								&gt;
-									&lt;PlayPauseReplay svgIconSize="medium" /&gt;
-									&lt;RwdButton /&gt;
-									&lt;FwdButton /&gt;
-									&lt;VolumeButton /&gt;
-									&lt;VolumeSlider /&gt;
-								&lt;/Grid&gt;
+							&lt;ProgressBar className={playerClasses.progressBar} /&gt;
+							&lt;Grid
+								item
+								className={playerClasses.gridCentered}
+								xs
+								justifyContent="flex-start"
+							&gt;
+								&lt;PlayPauseReplay svgIconSize="medium" /&gt;
+								&lt;RwdButton /&gt;
+								&lt;FwdButton /&gt;
+								&lt;VolumeButton /&gt;
+								&lt;VolumeSlider /&gt;
 							&lt;/Grid&gt;
-							&lt;Grid item className={gridCentered} xs justifyContent="center"&gt;
+							&lt;Grid
+								item
+								className={playerClasses.gridCentered}
+								xs
+								justifyContent="center"
+							&gt;
 								&lt;TimeDisplay /&gt;
 							&lt;/Grid&gt;
-							&lt;Grid item className={gridCentered} xs justifyContent="flex-end"&gt;
-								&lt;PlaybackRateButton /&gt;
+							&lt;Grid
+								item
+								className={playerClasses.gridCentered}
+								xs
+								justifyContent="flex-end"
+							&gt;
+								&lt;PlaybackRateButton size="small" /&gt;
 								{isPipEnabled &amp;&amp; &lt;PictureInPictureButton /&gt;}
 								&lt;FullscreenButton /&gt;
 							&lt;/Grid&gt;
@@ -328,7 +346,7 @@ export const MediaPlayer: FC&lt;MediaPlayerProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-30T13:53:34.731Z
+                at 2023-10-19T16:54:25.756Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
