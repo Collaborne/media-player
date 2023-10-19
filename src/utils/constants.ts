@@ -33,8 +33,6 @@ export const SECONDS_TO_SKIP = 10;
 // Constants for testing
 /** Constant data-testid for `<CenteredPlayButton />` */
 export const CENTERED_PLAY_BUTTON = 'CENTERED_PLAY_BUTTON';
-/** Constant data-testid for `<CenteredBottomPlayback />` */
-export const CENTERED_BOTTOM_PLAYBACK = 'CENTERED_BOTTOM_PLAYBACK';
 /** Constant data-testid for `ReactPlayer` */
 export const REACT_PLAYER = 'REACT_PLAYER';
 /** Constant data-testid for <PlayAnimation/> */

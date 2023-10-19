@@ -21,15 +21,12 @@ export const BigCenteredButton: FC<BigCenteredButtonProps> = ({
 	iconButtonProps,
 	Icon,
 }) => {
-	const {
-		classes: { controlsWrapper, svgStyle },
-		cx,
-	} = useBigCenteredButtonStyles();
+	const { classes, cx } = useBigCenteredButtonStyles();
 
 	return (
-		<div className={cx(controlsWrapper, classNames)} onClick={onClick}>
-			<IconButton {...iconButtonProps}>
-				<Icon className={svgStyle} />
+		<div className={cx(classes.controlsWrapper, classNames)} onClick={onClick}>
+			<IconButton className={classes.button} {...iconButtonProps}>
+				<Icon className={classes.svgStyle} />
 			</IconButton>
 		</div>
 	);

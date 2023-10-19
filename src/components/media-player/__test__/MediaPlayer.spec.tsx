@@ -6,7 +6,6 @@ import { useMediaStore } from '../../../context/MediaProvider';
 import { MediaStore } from '../../../store/media-store';
 import {
 	BOTTOM_CONTROL_BUTTONS,
-	CENTERED_BOTTOM_PLAYBACK,
 	CENTERED_PLAY_BUTTON,
 	CONTROLS,
 	DEFAULT_EVENT_ANIMATION_DURATION,
@@ -64,14 +63,9 @@ describe('<MediaPlayer>', () => {
 			await act(async () => await sleep(1));
 
 			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
-			const playbackRateDiv = getByTestId(CENTERED_BOTTOM_PLAYBACK);
-			const playbackRate1Btn = getByTestId(`${CENTERED_BOTTOM_PLAYBACK}-1`);
 
 			expect(mediaStore.hasPlayedOrSeeked).toBeFalsy();
 			expect(startBtn).toBeInTheDocument();
-			expect(playbackRateDiv).toBeInTheDocument();
-			expect(playbackRate1Btn).toBeInTheDocument();
-			expect(playbackRate1Btn).toHaveAttribute('data-is-active', 'true');
 		});
 		describe('first time play', () => {
 			it('click on <CenteredPlayButton /> start playing', async () => {
@@ -80,27 +74,12 @@ describe('<MediaPlayer>', () => {
 				await act(async () => await sleep(1));
 
 				const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
-				const playbackRateDiv = getByTestId(CENTERED_BOTTOM_PLAYBACK);
 
 				await userEvent.click(startBtn);
 
 				expect(startBtn).not.toBeInTheDocument();
 				expect(mediaStore.isPlaying).toBeTruthy();
 				expect(mediaStore.hasPlayedOrSeeked).toBeTruthy();
-				expect(playbackRateDiv).not.toBeInTheDocument();
-			});
-			it('click on <CenteredBottomPlayback /> do not start playing', async () => {
-				const { getByTestId, mediaStore } = setupMediaPlayer();
-				// wait 1 ms to mount state and load initial data
-				await act(async () => await sleep(1));
-
-				const playbackRate2Btn = getByTestId(`${CENTERED_BOTTOM_PLAYBACK}-2`);
-
-				await userEvent.click(playbackRate2Btn);
-
-				expect(mediaStore.isPlaying).toBeFalsy();
-				expect(mediaStore.hasPlayedOrSeeked).toBeFalsy();
-				expect(mediaStore.playbackRate).toBe(2);
 			});
 			it('click on media-player layout start playing and hide <CenteredPlayButton /> and <CenteredPlayButton /> ', async () => {
 				const { getByTestId, mediaStore } = setupMediaPlayer();
@@ -108,14 +87,12 @@ describe('<MediaPlayer>', () => {
 				await act(async () => await sleep(1));
 
 				const mediaPlayerDiv = getByTestId(REACT_PLAYER);
-				const playbackRateDiv = getByTestId(CENTERED_BOTTOM_PLAYBACK);
 				const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
 
 				await userEvent.click(mediaPlayerDiv);
 
 				expect(mediaStore.isPlaying).toBeTruthy();
 				expect(mediaStore.hasPlayedOrSeeked).toBeTruthy();
-				expect(playbackRateDiv).not.toBeInTheDocument();
 				expect(startBtn).not.toBeInTheDocument();
 			});
 		});

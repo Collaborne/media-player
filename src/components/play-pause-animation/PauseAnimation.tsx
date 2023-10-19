@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { PiPauseCircleFill } from 'react-icons/pi';
 
 import { useMediaStore } from '../../context';
 import { useIsAudio, useMediaListener } from '../../hooks';
@@ -7,7 +8,6 @@ import {
 	PAUSE_ANIMATION,
 } from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
-import { BigPauseIcon } from '../icons';
 
 import { usePlayPauseHook } from './usePlayPauseHook';
 
@@ -61,7 +61,7 @@ export const PauseAnimation: FC<PauseAnimationProps> = ({
 			className={className}
 			data-testid={PAUSE_ANIMATION}
 		>
-			<BigPauseIcon className={centeredIcon} />
+			<PiPauseCircleFill className={centeredIcon} />
 		</AnimatedIconWrapper>
 	);
 };

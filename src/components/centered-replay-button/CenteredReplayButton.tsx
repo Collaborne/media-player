@@ -1,10 +1,10 @@
 import { IconButtonProps } from '@mui/material/IconButton';
 import { FC } from 'react';
+import { PiArrowCounterClockwiseFill } from 'react-icons/pi';
 
 import { useIsAudio } from '../../hooks';
 import { usePlayPauseReplayHook } from '../../hooks/use-play-pause-replay';
 import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';
-import { BigReplayIcon } from '../icons/BigReplayIcon';
 
 export interface CenteredReplayButtonProps {
 	classNames?: string;
@@ -27,7 +27,7 @@ export const CenteredReplayButton: FC<CenteredReplayButtonProps> = ({
 
 	return (
 		<BigCenteredButton
-			Icon={BigReplayIcon}
+			Icon={PiArrowCounterClockwiseFill}
 			onClick={onPlay}
 			classNames={classNames}
 			iconButtonProps={iconButtonProps}

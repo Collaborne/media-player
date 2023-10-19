@@ -1,11 +1,11 @@
 import { IconButtonProps } from '@mui/material/IconButton';
 import { FC } from 'react';
+import { PiPlayCircleFill } from 'react-icons/pi';
 
 import { useMediaStore } from '../../context';
 import { useIsAudio } from '../../hooks';
 import { CENTERED_PLAY_BUTTON } from '../../utils/constants';
 import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';
-import { BigPlayIcon } from '../icons/BigPlayIcon';
 
 export interface CenteredPlayButtonProps {
 	classNames?: string;
@@ -31,7 +31,7 @@ export const CenteredPlayButton: FC<CenteredPlayButtonProps> = ({
 
 	return (
 		<BigCenteredButton
-			Icon={BigPlayIcon}
+			Icon={PiPlayCircleFill}
 			onClick={play}
 			classNames={classNames}
 			iconButtonProps={{

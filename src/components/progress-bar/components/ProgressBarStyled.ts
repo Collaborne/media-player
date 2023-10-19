@@ -4,7 +4,7 @@ import { StyledComponent } from '@mui/styled-engine';
 export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 	({ theme }) => ({
 		'&.MuiSlider-root': {
-			padding: `${theme.spacing(1.5)} 0 0 0`,
+			padding: `${theme.spacing(0.125)} 0`,
 			pointerEvents: 'auto',
 		},
 
@@ -15,18 +15,18 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 		'& .MuiSlider-track': {
 			backgroundColor: theme.palette.primary,
 			position: 'absolute',
-			borderRadius: 0,
+			borderRadius: theme.spacing(0.25),
 			border: 0,
-			top: 10,
-			height: theme.spacing(0.75),
+			top: 1,
+			height: theme.spacing(0.5),
 			transform: 'translate(0)',
 		},
 
 		'& .MuiSlider-thumb': {
-			height: theme.spacing(1.25),
-			width: theme.spacing(1.25),
+			height: theme.spacing(0.75),
+			width: theme.spacing(0.75),
 			backgroundColor: theme.palette.primary,
-			marginTop: theme.spacing(0.5),
+			marginTop: 0,
 			marginLeft: 0,
 			'&:focus, &:hover, &$active': {
 				boxShadow: 'inherit',

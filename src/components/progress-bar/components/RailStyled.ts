@@ -1,4 +1,4 @@
-import { styled, Theme } from '@mui/material';
+import { alpha, styled, Theme } from '@mui/material';
 import { CSSProperties } from '@mui/styled-engine';
 
 export interface RailStyledProps {
@@ -48,10 +48,9 @@ export const RailStyled = styled('span', {
 		position: 'absolute',
 		width: `${width}%`,
 		bottom: 0,
-		height: theme.spacing(0.75),
-		backgroundColor: color ?? theme.palette.common.black,
+		height: theme.spacing(0.5),
+		backgroundColor: color ?? alpha(theme.palette.common.white, 0.2),
 		left: `${startPoint}%`,
-		borderRadius: theme.spacing(0.125),
 		zIndex: 1,
 		borderLeft: `${theme.spacing(0.125)} solid transparent`,
 		borderRight: `${theme.spacing(0.125)} solid transparent`,

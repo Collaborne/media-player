@@ -1,5 +1,7 @@
 import { makeStyles } from 'tss-react/mui';
 
+const BUTTON_SIZE = 8;
+
 export const useBigCenteredButtonStyles = makeStyles()(theme => ({
 	controlsWrapper: {
 		width: '100%',
@@ -11,10 +13,16 @@ export const useBigCenteredButtonStyles = makeStyles()(theme => ({
 		pointerEvents: 'auto',
 	},
 
+	button: {
+		width: theme.spacing(BUTTON_SIZE),
+		height: theme.spacing(BUTTON_SIZE),
+		borderRadius: '50%',
+	},
+
 	svgStyle: {
 		transition: '.2s transform ease-out',
-		width: theme.spacing(10),
-		height: theme.spacing(10),
+		width: theme.spacing(BUTTON_SIZE),
+		height: theme.spacing(BUTTON_SIZE),
 		'&:hover': {
 			transform: 'scale(1.2)',
 		},

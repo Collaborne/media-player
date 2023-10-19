@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/';
+import { alpha, createTheme } from '@mui/material/';
 import { ThemeOptions } from '@mui/material/styles/createTheme';
 
 export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
@@ -6,13 +6,13 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 		palette: {
 			backdropFilter: 'blur(2px)',
 			background: {
-				default: 'rgba(0, 0, 0, 0.72)',
+				default: alpha('#17141B', 0.7),
 				paper: 'rgba(252,252,252, 0.28)',
 			},
 			primary: {
-				light: '#EA99FF',
-				main: '#CB01FF',
-				dark: '#A200CC',
+				light: '#F4D1EC',
+				main: '#D84EA6',
+				dark: '#AD2D70',
 			},
 			secondary: {
 				light: '#CC99FF',
@@ -49,6 +49,9 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 			fontFamily: ['Inter', 'Arial', 'sans-serif'].join(','),
 			button: {
 				textTransform: 'none',
+			},
+			body2: {
+				fontSize: 12,
 			},
 		},
 	});
@@ -106,7 +109,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 								fontWeight: 600,
 							}),
 							...(ownerState.size === 'medium' && {
-								...baseTheme.typography.subtitle2,
+								...baseTheme.typography.caption,
 								fontWeight: 600,
 								padding: baseTheme.spacing(0.625, 1),
 							}),
@@ -178,8 +181,8 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 						fontSize: 'initial',
 						color: darkmode ? '#BFBFBF' : '#616161',
 						// Match size of SvgIcon
-						height: baseTheme.spacing(2.5),
-						width: baseTheme.spacing(2.5),
+						height: baseTheme.spacing(2),
+						width: baseTheme.spacing(2),
 					},
 					colorPrimary: {
 						color: baseTheme.palette.primary.main,
@@ -204,24 +207,24 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 					},
 					root: ({ ownerState }) => ({
 						...actionStates,
-						padding: baseTheme.spacing(0.75, 0.75),
+						padding: baseTheme.spacing(0.5, 0.5),
 						borderRadius: baseTheme.spacing(0.5),
 						color: baseTheme.palette.text.primary,
 
-						height: 32,
-						width: 32,
+						height: 24,
+						width: 24,
 						...(ownerState.size === 'small' && {
-							width: baseTheme.spacing(3),
-							height: baseTheme.spacing(3),
-							padding: baseTheme.spacing(0.5, 0.5),
+							width: baseTheme.spacing(2),
+							height: baseTheme.spacing(2),
 						}),
 						...(ownerState.size === 'medium' && {
-							height: baseTheme.spacing(4.5),
-							width: baseTheme.spacing(4.5),
+							height: baseTheme.spacing(3),
+							width: baseTheme.spacing(3),
 						}),
 						...(ownerState.size === 'large' && {
-							height: baseTheme.spacing(7),
-							width: baseTheme.spacing(7),
+							height: baseTheme.spacing(4.5),
+							width: baseTheme.spacing(4.5),
+							padding: baseTheme.spacing(0.75, 0.75),
 						}),
 						...(ownerState.color === 'primary' && {
 							background: baseTheme.palette.background.default,

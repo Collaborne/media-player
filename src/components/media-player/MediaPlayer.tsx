@@ -14,7 +14,6 @@ import { RwdButton } from '../bottom-control-buttons/components/RwdButton';
 import { VolumeButton } from '../bottom-control-buttons/components/VolumeButton';
 import { VolumeSlider } from '../bottom-control-buttons/components/VolumeSlider';
 import { BottomControls } from '../bottom-controls/BottomControls';
-import { CenteredBottomPlayback } from '../centered-bottom-playback/CenteredBottomPlayback';
 import { CenteredPlayButton } from '../centered-play-button/CenteredPlayButton';
 import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayButton';
 import { Controls } from '../controls/Controls';
@@ -38,13 +37,12 @@ export interface MediaPlayerProps extends Omit<CorePlayerProps, 'children'> {
  */
 export const MediaPlayer: FC<MediaPlayerProps> = memo(
 	({ children, isPipEnabled = true, ...corePlayerProps }) => {
-		const { gridCentered } = useMediaPlayerStyles().classes;
+		const { classes: playerClasses } = useMediaPlayerStyles();
 		const { controls } = useControlsStyles().classes;
 		return (
 			<CorePlayer isPipEnabled={isPipEnabled} {...corePlayerProps}>
 				<Grid className={controls}>
 					<CenteredPlayButton />
-					<CenteredBottomPlayback />
 				</Grid>
 				<AdditionalControls />
 				<Controls>
@@ -53,27 +51,35 @@ export const MediaPlayer: FC<MediaPlayerProps> = memo(
 					<PauseAnimation />
 					<CenteredReplayButton />
 					<BottomControls>
-						<ProgressBar />
 						<BottomControlButtons>
-							<Grid item className={gridCentered} xs>
-								<Grid
-									item
-									className={gridCentered}
-									xs
-									justifyContent="flex-start"
-								>
-									<PlayPauseReplay svgIconSize="medium" />
-									<RwdButton />
-									<FwdButton />
-									<VolumeButton />
-									<VolumeSlider />
-								</Grid>
+							<ProgressBar className={playerClasses.progressBar} />
+							<Grid
+								item
+								className={playerClasses.gridCentered}
+								xs
+								justifyContent="flex-start"
+							>
+								<PlayPauseReplay svgIconSize="medium" />
+								<RwdButton />
+								<FwdButton />
+								<VolumeButton />
+								<VolumeSlider />
 							</Grid>
-							<Grid item className={gridCentered} xs justifyContent="center">
+							<Grid
+								item
+								className={playerClasses.gridCentered}
+								xs
+								justifyContent="center"
+							>
 								<TimeDisplay />
 							</Grid>
-							<Grid item className={gridCentered} xs justifyContent="flex-end">
-								<PlaybackRateButton />
+							<Grid
+								item
+								className={playerClasses.gridCentered}
+								xs
+								justifyContent="flex-end"
+							>
+								<PlaybackRateButton size="small" />
 								{isPipEnabled && <PictureInPictureButton />}
 								<FullscreenButton />
 							</Grid>

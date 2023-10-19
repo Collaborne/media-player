@@ -9,8 +9,8 @@ export const VolumeBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 		},
 
 		'& .MuiSlider-thumb': {
-			height: theme.spacing(0.75),
-			width: theme.spacing(0.75),
+			height: theme.spacing(0.5),
+			width: theme.spacing(0.5),
 			background: theme.palette.text.secondary,
 
 			'&:focus, &:hover, &$active': {

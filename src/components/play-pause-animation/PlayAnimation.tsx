@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { PiPlayCircleFill } from 'react-icons/pi';
 
 import { useMediaStore } from '../../context';
 import { useMediaListener, useIsAudio } from '../../hooks';
@@ -7,7 +8,6 @@ import {
 	PLAY_ANIMATION,
 } from '../../utils/constants';
 import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
-import { BigPlayIcon } from '../icons';
 
 import { usePlayPauseHook } from './usePlayPauseHook';
 
@@ -62,7 +62,7 @@ export const PlayAnimation: FC<PlayAnimationProps> = ({
 			className={className}
 			data-testid={PLAY_ANIMATION}
 		>
-			<BigPlayIcon className={centeredIcon} />
+			<PiPlayCircleFill className={centeredIcon} />
 		</AnimatedIconWrapper>
 	);
 };

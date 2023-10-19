@@ -1,7 +1,14 @@
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { FC } from 'react';
-import { PiX, PiArrowClockwise, PiArrowCounterClockwise } from 'react-icons/pi';
+import {
+	PiX,
+	PiArrowClockwise,
+	PiArrowCounterClockwise,
+	PiPlayCircleFill,
+	PiArrowCounterClockwiseFill,
+	PiPauseCircleFill,
+} from 'react-icons/pi';
 
 import { useMediaStore } from '../../context';
 import { useOnHoveredPipControlElement } from '../../hooks/use-on-hovered-element';
@@ -10,9 +17,6 @@ import {
 	PlayPauseReplay,
 	PlaybackRateButton,
 } from '../bottom-control-buttons/components';
-import { BigPauseIcon } from '../icons/BigPauseIcon';
-import { BigPlayIcon } from '../icons/BigPlayIcon';
-import { BigReplayIcon } from '../icons/BigReplayIcon';
 import { ProgressBar } from '../progress-bar/ProgressBar';
 
 import { usePipControlsHook } from './usePipControlsHook';
@@ -75,9 +79,9 @@ export const PipControls: FC<PipControlsProps> = ({
 							svgClassName={centerIcon}
 							size="large"
 							Icons={{
-								Play: BigPlayIcon,
-								Replay: BigReplayIcon,
-								Pause: BigPauseIcon,
+								Play: PiPlayCircleFill,
+								Replay: PiArrowCounterClockwiseFill,
+								Pause: PiPauseCircleFill,
 							}}
 							svgIconSize="large"
 						/>

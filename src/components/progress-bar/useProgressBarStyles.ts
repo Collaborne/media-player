@@ -6,9 +6,7 @@ export const useProgressBarStyles = makeStyles<{
 }>()((theme, { isAudio, isPip }) => ({
 	progressBar: {
 		...(!isAudio && {
-			position: 'absolute',
-			top: theme.spacing(-2),
-			height: theme.spacing(0.75),
+			height: theme.spacing(0.5),
 			zIndex: '2',
 		}),
 		...(isAudio && {
