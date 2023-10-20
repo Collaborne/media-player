@@ -19,6 +19,7 @@ import { CenteredReplayButton } from '../centered-replay-button/CenteredReplayBu
 import { Controls } from '../controls/Controls';
 import { useControlsStyles } from '../controls/useControlsStyles';
 import { CorePlayer, CorePlayerProps } from '../core-player/CorePlayer';
+import { PlayerFrame } from '../frame';
 import { PauseAnimation } from '../play-pause-animation/PauseAnimation';
 import { PlayAnimation } from '../play-pause-animation/PlayAnimation';
 import { ProgressBar } from '../progress-bar/ProgressBar';
@@ -41,6 +42,7 @@ export const MediaPlayer: FC<MediaPlayerProps> = memo(
 		const { controls } = useControlsStyles().classes;
 		return (
 			<CorePlayer isPipEnabled={isPipEnabled} {...corePlayerProps}>
+				<PlayerFrame />
 				<Grid className={controls}>
 					<CenteredPlayButton />
 				</Grid>

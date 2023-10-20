@@ -8,6 +8,7 @@ export * from './controls/Controls';
 export * from './core-player/CorePlayer';
 export * from './core-player/types';
 export * from './draggable-popover/DraggablePopover';
+export * from './frame';
 export * from './pip-controls';
 export * from './play-pause-animation/PauseAnimation';
 export * from './play-pause-animation/PlayAnimation';
