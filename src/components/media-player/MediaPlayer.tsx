@@ -28,6 +28,9 @@ import { AdditionalControls } from './components/AdditionalControls';
 import { useMediaPlayerStyles } from './useMediaPlayerStyles';
 
 export interface MediaPlayerProps extends Omit<CorePlayerProps, 'children'> {
+	classes?: {
+		playerFrame?: string;
+	};
 	children?: ReactNode;
 }
 
@@ -37,12 +40,12 @@ export interface MediaPlayerProps extends Omit<CorePlayerProps, 'children'> {
  * @category Player
  */
 export const MediaPlayer: FC<MediaPlayerProps> = memo(
-	({ children, isPipEnabled = true, ...corePlayerProps }) => {
+	({ children, isPipEnabled = true, classes, ...corePlayerProps }) => {
 		const { classes: playerClasses } = useMediaPlayerStyles();
 		const { controls } = useControlsStyles().classes;
 		return (
 			<CorePlayer isPipEnabled={isPipEnabled} {...corePlayerProps}>
-				<PlayerFrame />
+				<PlayerFrame className={classes?.playerFrame} />
 				<Grid className={controls}>
 					<CenteredPlayButton />
 				</Grid>
