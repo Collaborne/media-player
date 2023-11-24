@@ -1,5 +1,7 @@
 import { FC, ReactNode } from 'react';
 
+import { useIsAudio } from '../../hooks';
+
 import { useBottomControlsStyles } from './useBottomControlsStyles';
 
 interface BottomControlsProps {
@@ -15,9 +17,10 @@ export const BottomControls: FC<BottomControlsProps> = ({
 	children,
 	className,
 }) => {
+	const isAudio = useIsAudio();
 	const {
 		classes: { bottomControls },
 		cx,
-	} = useBottomControlsStyles();
+	} = useBottomControlsStyles({ isAudio });
 	return <div className={cx(bottomControls, className)}>{children}</div>;
 };

@@ -10,19 +10,12 @@ export const useProgressBarStyles = makeStyles<{
 			zIndex: '2',
 		}),
 		...(isAudio && {
-			width: `calc(100% - ${theme.spacing(2)})`,
+			width: '100%',
 			margin: '0 auto',
 			marginBottom: theme.spacing(1.25),
-			'& .MuiSlider-thumb': {
-				marginTop: theme.spacing(0.675),
-			},
 			...(isPip && {
 				top: theme.spacing(0.5),
 			}),
-			...(isAudio &&
-				!isPip && {
-					transform: `translateY(${theme.spacing(0.5)})`,
-				}),
 		}),
 	},
 }));

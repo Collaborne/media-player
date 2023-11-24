@@ -26,7 +26,7 @@ export const AdditionalControls: FC<AdditionalControlProps> = ({
 	const classNameControls = cx(classes.controls, className);
 	const {
 		classes: { bottomControls },
-	} = useBottomControlsStyles();
+	} = useBottomControlsStyles({ isAudio });
 
 	if (!showControls && !isAudio) {
 		return (
