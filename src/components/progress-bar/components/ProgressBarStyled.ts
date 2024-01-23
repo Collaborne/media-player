@@ -34,6 +34,11 @@ export const ProgressBarStyled: StyledComponent<SliderProps> = styled(Slider)(
 
 			opacity: 0,
 			zIndex: 1,
+
+			'&:after': {
+				height: theme.spacing(1),
+				width: theme.spacing(1),
+			},
 		},
 
 		'&:hover .MuiSlider-thumb': {
