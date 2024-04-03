@@ -11,7 +11,8 @@ import {
 	ReactNode,
 } from 'react';
 import ReactPlayer from 'react-player';
-import { StoreApi, useStore } from 'zustand';
+import { StoreApi } from 'zustand';
+import { useStoreWithEqualityFn } from 'zustand/traditional';
 
 import { CorePlayerInitialState } from '../components';
 import { createMediaStore, MediaStore } from '../store/media-store';
@@ -21,6 +22,7 @@ import { BlendColors, DEFAULT_MEDIA_STORE_CONTEXT } from '../utils';
 import { HighlightsProvider } from './HighlightsProvider';
 
 const MediaStoreContext = createContext<StoreApi<MediaStore>>({
+	getInitialState: () => DEFAULT_MEDIA_STORE_CONTEXT,
 	getState: () => DEFAULT_MEDIA_STORE_CONTEXT,
 	setState: () => DEFAULT_MEDIA_STORE_CONTEXT,
 	subscribe: () => () => [],
@@ -118,7 +120,7 @@ export const useMediaStore = <StateSlice,>(
 		throw Error('useMediaStore cannot be used outside of the MediaProvider');
 	}
 
-	return useStore(
+	return useStoreWithEqualityFn(
 		context,
 		selector as StateSelector<MediaStore, StateSlice>,
 		equalityFn,
