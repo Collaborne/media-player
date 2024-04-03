@@ -1,4 +1,4 @@
-import { Story } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 
 import { BottomControls } from '../../src/components/bottom-controls/BottomControls';
 import { Controls } from '../../src/components/controls/Controls';
@@ -9,7 +9,7 @@ interface ProgressBarStoryProps {
 	hideAllControls: boolean;
 }
 
-export const ProgressBar: Story<ProgressBarStoryProps> = () => {
+export const ProgressBar: StoryFn<ProgressBarStoryProps> = () => {
 	return (
 		<Controls>
 			<BottomControls>

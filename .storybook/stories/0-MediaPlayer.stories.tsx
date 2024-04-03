@@ -1,5 +1,5 @@
 import { Paper } from '@mui/material';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import * as React from 'react';
 import { makeStyles } from 'tss-react/mui';
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles()(theme => ({
 	},
 }));
 
-export const Basic: Story<MediaPlayerProps> = args => {
+export const Basic: StoryFn<MediaPlayerProps> = args => {
 	const { classes } = useStyles();
 
 	return (
@@ -41,7 +41,7 @@ export const Basic: Story<MediaPlayerProps> = args => {
 	);
 };
 
-export const PIPModifiers: Story<MediaPlayerProps> = args => {
+export const PIPModifiers: StoryFn<MediaPlayerProps> = args => {
 	const pipContainer = React.useRef<HTMLDivElement>(null);
 	const { classes } = useStyles();
 

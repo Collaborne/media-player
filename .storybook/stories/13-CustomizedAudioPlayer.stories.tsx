@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import { makeStyles } from 'tss-react/mui';
 
 import {
@@ -31,7 +31,7 @@ const useStyles = makeStyles()(theme => ({
 	},
 }));
 
-export const Customized: Story<CorePlayerProps> = args => {
+export const Customized: StoryFn<CorePlayerProps> = args => {
 	const { dimension, placeholder, buttons } = useStyles().classes;
 	return (
 		<CorePlayer className={dimension} {...args}>

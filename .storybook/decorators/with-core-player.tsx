@@ -1,4 +1,4 @@
-import { StoryContext } from '@storybook/addons';
+import type { StoryContext } from '@storybook/types';
 import * as React from 'react';
 
 import { CorePlayer } from '../../src/components/core-player/CorePlayer';

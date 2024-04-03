@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid/Grid';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';
 
@@ -7,7 +7,7 @@ import { DraggablePopoverProps } from '../../src/components/draggable-popover/Dr
 import { useMediaStore } from '../../src/context';
 import { withCorePlayer, withDemoCard } from '../decorators';
 
-export const DraggablePopover: Story<
+export const DraggablePopover: StoryFn<
 	DraggablePopoverProps & { isPip: boolean }
 > = args => {
 	const [requestPip, exitPip] = useMediaStore(

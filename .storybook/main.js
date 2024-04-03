@@ -38,9 +38,9 @@ const injectEnv = definitions => {
 };
 
 module.exports = {
-    stories: ['./stories/*.stories.tsx'],
+	stories: ['./stories/*.stories.tsx'],
 
-    addons: [
+	addons: [
 		'@storybook/preset-create-react-app',
 		'@storybook/addon-actions',
 		'@storybook/addon-links',
@@ -48,16 +48,16 @@ module.exports = {
 		'@storybook/addon-toolbars',
 	],
 
-    typescript: {
+	typescript: {
 		reactDocgen: 'none',
 	},
 
-    // See https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#emotion11-quasi-compatibility
-    features: {
+	// See https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#emotion11-quasi-compatibility
+	features: {
 		emotionAlias: false,
 	},
 
-    webpackFinal: config => {
+	webpackFinal: config => {
 		return {
 			...config,
 			performance: {
@@ -89,8 +89,8 @@ module.exports = {
 		};
 	},
 
-    framework: {
-        name: '@storybook/react-webpack5',
-        options: {}
-    },
+	framework: {
+		name: '@storybook/react-webpack5',
+		options: {},
+	},
 };

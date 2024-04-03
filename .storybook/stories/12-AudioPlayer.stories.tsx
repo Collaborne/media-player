@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 import {
 	MediaPlayer as MediaPlayerComponent,
@@ -6,7 +6,7 @@ import {
 } from '../../src/components/media-player/MediaPlayer';
 import { withDemoCard, withIntl } from '../decorators';
 
-export const Default: Story<MediaPlayerProps> = args => {
+export const Default: StoryFn<MediaPlayerProps> = args => {
 	return <MediaPlayerComponent {...args} />;
 };
 

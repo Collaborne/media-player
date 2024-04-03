@@ -1,5 +1,5 @@
 import { Paper, styled } from '@mui/material';
-import { StoryContext } from '@storybook/addons';
+import type { StoryContext } from '@storybook/types';
 import { FC } from 'react';
 
 // TODO: Fixing TS via updating/implementing new addons/decorators to fix the any TS
