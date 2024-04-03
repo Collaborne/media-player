@@ -1,4 +1,3 @@
-import Bowser from 'bowser';
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import useUnmount from 'react-use/lib/useUnmount';
 import { shallow } from 'zustand/shallow';
@@ -35,19 +34,6 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 		],
 		shallow,
 	);
-
-	// Force a ready event for safari when the media has been loaded
-	useEffect(() => {
-		const browser = Bowser.getParser(window.navigator.userAgent);
-
-		if (!browser.satisfies({ safari: '>1' })) {
-			return;
-		}
-		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
-		if (mediaEl) {
-			mediaEl.load();
-		}
-	});
 
 	const onReadyToPlay = useCallback(() => {
 		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
