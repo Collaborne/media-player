@@ -12,7 +12,6 @@ export const useProgressBarStyles = makeStyles<{
 		...(isAudio && {
 			width: '100%',
 			margin: '0 auto',
-			marginBottom: theme.spacing(1.25),
 			...(isPip && {
 				top: theme.spacing(0.5),
 			}),

@@ -16,7 +16,10 @@ import { MediaPoster } from '../media-poster/MediaPoster';
 import { Player } from '../player/Player';
 
 import { useIsPlayerReadyHook } from './useIsPlayerReadyHook';
-import { useMediaContainerStyles } from './useMediaContainerStyles';
+import {
+	useFilePlayerStyles,
+	useMediaContainerStyles,
+} from './useMediaContainerStyles';
 import { useMouseActivityHook } from './useMouseActivityHook';
 import { UsePipHook } from './UsePipHook';
 import { useReactPlayerProps } from './useReactPlayerProps';
@@ -77,11 +80,16 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 		} = useMediaContainerStyles({
 			isAudio,
 		});
+		const { wrapper: playerWrapper } = useFilePlayerStyles({ isAudio }).classes;
 
 		const { isPlayerReady } = useIsPlayerReadyHook({ url });
 		const { onMouseEnter, onMouseLeave, onMouseMove } = useMouseActivityHook();
 		const { reactPlayerProps } = useReactPlayerProps();
-		const reactClassNames = cx(reactPlayer, reactPlayerClassName);
+		const reactClassNames = cx(
+			reactPlayer,
+			playerWrapper,
+			reactPlayerClassName,
+		);
 
 		const playerProps = {
 			url,

@@ -10,4 +10,7 @@ export const useMediaPlayerStyles = makeStyles()(theme => ({
 	progressBar: {
 		marginBottom: theme.spacing(0.5),
 	},
+	collapsedContainer: {
+		height: theme.spacing(12),
+	},
 }));

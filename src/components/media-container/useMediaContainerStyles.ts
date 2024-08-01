@@ -9,7 +9,7 @@ export const useMediaContainerStyles = makeStyles<{ isAudio: boolean }>()(
 			justifyContent: 'center',
 			backgroundSize: 'cover',
 			overflow: 'hidden',
-			height: isAudio ? theme.spacing(6.25) : 'unset',
+			height: isAudio ? theme.spacing(7.65) : 'unset',
 			borderRadius: isAudio ? theme.spacing(0.5, 0.5, 0, 0) : 'unset',
 		},
 		pipText: {

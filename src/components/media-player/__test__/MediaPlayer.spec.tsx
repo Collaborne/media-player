@@ -9,12 +9,10 @@ import {
 	CENTERED_PLAY_BUTTON,
 	CONTROLS,
 	DEFAULT_EVENT_ANIMATION_DURATION,
-	DRAGGABLE_POPOVER,
 	FULLSCREEN_BUTTON,
 	MEDIA_CONTAINER,
 	OVERLAY_HIDE_DELAY,
 	PAUSE_ANIMATION,
-	PIP_BUTTON,
 	PLAY_ANIMATION,
 	PLAY_PAUSE_REPLAY,
 	PROGRESS_BAR,
@@ -236,21 +234,6 @@ describe('<MediaPlayer>', () => {
 			await act(async () => await sleep(OVERLAY_HIDE_DELAY + 1000));
 			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
 		});
-		it(`always display when PIP mode is on`, async () => {
-			const { getByTestId, queryByTestId, mediaStore } = setupMediaPlayer();
-			// wait 1 ms to mount state and load initial data
-			await act(async () => await sleep(1));
-
-			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
-
-			await userEvent.click(startBtn);
-
-			await userEvent.click(getByTestId(PIP_BUTTON));
-			expect(mediaStore.isPlaying).toBeTruthy();
-			expect(mediaStore.isPip).toBeTruthy();
-
-			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).toBeInTheDocument();
-		});
 	});
 	describe('<ProgressBar>', () => {
 		it('do not display before first time play', async () => {
@@ -280,50 +263,6 @@ describe('<MediaPlayer>', () => {
 			await userEvent.unhover(getByTestId(MEDIA_CONTAINER));
 			expect(queryByTestId(BOTTOM_CONTROL_BUTTONS)).not.toBeInTheDocument();
 			expect(queryByTestId(PROGRESS_BAR)).toBeInTheDocument();
-		});
-	});
-	describe('PIP mode and <PIPControls />', () => {
-		it('show PIP on clicking <PictureInPictureButton />', async () => {
-			const { getByTestId, mediaStore } = setupMediaPlayer();
-			// wait 1 ms to mount state and load initial data
-			await act(async () => await sleep(1));
-
-			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
-			await userEvent.click(startBtn);
-			expect(mediaStore.isPip).toBeFalsy();
-
-			const draggablePopover = getByTestId(DRAGGABLE_POPOVER);
-			const mediaContainer = getByTestId(MEDIA_CONTAINER);
-			expect(mediaContainer.contains(draggablePopover)).toBeTruthy();
-
-			// start PIP mode  = <DraggablePopover /> wont be a child for <MediaContainer />
-			await userEvent.click(getByTestId(PIP_BUTTON));
-			expect(mediaContainer.contains(draggablePopover)).toBeFalsy();
-			expect(mediaStore.isPip).toBeTruthy();
-		});
-		it('close PIP on clicking <PictureInPictureButton />', async () => {
-			const { getByTestId, mediaStore } = setupMediaPlayer();
-			// wait 1 ms to mount state and load initial data
-			await act(async () => await sleep(1));
-
-			const startBtn = getByTestId(CENTERED_PLAY_BUTTON);
-			await userEvent.click(startBtn);
-
-			const draggablePopover = getByTestId(DRAGGABLE_POPOVER);
-			const mediaContainer = getByTestId(MEDIA_CONTAINER);
-			expect(mediaContainer.contains(draggablePopover)).toBeTruthy();
-
-			// start PIP mode  = <DraggablePopover /> wont be a child for <MediaContainer />
-			await userEvent.click(getByTestId(PIP_BUTTON));
-			expect(mediaContainer.contains(draggablePopover)).toBeFalsy();
-			expect(mediaStore.isPip).toBeTruthy();
-
-			// close pip = <DraggablePopover /> is a child for <MediaContainer />
-			await userEvent.click(getByTestId(PIP_BUTTON));
-			expect(mediaStore.isPip).toBeFalsy();
-			expect(
-				getByTestId(MEDIA_CONTAINER).contains(getByTestId(DRAGGABLE_POPOVER)),
-			).toBeTruthy();
 		});
 	});
 	describe('Fullscreen API', () => {

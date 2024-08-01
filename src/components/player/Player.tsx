@@ -18,15 +18,15 @@ export interface PlayerProps {
  * @category React Component
  */
 export const Player: FC<PlayerProps> = memo(
-	({ url, className, isFullscreen, reactPlayerProps }) => {
+	({ url, className, reactPlayerProps }) => {
 		usePlayerHook({ url });
 
 		return (
 			<ReactPlayer
 				url={url}
 				progressInterval={PROGRESS_INTERVAL}
-				width="100%"
-				height={isFullscreen ? '100%' : 'unset'}
+				width="unset"
+				height="100%"
 				className={className}
 				data-testid={REACT_PLAYER}
 				config={{

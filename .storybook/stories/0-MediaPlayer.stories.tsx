@@ -1,6 +1,5 @@
-import { Paper } from '@mui/material';
 import { Meta, StoryFn } from '@storybook/react';
-import * as React from 'react';
+import { useToggle } from 'react-use';
 import { makeStyles } from 'tss-react/mui';
 
 import {
@@ -8,6 +7,7 @@ import {
 	MediaPlayerProps,
 } from '../../src/components/media-player/MediaPlayer';
 import { withDemoCard, withIntl, withPlayerTheme } from '../decorators';
+
 const useStyles = makeStyles()(theme => ({
 	wrapper: {
 		height: theme.spacing(500),
@@ -33,31 +33,19 @@ const useStyles = makeStyles()(theme => ({
 
 export const Basic: StoryFn<MediaPlayerProps> = args => {
 	const { classes } = useStyles();
-
-	return (
-		<div className={classes.wrapper}>
-			<MediaPlayer {...args} />
-		</div>
-	);
-};
-
-export const PIPModifiers: StoryFn<MediaPlayerProps> = args => {
-	const pipContainer = React.useRef<HTMLDivElement>(null);
-	const { classes } = useStyles();
+	const [collapse, toggleCollapse] = useToggle(true);
 
 	return (
 		<div className={classes.wrapper}>
 			<MediaPlayer
-				pipContainer={pipContainer}
-				pipPortalClassName={classes.pipLayout}
 				{...args}
+				collapse={collapse}
+				onToggleCollapse={toggleCollapse}
 			/>
-			<Paper elevation={3} ref={pipContainer} className={classes.pipContainer}>
-				PIP can be dragged only here
-			</Paper>
 		</div>
 	);
 };
+
 export default {
 	title: 'Media Player',
 	component: MediaPlayer,
@@ -85,33 +73,6 @@ export default {
 			table: {
 				type: { summary: 'MediaType' },
 				defaultValue: { summary: undefined },
-			},
-		},
-		isPipEnabled: {
-			name: 'props.isPipEnabled',
-			description:
-				'Enables/disables all pip features(scrolling, entering/leaving PIP mode)',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: true },
-			},
-		},
-		yAxisDistance: {
-			name: 'props.yAxisDistance',
-			description:
-				'Distance from window border bottom, on Y axis in `pixels`, for PIP player position initialization ',
-			table: {
-				type: { summary: 'number' },
-				defaultValue: { summary: 16 },
-			},
-		},
-		xAxisDistance: {
-			name: 'props.xAxisDistance',
-			description:
-				'Distance from window border right, on X axis in `pixels`, for PIP player position initialization',
-			table: {
-				type: { summary: 'number' },
-				defaultValue: { summary: 16 },
 			},
 		},
 	},
