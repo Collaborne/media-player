@@ -14,8 +14,6 @@ import {
 } from '../../bottom-control-buttons';
 import { CollapseIconButton } from '../../bottom-control-buttons/components/CollapseIconButton';
 import { BottomControls } from '../../bottom-controls/BottomControls';
-import { CenteredPlayButton } from '../../centered-play-button/CenteredPlayButton';
-import { CenteredReplayButton } from '../../centered-replay-button/CenteredReplayButton';
 import { useControlsStyles, Controls } from '../../controls';
 import { PauseAnimation } from '../../play-pause-animation/PauseAnimation';
 import { PlayAnimation } from '../../play-pause-animation/PlayAnimation';
@@ -70,10 +68,6 @@ export const MediaPlayerControls: FC<MediaPlayerControlsProps> = memo(
 						<AdditionalControls />
 					</>
 				)}
-				<Grid className={controls}>
-					<CenteredPlayButton />
-					<CenteredReplayButton />
-				</Grid>
 				<BottomControls>
 					<MediaPlayerControlButtons isCollapsed={isCollapsed}>
 						<ProgressTimerDisplay />

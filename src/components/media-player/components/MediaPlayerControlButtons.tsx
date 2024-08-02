@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import { FC, memo, ReactNode } from 'react';
 
-import { useIsAudio, usePlayPauseReplayHook } from '../../../hooks';
+import { useIsAudio } from '../../../hooks';
 import { BOTTOM_CONTROL_BUTTONS } from '../../../utils';
 import { useBottomControlButtonsHook } from '../../bottom-control-buttons/useBottomControlButtonsHook';
 import { useBottomControlButtonsStyles } from '../../bottom-control-buttons/useBottomControlButtonsStyles';
@@ -28,12 +28,9 @@ export const MediaPlayerControlButtons: FC<MediaPlayerControlButtonsProps> =
 		}) => {
 			const isAudio = useIsAudio();
 			const { classes, cx } = useBottomControlButtonsStyles();
-			const { hasStarted, showControls } = useBottomControlButtonsHook();
-			const { isFinished } = usePlayPauseReplayHook();
+			const { showControls } = useBottomControlButtonsHook();
 
-			const hide = isCollapsed
-				? !hasStarted || isFinished
-				: (!showControls || !hasStarted) && !isAudio;
+			const hide = !isCollapsed && !showControls && !isAudio;
 
 			if (hide) {
 				return null;

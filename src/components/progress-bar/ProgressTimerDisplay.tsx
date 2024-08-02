@@ -35,17 +35,15 @@ export const ProgressTimerDisplay: FC<ProgressTimerDisplayProps> = ({
 		classes: { timeStampText },
 	} = useTimeDisplayStyles();
 
-	const [hasStarted, duration, setCurrentTime, isPip, currentTime] =
-		useMediaStore(
-			state => [
-				state.hasPlayedOrSeeked,
-				state.duration,
-				state.setCurrentTime,
-				state.isPip,
-				state.currentTime,
-			],
-			shallow,
-		);
+	const [duration, setCurrentTime, isPip, currentTime] = useMediaStore(
+		state => [
+			state.duration,
+			state.setCurrentTime,
+			state.isPip,
+			state.currentTime,
+		],
+		shallow,
+	);
 
 	const onCurrentTimeUpdate = (e: Event, newValue: number | number[]) => {
 		e.preventDefault();
@@ -61,10 +59,6 @@ export const ProgressTimerDisplay: FC<ProgressTimerDisplayProps> = ({
 		classes: { progressBar },
 		cx,
 	} = useProgressBarStyles({ isAudio, isPip });
-
-	if (!hasStarted && !isAudio) {
-		return null;
-	}
 
 	return (
 		<Grid
