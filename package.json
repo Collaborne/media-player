@@ -29,7 +29,7 @@
     "deploy": "gh-pages -d gh-pages-dist",
     "storybook": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" FAST_REFRESH=false storybook dev -p 9009",
     "storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" storybook build --quiet -o gh-pages-dist",
-    "storybook-build": "npm run build:locales && build-storybook"
+    "storybook-build": "npm run build:locales && storybook build --quiet -o gh-pages-dist"
   },
   "peerDependencies": {
     "@mui/material": "^5.10.11",
