@@ -17,6 +17,7 @@ jobs:
       - name: Build Storybook
         run: npm run storybook:build
       - name: Publish to Chromatic
-        run: npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN
-        env:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        uses: chromaui/action@v1
+          with:
+            projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+            buildScriptName: storybook:build
