@@ -44,6 +44,7 @@
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@collaborne/github-badges": "^0.0.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
