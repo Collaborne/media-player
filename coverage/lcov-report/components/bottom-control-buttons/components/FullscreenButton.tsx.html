@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">11.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>1/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">11.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>1/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -152,33 +152,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">94x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -218,17 +218,17 @@ interface FullscreenButtonProps extends IconButtonProps {
  * @category React Component
  * @category UI Controls
  */
-export const FullscreenButton: FC&lt;FullscreenButtonProps&gt; = ({
-	Icons = {
+export const FullscreenButton: FC&lt;FullscreenButtonProps&gt; = <span class="fstat-no" title="function not covered" >({</span>
+	Icons = <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 		FullscreenEnter: PiCornersOut,
 		FullscreenExit: PiCornersIn,
 	},
 	svgIconProps,
-	'data-test-id': dataTestId = FULLSCREEN_BUTTON,
+	'data-test-id': dataTestId = <span class="branch-0 cbranch-no" title="branch not covered" >FULLSCREEN_BUTTON,</span>
 	...props
 }) =&gt; {
-	const [isFullscreen, requestFullscreen, exitFullscreen] = useMediaStore(
-		state =&gt; [
+	const [isFullscreen, requestFullscreen, exitFullscreen] = <span class="cstat-no" title="statement not covered" >useMediaStore(</span>
+<span class="fstat-no" title="function not covered" >		st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >[</span>
 			state.isFullscreen,
 			state.requestFullscreen,
 			state.exitFullscreen,
@@ -236,15 +236,15 @@ export const FullscreenButton: FC&lt;FullscreenButtonProps&gt; = ({
 		shallow,
 	);
 &nbsp;
-	const { onMouseEnter, onMouseLeave } = useOnHoveredControlElement();
-	const isAudio = useIsAudio();
+	const { onMouseEnter, onMouseLeave } = <span class="cstat-no" title="statement not covered" >useOnHoveredControlElement();</span>
+	const isAudio = <span class="cstat-no" title="statement not covered" >useIsAudio();</span>
 &nbsp;
-	const onFullscreen = isFullscreen ? exitFullscreen : requestFullscreen;
+	const onFullscreen = <span class="cstat-no" title="statement not covered" >isFullscreen ? exitFullscreen : requestFullscreen;</span>
 &nbsp;
-	if (isAudio) {
-		return null;
+<span class="cstat-no" title="statement not covered" >	if (isAudio) {</span>
+<span class="cstat-no" title="statement not covered" >		return null;</span>
 	}
-	return (
+<span class="cstat-no" title="statement not covered" >	return (</span>
 		&lt;IconButton
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}
@@ -268,7 +268,7 @@ export const FullscreenButton: FC&lt;FullscreenButtonProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-02T10:31:33.877Z
+                at 2024-08-02T18:52:56.960Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

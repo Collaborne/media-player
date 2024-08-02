@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -258,7 +258,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -279,13 +279,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -389,8 +389,8 @@ export interface CorePlayerProps
  * @category React Component
  * @category Player
  */
-export const CorePlayer: FC&lt;CorePlayerProps&gt; = memo(
-	({
+export const CorePlayer: FC&lt;CorePlayerProps&gt; = <span class="cstat-no" title="statement not covered" >memo(</span>
+<span class="fstat-no" title="function not covered" >	({</span>
 		url,
 		className,
 		highlights,
@@ -406,17 +406,17 @@ export const CorePlayer: FC&lt;CorePlayerProps&gt; = memo(
 		reactPlayerClassName,
 		pipContainer,
 		pipPortalClassName,
-		getHighlightColorBlended = blend,
-		initialState = CORE_PLAYER_INITIAL_STATE,
+		getHighlightColorBlended = <span class="branch-0 cbranch-no" title="branch not covered" >blend,</span>
+		initialState = <span class="branch-0 cbranch-no" title="branch not covered" >CORE_PLAYER_INITIAL_STATE,</span>
 		isPipEnabled = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span>
 	}) =&gt; {
-		const { mediaType } = useCorePlayerHook({ url, initialMediaType });
-		const isAudio = mediaType === 'audio';
-		const nestedThemes = deepmerge(createPlayerTheme(), theme || {});
-		const { classes, cx } = useFilePlayerStyles({ isAudio });
-		const classNames = cx(classes.wrapper, className);
+		const { mediaType } = <span class="cstat-no" title="statement not covered" >useCorePlayerHook({ url, initialMediaType });</span>
+		const isAudio = <span class="cstat-no" title="statement not covered" >mediaType === 'audio';</span>
+		const nestedThemes = <span class="cstat-no" title="statement not covered" >deepmerge(createPlayerTheme(), theme || {});</span>
+		const { classes, cx } = <span class="cstat-no" title="statement not covered" >useFilePlayerStyles({ isAudio });</span>
+		const classNames = <span class="cstat-no" title="statement not covered" >cx(classes.wrapper, className);</span>
 &nbsp;
-		return (
+<span class="cstat-no" title="statement not covered" >		return (</span>
 			&lt;ThemeProvider theme={nestedThemes}&gt;
 				&lt;StyledEngineProvider injectFirst&gt;
 					&lt;CssBaseline /&gt;
@@ -463,7 +463,7 @@ export const CorePlayer: FC&lt;CorePlayerProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-02T10:31:33.877Z
+                at 2024-08-02T18:52:56.960Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

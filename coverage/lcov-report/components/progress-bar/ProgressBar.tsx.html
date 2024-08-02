@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">7.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/14</span>
+                <span class='fraction'>1/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">7.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/14</span>
+                <span class='fraction'>1/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -161,15 +161,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,7 +179,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,13 +196,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,15 +237,15 @@ interface ProgressBarProps extends SliderProps {
  * @category React Component
  * @category UI Controls
  */
-export const ProgressBar: FC&lt;ProgressBarProps&gt; = ({
+export const ProgressBar: FC&lt;ProgressBarProps&gt; = <span class="fstat-no" title="function not covered" >({</span>
 	className,
-	'data-testid': dataTestId = PROGRESS_BAR,
+	'data-testid': dataTestId = <span class="branch-0 cbranch-no" title="branch not covered" >PROGRESS_BAR,</span>
 	...props
 }) =&gt; {
-	const isAudio = useIsAudio();
+	const isAudio = <span class="cstat-no" title="statement not covered" >useIsAudio();</span>
 	const [hasStarted, duration, setCurrentTime, isPip, currentTime] =
-		useMediaStore(
-			state =&gt; [
+<span class="cstat-no" title="statement not covered" >		useMediaStore(</span>
+<span class="fstat-no" title="function not covered" >			st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >[</span>
 				state.hasPlayedOrSeeked,
 				state.duration,
 				state.setCurrentTime,
@@ -255,7 +255,7 @@ export const ProgressBar: FC&lt;ProgressBarProps&gt; = ({
 			shallow,
 		);
 &nbsp;
-	const onCurrentTimeUpdate = <span class="fstat-no" title="function not covered" >(</span>
+	const onCurrentTimeUpdate = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span>
 		e: Event,
 		newValue: number | number[],
 		_activeThumb: number,
@@ -272,13 +272,13 @@ export const ProgressBar: FC&lt;ProgressBarProps&gt; = ({
 	const {
 		classes: { progressBar },
 		cx,
-	} = useProgressBarStyles({ isAudio, isPip });
+	} = <span class="cstat-no" title="statement not covered" >useProgressBarStyles({ isAudio, isPip });</span>
 &nbsp;
-	<span class="missing-if-branch" title="if path not taken" >I</span>if (!hasStarted &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isAudio)</span> {
+<span class="cstat-no" title="statement not covered" >	if (!hasStarted &amp;&amp; !isAudio) {</span>
 <span class="cstat-no" title="statement not covered" >		return null;</span>
 	}
 &nbsp;
-	return (
+<span class="cstat-no" title="statement not covered" >	return (</span>
 		&lt;ProgressBarStyled
 			className={cx(progressBar, className)}
 			min={0}
@@ -298,7 +298,7 @@ export const ProgressBar: FC&lt;ProgressBarProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-02T10:31:33.877Z
+                at 2024-08-02T18:52:56.960Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -153,42 +153,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">165x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -221,42 +221,42 @@ interface PlayAnimationProps {
  * @category React Component
  * @category UI Controls
  */
-export const PlayAnimation: FC&lt;PlayAnimationProps&gt; = ({
-	animationDuration = DEFAULT_EVENT_ANIMATION_DURATION,
+export const PlayAnimation: FC&lt;PlayAnimationProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span></span>
+	animationDuration = <span class="branch-0 cbranch-no" title="branch not covered" >DEFAULT_EVENT_ANIMATION_DURATION,</span>
 	className,
 }) =&gt; {
-	const isAudio = useIsAudio();
-	const { centeredIcon, isPlaying, hasStarted } = usePlayPauseHook();
-	const [showPlayAnimation, playAnimationStart] = useState(false);
-	const listener = useMediaStore(state =&gt; state.getListener)();
+	const isAudio = <span class="cstat-no" title="statement not covered" >useIsAudio();</span>
+	const { centeredIcon, isPlaying, hasStarted } = <span class="cstat-no" title="statement not covered" >usePlayPauseHook();</span>
+	const [showPlayAnimation, playAnimationStart] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+	const listener = <span class="cstat-no" title="statement not covered" >useMediaStore(<span class="fstat-no" title="function not covered" >st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >state.getListener)</span>();</span>
 &nbsp;
 	// Play animation on `play` event
 	// and filtering out the first "play"
-	useMediaListener(
+<span class="cstat-no" title="statement not covered" >	useMediaListener(</span>
 		'play',
-		() =&gt; {
-			if (!hasStarted) {
-				return;
+<span class="fstat-no" title="function not covered" >		()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >			if (!hasStarted) {</span>
+<span class="cstat-no" title="statement not covered" >				return;</span>
 			}
-			<span class="missing-if-branch" title="else path not taken" >E</span>if (!isPlaying) {
-				playAnimationStart?.(true);
+<span class="cstat-no" title="statement not covered" >			if (!isPlaying) {</span>
+<span class="cstat-no" title="statement not covered" >				playAnimationStart?.(true);</span>
 			}
 		},
 		listener,
 	);
 &nbsp;
 	// Rerender when animation has been triggered and close it
-	useEffect(() =&gt; {
-		if (showPlayAnimation) {
-			playAnimationStart?.(false);
+<span class="cstat-no" title="statement not covered" >	useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >		if (showPlayAnimation) {</span>
+<span class="cstat-no" title="statement not covered" >			playAnimationStart?.(false);</span>
 		}
 	}, [playAnimationStart, showPlayAnimation]);
 &nbsp;
-	if (isAudio) {
-		return null;
+<span class="cstat-no" title="statement not covered" >	if (isAudio) {</span>
+<span class="cstat-no" title="statement not covered" >		return null;</span>
 	}
 &nbsp;
-	return (
+<span class="cstat-no" title="statement not covered" >	return (</span>
 		&lt;AnimatedIconWrapper
 			durationMs={animationDuration}
 			startAnimation={showPlayAnimation}
@@ -274,7 +274,7 @@ export const PlayAnimation: FC&lt;PlayAnimationProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-02T10:31:33.877Z
+                at 2024-08-02T18:52:56.960Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
