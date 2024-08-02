@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>2/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">18.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>2/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -265,19 +265,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">117x</span>
-<span class="cline-any cline-yes">117x</span>
-<span class="cline-any cline-yes">284x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,23 +277,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">117x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">117x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">117x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">198x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -398,22 +398,22 @@ export interface DraggablePopoverProps {
  * @category UI Controls
  */
 export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
-	({
+<span class="fstat-no" title="function not covered" >	({</span>
 		className,
 		children,
 		rndProps,
 		audioPlaceholder,
-		xAxisDistance = DEFAULT_AXIS_DISTANCE,
-		yAxisDistance = DEFAULT_AXIS_DISTANCE,
-		'data-testid': dataTestId = DRAGGABLE_POPOVER,
+		xAxisDistance = <span class="branch-0 cbranch-no" title="branch not covered" >DEFAULT_AXIS_DISTANCE,</span>
+		yAxisDistance = <span class="branch-0 cbranch-no" title="branch not covered" >DEFAULT_AXIS_DISTANCE,</span>
+		'data-testid': dataTestId = <span class="branch-0 cbranch-no" title="branch not covered" >DRAGGABLE_POPOVER,</span>
 		pipPortalClassName,
 		pipDraggableAreaRef,
 	}) =&gt; {
-		const { PIPControls } = usePipControlsContext();
+		const { PIPControls } = <span class="cstat-no" title="statement not covered" >usePipControlsContext();</span>
 &nbsp;
-		const pipPortalRef = useRef&lt;HTMLDivElement&gt;(null);
-		const isAudio = useIsAudio();
-		const isPip = useMediaStore(state =&gt; state.isPip);
+		const pipPortalRef = <span class="cstat-no" title="statement not covered" >useRef&lt;HTMLDivElement&gt;(null);</span>
+		const isAudio = <span class="cstat-no" title="statement not covered" >useIsAudio();</span>
+		const isPip = <span class="cstat-no" title="statement not covered" >useMediaStore(<span class="fstat-no" title="function not covered" >st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >state.isPip)</span>;</span>
 &nbsp;
 		const {
 			dimensions,
@@ -421,7 +421,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 			handleDragStop,
 			handleResizeStop,
 			portalWrapperRef,
-		} = useDraggablePopoverHook({
+		} = <span class="cstat-no" title="statement not covered" >useDraggablePopoverHook({</span>
 			isPip,
 			xAxisDistance,
 			yAxisDistance,
@@ -429,23 +429,23 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 			pipDraggableAreaRef,
 		});
 		const { onMouseEnter, onMouseLeave, onMouseMove } =
-			usePipMouseActivityHook();
+<span class="cstat-no" title="statement not covered" >			usePipMouseActivityHook();</span>
 &nbsp;
 		const {
 			classes: { paper, portalWrapper, resizeSquares },
 			cx,
-		} = useDraggablePopoverStyles({
+		} = <span class="cstat-no" title="statement not covered" >useDraggablePopoverStyles({</span>
 			isAudio,
 			isPip,
 		});
 &nbsp;
-		return (
+<span class="cstat-no" title="statement not covered" >		return (</span>
 			&lt;Portal disablePortal={!isPip} container={pipDraggableAreaRef?.current}&gt;
 				&lt;div
 					className={cx(portalWrapper, pipPortalClassName)}
 					data-testid={dataTestId}
-					ref={el =&gt; {
-						isElement(el) &amp;&amp; el !== null &amp;&amp; portalWrapperRef(el);
+					ref={<span class="fstat-no" title="function not covered" >el</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >						isElement(el) &amp;&amp; el !== null &amp;&amp; portalWrapperRef(el);</span>
 					}}
 				&gt;
 					&lt;Rnd
@@ -479,7 +479,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
 							{isPip &amp;&amp; (
 								&lt;&gt;
 									{isAudio &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >										&lt;MediaPoster</span>
+										&lt;MediaPoster
 											img={audioPlaceholder}
 											width="100%"
 											height="100%"
@@ -502,7 +502,7 @@ export const DraggablePopover: FC&lt;DraggablePopoverProps&gt; = memo(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-26T16:22:08.623Z
+                at 2024-08-02T10:30:28.206Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

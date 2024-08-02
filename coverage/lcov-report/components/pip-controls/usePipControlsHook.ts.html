@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">6.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/16</span>
+                <span class='fraction'>1/16</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">7.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>1/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -133,35 +133,35 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,11 +182,11 @@ interface UsePipControlsHook {
 	onClose: VoidFunction;
 }
 &nbsp;
-export const usePipControlsHook = ({
+export const usePipControlsHook = <span class="fstat-no" title="function not covered" >({</span>
 	skipSeconds,
 }: UsePipControlsProps): UsePipControlsHook =&gt; {
-	const [setCurrentTime, getListener, exitPip, pause] = useMediaStore(
-		state =&gt; [
+	const [setCurrentTime, getListener, exitPip, pause] = <span class="cstat-no" title="statement not covered" >useMediaStore(</span>
+<span class="fstat-no" title="function not covered" >		st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >[</span>
 			state.setCurrentTime,
 			state.getListener,
 			state.exitPip,
@@ -194,26 +194,26 @@ export const usePipControlsHook = ({
 		],
 		shallow,
 	);
-	const listener = getListener();
+	const listener = <span class="cstat-no" title="statement not covered" >getListener();</span>
 &nbsp;
 	// Storing current time into a ref, to avoid rerenders
-	const currentTimeRef = useRef(0);
+	const currentTimeRef = <span class="cstat-no" title="statement not covered" >useRef(0);</span>
 &nbsp;
-	useMediaListener(
+<span class="cstat-no" title="statement not covered" >	useMediaListener(</span>
 		'timeupdate',
-		e =&gt; (currentTimeRef.current = e.seconds),
+<span class="fstat-no" title="function not covered" >		e </span>=&gt; (<span class="cstat-no" title="statement not covered" >currentTimeRef.current = e.seconds)</span>,
 		listener,
 	);
 &nbsp;
-	const onStop = pause;
-	const onRwd = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setCurrentTime(currentTimeRef.current - skipSeconds);</span>
-	const onFwd = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setCurrentTime(currentTimeRef.current + skipSeconds);</span>
-	const onClose = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+	const onStop = <span class="cstat-no" title="statement not covered" >pause;</span>
+	const onRwd = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setCurrentTime(currentTimeRef.current - skipSeconds);</span></span>
+	const onFwd = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setCurrentTime(currentTimeRef.current + skipSeconds);</span></span>
+	const onClose = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >		onStop();</span>
 <span class="cstat-no" title="statement not covered" >		exitPip();</span>
 	};
 &nbsp;
-	return {
+<span class="cstat-no" title="statement not covered" >	return {</span>
 		onRwd,
 		onFwd,
 		onClose,
@@ -226,7 +226,7 @@ export const usePipControlsHook = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-26T16:22:08.623Z
+                at 2024-08-02T10:30:28.206Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

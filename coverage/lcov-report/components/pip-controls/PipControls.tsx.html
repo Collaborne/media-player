@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">11.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>1/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>1/8</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -226,9 +226,9 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,10 +239,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -350,12 +350,12 @@ interface PipControlsProps {
  * @category React Component
  * @category UI Controls
  */
-export const PipControls: FC&lt;PipControlsProps&gt; = ({
-	skipSeconds = SECONDS_TO_SKIP,
+export const PipControls: FC&lt;PipControlsProps&gt; = <span class="fstat-no" title="function not covered" >({</span>
+	skipSeconds = <span class="branch-0 cbranch-no" title="branch not covered" >SECONDS_TO_SKIP,</span>
 }) =&gt; {
-	const showPipControls = useMediaStore(state =&gt; state.showPipControls);
-	const { onMouseEnter, onMouseLeave } = useOnHoveredPipControlElement();
-	const { onClose, onFwd, onRwd } = usePipControlsHook({
+	const showPipControls = <span class="cstat-no" title="statement not covered" >useMediaStore(<span class="fstat-no" title="function not covered" >st</span>ate =&gt; <span class="cstat-no" title="statement not covered" >state.showPipControls)</span>;</span>
+	const { onMouseEnter, onMouseLeave } = <span class="cstat-no" title="statement not covered" >useOnHoveredPipControlElement();</span>
+	const { onClose, onFwd, onRwd } = <span class="cstat-no" title="statement not covered" >usePipControlsHook({</span>
 		skipSeconds,
 	});
 	const {
@@ -366,10 +366,10 @@ export const PipControls: FC&lt;PipControlsProps&gt; = ({
 		centerButtonIcon,
 		playBackRateWrapper,
 		progressBar,
-	} = usePipControlsStyles().classes;
+	} = <span class="cstat-no" title="statement not covered" >usePipControlsStyles().classes;</span>
 &nbsp;
-	<span class="missing-if-branch" title="else path not taken" >E</span>if (!showPipControls) {
-		return &lt;ProgressBar className={progressBar} /&gt;;
+<span class="cstat-no" title="statement not covered" >	if (!showPipControls) {</span>
+<span class="cstat-no" title="statement not covered" >		return &lt;ProgressBar className={progressBar} /&gt;;</span>
 	}
 &nbsp;
 <span class="cstat-no" title="statement not covered" >	return (</span>
@@ -451,7 +451,7 @@ export const PipControls: FC&lt;PipControlsProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-26T16:22:08.623Z
+                at 2024-08-02T10:30:28.206Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
