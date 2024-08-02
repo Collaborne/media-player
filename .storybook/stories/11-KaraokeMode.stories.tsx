@@ -142,7 +142,6 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 				url={args.url}
 				onStoreUpdate={setMediaContext}
 				alarms={alarmRef.current}
-				isPipEnabled={args.isPipEnabled}
 			/>
 			<div>{timeStampsMemo}</div>
 			{createActiveSpan()}
@@ -174,16 +173,6 @@ export default {
 			table: {
 				type: { summary: 'number' },
 				defaultValue: { summary: 2 },
-			},
-		},
-		isPipEnabled: {
-			name: 'props.isPipEnabled',
-			description:
-				'Enables/disables all pip features(scrolling, entering/leaving PIP mode)',
-
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: true },
 			},
 		},
 	},

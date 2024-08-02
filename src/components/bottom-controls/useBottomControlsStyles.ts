@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui';
 
 export const useBottomControlsStyles = makeStyles<{ isAudio: boolean }>()(
 	(theme, { isAudio }) => {
-		const bottomPadding = !isAudio ? theme.spacing(2) : 0;
+		const bottomPadding = !isAudio ? theme.spacing(1) : 0;
 		return {
 			bottomControls: {
 				display: 'flex',

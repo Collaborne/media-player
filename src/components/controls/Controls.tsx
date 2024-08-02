@@ -1,6 +1,5 @@
 import { FC, ReactNode } from 'react';
 
-import { useMediaStore } from '../../context';
 import { CONTROLS } from '../../utils';
 
 import { useControlsStyles } from './useControlsStyles';
@@ -21,17 +20,9 @@ export const Controls: FC<ControlProps> = ({
 	className,
 	'data-testid': dataTestId = CONTROLS,
 }) => {
-	const showControls = useMediaStore(state => state.showControls);
-	const isAudio = useMediaStore(state => state.isAudio);
-
 	// Controls styles
 	const { classes, cx } = useControlsStyles();
 	const classNameControls = cx(classes.controls, className);
-
-	// Only <ProgressBar/> should be present if Controls components are not shown
-	if (!showControls && !isAudio) {
-		return null;
-	}
 
 	return (
 		<div className={classNameControls} data-testid={dataTestId}>
