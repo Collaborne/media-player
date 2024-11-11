@@ -6,8 +6,8 @@
 			"files": ["**/*.ts", "**/*.tsx"],
 
 			"extends": [
-				"standard-react",
-				"plugin:prettier/recommended",
+				"standard",
+				"prettier",
 				"collaborne"
 			],
 
@@ -15,22 +15,14 @@
 				"node": false
 			},
 
-			"settings": {
-				"react": {
-					"version": "17"
-				}
-			},
-			"plugins": ["react-hooks"],
+			"plugins": [
+				"react",
+				"react-hooks",
+				"@typescript-eslint"
+			],
 			"rules": {
-				"react/prop-types": "off",
-				"react/jsx-handler-names": "off",
-				"react/jsx-fragments": "off",
-				"react/no-unused-prop-types": "off",
-				"react/jsx-uses-react": "off",
-				"react/react-in-jsx-scope": "off",
 				"react-hooks/rules-of-hooks": "error",
 				"react-hooks/exhaustive-deps": "warn",
-				"camelcase": "warn",
 				"@typescript-eslint/naming-convention": [
 					"error",
 					{
@@ -42,7 +34,6 @@
 		},
 		{
 			"files": "src/**/*.spec.ts",
-
 			"extends": ["plugin:jest/recommended"]
 		},
 		{
