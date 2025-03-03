@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 
 import {
 	MediaPlayer as MediaPlayerComponent,
@@ -50,4 +50,4 @@ export default {
 	parameters: {
 		controls: { expanded: true },
 	},
-} as Meta;
+};

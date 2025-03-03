@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid/Grid';
-import { Meta, StoryFn } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';
 
@@ -76,4 +76,4 @@ export default {
 	parameters: {
 		controls: { expanded: true },
 	},
-} as Meta;
+};

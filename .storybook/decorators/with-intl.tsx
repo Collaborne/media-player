@@ -1,11 +1,10 @@
-import type { Renderer, StoryContext } from '@storybook/types';
-import { FC } from 'react';
+import type { Renderer, PartialStoryFn, StoryContext } from '@storybook/types';
 import intl from 'react-intl-universal';
 
 import EN from '../locales/en.json';
 
 export const withIntl = (
-	Story: FC<StoryContext>,
+	StoryFn: PartialStoryFn<Renderer>,
 	context: StoryContext<Renderer>,
 ) => {
 	intl
@@ -19,5 +18,5 @@ export const withIntl = (
 			console.log(`Cannot initialize the intl support: ${err.message}`);
 		});
 
-	return <Story {...context} />;
+	return StoryFn(context);
 };

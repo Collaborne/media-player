@@ -15,17 +15,13 @@
 		"build:locales": "cross-env TS_NODE_PROJECT=tasks/tsconfig.json TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' node -r ts-node/register -r source-map-support/register tasks/prepare-locales.ts .storybook/locales",
 		"build:ts": "tsc -p tsconfig.dist.json --noEmit false",
 		"build:watch": "npm run build -- --watch",
-		"build:docs": "typedoc",
-		"build:coverage": "npm run test:coverage && create-coverage-badges && npm run test:move-coverage",
 		"lint": "npm run lint:ts",
 		"lint:ts": "eslint --report-unused-disable-directives $(node -p 'require(\"./tsconfig.test.json\").include.map(include => `'\\${include}.\\{js,ts,tsx\\}'`).join(\" \")')",
-		"test:coverage": "cross-env CI=1 SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom --coverage .",
-		"test:move-coverage": "copyfiles -a 'coverage/**' 'gh-pages-dist/' && echo 'coverage files copied'",
 		"test": "run-s lint test:build test:unit",
 		"test:build": "npm run build:locales && tsc --noEmit -p tsconfig.test.json",
-		"test:unit": "cross-env CI=1 SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom --passWithNoTests",
-		"test:watch": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test --env=jsdom",
-		"predeploy": "run-s storybook:build build:docs build:coverage",
+		"test:unit": "cross-env CI=1 SKIP_PREFLIGHT_CHECK=true NODE_OPTIONS=--experimental-vm-modules npx jest --",
+		"test:watch": "cross-env SKIP_PREFLIGHT_CHECK=true npx jest --",
+		"predeploy": "run-s storybook:build",
 		"deploy": "gh-pages -d gh-pages-dist",
 		"storybook": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" FAST_REFRESH=false storybook dev -p 9009",
 		"storybook:build": "npm run build:locales && NODE_OPTIONS=\"${NODE_OPTIONS} --openssl-legacy-provider\" storybook build --quiet -o gh-pages-dist"
@@ -50,14 +46,11 @@
 		"@emotion/styled": "^11.13.5",
 		"@mui/material": "^6.1.8",
 		"@storybook/addon-actions": "^8.0.5",
-		"@storybook/addon-controls": "^8.0.5",
 		"@storybook/addon-docs": "^8.0.5",
-		"@storybook/addon-links": "^8.0.5",
 		"@storybook/addon-toolbars": "^8.0.5",
-		"@storybook/addons": "^6.5.9",
-		"@storybook/preset-create-react-app": "^8.0.5",
+		"@storybook/addons": "^7.6.17",
 		"@storybook/react": "^8.0.5",
-		"@storybook/react-webpack5": "^8.0.5",
+		"@storybook/react-vite": "^8.6.3",
 		"@testing-library/jest-dom": "^5.16.4",
 		"@testing-library/react": "^13.3.0",
 		"@testing-library/user-event": "^14.2.1",
@@ -69,8 +62,7 @@
 		"@types/react-dom": "^18.0.5",
 		"@types/react-router-dom": "^5.1.8",
 		"@typescript-eslint/eslint-plugin": "^5.30.0",
-		"babel-loader": "^8.2.5",
-		"chromatic": "^6.10.1",
+		"@vitejs/plugin-react": "^4.3.4",
 		"copyfiles": "^2.4.1",
 		"cross-env": "^7.0.3",
 		"dotenv": "^16.0.1",
@@ -87,6 +79,8 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-standard": "^4.1.0",
 		"gh-pages": "^4.0.0",
+		"jest": "^29.7.0",
+		"jest-environment-jsdom": "^29.7.0",
 		"mkdirp": "^1.0.4",
 		"node-random-name": "^1.0.1",
 		"npm-run-all": "^4.1.5",
@@ -97,17 +91,12 @@
 		"react-intl-universal": "2.5.3",
 		"react-is": "^18.2.0",
 		"react-router-dom": "^5.2.0",
-		"react-scripts": "5.0.1",
 		"storybook": "^8.0.5",
+		"ts-jest": "^29.2.6",
 		"ts-node": "~10.8.1",
-		"tsconfig-collaborne": "^1.7.0",
+		"tsconfig-collaborne": "^1.9.0",
 		"tss-react": "^4.4.0",
-		"typedoc": "^0.23.9",
-		"typedoc-plugin-merge-modules": "^4.0.1",
-		"typedoc-plugin-missing-exports": "^1.0.0",
-		"typedoc-theme-hierarchy": "^3.0.0",
-		"typescript": "^5.7.2",
-		"webpack": "5.73.0"
+		"typescript": "^5.7.2"
 	},
 	"files": [
 		"dist",
@@ -121,22 +110,5 @@
 		"resize-observer-polyfill": "^1.5.1",
 		"screenfull": "^5.2.0",
 		"zustand": "^4.5.2"
-	},
-	"jest": {
-		"collectCoverageFrom": [
-			"./src/**"
-		],
-		"coverageReporters": [
-			"json-summary",
-			"text",
-			"lcov"
-		],
-		"coveragePathIgnorePatterns": [
-			"/src/types",
-			"/src/react-app-env.d.ts",
-			"/src/theme.ts",
-			"/src/.eslintrc.json",
-			"index.ts"
-		]
 	}
 }

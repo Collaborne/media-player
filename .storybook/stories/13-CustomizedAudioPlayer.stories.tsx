@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 import { makeStyles } from 'tss-react/mui';
 
 import {
@@ -92,4 +92,4 @@ export default {
 	parameters: {
 		controls: { expanded: true },
 	},
-} as Meta;
+};

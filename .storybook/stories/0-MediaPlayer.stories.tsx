@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react';
+import { StoryFn } from '@storybook/react';
 import { useToggle } from 'react-use';
 import { makeStyles } from 'tss-react/mui';
 
@@ -79,4 +79,4 @@ export default {
 	parameters: {
 		controls: { expanded: true },
 	},
-} as Meta;
+};

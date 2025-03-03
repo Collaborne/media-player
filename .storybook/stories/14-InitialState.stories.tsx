@@ -1,3 +1,5 @@
+import { StoryFn } from '@storybook/react';
+
 import {
 	BottomControls,
 	CORE_PLAYER_INITIAL_STATE,
@@ -12,9 +14,8 @@ import { useBottomControlButtonsStyles } from '../../src/components/bottom-contr
 import { useControlsStyles } from '../../src/components/controls/useControlsStyles';
 import { CustomPipControls } from '../components/custom-pip-controls/CustomPipControls';
 import { withDemoCard } from '../decorators';
-import { Story } from '../utils/doc';
 
-const Template: Story<Pick<CorePlayerProps, 'initialState'>> = args => {
+const Template: StoryFn<Pick<CorePlayerProps, 'initialState'>> = args => {
 	const { controls } = useControlsStyles().classes;
 	const { wrapper } = useBottomControlButtonsStyles().classes;
 	return (
@@ -46,7 +47,7 @@ export default {
 	},
 };
 
-export const Autoplay: Story<CorePlayerProps> = Template.bind({});
+export const Autoplay: StoryFn<CorePlayerProps> = Template.bind({});
 Autoplay.args = {
 	initialState: {
 		...CORE_PLAYER_INITIAL_STATE,
@@ -65,7 +66,7 @@ Autoplay.argTypes = {
 	},
 };
 
-export const DurationSeconds: Story<CorePlayerProps> = Template.bind({});
+export const DurationSeconds: StoryFn<CorePlayerProps> = Template.bind({});
 DurationSeconds.args = {
 	initialState: {
 		...CORE_PLAYER_INITIAL_STATE,
