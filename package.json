@@ -3,7 +3,7 @@
 	"version": "3.1.1",
 	"description": "Customizable React media player that uses @mui design system and own functionality",
 	"author": "Collaborne",
-	"license": "UNLICENSED",
+	"license": "Apache-2.0",
 	"repository": "Collaborne/media-player",
 	"main": "dist/index.js",
 	"source": "src/index.ts",
