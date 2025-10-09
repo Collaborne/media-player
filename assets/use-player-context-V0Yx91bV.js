@@ -1,0 +1,1 @@
+import{r as t}from"./test-utils-CM-kBDfr.js";const c=()=>{const[,o]=t.useState(!1),e=t.useRef(void 0),r=t.useCallback(s=>{e.current=s,s&&o(!0)},[]),a=e.current;return{setMediaContext:r,mediaContextRef:e,mediaContext:a}};export{c as u};

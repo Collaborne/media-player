@@ -1,1 +1,0 @@
-import{r as t}from"./test-utils-BFSCaS9q.js";const c=()=>{const[,r]=t.useState(!1),e=t.useRef(),a=t.useCallback(s=>{e.current=s,s&&r(!0)},[]),n=e.current;return{setMediaContext:a,mediaContextRef:e,mediaContext:n}};export{c as u};
