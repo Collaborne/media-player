@@ -1,4 +1,4 @@
-import { IconButtonProps } from '@mui/material/IconButton';
+import { IconButtonProps } from '@mui/material';
 import { FC } from 'react';
 import { PiArrowCounterClockwiseFill } from 'react-icons/pi';
 

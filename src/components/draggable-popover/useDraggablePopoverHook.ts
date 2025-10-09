@@ -20,8 +20,8 @@ interface UseDraggablePopoverHookProps
 		Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'>
 	> {
 	isPip: boolean;
-	pipPortalRef: RefObject<HTMLDivElement>;
-	pipDraggableAreaRef: RefObject<HTMLDivElement>;
+	pipPortalRef: RefObject<HTMLDivElement | null>;
+	pipDraggableAreaRef: RefObject<HTMLDivElement | null>;
 }
 
 type Dimensions = Size & Position;

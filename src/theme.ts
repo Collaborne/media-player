@@ -1,4 +1,4 @@
-import { alpha, createTheme } from '@mui/material/';
+import { alpha, createTheme } from '@mui/material';
 import { ThemeOptions } from '@mui/material/styles/createTheme';
 
 export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {

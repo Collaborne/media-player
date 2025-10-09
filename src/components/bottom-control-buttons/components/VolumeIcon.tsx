@@ -1,4 +1,4 @@
-import { SvgIconProps } from '@mui/material/SvgIcon';
+import { SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 import {
 	PiSpeakerSimpleHigh,

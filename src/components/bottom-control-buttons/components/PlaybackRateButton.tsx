@@ -1,4 +1,4 @@
-import Button, { ButtonProps } from '@mui/material/Button';
+import { Button, ButtonProps } from '@mui/material';
 import { FC } from 'react';
 import { shallow } from 'zustand/shallow';
 

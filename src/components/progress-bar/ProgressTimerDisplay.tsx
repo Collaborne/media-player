@@ -1,5 +1,4 @@
-import { Grid, Typography } from '@mui/material';
-import { SliderProps } from '@mui/material/Slider/Slider';
+import { Grid, Typography, SliderProps } from '@mui/material';
 import { FC } from 'react';
 import { shallow } from 'zustand/shallow';
 
@@ -60,6 +59,16 @@ export const ProgressTimerDisplay: FC<ProgressTimerDisplayProps> = ({
 		cx,
 	} = useProgressBarStyles({ isAudio, isPip });
 
+	const normalizedDuration = duration > 0 ? duration : 0;
+	const normalizedCurrentTime = Number.isFinite(currentTime) ? currentTime : 0;
+	let progressValue = 0;
+
+	if (normalizedDuration > 0) {
+		progressValue = toTwoDigits(
+			(normalizedCurrentTime / normalizedDuration) * PROGRESS_BAR_DIVIDER,
+		);
+	}
+
 	return (
 		<Grid
 			container
@@ -70,21 +79,21 @@ export const ProgressTimerDisplay: FC<ProgressTimerDisplayProps> = ({
 			sx={{ marginBottom: 0.5 }}
 		>
 			<Typography className={timeStampText} variant="body2" color="inherit">
-				{toTimestamp(currentTime * SECONDS_MULTIPLIER)}
+				{toTimestamp(normalizedCurrentTime * SECONDS_MULTIPLIER)}
 			</Typography>
 			<ProgressBarStyled
 				className={cx(progressBar, className)}
 				min={0}
 				max={PROGRESS_BAR_DIVIDER}
 				onChange={onCurrentTimeUpdate}
-				value={toTwoDigits((currentTime / duration) * PROGRESS_BAR_DIVIDER)}
+				value={progressValue}
 				components={{ Rail }}
 				data-testid={dataTestId}
 				{...props}
 			/>
 
 			<Typography className={timeStampText} variant="body2" color="inherit">
-				{toTimestamp(duration * SECONDS_MULTIPLIER)}
+				{toTimestamp(normalizedDuration * SECONDS_MULTIPLIER)}
 			</Typography>
 		</Grid>
 	);

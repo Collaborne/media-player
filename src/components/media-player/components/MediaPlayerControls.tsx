@@ -1,4 +1,4 @@
-import Grid, { GridProps } from '@mui/material/Grid';
+import { Grid, GridProps } from '@mui/material';
 import { FC, memo } from 'react';
 
 import { useMediaStore } from '../../../context';
@@ -36,9 +36,7 @@ function ControlGridGroup({
 	const { classes: playerClasses } = useMediaPlayerStyles();
 	return (
 		<Grid
-			item
 			className={playerClasses.gridCentered}
-			xs
 			justifyContent={justifyContent}
 		>
 			{children}

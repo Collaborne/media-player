@@ -17,17 +17,11 @@ import { useStoreWithEqualityFn } from 'zustand/traditional';
 import { CorePlayerInitialState } from '../components';
 import { createMediaStore, MediaStore } from '../store/media-store';
 import { Highlight, MediaType, StateSelector } from '../types';
-import { BlendColors, DEFAULT_MEDIA_STORE_CONTEXT } from '../utils';
+import { BlendColors } from '../utils';
 
 import { HighlightsProvider } from './HighlightsProvider';
 
-const MediaStoreContext = createContext<StoreApi<MediaStore>>({
-	getInitialState: () => DEFAULT_MEDIA_STORE_CONTEXT,
-	getState: () => DEFAULT_MEDIA_STORE_CONTEXT,
-	setState: () => DEFAULT_MEDIA_STORE_CONTEXT,
-	subscribe: () => () => [],
-	destroy: () => () => [],
-});
+const MediaStoreContext = createContext<StoreApi<MediaStore> | null>(null);
 
 export interface MediaProviderProps {
 	isAudio: boolean;
@@ -60,9 +54,9 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 	mediaType,
 	isPipEnabled = true,
 }) => {
-	const reactPlayerRef = useRef<ReactPlayer>(null);
-	const playPromiseRef = useRef<Promise<void>>();
-	const mediaContainerRef = useRef<HTMLDivElement>(null);
+	const reactPlayerRef = useRef<ReactPlayer | null>(null);
+	const playPromiseRef = useRef<Promise<void> | undefined>(undefined);
+	const mediaContainerRef = useRef<HTMLDivElement | null>(null);
 	const lastActivityRef = useRef<number>(0);
 	const lastPipActivityRef = useRef<number>(0);
 	const markActivity = useCallback(() => {

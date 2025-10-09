@@ -16,7 +16,7 @@ interface UsePlayerContext {
 export const usePlayerContext = (): UsePlayerContext => {
 	// Rerender when media context exists/ready
 	const [, setIsReady] = useState(false);
-	const mediaContextRef = useRef<MediaStore>();
+	const mediaContextRef = useRef<MediaStore | undefined>(undefined);
 	const setMediaContext = useCallback((store?: MediaStore) => {
 		mediaContextRef.current = store;
 		if (store) {

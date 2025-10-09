@@ -1,4 +1,4 @@
-import { SliderProps } from '@mui/material/Slider/Slider';
+import { SliderProps } from '@mui/material';
 import { FC } from 'react';
 import { shallow } from 'zustand/shallow';
 
@@ -61,13 +61,23 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 		return null;
 	}
 
+	const normalizedDuration = duration > 0 ? duration : 0;
+	const normalizedCurrentTime = Number.isFinite(currentTime) ? currentTime : 0;
+	let progressValue = 0;
+
+	if (normalizedDuration > 0) {
+		progressValue = toTwoDigits(
+			(normalizedCurrentTime / normalizedDuration) * PROGRESS_BAR_DIVIDER,
+		);
+	}
+
 	return (
 		<ProgressBarStyled
 			className={cx(progressBar, className)}
 			min={0}
 			max={PROGRESS_BAR_DIVIDER}
 			onChange={onCurrentTimeUpdate}
-			value={toTwoDigits((currentTime / duration) * PROGRESS_BAR_DIVIDER)}
+			value={progressValue}
 			components={{ Rail }}
 			data-testid={dataTestId}
 			{...props}

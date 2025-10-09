@@ -1,4 +1,4 @@
-import CssBaseline from '@mui/material/CssBaseline';
+import { CssBaseline } from '@mui/material';
 import {
 	StyledEngineProvider,
 	Theme,
@@ -54,7 +54,7 @@ export interface CorePlayerProps
 	/** <video /> tags wrapper className */
 	reactPlayerClassName?: string;
 	/** Container where PIP player will be mounted By default PIP player is added as a child of document.body */
-	pipContainer?: RefObject<HTMLDivElement>;
+	pipContainer?: RefObject<HTMLDivElement | null>;
 }
 
 /**

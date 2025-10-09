@@ -1,5 +1,4 @@
-import Paper from '@mui/material/Paper';
-import Portal from '@mui/material/Portal';
+import { Paper, Portal } from '@mui/material';
 import { isElement } from 'lodash';
 import { FC, memo, ReactNode, RefObject, useRef } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
@@ -29,7 +28,7 @@ export interface DraggablePopoverProps {
 	audioPlaceholder?: string;
 	'data-testid'?: string;
 	// Ref to a div, that will be used as a container for dragging PIP player
-	pipDraggableAreaRef: RefObject<HTMLDivElement>;
+	pipDraggableAreaRef: RefObject<HTMLDivElement | null>;
 	/** ClassName for pip container where PIP player layout belongs too */
 	pipPortalClassName?: string;
 	/** Distance from window border right, on X axis in `pixels`, for PIP player position initialization */
@@ -58,7 +57,7 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 	}) => {
 		const { PIPControls } = usePipControlsContext();
 
-		const pipPortalRef = useRef<HTMLDivElement>(null);
+		const pipPortalRef = useRef<HTMLDivElement | null>(null);
 		const isAudio = useIsAudio();
 		const isPip = useMediaStore(state => state.isPip);
 

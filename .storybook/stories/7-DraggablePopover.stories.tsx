@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid/Grid';
+import { Grid } from '@mui/material';
 import { StoryFn } from '@storybook/react';
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';

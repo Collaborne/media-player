@@ -29,8 +29,9 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	const [isPlayerReady, setIsPlayerReady] = React.useState(false);
 	const transcriptsElementRef = React.useRef<TranscriptRef[]>([]);
 	const alarmRef = React.useRef<number[]>([]);
-	const setTranscriptsElementRef = (ref: HTMLButtonElement | null) =>
+	const setTranscriptsElementRef = (ref: HTMLButtonElement | null) => {
 		transcriptsElementRef.current.push({ ref });
+	};
 	const { setMediaContext, mediaContext } = usePlayerContext();
 	const mediaDuration = mediaContext?.duration || 0;
 	const transcriptRef = React.useRef<Transcript[]>([]);

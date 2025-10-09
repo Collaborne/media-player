@@ -1,10 +1,10 @@
 import React from 'react';
-import { uuid } from 'uuidv4';
 
 import { Highlight, MediaPlayer, usePlayerContext } from '../../src';
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
+import { createRandomId } from '../utils/create-random-id';
 import { highlightColors, pickRandomItem } from '../utils/highlights';
 
 export const MediaHighlights = () => {
@@ -25,7 +25,7 @@ export const MediaHighlights = () => {
 					pickRandomItem(highlightColors),
 					pickRandomItem(highlightColors),
 				],
-				id: uuid(),
+				id: createRandomId(),
 			},
 		]);
 	};

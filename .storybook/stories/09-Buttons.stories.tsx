@@ -12,16 +12,17 @@ export const Button: React.FC = () => {
 	return (
 		<Paper sx={{ padding: 2 }}>
 			{UPDATED_COLOR.map(color => (
-				<>
+				<React.Fragment key={color}>
 					<div>
 						<b>color: {color}</b>
 					</div>
 					{UPDATED_VARIANT.map(variant => (
-						<>
+						<React.Fragment key={`${color}-${variant}`}>
 							<div style={{ padding: 8 }}>
 								<b>variant: {variant}</b>
 								{UPDATED_SIZES.map(size => (
 									<Grid
+										key={`${color}-${variant}-${size}`}
 										container
 										direction="column"
 										width="auto"
@@ -38,9 +39,9 @@ export const Button: React.FC = () => {
 									</Grid>
 								))}
 							</div>
-						</>
+						</React.Fragment>
 					))}
-				</>
+				</React.Fragment>
 			))}
 		</Paper>
 	);

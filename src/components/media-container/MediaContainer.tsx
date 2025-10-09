@@ -57,7 +57,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 	}) => {
 		const isAudio = useIsAudio();
 		// ref for the PIP area(pip will appear there)
-		const pipAreaRef = useRef<HTMLDivElement>(null);
+		const pipAreaRef = useRef<HTMLDivElement | null>(null);
 		const [
 			mediaContainerRef,
 			isPip,

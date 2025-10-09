@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, RefObject, useEffect, useRef } from 'react';
 import useIntersection from 'react-use/lib/useIntersection';
 import { shallow } from 'zustand/shallow';
 
@@ -50,10 +50,13 @@ export const UsePipHook: FC<UsePipHookProps> = ({ isPlayerReady }) => {
 	);
 
 	// Checks if media container is in viewport when scrolling bottom
-	const intersectionObservable = useIntersection(mediaContainerRef, {
-		rootMargin: ROOT_MARGIN,
-		threshold: 0,
-	});
+	const intersectionObservable = useIntersection(
+		mediaContainerRef as unknown as RefObject<HTMLElement>,
+		{
+			rootMargin: ROOT_MARGIN,
+			threshold: 0,
+		},
+	);
 
 	const isVisible = intersectionObservable?.isIntersecting;
 

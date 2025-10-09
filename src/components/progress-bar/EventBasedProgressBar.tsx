@@ -1,4 +1,4 @@
-import { SliderProps } from '@mui/material/Slider/Slider';
+import { SliderProps } from '@mui/material';
 import { FC, useState } from 'react';
 
 import { EventRailsProvider } from '../../context/EventRailsProvider';
