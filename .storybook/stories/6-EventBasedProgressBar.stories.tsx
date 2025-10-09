@@ -1,5 +1,4 @@
 import React from 'react';
-import { uuid } from 'uuidv4';
 
 import {
 	EventBasedProgressBar as EventBasedProgressBarComponent,
@@ -10,6 +9,7 @@ import {
 import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
 import { withDemoCard } from '../decorators';
 import { withPlayerTheme } from '../decorators/with-player-theme';
+import { createRandomId } from '../utils/create-random-id';
 import { highlightColors, pickRandomItem } from '../utils/highlights';
 
 interface EventBasedProgressBarProps {
@@ -36,7 +36,7 @@ export const EventBasedProgressBar: React.FC<
 					pickRandomItem(highlightColors),
 					pickRandomItem(highlightColors),
 				],
-				id: uuid(),
+				id: createRandomId(),
 			},
 		]);
 	};

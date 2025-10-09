@@ -8,7 +8,7 @@ export const useDelayedState = <T>(
 	initialState: T,
 ): [T, (newSTate: T, delay?: number) => void, VoidFunction] => {
 	const [state, setState] = useState<T>(initialState);
-	const timeoutRef = useRef<NodeJS.Timeout | null>();
+	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	const setStateAfter = useCallback((newState: T, delay = 0) => {
 		if (delay === 0 || delay === undefined) {

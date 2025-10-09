@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/GridLegacy';
 import { FC, memo, ReactNode } from 'react';
 
 import { useIsAudio } from '../../../hooks';

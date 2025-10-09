@@ -18,7 +18,7 @@ export const useMediaListener = <T extends EventEmittersName>(
 	target?: EmitterListeners,
 	deps?: DependencyList,
 ) => {
-	const savedHandler = useRef<Handler<T>>();
+	const savedHandler = useRef<Handler<T> | null>(null);
 	useEffect(() => {
 		savedHandler.current = handler;
 	}, [handler]);

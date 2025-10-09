@@ -14,7 +14,7 @@ export interface ReactPlayerProps {
 	playing: MediaState['isPlaying'];
 	muted: MediaState['isMuted'];
 	volume: MediaState['volume'];
-	ref: RefObject<ReactPlayer>;
+	ref: RefObject<ReactPlayer | null>;
 	onReady: () => void;
 	onEnded: () => void;
 	onDuration: (duration: MediaState['duration']) => void;

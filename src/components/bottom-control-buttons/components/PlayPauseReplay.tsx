@@ -1,5 +1,4 @@
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import { SvgIconProps } from '@mui/material/SvgIcon';
+import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 import { PiArrowCounterClockwise, PiPause, PiPlay } from 'react-icons/pi';
 

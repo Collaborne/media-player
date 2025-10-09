@@ -11,9 +11,9 @@ import { MediaType } from './media-type';
  * @category MediaStore
  */
 export interface MediaStateExternalInitializers {
-	reactPlayerRef: RefObject<ReactPlayer>;
+	reactPlayerRef: RefObject<ReactPlayer | null>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
-	mediaContainerRef: RefObject<HTMLDivElement>;
+	mediaContainerRef: RefObject<HTMLDivElement | null>;
 	getHighlightColorBlended?: BlendColors;
 	onStoreUpdate?: (store: MediaStore) => void;
 	/** Trigger points (in sec) when an alert event is emitted */

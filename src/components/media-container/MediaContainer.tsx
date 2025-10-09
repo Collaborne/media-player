@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/GridLegacy';
 import { FC, memo, useEffect, useRef } from 'react';
 import intl from 'react-intl-universal';
 import screenfull from 'screenfull';
@@ -57,7 +57,7 @@ export const MediaContainer: FC<MediaContainerProps> = memo(
 	}) => {
 		const isAudio = useIsAudio();
 		// ref for the PIP area(pip will appear there)
-		const pipAreaRef = useRef<HTMLDivElement>(null);
+		const pipAreaRef = useRef<HTMLDivElement | null>(null);
 		const [
 			mediaContainerRef,
 			isPip,
