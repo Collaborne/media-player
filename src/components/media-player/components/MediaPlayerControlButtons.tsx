@@ -1,4 +1,4 @@
-import Grid from '@mui/material/GridLegacy';
+import Grid from '@mui/material/Grid';
 import { FC, memo, ReactNode } from 'react';
 
 import { useIsAudio } from '../../../hooks';
@@ -40,9 +40,9 @@ export const MediaPlayerControlButtons: FC<MediaPlayerControlButtonsProps> =
 				<Grid
 					container
 					className={cx(classes.wrapper, className)}
-					alignItems="center"
-					justifyContent="space-between"
-					direction="row"
+					alignItems="stretch"
+					justifyContent="flex-start"
+					direction="column"
 					data-testid={dataTestId}
 				>
 					{children}
