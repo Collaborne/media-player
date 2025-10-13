@@ -69,7 +69,12 @@ export const MediaPlayerControls: FC<MediaPlayerControlsProps> = memo(
 				<BottomControls>
 					<MediaPlayerControlButtons isCollapsed={isCollapsed}>
 						<ProgressTimerDisplay />
-						<Grid container direction="row" flexWrap="nowrap">
+						<Grid
+							container
+							direction="row"
+							flexWrap="nowrap"
+							justifyContent="space-between"
+						>
 							<ControlGridGroup justifyContent="flex-start">
 								<VolumeButton />
 								<VolumeSlider />
