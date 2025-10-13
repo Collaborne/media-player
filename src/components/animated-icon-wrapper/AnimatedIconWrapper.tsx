@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, useRef } from 'react';
 import Transition from 'react-transition-group/Transition';
 
 import {
@@ -29,11 +29,19 @@ export const AnimatedIconWrapper: FC<AnimatedIconWrapperProps> = ({
 		cx,
 	} = useAnimatedIconWrapperStyles();
 
+	const nodeRef = useRef<HTMLDivElement>(null);
+
 	return (
-		<Transition in={startAnimation} timeout={durationMs} data-testid="asdasd">
+		<Transition
+			in={startAnimation}
+			timeout={durationMs}
+			nodeRef={nodeRef}
+			data-testid="asdasd"
+		>
 			{state => {
 				return (
 					<div
+						ref={nodeRef}
 						className={cx(root, className)}
 						style={{
 							...defaultStyle(durationMs),
