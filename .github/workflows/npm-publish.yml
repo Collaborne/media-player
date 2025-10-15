@@ -5,19 +5,18 @@ on:
     tags:
       - '*'
 
+permissions:
+  id-token: write # Required for npmjs publish (OIDC)
+  contents: read
+
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org/
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
       - run: npm ci --unsafe-perm
       - run: npm run build
       - run: npm test
-      - name: Publish to NPM
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      # npmjs requires more recent npm version than Github Action runs by default
+      - run: npx -y npm@^11.5.1 publish
