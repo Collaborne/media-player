@@ -1,12 +1,9 @@
-import type { Renderer, PartialStoryFn, StoryContext } from '@storybook/types';
+import type { Decorator } from '@storybook/react';
 import intl from 'react-intl-universal';
 
 import EN from '../locales/en.json';
 
-export const withIntl = (
-	StoryFn: PartialStoryFn<Renderer>,
-	context: StoryContext<Renderer>,
-) => {
+export const withIntl: Decorator = (StoryFn, context) => {
 	intl
 		.init({
 			currentLocale: context.globals.locale,

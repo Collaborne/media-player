@@ -6,11 +6,9 @@ import { getPercentFromDuration } from '../../../utils/highlights';
 import { RailStyled } from './RailStyled';
 import { useRailStyles } from './useRailStyles';
 
-interface EventRailProps {}
-
 const BLEND_CONFIG = { intensifyAll: true };
 
-export const EventRail: FC<EventRailProps> = () => {
+export const EventRail: FC = () => {
 	const { duration, getHighlightColorBlended, highlights } =
 		useEventRailsContext();
 	const { sliderRail } = useRailStyles().classes;

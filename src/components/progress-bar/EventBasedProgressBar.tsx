@@ -79,7 +79,7 @@ export const EventBasedProgressBar: FC<EventBasedProgressBarProps> = ({
 				max={PROGRESS_BAR_DIVIDER}
 				onChange={onCurrentTimeUpdate}
 				value={value}
-				components={{ Rail: EventRail }}
+				slots={{ rail: EventRail }}
 				{...props}
 			/>
 		</EventRailsProvider>

@@ -10,7 +10,7 @@ function setup<T>(arg: T) {
 		return null;
 	}
 	render(<TestComponent />);
-	return returnVal as { [key: number]: any };
+	return returnVal as [T, (newState: T, delay?: number) => void, VoidFunction];
 }
 
 const INITIAL_STATE = 'initial state';
@@ -46,7 +46,7 @@ describe('use-delayed-state', () => {
 		});
 		expect(results[0]).toBe(INITIAL_STATE);
 		await act(() => sleep(CANCEL_DELAY));
-		await act(() => results[2]());
+		act(() => results[2]());
 		await act(() => sleep(UPDATE_DELAY));
 		expect(results[0]).toBe(INITIAL_STATE);
 	});

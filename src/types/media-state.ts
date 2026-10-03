@@ -48,6 +48,5 @@ export interface MediaState {
 
 export type State = unknown;
 export type PartialState<T extends State> =
-	| Partial<T>
-	| ((state: T) => Partial<T>);
+	Partial<T> | ((state: T) => Partial<T>);
 export type StateSelector<T extends State, U extends State> = (state: T) => U;

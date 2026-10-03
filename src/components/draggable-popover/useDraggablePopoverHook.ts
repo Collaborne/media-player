@@ -15,10 +15,9 @@ export type Size = {
 	width: string | number;
 	height: string | number;
 };
-interface UseDraggablePopoverHookProps
-	extends Required<
-		Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'>
-	> {
+interface UseDraggablePopoverHookProps extends Required<
+	Pick<MediaContainerProps, 'xAxisDistance' | 'yAxisDistance'>
+> {
 	isPip: boolean;
 	pipPortalRef: RefObject<HTMLDivElement | null>;
 	pipDraggableAreaRef: RefObject<HTMLDivElement | null>;
@@ -78,7 +77,7 @@ export const useDraggablePopoverHook = ({
 				topRight: true,
 				bottomLeft: true,
 				bottomRight: true,
-		  };
+			};
 
 	const handleDragStop: RndDragCallback = (_e, d) => {
 		hasPipMovedOrResizedRef.current = true;

@@ -91,7 +91,9 @@ export const DraggablePopover: FC<DraggablePopoverProps> = memo(
 					className={cx(portalWrapper, pipPortalClassName)}
 					data-testid={dataTestId}
 					ref={el => {
-						isElement(el) && el !== null && portalWrapperRef(el);
+						if (isElement(el) && el !== null) {
+							portalWrapperRef(el);
+						}
 					}}
 				>
 					<Rnd

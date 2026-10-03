@@ -5,11 +5,10 @@ import { CorePlayer, CorePlayerProps } from '../core-player/CorePlayer';
 import { MediaPlayerControls } from './components/MediaPlayerControls';
 import { useMediaPlayerStyles } from './useMediaPlayerStyles';
 
-export interface MediaPlayerProps
-	extends Omit<
-		CorePlayerProps,
-		'children' | 'isPipEnabled' | 'pipPortalClassName' | 'pipContainer'
-	> {
+export interface MediaPlayerProps extends Omit<
+	CorePlayerProps,
+	'children' | 'isPipEnabled' | 'pipPortalClassName' | 'pipContainer'
+> {
 	classes?: {
 		collapsedClassName?: string;
 	};

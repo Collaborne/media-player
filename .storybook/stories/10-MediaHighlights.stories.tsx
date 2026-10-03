@@ -35,7 +35,7 @@ export const MediaHighlights = () => {
 			<MediaPlayer
 				onStoreUpdate={setMediaContext}
 				highlights={highlights}
-				url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
+				url="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
 			/>
 			<RandomHighlight
 				addHighlightToStart={addHighlightToStart}

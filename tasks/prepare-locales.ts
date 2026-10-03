@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { merge } from 'lodash';
-import mkdirp from 'mkdirp';
+import { mkdirpSync } from 'mkdirp';
 
 const LOCALES_DIRS = [path.resolve(__dirname, '../locales')];
 const BUILD_LOCALES_DIR = process.argv[2];
@@ -49,7 +49,7 @@ const flattened = LOCALES_DIRS.reduce((acc, dir) => {
 	return merge(acc, flattenedDir);
 }, {} as { [key: string]: unknown });
 
-mkdirp.sync(BUILD_LOCALES_DIR);
+mkdirpSync(BUILD_LOCALES_DIR);
 const locales = Object.keys(flattened);
 locales.forEach(locale => {
 	const content = flattened[locale];

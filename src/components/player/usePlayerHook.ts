@@ -69,7 +69,9 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 				el.parentElement?.focus();
 			}
 			const mediaEl = reactPlayerRef.current?.getInternalPlayer();
-			if (!mediaEl) return;
+			if (!mediaEl) {
+				return;
+			}
 
 			emitter.on('ready', onReadyToSeek);
 		}

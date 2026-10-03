@@ -1,6 +1,0 @@
-build/
-dist/
-node_modules/
-gh-pages-dist/
-.snapshots/
-*.min.js

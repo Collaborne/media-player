@@ -78,7 +78,7 @@ export const ProgressBar: FC<ProgressBarProps> = ({
 			max={PROGRESS_BAR_DIVIDER}
 			onChange={onCurrentTimeUpdate}
 			value={progressValue}
-			components={{ Rail }}
+			slots={{ rail: Rail }}
 			data-testid={dataTestId}
 			{...props}
 		/>

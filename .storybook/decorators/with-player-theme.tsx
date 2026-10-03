@@ -3,7 +3,7 @@ import {
 	StyledEngineProvider,
 	ThemeProvider,
 } from '@mui/material';
-import type { StoryContext } from '@storybook/types';
+import type { StoryContext } from '@storybook/react';
 import { FC } from 'react';
 
 import { createPlayerTheme } from '../../src/theme';

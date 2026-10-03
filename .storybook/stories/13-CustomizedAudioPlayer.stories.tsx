@@ -57,7 +57,7 @@ export default {
 	component: Customized,
 	decorators: [withDemoCard, withIntl],
 	args: {
-		url: `https://assets.mixkit.co/sfx/preview/mixkit-game-show-suspense-waiting-667.mp3`,
+		url: `https://filesamples.com/samples/audio/mp3/sample3.mp3`,
 		audioPlaceholder: undefined,
 		mediaType: undefined,
 	},

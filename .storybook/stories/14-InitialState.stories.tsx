@@ -20,7 +20,7 @@ const Template: StoryFn<Pick<CorePlayerProps, 'initialState'>> = args => {
 	const { wrapper } = useBottomControlButtonsStyles().classes;
 	return (
 		<CorePlayer
-			url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+			url="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
 			PIPControls={CustomPipControls}
 			initialState={args.initialState}
 		>

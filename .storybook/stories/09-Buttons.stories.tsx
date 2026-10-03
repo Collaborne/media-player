@@ -24,9 +24,11 @@ export const Button: React.FC = () => {
 									<Grid
 										key={`${color}-${variant}-${size}`}
 										container
-										direction="column"
-										width="auto"
-										alignItems={'space-between'}
+										sx={{
+											width: 'auto',
+											flexDirection: 'column',
+											alignItems: 'space-between',
+										}}
 									>
 										<div style={{ padding: 4 }}>
 											<div>

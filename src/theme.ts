@@ -1,5 +1,5 @@
 import { alpha, createTheme } from '@mui/material';
-import { ThemeOptions } from '@mui/material/styles/createTheme';
+import { ThemeOptions } from '@mui/material/styles';
 
 export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 	const basePalette = createTheme({
@@ -165,7 +165,7 @@ export const createPlayerTheme = (darkmode?: boolean): ThemeOptions => {
 					variant: 'text',
 				},
 				styleOverrides: {
-					groupedTextHorizontal: {
+					grouped: {
 						'&:not(:last-child)': {
 							borderRightColor: 'transparent',
 							// Ensure that the background isn't behind the transparent border

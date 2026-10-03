@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import { FC, memo, ReactNode } from 'react';
 
 import { useIsAudio } from '../../../hooks';
@@ -37,16 +37,18 @@ export const MediaPlayerControlButtons: FC<MediaPlayerControlButtonsProps> =
 			}
 
 			return (
-				<Grid
-					container
+				<Box
 					className={cx(classes.wrapper, className)}
-					alignItems="stretch"
-					justifyContent="flex-start"
-					direction="column"
+					sx={{
+						display: 'flex',
+						alignItems: 'stretch',
+						justifyContent: 'flex-start',
+						flexDirection: 'column',
+					}}
 					data-testid={dataTestId}
 				>
 					{children}
-				</Grid>
+				</Box>
 			);
 		},
 	);

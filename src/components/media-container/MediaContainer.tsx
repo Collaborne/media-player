@@ -1,4 +1,4 @@
-import Grid from '@mui/material/GridLegacy';
+import Grid from '@mui/material/Grid';
 import { FC, memo, useEffect, useRef } from 'react';
 import intl from 'react-intl-universal';
 import screenfull from 'screenfull';
@@ -25,7 +25,8 @@ import { UsePipHook } from './UsePipHook';
 import { useReactPlayerProps } from './useReactPlayerProps';
 
 export interface MediaContainerProps
-	extends Pick<
+	extends
+		Pick<
 			CorePlayerProps,
 			'children' | 'url' | 'className' | 'reactPlayerClassName' | 'pipContainer'
 		>,

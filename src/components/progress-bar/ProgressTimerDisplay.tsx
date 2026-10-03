@@ -1,4 +1,4 @@
-import { Grid, Typography, SliderProps } from '@mui/material';
+import { Box, Typography, SliderProps } from '@mui/material';
 import { FC } from 'react';
 import { shallow } from 'zustand/shallow';
 
@@ -70,13 +70,14 @@ export const ProgressTimerDisplay: FC<ProgressTimerDisplayProps> = ({
 	}
 
 	return (
-		<Grid
-			container
-			direction="row"
-			flexWrap="nowrap"
-			alignItems="center"
-			gap={1}
-			sx={{ marginBottom: 0.5 }}
+		<Box
+			sx={{
+				display: 'flex',
+				flexWrap: 'nowrap',
+				alignItems: 'center',
+				gap: 1,
+				marginBottom: 0.5,
+			}}
 		>
 			<Typography className={timeStampText} variant="body2" color="inherit">
 				{toTimestamp(normalizedCurrentTime * SECONDS_MULTIPLIER)}
@@ -87,7 +88,7 @@ export const ProgressTimerDisplay: FC<ProgressTimerDisplayProps> = ({
 				max={PROGRESS_BAR_DIVIDER}
 				onChange={onCurrentTimeUpdate}
 				value={progressValue}
-				components={{ Rail }}
+				slots={{ rail: Rail }}
 				data-testid={dataTestId}
 				{...props}
 			/>
@@ -95,6 +96,6 @@ export const ProgressTimerDisplay: FC<ProgressTimerDisplayProps> = ({
 			<Typography className={timeStampText} variant="body2" color="inherit">
 				{toTimestamp(normalizedDuration * SECONDS_MULTIPLIER)}
 			</Typography>
-		</Grid>
+		</Box>
 	);
 };

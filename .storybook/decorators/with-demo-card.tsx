@@ -1,4 +1,4 @@
-import type { StoryContext } from '@storybook/types';
+import type { StoryContext } from '@storybook/react';
 import { FC } from 'react';
 
 import { DemoCard } from '../components/demo-card/DemoCard';

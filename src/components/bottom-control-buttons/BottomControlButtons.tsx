@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { FC, memo, ReactNode } from 'react';
 
 import { useIsAudio } from '../../hooks';
@@ -34,16 +34,17 @@ export const BottomControlButtons: FC<BottomControlButtonsProps> = memo(
 		}
 
 		return (
-			<Grid
-				container
+			<Box
 				className={cx(classes.wrapper, className)}
-				alignItems="center"
-				justifyContent="space-between"
-				direction="row"
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'space-between',
+				}}
 				data-testid={dataTestId}
 			>
 				{children}
-			</Grid>
+			</Box>
 		);
 	},
 );

@@ -7,11 +7,9 @@ import { getPercentFromDuration } from '../../../utils/highlights';
 import { RailStyled } from './RailStyled';
 import { useRailStyles } from './useRailStyles';
 
-interface RailProps {}
-
 const BLEND_CONFIG = { intensifyAll: true };
 
-export const Rail: FC<RailProps> = () => {
+export const Rail: FC = () => {
 	const { highlights } = useHighlights();
 	const { sliderRail } = useRailStyles().classes;
 	const getHighlightColorBlended = useMediaStore(

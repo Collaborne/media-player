@@ -20,7 +20,8 @@ import { useCorePlayerHook } from './hooks/useCorePlayerHook';
 import { CORE_PLAYER_INITIAL_STATE } from './types';
 
 export interface CorePlayerProps
-	extends Partial<
+	extends
+		Partial<
 			Pick<
 				MediaProviderProps,
 				| 'initialState'

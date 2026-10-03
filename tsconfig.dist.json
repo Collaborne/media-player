@@ -2,7 +2,8 @@
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"module": "esnext",
-		"noEmit": false
+		"noEmit": false,
+		"rootDir": "src"
 	},
 	"include": [
 		"src/**/*",

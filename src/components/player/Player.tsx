@@ -32,7 +32,6 @@ export const Player: FC<PlayerProps> = memo(
 				config={{
 					file: {
 						attributes: {
-							crossOrigin: 'anonymous',
 							preload: 'false',
 							autoPlay: reactPlayerProps.autoPlay,
 						},

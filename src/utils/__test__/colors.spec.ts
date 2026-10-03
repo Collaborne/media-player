@@ -9,7 +9,7 @@ describe('colors', () => {
 			expect(hexToRGB('#123456')).toEqual([18, 52, 86]);
 		});
 		it('wrong hex format', () => {
-			expect(() => hexToRGB('#123456563')).toThrowError();
+			expect(() => hexToRGB('#123456563')).toThrow();
 		});
 	});
 

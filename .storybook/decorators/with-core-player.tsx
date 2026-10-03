@@ -1,4 +1,4 @@
-import type { StoryContext } from '@storybook/types';
+import type { StoryContext } from '@storybook/react';
 import * as React from 'react';
 
 import { CorePlayer } from '../../src/components/core-player/CorePlayer';
@@ -13,7 +13,7 @@ export const withCorePlayer = (
 ) => {
 	return (
 		<CorePlayer
-			url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+			url="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
 			initialState={{ ...CORE_PLAYER_INITIAL_STATE }}
 		>
 			<Story {...context} />

@@ -9,7 +9,7 @@ import { MultiplySymbol } from '../../../utils/MultiplySymbol';
 import { usePlaybackRateButtonHook } from '../hooks/usePlaybackRateButtonHook';
 import { usePlaybackRateStyles } from '../hooks/usePlaybackRateStyles';
 
-interface PlaybackRateButtonProps extends ButtonProps {}
+type PlaybackRateButtonProps = ButtonProps;
 
 /**
  * @category React Component

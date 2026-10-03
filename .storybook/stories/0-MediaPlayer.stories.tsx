@@ -51,7 +51,7 @@ export default {
 	component: MediaPlayer,
 	decorators: [withDemoCard, withIntl, withPlayerTheme],
 	args: {
-		url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+		url: 'https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
 		mediaType: undefined,
 		xAxisDistance: 0,
 		yAxisDistance: 0,

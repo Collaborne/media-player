@@ -221,7 +221,7 @@ export const createSettersSlice: StateCreator<
 				? {
 						currentTimeAlarm: 0,
 						nextTimeAlarm: 0,
-				  }
+					}
 				: {};
 
 			return {

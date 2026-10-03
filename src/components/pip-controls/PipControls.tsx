@@ -1,4 +1,4 @@
-import Grid from '@mui/material/GridLegacy';
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { FC } from 'react';
 import {
@@ -57,11 +57,12 @@ export const PipControls: FC<PipControlsProps> = ({
 		<>
 			<ProgressBar className={progressBar} />
 			<div className={wrapper}>
-				<Grid
-					container
-					alignItems="center"
-					justifyContent="center"
-					display="inline-flex"
+				<Box
+					sx={{
+						display: 'inline-flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
 				>
 					<div>
 						<IconButton
@@ -94,13 +95,14 @@ export const PipControls: FC<PipControlsProps> = ({
 							<PiArrowClockwise fontSize="medium" />
 						</IconButton>
 					</div>
-				</Grid>
-				<Grid
-					container
-					direction="column"
-					display="inline-flex"
+				</Box>
+				<Box
 					className={iconRightWrapper}
-					alignItems="end"
+					sx={{
+						display: 'inline-flex',
+						flexDirection: 'column',
+						alignItems: 'end',
+					}}
 				>
 					<IconButton
 						onClick={onClose}
@@ -120,7 +122,7 @@ export const PipControls: FC<PipControlsProps> = ({
 						size="small"
 						color="primary"
 					/>
-				</Grid>
+				</Box>
 			</div>
 		</>
 	);

@@ -1,4 +1,4 @@
-import Grid from '@mui/material/GridLegacy';
+import Grid from '@mui/material/Grid';
 import React from 'react';
 
 import { BottomControlButtons as BottomControlButtonsComponent } from '../../src/components/bottom-control-buttons/BottomControlButtons';
@@ -25,8 +25,12 @@ export const BottomControlButtons: React.FC = () => {
 		<Controls>
 			<BottomControls>
 				<BottomControlButtonsComponent>
-					<Grid item className={gridCentered} xs>
-						<Grid item className={gridCentered} xs justifyContent="flex-start">
+					<Grid className={gridCentered} size="grow">
+						<Grid
+							className={gridCentered}
+							size="grow"
+							sx={{ justifyContent: 'flex-start' }}
+						>
 							<PlayPauseReplay svgIconSize="medium" />
 							<RwdButton />
 							<FwdButton />
@@ -34,10 +38,18 @@ export const BottomControlButtons: React.FC = () => {
 							<VolumeSlider />
 						</Grid>
 					</Grid>
-					<Grid item className={gridCentered} xs justifyContent="center">
+					<Grid
+						className={gridCentered}
+						size="grow"
+						sx={{ justifyContent: 'center' }}
+					>
 						<TimeDisplay />
 					</Grid>
-					<Grid item className={gridCentered} xs justifyContent="flex-end">
+					<Grid
+						className={gridCentered}
+						size="grow"
+						sx={{ justifyContent: 'flex-end' }}
+					>
 						<PlaybackRateButton />
 						<PictureInPictureButton />
 						<FullscreenButton />
@@ -55,8 +67,12 @@ export const BottomControlButtonsDisabled: React.FC = () => {
 		<Controls>
 			<BottomControls>
 				<BottomControlButtonsComponent>
-					<Grid item className={gridCentered} xs>
-						<Grid item className={gridCentered} xs justifyContent="flex-start">
+					<Grid className={gridCentered} size="grow">
+						<Grid
+							className={gridCentered}
+							size="grow"
+							sx={{ justifyContent: 'flex-start' }}
+						>
 							<PlayPauseReplay svgIconSize="medium" disabled />
 							<RwdButton disabled />
 							<FwdButton disabled />
@@ -64,10 +80,18 @@ export const BottomControlButtonsDisabled: React.FC = () => {
 							<VolumeSlider />
 						</Grid>
 					</Grid>
-					<Grid item className={gridCentered} xs justifyContent="center">
+					<Grid
+						className={gridCentered}
+						size="grow"
+						sx={{ justifyContent: 'center' }}
+					>
 						<TimeDisplay />
 					</Grid>
-					<Grid item className={gridCentered} xs justifyContent="flex-end">
+					<Grid
+						className={gridCentered}
+						size="grow"
+						sx={{ justifyContent: 'flex-end' }}
+					>
 						<PlaybackRateButton disabled />
 						<PictureInPictureButton disabled />
 						<FullscreenButton disabled />

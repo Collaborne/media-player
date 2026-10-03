@@ -38,7 +38,7 @@ describe('usePlaybackRateButtonHook', () => {
 
 			expect(() => {
 				handleClick();
-			}).toThrowError();
+			}).toThrow();
 		});
 		it('defaults currentRate to first playback value', () => {
 			const { mediaStore } = setupPlaybackRate(playbackRates);

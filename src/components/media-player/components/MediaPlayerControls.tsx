@@ -1,5 +1,5 @@
-import { Grid, GridProps } from '@mui/material';
-import { FC, memo } from 'react';
+import { Box } from '@mui/material';
+import { CSSProperties, FC, memo, ReactNode } from 'react';
 
 import { useMediaStore } from '../../../context';
 import { useIsAudio } from '../../../hooks';
@@ -32,15 +32,15 @@ export interface MediaPlayerControlsProps {
 function ControlGridGroup({
 	children,
 	justifyContent,
-}: Pick<GridProps, 'justifyContent' | 'children'>) {
+}: {
+	children: ReactNode;
+	justifyContent: CSSProperties['justifyContent'];
+}) {
 	const { classes: playerClasses } = useMediaPlayerStyles();
 	return (
-		<Grid
-			className={playerClasses.gridCentered}
-			justifyContent={justifyContent}
-		>
+		<Box className={playerClasses.gridCentered} sx={{ justifyContent }}>
 			{children}
-		</Grid>
+		</Box>
 	);
 }
 
@@ -69,11 +69,12 @@ export const MediaPlayerControls: FC<MediaPlayerControlsProps> = memo(
 				<BottomControls>
 					<MediaPlayerControlButtons isCollapsed={isCollapsed}>
 						<ProgressTimerDisplay />
-						<Grid
-							container
-							direction="row"
-							flexWrap="nowrap"
-							justifyContent="space-between"
+						<Box
+							sx={{
+								display: 'flex',
+								flexWrap: 'nowrap',
+								justifyContent: 'space-between',
+							}}
 						>
 							<ControlGridGroup justifyContent="flex-start">
 								<VolumeButton />
@@ -94,7 +95,7 @@ export const MediaPlayerControls: FC<MediaPlayerControlsProps> = memo(
 								)}
 								{!isCollapsed && <FullscreenButton />}
 							</ControlGridGroup>
-						</Grid>
+						</Box>
 					</MediaPlayerControlButtons>
 				</BottomControls>
 			</Controls>

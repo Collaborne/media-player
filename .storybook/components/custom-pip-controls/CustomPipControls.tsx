@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import { FC } from 'react';
 
 import { PlayPauseReplay } from '../../../src';
@@ -12,13 +12,13 @@ export const CustomPipControls: FC = () => {
 		return null;
 	}
 	return (
-		<Grid position="absolute" display="flex">
+		<Box sx={{ position: 'absolute', display: 'flex' }}>
 			<PlayPauseReplay
 				size="large"
 				svgIconSize="large"
 				onMouseEnter={onMouseEnter}
 				onMouseLeave={onMouseLeave}
 			/>
-		</Grid>
+		</Box>
 	);
 };
