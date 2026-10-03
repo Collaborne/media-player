@@ -12,7 +12,6 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 	const hasAutoplayedRef = useRef(false);
 	const [
 		reactPlayerRef,
-		mediaContainerRef,
 		initialState,
 		isPlaying,
 		emitter,
@@ -23,7 +22,6 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 	] = useMediaStore(
 		state => [
 			state.reactPlayerRef,
-			state.mediaContainerRef,
 			state.initialState,
 			state.isPlaying,
 			state.emitter,
@@ -36,7 +34,7 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 	);
 
 	const onReadyToPlay = useCallback(() => {
-		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
+		const mediaEl = reactPlayerRef?.current;
 		emitter.off('seeked', onReadyToPlay);
 		mediaEl
 			?.play()
@@ -64,11 +62,11 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 			reactPlayerRef?.current &&
 			initialState.autoPlay
 		) {
-			const el = reactPlayerRef?.current?.getInternalPlayer();
+			const el = reactPlayerRef?.current;
 			if (el && el.parentElement) {
 				el.parentElement?.focus();
 			}
-			const mediaEl = reactPlayerRef.current?.getInternalPlayer();
+			const mediaEl = reactPlayerRef.current;
 			if (!mediaEl) {
 				return;
 			}
@@ -84,7 +82,7 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 		if (!url || hasAutoFocusedRef.current) {
 			return;
 		}
-		const mediaContainerElement = reactPlayerRef?.current?.wrapper;
+		const mediaContainerElement = reactPlayerRef?.current?.parentElement;
 		if (!mediaContainerElement) {
 			throw new Error(
 				'mediaContainerElement can not be null after componentDidMount.',
@@ -100,9 +98,10 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 	useUnmount(() => {
 		// Bug: media is stuck browser memory, so even after dismount the OS play/pause controls work
 		// Clear src attribute so it's removed.
-		const mediaEl = mediaContainerRef?.current?.querySelector('media');
+		const mediaEl = reactPlayerRef.current;
 		if (mediaEl) {
-			mediaEl.setAttribute('src', '');
+			mediaEl.removeAttribute('src');
+			mediaEl.load();
 		}
 	});
 
@@ -119,7 +118,7 @@ export const usePlayerHook = ({ url }: UsePlayerHookProps) => {
 
 	// Add stop/pause events on clicking to media-player
 	useEffect(() => {
-		const mediaContainerElement = reactPlayerRef?.current?.wrapper;
+		const mediaContainerElement = reactPlayerRef?.current?.parentElement;
 		if (mediaContainerElement == null) {
 			return console.error(
 				'mediaContainerElement can not be null after componentDidMount.',

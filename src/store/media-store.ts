@@ -355,7 +355,7 @@ export const createSettersSlice: StateCreator<
 				state.initialState.durationSeconds &&
 				currentRelativeTime >= state.initialState.durationSeconds
 			) {
-				state.reactPlayerRef.current?.getInternalPlayer()?.pause();
+				state.reactPlayerRef.current?.pause();
 			}
 
 			return {

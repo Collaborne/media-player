@@ -10,7 +10,7 @@ export const isHTMLMediaElement = (e: unknown): e is HTMLMediaElement =>
  * Gets the HTMLMediaElement from a MediaState
  */
 export const getMediaEl = (state: MediaStore): HTMLMediaElement | undefined => {
-	const internalPlayer = state?.reactPlayerRef?.current?.getInternalPlayer();
+	const internalPlayer = state?.reactPlayerRef?.current;
 
 	if (isHTMLMediaElement(internalPlayer)) {
 		return internalPlayer;

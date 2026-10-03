@@ -1,5 +1,4 @@
-import { RefObject } from 'react';
-import type ReactPlayer from 'react-player';
+import { ReactEventHandler, RefObject } from 'react';
 
 import { MediaState } from '.';
 
@@ -9,14 +8,14 @@ import { MediaState } from '.';
  */
 export interface ReactPlayerProps {
 	autoPlay: boolean;
-	playsinline: boolean;
+	playsInline: boolean;
 	playbackRate: MediaState['playbackRate'];
 	playing: MediaState['isPlaying'];
 	muted: MediaState['isMuted'];
 	volume: MediaState['volume'];
-	ref: RefObject<ReactPlayer | null>;
+	ref: RefObject<HTMLVideoElement | null>;
 	onReady: () => void;
 	onEnded: () => void;
-	onDuration: (duration: MediaState['duration']) => void;
-	onProgress: ({ playedSeconds }: Record<'playedSeconds', number>) => void;
+	onDurationChange: ReactEventHandler<HTMLVideoElement>;
+	onTimeUpdate: ReactEventHandler<HTMLVideoElement>;
 }

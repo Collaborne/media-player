@@ -55,7 +55,7 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 
 	const reactPlayerProps: ReactPlayerProps = {
 		autoPlay: initialState.autoPlay,
-		playsinline: true,
+		playsInline: true,
 		playbackRate,
 		playing: isPlaying,
 		muted: isMuted,
@@ -70,11 +70,12 @@ export const useReactPlayerProps = (): UseReactPlayerProps => {
 			setReady();
 		},
 		onEnded: () => emitter.emit('ended'),
-		onDuration: duration => {
+		onDurationChange: event => {
+			const { duration } = event.currentTarget;
 			emitter.emit('durationchange', { duration });
 			setDuration(duration);
 		},
-		onProgress: ({ playedSeconds }) => onProgress(playedSeconds),
+		onTimeUpdate: event => onProgress(event.currentTarget.currentTime),
 	};
 
 	useEffect(() => {

@@ -1,5 +1,4 @@
 import { RefObject, MutableRefObject } from 'react';
-import type ReactPlayer from 'react-player';
 
 import { MediaStore } from '../store/media-store';
 import { BlendColors } from '../utils/colors';
@@ -11,7 +10,7 @@ import { MediaType } from './media-type';
  * @category MediaStore
  */
 export interface MediaStateExternalInitializers {
-	reactPlayerRef: RefObject<ReactPlayer | null>;
+	reactPlayerRef: RefObject<HTMLVideoElement | null>;
 	playPromiseRef: MutableRefObject<Promise<void> | undefined>;
 	mediaContainerRef: RefObject<HTMLDivElement | null>;
 	getHighlightColorBlended?: BlendColors;

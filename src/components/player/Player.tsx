@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 import ReactPlayer from 'react-player';
 
 import { ReactPlayerProps } from '../../types';
-import { PROGRESS_INTERVAL, REACT_PLAYER } from '../../utils';
+import { REACT_PLAYER } from '../../utils';
 
 import { usePlayerHook } from './usePlayerHook';
 
@@ -22,23 +22,15 @@ export const Player: FC<PlayerProps> = memo(
 		usePlayerHook({ url });
 
 		return (
-			<ReactPlayer
-				url={url}
-				progressInterval={PROGRESS_INTERVAL}
-				width="unset"
-				height="100%"
-				className={className}
-				data-testid={REACT_PLAYER}
-				config={{
-					file: {
-						attributes: {
-							preload: 'false',
-							autoPlay: reactPlayerProps.autoPlay,
-						},
-					},
-				}}
-				{...reactPlayerProps}
-			/>
+			<div className={className} data-testid={REACT_PLAYER}>
+				<ReactPlayer
+					src={url}
+					width="100%"
+					height="100%"
+					preload="none"
+					{...reactPlayerProps}
+				/>
+			</div>
 		);
 	},
 );

@@ -74,7 +74,7 @@ export const UsePipHook: FC<UsePipHookProps> = ({ isPlayerReady }) => {
 		if (hasPipTriggeredByClick) {
 			return;
 		}
-		const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
+		const mediaEl = reactPlayerRef?.current;
 
 		if (!isPlaying || !isPlayerReady || !mediaEl) {
 			return;
@@ -102,7 +102,7 @@ export const UsePipHook: FC<UsePipHookProps> = ({ isPlayerReady }) => {
 	useMediaListener(
 		'pipEnter',
 		async () => {
-			const mediaEl = reactPlayerRef?.current?.getInternalPlayer();
+			const mediaEl = reactPlayerRef?.current;
 			if (mediaEl) {
 				mediaEl.currentTime = currentTimeRef.current;
 				setCurrentTime?.(currentTimeRef.current);

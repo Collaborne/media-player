@@ -44,7 +44,7 @@ export const KaraokeMode: React.FC<KaraokeModeProps> = args => {
 	});
 
 	const getCurrentTimePart = React.useCallback(() => {
-		const mediaEl = mediaContext?.reactPlayerRef?.current?.getInternalPlayer();
+		const mediaEl = mediaContext?.reactPlayerRef?.current;
 		if (!mediaEl) {
 			return;
 		}

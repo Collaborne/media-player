@@ -10,7 +10,6 @@ import {
 	useContext,
 	ReactNode,
 } from 'react';
-import ReactPlayer from 'react-player';
 import { StoreApi } from 'zustand';
 import { useStoreWithEqualityFn } from 'zustand/traditional';
 
@@ -54,7 +53,7 @@ export const MediaProvider: FC<MediaProviderProps> = ({
 	mediaType,
 	isPipEnabled = true,
 }) => {
-	const reactPlayerRef = useRef<ReactPlayer | null>(null);
+	const reactPlayerRef = useRef<HTMLVideoElement | null>(null);
 	const playPromiseRef = useRef<Promise<void> | undefined>(undefined);
 	const mediaContainerRef = useRef<HTMLDivElement | null>(null);
 	const lastActivityRef = useRef<number>(0);
