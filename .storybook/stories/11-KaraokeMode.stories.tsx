@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
-import { usePreviousDistinct, useToggle } from 'react-use';
+import usePreviousDistinct from 'react-use/lib/usePreviousDistinct.js';
+import useToggle from 'react-use/lib/useToggle.js';
 
 import {
 	TimeUpdateEvent,
