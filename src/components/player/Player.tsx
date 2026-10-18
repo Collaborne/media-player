@@ -1,10 +1,10 @@
 import { FC, memo } from 'react';
 import ReactPlayer from 'react-player';
 
-import { ReactPlayerProps } from '../../types';
-import { REACT_PLAYER } from '../../utils';
+import { ReactPlayerProps } from '../../types/index.js';
+import { REACT_PLAYER } from '../../utils/index.js';
 
-import { usePlayerHook } from './usePlayerHook';
+import { usePlayerHook } from './usePlayerHook.js';
 
 export interface PlayerProps {
 	url: string;

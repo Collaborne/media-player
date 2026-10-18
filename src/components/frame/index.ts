@@ -1,1 +1,1 @@
-export * from './PlayerFrame';
+export * from './PlayerFrame.js';

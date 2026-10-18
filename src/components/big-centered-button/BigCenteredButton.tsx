@@ -1,7 +1,7 @@
 import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 
-import { useBigCenteredButtonStyles } from './useBigCenteredButtonStyles';
+import { useBigCenteredButtonStyles } from './useBigCenteredButtonStyles.js';
 
 export interface BigCenteredButtonProps {
 	Icon: ComponentType<SvgIconProps>;

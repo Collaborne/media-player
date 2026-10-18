@@ -1,6 +1,6 @@
 import { useRef, useEffect, DependencyList } from 'react';
 
-import { EmitterListeners, MediaEvents } from '../types';
+import { EmitterListeners, MediaEvents } from '../types/index.js';
 
 export type EventEmittersName = keyof MediaEvents;
 export type Handler<T extends EventEmittersName> = (

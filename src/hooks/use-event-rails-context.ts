@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { EventRailsContext } from '../context/eventRails';
+import { EventRailsContext } from '../context/eventRails.js';
 
 /**
  * Selector for `EventRailsContext` value

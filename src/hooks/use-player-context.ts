@@ -1,6 +1,6 @@
 import { MutableRefObject, useCallback, useRef, useState } from 'react';
 
-import { MediaStore } from '../store/media-store';
+import { MediaStore } from '../store/media-store.js';
 
 interface UsePlayerContext {
 	setMediaContext: (context: MediaStore) => void;

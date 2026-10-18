@@ -1,9 +1,9 @@
 import { FC, RefObject, useEffect, useRef } from 'react';
-import useIntersection from 'react-use/lib/useIntersection';
+import { useIntersection } from 'react-use';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../context/MediaProvider';
-import { useMediaListener } from '../../hooks/use-media-listener';
+import { useMediaStore } from '../../context/MediaProvider.js';
+import { useMediaListener } from '../../hooks/use-media-listener.js';
 
 interface UsePipHookProps {
 	isPlayerReady: boolean;

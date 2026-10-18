@@ -1,9 +1,9 @@
 import { FC, useEffect } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { CorePlayerProps } from '../..';
-import { useMediaStore } from '../../../context';
-import { MediaType } from '../../../types';
+import { useMediaStore } from '../../../context/index.js';
+import { MediaType } from '../../../types/index.js';
+import { CorePlayerProps } from '../../index.js';
 
 interface ExternalStateUpdaterProps extends Pick<CorePlayerProps, 'alarms'> {
 	mediaType: MediaType;

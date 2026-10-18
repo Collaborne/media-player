@@ -1,4 +1,4 @@
-import { toTwoDigits } from '../number';
+import { toTwoDigits } from '../number.js';
 
 describe('toTwoDigits', () => {
 	it('round 0(zero) equals to 0(zero)', () => {

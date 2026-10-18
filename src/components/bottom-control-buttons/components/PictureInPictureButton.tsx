@@ -3,9 +3,9 @@ import { ComponentType, FC } from 'react';
 import { PiPictureInPicture } from 'react-icons/pi';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../../context';
-import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
-import { PIP_BUTTON } from '../../../utils';
+import { useMediaStore } from '../../../context/index.js';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element.js';
+import { PIP_BUTTON } from '../../../utils/index.js';
 
 interface PictureInPictureButtonProps extends IconButtonProps {
 	Icon?: ComponentType<SvgIconProps>;

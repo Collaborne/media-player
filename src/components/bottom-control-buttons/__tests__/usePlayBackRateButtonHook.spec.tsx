@@ -1,11 +1,14 @@
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../../context';
-import { setupMediaProvider, userEvent } from '../../../utils/testing-render';
+import { useMediaStore } from '../../../context/index.js';
+import {
+	setupMediaProvider,
+	userEvent,
+} from '../../../utils/testing-render.js';
 import {
 	usePlaybackRateButtonHook,
 	UsePlaybackRateButtonHook,
-} from '../hooks/usePlaybackRateButtonHook';
+} from '../hooks/usePlaybackRateButtonHook.js';
 
 const playbackRates = [1, 2];
 const TEST_ID = 'test-id';

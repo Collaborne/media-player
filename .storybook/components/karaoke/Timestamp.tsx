@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithoutRef } from 'react';
 
-import { TimestampStyled, TimestampStyledProps } from './TimestampStyled';
+import { TimestampStyled, TimestampStyledProps } from './TimestampStyled.js';
 
 interface TimestampProps
 	extends ComponentPropsWithoutRef<'button'>, TimestampStyledProps {}

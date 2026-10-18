@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useDelayedState } from './use-delayed-state';
+import { useDelayedState } from './use-delayed-state.js';
 
 /** Set a state with 1 ms delay */
 const DELAY_DURATION = 1;

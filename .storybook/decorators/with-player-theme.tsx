@@ -6,7 +6,7 @@ import {
 import type { StoryContext } from '@storybook/react';
 import { FC } from 'react';
 
-import { createPlayerTheme } from '../../src/theme';
+import { createPlayerTheme } from '../../src/theme.js';
 
 const theme = createPlayerTheme();
 

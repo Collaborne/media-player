@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 
-import { PipControls as PipControlsComponent } from '../components/pip-controls/PipControls';
+import { PipControls as PipControlsComponent } from '../components/pip-controls/PipControls.js';
 
-import { PIPControlsContext } from './pipControls';
+import { PIPControlsContext } from './pipControls.js';
 
 interface PIPContextProviderProps {
 	PIPControls?: FC;

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../context';
-import { OVERLAY_HIDE_DELAY } from '../utils/constants';
+import { useMediaStore } from '../context/index.js';
+import { OVERLAY_HIDE_DELAY } from '../utils/constants.js';
 
 interface UseOnHoveredElement {
 	onMouseEnter: VoidFunction;

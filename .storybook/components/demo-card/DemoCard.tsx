@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import { useDemoCardStyles } from './useDemoCardStyles';
+import { useDemoCardStyles } from './useDemoCardStyles.js';
 
 interface DemoCardProps {
 	title?: string;

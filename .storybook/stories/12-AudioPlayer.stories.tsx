@@ -3,8 +3,8 @@ import { StoryFn } from '@storybook/react';
 import {
 	MediaPlayer as MediaPlayerComponent,
 	MediaPlayerProps,
-} from '../../src/components/media-player/MediaPlayer';
-import { withDemoCard, withIntl } from '../decorators';
+} from '../../src/components/media-player/MediaPlayer.js';
+import { withDemoCard, withIntl } from '../decorators/index.js';
 
 export const Default: StoryFn<MediaPlayerProps> = args => {
 	return <MediaPlayerComponent {...args} />;

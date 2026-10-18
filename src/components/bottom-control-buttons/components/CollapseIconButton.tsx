@@ -1,7 +1,7 @@
 import { IconButton } from '@mui/material';
 import { PiArrowsInLineVertical, PiArrowsVertical } from 'react-icons/pi';
 
-import { useOnHoveredControlElement } from '../../../hooks';
+import { useOnHoveredControlElement } from '../../../hooks/index.js';
 
 export interface CollapseIconButtonProps {
 	isCollapsed?: boolean;

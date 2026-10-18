@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../context';
-import { useMediaListener } from '../../hooks';
+import { useMediaStore } from '../../context/index.js';
+import { useMediaListener } from '../../hooks/index.js';
 
 interface UsePipControlsProps {
 	skipSeconds: number;

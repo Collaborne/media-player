@@ -1,6 +1,6 @@
-import { useMediaStore } from '../context';
+import { useMediaStore } from '../context/index.js';
 
-import { useOneMSDelayedState, useMediaListener } from '.';
+import { useOneMSDelayedState, useMediaListener } from './index.js';
 
 interface UsePlayPauseReplayHook {
 	isPlaying: boolean;

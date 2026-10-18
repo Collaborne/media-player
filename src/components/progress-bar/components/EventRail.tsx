@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { useEventRailsContext } from '../../../hooks/use-event-rails-context';
-import { getPercentFromDuration } from '../../../utils/highlights';
+import { useEventRailsContext } from '../../../hooks/use-event-rails-context.js';
+import { getPercentFromDuration } from '../../../utils/highlights.js';
 
-import { RailStyled } from './RailStyled';
-import { useRailStyles } from './useRailStyles';
+import { RailStyled } from './RailStyled.js';
+import { useRailStyles } from './useRailStyles.js';
 
 const BLEND_CONFIG = { intensifyAll: true };
 

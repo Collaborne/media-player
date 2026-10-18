@@ -1,4 +1,4 @@
-import { isUrlSupported, isAudio, isVideo } from '../is-url-supported';
+import { isUrlSupported, isAudio, isVideo } from '../is-url-supported.js';
 
 const VIDEO_URL =
 	'https://example.com/media.mp4?AWSAccessKeyId=XXX&Expires=YYY&Signature=XXX';

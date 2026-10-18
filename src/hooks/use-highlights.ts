@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { HighlightsContext } from '../context/highlights';
+import { HighlightsContext } from '../context/highlights.js';
 
 /**
  * Selector for `HighlightsContext` value

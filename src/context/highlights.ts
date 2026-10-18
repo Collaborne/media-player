@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { Highlight } from '../types';
+import { Highlight } from '../types/index.js';
 
 export interface HighlightsContext {
 	highlights?: Highlight[];

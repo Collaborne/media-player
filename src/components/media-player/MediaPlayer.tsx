@@ -1,9 +1,9 @@
 import { FC, memo, ReactNode } from 'react';
 
-import { CorePlayer, CorePlayerProps } from '../core-player/CorePlayer';
+import { CorePlayer, CorePlayerProps } from '../core-player/CorePlayer.js';
 
-import { MediaPlayerControls } from './components/MediaPlayerControls';
-import { useMediaPlayerStyles } from './useMediaPlayerStyles';
+import { MediaPlayerControls } from './components/MediaPlayerControls.js';
+import { useMediaPlayerStyles } from './useMediaPlayerStyles.js';
 
 export interface MediaPlayerProps extends Omit<
 	CorePlayerProps,

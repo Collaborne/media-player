@@ -1,7 +1,7 @@
 import type { StoryContext } from '@storybook/react';
 import { FC } from 'react';
 
-import { DemoCard } from '../components/demo-card/DemoCard';
+import { DemoCard } from '../components/demo-card/DemoCard.js';
 
 /** Adds a nice DemoCard to story (template-wrapper for stories) */
 export const withDemoCard = (

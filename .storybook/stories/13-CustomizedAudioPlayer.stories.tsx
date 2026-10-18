@@ -9,8 +9,8 @@ import {
 	FwdButton,
 	RwdButton,
 	TimeDisplay,
-} from '../../src/';
-import { withDemoCard, withIntl } from '../decorators';
+} from '../../src/index.js';
+import { withDemoCard, withIntl } from '../decorators/index.js';
 
 const useStyles = makeStyles()(theme => ({
 	dimension: {

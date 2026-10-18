@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { useMediaStore } from '../../../context';
-import { useIsAudio } from '../../../hooks';
-import { useBottomControlsStyles } from '../../bottom-controls/useBottomControlsStyles';
-import { useControlsStyles } from '../../controls/useControlsStyles';
-import { ProgressBar } from '../../progress-bar/ProgressBar';
+import { useMediaStore } from '../../../context/index.js';
+import { useIsAudio } from '../../../hooks/index.js';
+import { useBottomControlsStyles } from '../../bottom-controls/useBottomControlsStyles.js';
+import { useControlsStyles } from '../../controls/useControlsStyles.js';
+import { ProgressBar } from '../../progress-bar/ProgressBar.js';
 
 export interface AdditionalControlProps {
 	className?: string;

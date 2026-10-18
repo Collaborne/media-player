@@ -1,9 +1,9 @@
 import { StoryFn } from '@storybook/react';
 
-import { BottomControls } from '../../src/components/bottom-controls/BottomControls';
-import { Controls } from '../../src/components/controls/Controls';
-import { ProgressBar as ProgressBarComponent } from '../../src/components/progress-bar/ProgressBar';
-import { withCorePlayer, withDemoCard } from '../decorators';
+import { BottomControls } from '../../src/components/bottom-controls/BottomControls.js';
+import { Controls } from '../../src/components/controls/Controls.js';
+import { ProgressBar as ProgressBarComponent } from '../../src/components/progress-bar/ProgressBar.js';
+import { withCorePlayer, withDemoCard } from '../decorators/index.js';
 
 interface ProgressBarStoryProps {
 	hideAllControls: boolean;

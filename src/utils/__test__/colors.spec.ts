@@ -1,4 +1,4 @@
-import { hexToRGB, blend } from '../colors';
+import { hexToRGB, blend } from '../colors.js';
 
 describe('colors', () => {
 	describe('hexToRGB', () => {

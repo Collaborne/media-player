@@ -2,14 +2,14 @@ import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 import { PiArrowCounterClockwise, PiPause, PiPlay } from 'react-icons/pi';
 
-import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
-import { usePlayPauseReplayHook } from '../../../hooks/use-play-pause-replay';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element.js';
+import { usePlayPauseReplayHook } from '../../../hooks/use-play-pause-replay.js';
 import {
 	PAUSE_ICON,
 	PLAY_ICON,
 	PLAY_PAUSE_REPLAY,
 	REPLAY_ICON,
-} from '../../../utils';
+} from '../../../utils/index.js';
 
 interface PlayPauseReplayProps extends IconButtonProps {
 	svgClassName?: string;

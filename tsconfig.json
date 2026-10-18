@@ -29,7 +29,7 @@
 	"include": [
 		"src/**/*",
 		".storybook/**/*",
-		"vite.config.ts"
+		"tasks/**/*"
 	],
 	"exclude": ["node_modules/**/*", "dist/**/*"]
 }

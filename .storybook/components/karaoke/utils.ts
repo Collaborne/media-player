@@ -1,5 +1,5 @@
-import { toTwoDigits } from '../../../src/utils/number';
-import { Transcript } from '../../stories/shared/transcript';
+import { toTwoDigits } from '../../../src/utils/number.js';
+import { Transcript } from '../../stories/shared/transcript.js';
 
 /** A utility tool that is used for building `Transcript[]` until `stopPoint` limiter */
 export const createTimestamps = (

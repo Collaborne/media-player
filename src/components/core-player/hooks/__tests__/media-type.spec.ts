@@ -1,4 +1,4 @@
-import { getMediaType } from '../media-type';
+import { getMediaType } from '../media-type.js';
 
 const URL = 'qa/projects/1/file.mp4';
 

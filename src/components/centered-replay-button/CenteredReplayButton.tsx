@@ -2,9 +2,9 @@ import { IconButtonProps } from '@mui/material';
 import { FC } from 'react';
 import { PiArrowCounterClockwiseFill } from 'react-icons/pi';
 
-import { useIsAudio } from '../../hooks';
-import { usePlayPauseReplayHook } from '../../hooks/use-play-pause-replay';
-import { BigCenteredButton } from '../big-centered-button/BigCenteredButton';
+import { useIsAudio } from '../../hooks/index.js';
+import { usePlayPauseReplayHook } from '../../hooks/use-play-pause-replay.js';
+import { BigCenteredButton } from '../big-centered-button/BigCenteredButton.js';
 
 export interface CenteredReplayButtonProps {
 	classNames?: string;

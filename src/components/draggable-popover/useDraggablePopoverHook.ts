@@ -6,10 +6,9 @@ import {
 	RndResizeCallback,
 } from 'react-rnd';
 import { useMeasure, usePrevious } from 'react-use';
-import { UseMeasureRef } from 'react-use/lib/useMeasure';
 
-import { DEFAULT_PIP_SIZE } from '../../utils/constants';
-import { MediaContainerProps } from '../media-container/MediaContainer';
+import { DEFAULT_PIP_SIZE } from '../../utils/constants.js';
+import { MediaContainerProps } from '../media-container/MediaContainer.js';
 
 export type Size = {
 	width: string | number;
@@ -24,6 +23,7 @@ interface UseDraggablePopoverHookProps extends Required<
 }
 
 type Dimensions = Size & Position;
+type UseMeasureRef = ReturnType<typeof useMeasure>[0];
 interface UseDraggablePopoverHook {
 	/** Default player size */
 	dimensions: Dimensions;
@@ -31,10 +31,8 @@ interface UseDraggablePopoverHook {
 	handleDragStop: RndDragCallback;
 	handleResizeStop: RndResizeCallback;
 	/** Ref for the layout where PIP player will be mounted. Also used for a box for resizing and dragging */
-	portalWrapperRef: UseMeasureRef<Element>;
+	portalWrapperRef: UseMeasureRef;
 }
-
-const vw = window.innerWidth;
 
 const DEFAULT_DIMENSIONS: Dimensions = {
 	width: '100%',
@@ -157,7 +155,7 @@ export const useDraggablePopoverHook = ({
 		if (isPip && hasPipMovedOrResizedRef.current) {
 			const width = containerSize?.width ?? document.body.offsetWidth;
 
-			const prevWidth = prevContainerSize?.width ?? vw;
+			const prevWidth = prevContainerSize?.width ?? window.innerWidth;
 			setDimensions(prev => {
 				const newX = prev.x + width - prevWidth;
 				return {

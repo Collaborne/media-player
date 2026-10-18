@@ -1,5 +1,5 @@
-import { MediaType } from '../../../types/media-type';
-import { isAudio, isUrlSupported } from '../../../utils/is-url-supported';
+import { MediaType } from '../../../types/media-type.js';
+import { isAudio, isUrlSupported } from '../../../utils/is-url-supported.js';
 
 interface UseCorePlayerHookProps {
 	url?: string;

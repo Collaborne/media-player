@@ -1,4 +1,4 @@
-import { EmitterEvents } from '.';
+import { EmitterEvents } from './index.js';
 
 /** An interval that has required `start` and `end` point  */
 export interface Segment {

@@ -13,12 +13,12 @@ import {
 import { StoreApi } from 'zustand';
 import { useStoreWithEqualityFn } from 'zustand/traditional';
 
-import { CorePlayerInitialState } from '../components';
-import { createMediaStore, MediaStore } from '../store/media-store';
-import { Highlight, MediaType, StateSelector } from '../types';
-import { BlendColors } from '../utils';
+import { CorePlayerInitialState } from '../components/index.js';
+import { createMediaStore, MediaStore } from '../store/media-store.js';
+import { Highlight, MediaType, StateSelector } from '../types/index.js';
+import { BlendColors } from '../utils/index.js';
 
-import { HighlightsProvider } from './HighlightsProvider';
+import { HighlightsProvider } from './HighlightsProvider.js';
 
 const MediaStoreContext = createContext<StoreApi<MediaStore> | null>(null);
 

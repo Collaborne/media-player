@@ -1,18 +1,22 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
-import { merge } from 'lodash';
+import lodash from 'lodash';
 import { mkdirpSync } from 'mkdirp';
 
-const LOCALES_DIRS = [path.resolve(__dirname, '../locales')];
+const { merge } = lodash;
+
+const LOCALES_DIRS = [path.resolve(import.meta.dirname, '../locales')];
 const BUILD_LOCALES_DIR = process.argv[2];
 if (!BUILD_LOCALES_DIR) {
 	throw new Error(`Usage: ${process.argv[1]} output-directory`);
 }
 
-function readFile(filename: string): any {
+type LocaleSource = Record<string, { message: unknown }>;
+
+function readFile(filename: string): LocaleSource {
 	const content = fs.readFileSync(filename, 'utf8');
-	return JSON.parse(content);
+	return JSON.parse(content) as LocaleSource;
 }
 
 function flattenFile(filename: string) {
@@ -37,17 +41,21 @@ function flattenDir(dirname: string) {
 				return Object.assign(acc, {
 					[locale]: flattenedLocale,
 				});
-			} catch (e: any) {
-				console.error(`Cannot flatten file ${file}: ${e.message}`);
-				throw e;
+			} catch (error: unknown) {
+				const message = error instanceof Error ? error.message : String(error);
+				console.error(`Cannot flatten file ${file}: ${message}`);
+				throw error;
 			}
 		}, {});
 }
 
-const flattened = LOCALES_DIRS.reduce((acc, dir) => {
-	const flattenedDir = flattenDir(dir);
-	return merge(acc, flattenedDir);
-}, {} as { [key: string]: unknown });
+const flattened = LOCALES_DIRS.reduce(
+	(acc, dir) => {
+		const flattenedDir = flattenDir(dir);
+		return merge(acc, flattenedDir);
+	},
+	{} as { [key: string]: unknown },
+);
 
 mkdirpSync(BUILD_LOCALES_DIR);
 const locales = Object.keys(flattened);

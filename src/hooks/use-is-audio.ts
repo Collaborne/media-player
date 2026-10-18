@@ -1,4 +1,4 @@
-import { useMediaStore } from '../context/MediaProvider';
+import { useMediaStore } from '../context/MediaProvider.js';
 
 /**
  * Selector for `isAudio` from `MediaStore`

@@ -2,11 +2,11 @@ import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../../context';
-import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
-import { VOLUME_MULTIPLIER } from '../../../utils/constants';
+import { useMediaStore } from '../../../context/index.js';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element.js';
+import { VOLUME_MULTIPLIER } from '../../../utils/constants.js';
 
-import { VolumeIcon } from './VolumeIcon';
+import { VolumeIcon } from './VolumeIcon.js';
 
 interface VolumeButtonProps extends IconButtonProps {
 	Icon?: ComponentType<SvgIconProps>;

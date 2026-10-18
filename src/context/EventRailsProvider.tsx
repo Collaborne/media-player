@@ -1,9 +1,9 @@
 import { FC, ReactNode } from 'react';
 
-import { Highlight } from '../types';
-import { BlendColors } from '../utils/colors';
+import { Highlight } from '../types/index.js';
+import { BlendColors } from '../utils/colors.js';
 
-import { EventRailsContext } from './eventRails';
+import { EventRailsContext } from './eventRails.js';
 
 interface EventRailsProviderProps {
 	duration: number;

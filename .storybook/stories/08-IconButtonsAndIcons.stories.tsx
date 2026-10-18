@@ -15,7 +15,7 @@ import {
 	PiSpeakerSimpleX,
 } from 'react-icons/pi';
 
-import { withDemoCard, withPlayerTheme } from '../decorators';
+import { withDemoCard, withPlayerTheme } from '../decorators/index.js';
 
 export const IconButtonsAndIcons: React.FC = () => {
 	return (

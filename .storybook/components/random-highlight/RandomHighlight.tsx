@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { FC } from 'react';
 
-import { Highlight } from '../../../src';
+import { Highlight } from '../../../src/index.js';
 
 export interface RandomHighlightProps {
 	addHighlightToStart: () => void;

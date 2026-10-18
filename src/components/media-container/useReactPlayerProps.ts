@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../context';
-import { useMediaListener } from '../../hooks';
-import { ReactPlayerProps } from '../../types';
+import { useMediaStore } from '../../context/index.js';
+import { useMediaListener } from '../../hooks/index.js';
+import { ReactPlayerProps } from '../../types/index.js';
 
 interface UseReactPlayerProps {
 	reactPlayerProps: ReactPlayerProps;

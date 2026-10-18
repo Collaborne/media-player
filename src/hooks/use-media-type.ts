@@ -1,5 +1,5 @@
-import { useMediaStore } from '../context/MediaProvider';
-import { MediaType } from '../types';
+import { useMediaStore } from '../context/MediaProvider.js';
+import { MediaType } from '../types/index.js';
 
 /**
  * Selector for `mediaType` from `MediaStore`

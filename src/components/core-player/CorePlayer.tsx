@@ -7,17 +7,20 @@ import {
 import { deepmerge } from '@mui/utils';
 import { FC, ReactNode, RefObject, memo } from 'react';
 
-import { MediaProvider, MediaProviderProps } from '../../context/MediaProvider';
-import { PIPContextProvider } from '../../context/PIPControlsProvider';
-import { createPlayerTheme } from '../../theme';
-import { blend } from '../../utils/colors';
-import { DraggablePopoverProps } from '../draggable-popover/DraggablePopover';
-import { MediaContainer } from '../media-container/MediaContainer';
-import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles';
+import {
+	MediaProvider,
+	MediaProviderProps,
+} from '../../context/MediaProvider.js';
+import { PIPContextProvider } from '../../context/PIPControlsProvider.js';
+import { createPlayerTheme } from '../../theme.js';
+import { blend } from '../../utils/colors.js';
+import { DraggablePopoverProps } from '../draggable-popover/DraggablePopover.js';
+import { MediaContainer } from '../media-container/MediaContainer.js';
+import { useFilePlayerStyles } from '../media-container/useMediaContainerStyles.js';
 
-import { ExternalStateUpdater } from './components/ExternalStateUpdater';
-import { useCorePlayerHook } from './hooks/useCorePlayerHook';
-import { CORE_PLAYER_INITIAL_STATE } from './types';
+import { ExternalStateUpdater } from './components/ExternalStateUpdater.js';
+import { useCorePlayerHook } from './hooks/useCorePlayerHook.js';
+import { CORE_PLAYER_INITIAL_STATE } from './types.js';
 
 export interface CorePlayerProps
 	extends

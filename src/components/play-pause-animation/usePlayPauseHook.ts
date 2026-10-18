@@ -1,6 +1,6 @@
-import { useMediaStore } from '../../context';
+import { useMediaStore } from '../../context/index.js';
 
-import { usePlayPauseAnimationStyles } from './usePlayPauseAnimationStyles';
+import { usePlayPauseAnimationStyles } from './usePlayPauseAnimationStyles.js';
 
 interface UsePlayPauseHook {
 	centeredIcon: string;

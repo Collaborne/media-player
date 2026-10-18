@@ -7,14 +7,14 @@ import {
 	useMediaListener,
 	MediaPlayer,
 	usePlayerContext,
-} from '../../src';
-import { toTwoDigits } from '../../src/utils';
-import { Timestamp } from '../components/karaoke/Timestamp';
-import { createTimestamps } from '../components/karaoke/utils';
-import { withDemoCard } from '../decorators';
-import { withPlayerTheme } from '../decorators/with-player-theme';
+} from '../../src/index.js';
+import { toTwoDigits } from '../../src/utils/index.js';
+import { Timestamp } from '../components/karaoke/Timestamp.js';
+import { createTimestamps } from '../components/karaoke/utils.js';
+import { withDemoCard } from '../decorators/index.js';
+import { withPlayerTheme } from '../decorators/with-player-theme.js';
 
-import { findMatchingPartOrNext, Transcript } from './shared/transcript';
+import { findMatchingPartOrNext, Transcript } from './shared/transcript.js';
 
 interface KaraokeModeProps {
 	secondsDivider: number;

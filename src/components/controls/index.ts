@@ -1,2 +1,2 @@
-export * from './Controls';
-export * from './useControlsStyles';
+export * from './Controls.js';
+export * from './useControlsStyles.js';

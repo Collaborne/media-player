@@ -4,25 +4,25 @@ import intl from 'react-intl-universal';
 import screenfull from 'screenfull';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../context/MediaProvider';
-import { useIsAudio } from '../../hooks';
-import { MEDIA_CONTAINER } from '../../utils';
-import { CorePlayerProps } from '../core-player/CorePlayer';
+import { useMediaStore } from '../../context/MediaProvider.js';
+import { useIsAudio } from '../../hooks/index.js';
+import { MEDIA_CONTAINER } from '../../utils/index.js';
+import { CorePlayerProps } from '../core-player/CorePlayer.js';
 import {
 	DraggablePopover,
 	DraggablePopoverProps,
-} from '../draggable-popover/DraggablePopover';
-import { MediaPoster } from '../media-poster/MediaPoster';
-import { Player } from '../player/Player';
+} from '../draggable-popover/DraggablePopover.js';
+import { MediaPoster } from '../media-poster/MediaPoster.js';
+import { Player } from '../player/Player.js';
 
-import { useIsPlayerReadyHook } from './useIsPlayerReadyHook';
+import { useIsPlayerReadyHook } from './useIsPlayerReadyHook.js';
 import {
 	useFilePlayerStyles,
 	useMediaContainerStyles,
-} from './useMediaContainerStyles';
-import { useMouseActivityHook } from './useMouseActivityHook';
-import { UsePipHook } from './UsePipHook';
-import { useReactPlayerProps } from './useReactPlayerProps';
+} from './useMediaContainerStyles.js';
+import { useMouseActivityHook } from './useMouseActivityHook.js';
+import { UsePipHook } from './UsePipHook.js';
+import { useReactPlayerProps } from './useReactPlayerProps.js';
 
 export interface MediaContainerProps
 	extends

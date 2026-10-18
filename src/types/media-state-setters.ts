@@ -1,5 +1,5 @@
-import { EmitterListeners } from './emitters';
-import { MediaType } from './media-type';
+import { EmitterListeners } from './emitters.js';
+import { MediaType } from './media-type.js';
 
 /**
  * Setters or "actions" in flux architecture

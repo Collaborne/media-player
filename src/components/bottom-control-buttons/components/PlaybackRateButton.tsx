@@ -2,12 +2,12 @@ import { Button, ButtonProps } from '@mui/material';
 import { FC } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../../context';
-import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
-import { PLAYBACK_RATES } from '../../../utils/constants';
-import { MultiplySymbol } from '../../../utils/MultiplySymbol';
-import { usePlaybackRateButtonHook } from '../hooks/usePlaybackRateButtonHook';
-import { usePlaybackRateStyles } from '../hooks/usePlaybackRateStyles';
+import { useMediaStore } from '../../../context/index.js';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element.js';
+import { PLAYBACK_RATES } from '../../../utils/constants.js';
+import { MultiplySymbol } from '../../../utils/MultiplySymbol.js';
+import { usePlaybackRateButtonHook } from '../hooks/usePlaybackRateButtonHook.js';
+import { usePlaybackRateStyles } from '../hooks/usePlaybackRateStyles.js';
 
 type PlaybackRateButtonProps = ButtonProps;
 

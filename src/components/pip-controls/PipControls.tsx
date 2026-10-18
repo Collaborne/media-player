@@ -10,17 +10,17 @@ import {
 	PiPauseCircleFill,
 } from 'react-icons/pi';
 
-import { useMediaStore } from '../../context';
-import { useOnHoveredPipControlElement } from '../../hooks/use-on-hovered-element';
-import { SECONDS_TO_SKIP } from '../../utils/constants';
+import { useMediaStore } from '../../context/index.js';
+import { useOnHoveredPipControlElement } from '../../hooks/use-on-hovered-element.js';
+import { SECONDS_TO_SKIP } from '../../utils/constants.js';
 import {
 	PlayPauseReplay,
 	PlaybackRateButton,
-} from '../bottom-control-buttons/components';
-import { ProgressBar } from '../progress-bar/ProgressBar';
+} from '../bottom-control-buttons/components/index.js';
+import { ProgressBar } from '../progress-bar/ProgressBar.js';
 
-import { usePipControlsHook } from './usePipControlsHook';
-import { usePipControlsStyles } from './usePipControlsStyles';
+import { usePipControlsHook } from './usePipControlsHook.js';
+import { usePipControlsStyles } from './usePipControlsStyles.js';
 
 interface PipControlsProps {
 	skipSeconds?: number;

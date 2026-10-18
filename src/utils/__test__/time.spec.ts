@@ -1,4 +1,4 @@
-import { toTimestamp } from '../time';
+import { toTimestamp } from '../time.js';
 
 // multiplier to convert ms to s
 const MS_MULTIPLIER = 1000;

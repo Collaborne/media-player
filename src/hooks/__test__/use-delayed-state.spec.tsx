@@ -1,7 +1,7 @@
 import { act, render } from '@testing-library/react';
 
-import { sleep } from '../../utils/sleep';
-import { useDelayedState } from '../use-delayed-state';
+import { sleep } from '../../utils/sleep.js';
+import { useDelayedState } from '../use-delayed-state.js';
 
 function setup<T>(arg: T) {
 	const returnVal = {};

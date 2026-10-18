@@ -3,7 +3,7 @@ import { FC, ReactNode } from 'react';
 import {
 	useMediaPosterStyles,
 	UseMediaPosterStylesProps,
-} from './useMediaPosterStyles';
+} from './useMediaPosterStyles.js';
 
 export interface MediaPosterProps extends UseMediaPosterStylesProps {
 	children?: ReactNode;

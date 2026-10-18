@@ -1,17 +1,19 @@
 import { Paper, Portal } from '@mui/material';
-import { isElement } from 'lodash';
+import lodash from 'lodash';
 import { FC, memo, ReactNode, RefObject, useRef } from 'react';
 import { Rnd, Props as RndProps } from 'react-rnd';
 
-import { useMediaStore } from '../../context';
-import { useIsAudio } from '../../hooks';
-import { usePipControlsContext } from '../../hooks/use-pip-controls-context';
-import { DRAGGABLE_POPOVER } from '../../utils';
-import { MediaPoster } from '../media-poster/MediaPoster';
+import { useMediaStore } from '../../context/index.js';
+import { useIsAudio } from '../../hooks/index.js';
+import { usePipControlsContext } from '../../hooks/use-pip-controls-context.js';
+import { DRAGGABLE_POPOVER } from '../../utils/index.js';
+import { MediaPoster } from '../media-poster/MediaPoster.js';
 
-import { useDraggablePopoverHook } from './useDraggablePopoverHook';
-import { useDraggablePopoverStyles } from './useDraggablePopoverStyles';
-import { usePipMouseActivityHook } from './usePipMouseActivity';
+import { useDraggablePopoverHook } from './useDraggablePopoverHook.js';
+import { useDraggablePopoverStyles } from './useDraggablePopoverStyles.js';
+import { usePipMouseActivityHook } from './usePipMouseActivity.js';
+
+const { isElement } = lodash;
 
 export type ContainerSizePosition = {
 	width: number;

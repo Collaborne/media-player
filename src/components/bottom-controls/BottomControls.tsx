@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 
-import { useIsAudio } from '../../hooks';
+import { useIsAudio } from '../../hooks/index.js';
 
-import { useBottomControlsStyles } from './useBottomControlsStyles';
+import { useBottomControlsStyles } from './useBottomControlsStyles.js';
 
 interface BottomControlsProps {
 	children: ReactNode;

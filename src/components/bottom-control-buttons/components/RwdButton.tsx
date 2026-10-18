@@ -2,10 +2,10 @@ import { IconButton, IconButtonProps, SvgIconProps } from '@mui/material';
 import { ComponentType, FC, useRef } from 'react';
 import { PiArrowCounterClockwise } from 'react-icons/pi';
 
-import { useMediaStore } from '../../../context/MediaProvider';
-import { useMediaListener } from '../../../hooks';
-import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
-import { SECONDS_TO_SKIP } from '../../../utils/constants';
+import { useMediaStore } from '../../../context/MediaProvider.js';
+import { useMediaListener } from '../../../hooks/index.js';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element.js';
+import { SECONDS_TO_SKIP } from '../../../utils/constants.js';
 
 interface RwdButtonProps extends IconButtonProps {
 	skipSeconds?: number;

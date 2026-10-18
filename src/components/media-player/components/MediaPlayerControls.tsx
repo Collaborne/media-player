@@ -1,8 +1,9 @@
 import { Box } from '@mui/material';
 import { CSSProperties, FC, memo, ReactNode } from 'react';
 
-import { useMediaStore } from '../../../context';
-import { useIsAudio } from '../../../hooks';
+import { useMediaStore } from '../../../context/index.js';
+import { useIsAudio } from '../../../hooks/index.js';
+import { CollapseIconButton } from '../../bottom-control-buttons/components/CollapseIconButton.js';
 import {
 	VolumeButton,
 	VolumeSlider,
@@ -11,17 +12,16 @@ import {
 	FwdButton,
 	PlaybackRateButton,
 	FullscreenButton,
-} from '../../bottom-control-buttons';
-import { CollapseIconButton } from '../../bottom-control-buttons/components/CollapseIconButton';
-import { BottomControls } from '../../bottom-controls/BottomControls';
-import { useControlsStyles, Controls } from '../../controls';
-import { PauseAnimation } from '../../play-pause-animation/PauseAnimation';
-import { PlayAnimation } from '../../play-pause-animation/PlayAnimation';
-import { ProgressTimerDisplay } from '../../progress-bar/ProgressTimerDisplay';
-import { useMediaPlayerStyles } from '../useMediaPlayerStyles';
+} from '../../bottom-control-buttons/index.js';
+import { BottomControls } from '../../bottom-controls/BottomControls.js';
+import { useControlsStyles, Controls } from '../../controls/index.js';
+import { PauseAnimation } from '../../play-pause-animation/PauseAnimation.js';
+import { PlayAnimation } from '../../play-pause-animation/PlayAnimation.js';
+import { ProgressTimerDisplay } from '../../progress-bar/ProgressTimerDisplay.js';
+import { useMediaPlayerStyles } from '../useMediaPlayerStyles.js';
 
-import { AdditionalControls } from './AdditionalControls';
-import { MediaPlayerControlButtons } from './MediaPlayerControlButtons';
+import { AdditionalControls } from './AdditionalControls.js';
+import { MediaPlayerControlButtons } from './MediaPlayerControlButtons.js';
 
 export interface MediaPlayerControlsProps {
 	isCollapsed: boolean;

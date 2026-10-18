@@ -2,19 +2,19 @@ import { ThemeProvider } from '@mui/material/styles';
 import { render as renderRTL, RenderOptions } from '@testing-library/react';
 import { ReactNode } from 'react';
 
-import { CORE_PLAYER_INITIAL_STATE } from '../components/core-player/types';
+import { CORE_PLAYER_INITIAL_STATE } from '../components/core-player/types.js';
 import {
 	MediaProvider,
 	MediaProviderProps,
 	useMediaStore,
-} from '../context/MediaProvider';
-import { MediaStore } from '../store/media-store';
-import { createPlayerTheme } from '../theme';
+} from '../context/MediaProvider.js';
+import { MediaStore } from '../store/media-store.js';
+import { createPlayerTheme } from '../theme.js';
 
-import { blend } from './colors';
+import { blend } from './colors.js';
 
 export * from '@testing-library/react';
-export { default as userEvent } from '@testing-library/user-event';
+export { userEvent } from '@testing-library/user-event';
 
 export type RenderResult = ReturnType<typeof renderWithProviders>;
 const playerTheme = createPlayerTheme();

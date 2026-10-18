@@ -15,7 +15,9 @@ export const useBottomControlsStyles = makeStyles<{ isAudio: boolean }>()((
 			bottom: bottomPadding,
 			borderRadius: theme.spacing(1),
 			background: theme.palette.background.default,
-			backdropFilter: theme.palette.backdropFilter,
+			backdropFilter: (
+				theme.palette as typeof theme.palette & { backdropFilter: string }
+			).backdropFilter,
 		},
 	};
 });

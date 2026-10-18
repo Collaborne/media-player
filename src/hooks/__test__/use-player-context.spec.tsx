@@ -2,8 +2,8 @@ import { jest } from '@jest/globals';
 import { render } from '@testing-library/react';
 import { MutableRefObject, useEffect } from 'react';
 
-import { MediaStore } from '../../store/media-store';
-import { usePlayerContext } from '../use-player-context';
+import { MediaStore } from '../../store/media-store.js';
+import { usePlayerContext } from '../use-player-context.js';
 
 function setup(store: MediaStore) {
 	const returnVal: {

@@ -3,10 +3,10 @@ import { ComponentType, FC } from 'react';
 import { PiCornersIn, PiCornersOut } from 'react-icons/pi';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../../context';
-import { useIsAudio } from '../../../hooks/use-is-audio';
-import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
-import { FULLSCREEN_BUTTON } from '../../../utils';
+import { useMediaStore } from '../../../context/index.js';
+import { useIsAudio } from '../../../hooks/use-is-audio.js';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element.js';
+import { FULLSCREEN_BUTTON } from '../../../utils/index.js';
 
 type FullscreenIcons = {
 	FullscreenEnter: ComponentType<SvgIconProps>;

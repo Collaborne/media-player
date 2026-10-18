@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import { useMediaStore } from '../../../context';
-import { useHighlights } from '../../../hooks/use-highlights';
-import { getPercentFromDuration } from '../../../utils/highlights';
+import { useMediaStore } from '../../../context/index.js';
+import { useHighlights } from '../../../hooks/use-highlights.js';
+import { getPercentFromDuration } from '../../../utils/highlights.js';
 
-import { RailStyled } from './RailStyled';
-import { useRailStyles } from './useRailStyles';
+import { RailStyled } from './RailStyled.js';
+import { useRailStyles } from './useRailStyles.js';
 
 const BLEND_CONFIG = { intensifyAll: true };
 

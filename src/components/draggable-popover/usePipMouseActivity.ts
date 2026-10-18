@@ -1,9 +1,11 @@
-import { throttle } from 'lodash';
+import lodash from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../context';
-import { OVERLAY_HIDE_DELAY } from '../../utils/constants';
+import { useMediaStore } from '../../context/index.js';
+import { OVERLAY_HIDE_DELAY } from '../../utils/constants.js';
+
+const { throttle } = lodash;
 
 interface UsePipMouseActivityHook {
 	onMouseMove: VoidFunction;

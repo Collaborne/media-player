@@ -5,12 +5,12 @@ import {
 	PLAYBACK_RATES,
 	PLAY_ICON,
 	SECONDS_TO_SKIP,
-} from '../../../utils/constants';
+} from '../../../utils/constants.js';
 import {
 	act,
 	setupMediaProvider,
 	userEvent,
-} from '../../../utils/testing-render';
+} from '../../../utils/testing-render.js';
 import {
 	PlayPauseReplay,
 	RwdButton,
@@ -20,7 +20,7 @@ import {
 	TimeDisplay,
 	PlaybackRateButton,
 	PictureInPictureButton,
-} from '../components';
+} from '../components/index.js';
 
 const BottomControlButtons = () => {
 	return (

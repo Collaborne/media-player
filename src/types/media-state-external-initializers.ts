@@ -1,9 +1,9 @@
 import { RefObject, MutableRefObject } from 'react';
 
-import { MediaStore } from '../store/media-store';
-import { BlendColors } from '../utils/colors';
+import { MediaStore } from '../store/media-store.js';
+import { BlendColors } from '../utils/colors.js';
 
-import { MediaType } from './media-type';
+import { MediaType } from './media-type.js';
 
 /**
  * State that initializes store external

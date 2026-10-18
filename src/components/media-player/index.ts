@@ -1,2 +1,2 @@
-export * from './MediaPlayer';
-export * from './useMediaPlayerStyles';
+export * from './MediaPlayer.js';
+export * from './useMediaPlayerStyles.js';

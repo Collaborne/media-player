@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
-import useUnmount from 'react-use/lib/useUnmount';
+import { useUnmount } from 'react-use';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../context';
+import { useMediaStore } from '../../context/index.js';
 
 interface UsePlayerHookProps {
 	url: string;

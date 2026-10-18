@@ -1,8 +1,8 @@
 import { Button as MUIButton, Paper, Grid } from '@mui/material';
 import React from 'react';
 
-import { withDemoCard } from '../decorators';
-import { withPlayerTheme } from '../decorators/with-player-theme';
+import { withDemoCard } from '../decorators/index.js';
+import { withPlayerTheme } from '../decorators/with-player-theme.js';
 
 const UPDATED_SIZES: Array<'small' | 'medium'> = ['medium', 'small'];
 const UPDATED_VARIANT: Array<'text' | 'contained'> = ['contained', 'text'];

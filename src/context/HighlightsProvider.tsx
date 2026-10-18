@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 
-import { Highlight } from '../types';
+import { Highlight } from '../types/index.js';
 
-import { HighlightsContext } from './highlights';
+import { HighlightsContext } from './highlights.js';
 
 interface HighlightsProviderProps {
 	highlights?: Highlight[];

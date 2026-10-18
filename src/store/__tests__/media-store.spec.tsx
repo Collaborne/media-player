@@ -1,8 +1,8 @@
-import { ExternalStateUpdater } from '../../components/core-player/components/ExternalStateUpdater';
-import { MediaProviderProps, useMediaStore } from '../../context';
-import { useMediaListener } from '../../hooks';
-import { MediaType } from '../../types';
-import { act, setupMediaProvider } from '../../utils/testing-render';
+import { ExternalStateUpdater } from '../../components/core-player/components/ExternalStateUpdater.js';
+import { MediaProviderProps, useMediaStore } from '../../context/index.js';
+import { useMediaListener } from '../../hooks/index.js';
+import { MediaType } from '../../types/index.js';
+import { act, setupMediaProvider } from '../../utils/testing-render.js';
 
 const setupMediaType = (mediaProviderProps: {
 	isAudio: boolean;

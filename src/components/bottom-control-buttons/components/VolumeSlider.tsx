@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../../context/MediaProvider';
-import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element';
-import { VOLUME_MULTIPLIER } from '../../../utils/constants';
+import { useMediaStore } from '../../../context/MediaProvider.js';
+import { useOnHoveredControlElement } from '../../../hooks/use-on-hovered-element.js';
+import { VOLUME_MULTIPLIER } from '../../../utils/constants.js';
 
-import { VolumeBarStyled } from './VolumeBarStyled';
+import { VolumeBarStyled } from './VolumeBarStyled.js';
 
 interface VolumeSliderProps {
 	volumeMultiplier?: number;

@@ -6,7 +6,7 @@ import {
 	PiSpeakerSimpleX,
 } from 'react-icons/pi';
 
-import { MIN_VOLUME } from '../../../utils/constants';
+import { MIN_VOLUME } from '../../../utils/constants.js';
 
 type VolumeIcons = {
 	VolumeMuted: ComponentType<SvgIconProps>;

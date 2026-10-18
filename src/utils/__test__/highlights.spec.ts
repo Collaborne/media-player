@@ -1,4 +1,4 @@
-import { getPercentFromDuration } from '../highlights';
+import { getPercentFromDuration } from '../highlights.js';
 
 describe('getPercentFromDuration', () => {
 	it('returns 0% for file without duration', () => {

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/CenteredPlayButton';
-import { Controls } from '../../src/components/controls/Controls';
-import { withCorePlayer, withDemoCard } from '../decorators';
+import { CenteredPlayButton as CenteredPlayButtonComponent } from '../../src/components/centered-play-button/CenteredPlayButton.js';
+import { Controls } from '../../src/components/controls/Controls.js';
+import { withCorePlayer, withDemoCard } from '../decorators/index.js';
 
 export const CenteredPlayButton: React.FC = () => {
 	return (

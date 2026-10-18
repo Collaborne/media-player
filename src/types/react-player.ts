@@ -1,6 +1,6 @@
 import { ReactEventHandler, RefObject } from 'react';
 
-import { MediaState } from '.';
+import { MediaState } from './index.js';
 
 /**
  * Props that will be provided to ReactPlayer

@@ -1,8 +1,8 @@
 import type { StoryContext } from '@storybook/react';
 import * as React from 'react';
 
-import { CorePlayer } from '../../src/components/core-player/CorePlayer';
-import { CORE_PLAYER_INITIAL_STATE } from '../../src/components/core-player/types';
+import { CorePlayer } from '../../src/components/core-player/CorePlayer.js';
+import { CORE_PLAYER_INITIAL_STATE } from '../../src/components/core-player/types.js';
 
 // TODO: When all dump components will be added to storybook,
 // merge provider into with-media-wrapper decorator

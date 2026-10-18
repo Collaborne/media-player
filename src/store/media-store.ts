@@ -2,14 +2,14 @@
 import screenfull from 'screenfull';
 import { create, StateCreator } from 'zustand';
 
-import { CorePlayerInitialState } from '../components';
+import { CorePlayerInitialState } from '../components/index.js';
 import {
 	MediaState,
 	MediaStateExternalInitializers,
 	MediaStateSetters,
-} from '../types';
-import { DEFAULT_MEDIA_STATE, getMediaEl } from '../utils';
-import { findNextConsecutiveIndex } from '../utils/array';
+} from '../types/index.js';
+import { findNextConsecutiveIndex } from '../utils/array.js';
+import { DEFAULT_MEDIA_STATE, getMediaEl } from '../utils/index.js';
 
 /**  @category MediaStore */
 export type MediaStore = MediaState &

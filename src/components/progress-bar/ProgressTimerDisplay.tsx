@@ -2,16 +2,16 @@ import { Box, Typography, SliderProps } from '@mui/material';
 import { FC } from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { useMediaStore } from '../../context';
-import { useIsAudio } from '../../hooks/use-is-audio';
-import { toTimestamp } from '../../utils';
-import { PROGRESS_BAR, PROGRESS_BAR_DIVIDER } from '../../utils/constants';
-import { toTwoDigits } from '../../utils/number';
-import { useTimeDisplayStyles } from '../bottom-control-buttons/hooks/useTimeDisplayStyles';
+import { useMediaStore } from '../../context/index.js';
+import { useIsAudio } from '../../hooks/use-is-audio.js';
+import { PROGRESS_BAR, PROGRESS_BAR_DIVIDER } from '../../utils/constants.js';
+import { toTimestamp } from '../../utils/index.js';
+import { toTwoDigits } from '../../utils/number.js';
+import { useTimeDisplayStyles } from '../bottom-control-buttons/hooks/useTimeDisplayStyles.js';
 
-import { ProgressBarStyled } from './components/ProgressBarStyled';
-import { Rail } from './components/Rail';
-import { useProgressBarStyles } from './useProgressBarStyles';
+import { ProgressBarStyled } from './components/ProgressBarStyled.js';
+import { Rail } from './components/Rail.js';
+import { useProgressBarStyles } from './useProgressBarStyles.js';
 
 interface ProgressTimerDisplayProps extends SliderProps {
 	className?: string;

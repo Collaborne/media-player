@@ -5,8 +5,12 @@ import { makeStyles } from 'tss-react/mui';
 import {
 	MediaPlayer,
 	MediaPlayerProps,
-} from '../../src/components/media-player/MediaPlayer';
-import { withDemoCard, withIntl, withPlayerTheme } from '../decorators';
+} from '../../src/components/media-player/MediaPlayer.js';
+import {
+	withDemoCard,
+	withIntl,
+	withPlayerTheme,
+} from '../decorators/index.js';
 
 const useStyles = makeStyles()(theme => ({
 	wrapper: {

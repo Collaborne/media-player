@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
 import { FC, memo, ReactNode } from 'react';
 
-import { useIsAudio } from '../../../hooks';
-import { BOTTOM_CONTROL_BUTTONS } from '../../../utils';
-import { useBottomControlButtonsHook } from '../../bottom-control-buttons/useBottomControlButtonsHook';
-import { useBottomControlButtonsStyles } from '../../bottom-control-buttons/useBottomControlButtonsStyles';
+import { useIsAudio } from '../../../hooks/index.js';
+import { BOTTOM_CONTROL_BUTTONS } from '../../../utils/index.js';
+import { useBottomControlButtonsHook } from '../../bottom-control-buttons/useBottomControlButtonsHook.js';
+import { useBottomControlButtonsStyles } from '../../bottom-control-buttons/useBottomControlButtonsStyles.js';
 
 export interface MediaPlayerControlButtonsProps {
 	className?: string;

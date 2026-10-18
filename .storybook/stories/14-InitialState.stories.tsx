@@ -1,5 +1,7 @@
 import { StoryFn } from '@storybook/react';
 
+import { useBottomControlButtonsStyles } from '../../src/components/bottom-control-buttons/useBottomControlButtonsStyles.js';
+import { useControlsStyles } from '../../src/components/controls/useControlsStyles.js';
 import {
 	BottomControls,
 	CORE_PLAYER_INITIAL_STATE,
@@ -9,11 +11,9 @@ import {
 	PlayPauseReplay,
 	ProgressBar,
 	TimeDisplay,
-} from '../../src/components';
-import { useBottomControlButtonsStyles } from '../../src/components/bottom-control-buttons/useBottomControlButtonsStyles';
-import { useControlsStyles } from '../../src/components/controls/useControlsStyles';
-import { CustomPipControls } from '../components/custom-pip-controls/CustomPipControls';
-import { withDemoCard } from '../decorators';
+} from '../../src/components/index.js';
+import { CustomPipControls } from '../components/custom-pip-controls/CustomPipControls.js';
+import { withDemoCard } from '../decorators/index.js';
 
 const Template: StoryFn<Pick<CorePlayerProps, 'initialState'>> = args => {
 	const { controls } = useControlsStyles().classes;

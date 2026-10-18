@@ -1,4 +1,4 @@
-import { useMediaStore } from '../../context/MediaProvider';
+import { useMediaStore } from '../../context/MediaProvider.js';
 
 interface UseBottomControlButtonsHook {
 	showControls?: boolean;

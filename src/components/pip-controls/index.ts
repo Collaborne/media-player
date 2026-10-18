@@ -1,2 +1,2 @@
-export * from './PipControls';
-export * from './usePipControlsHook';
+export * from './PipControls.js';
+export * from './usePipControlsHook.js';

@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
 import { FC, memo, ReactNode } from 'react';
 
-import { useIsAudio } from '../../hooks';
-import { BOTTOM_CONTROL_BUTTONS } from '../../utils';
+import { useIsAudio } from '../../hooks/index.js';
+import { BOTTOM_CONTROL_BUTTONS } from '../../utils/index.js';
 
-import { useBottomControlButtonsHook } from './useBottomControlButtonsHook';
-import { useBottomControlButtonsStyles } from './useBottomControlButtonsStyles';
+import { useBottomControlButtonsHook } from './useBottomControlButtonsHook.js';
+import { useBottomControlButtonsStyles } from './useBottomControlButtonsStyles.js';
 
 export interface BottomControlButtonsProps {
 	className?: string;

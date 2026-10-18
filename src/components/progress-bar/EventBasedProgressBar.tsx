@@ -1,15 +1,15 @@
 import { SliderProps } from '@mui/material';
 import { FC, useState } from 'react';
 
-import { EventRailsProvider } from '../../context/EventRailsProvider';
-import { useMediaListener } from '../../hooks';
-import { Highlight } from '../../types';
-import { EmitterListeners } from '../../types/emitters';
-import { blend, BlendColors, toTwoDigits } from '../../utils';
-import { PROGRESS_BAR_DIVIDER } from '../../utils/constants';
+import { EventRailsProvider } from '../../context/EventRailsProvider.js';
+import { useMediaListener } from '../../hooks/index.js';
+import { EmitterListeners } from '../../types/emitters.js';
+import { Highlight } from '../../types/index.js';
+import { PROGRESS_BAR_DIVIDER } from '../../utils/constants.js';
+import { blend, BlendColors, toTwoDigits } from '../../utils/index.js';
 
-import { EventRail } from './components/EventRail';
-import { ProgressBarStyled } from './components/ProgressBarStyled';
+import { EventRail } from './components/EventRail.js';
+import { ProgressBarStyled } from './components/ProgressBarStyled.js';
 
 interface EventBasedProgressBarProps extends SliderProps {
 	mediaListener?: EmitterListeners;

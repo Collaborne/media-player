@@ -3,9 +3,9 @@ import { StoryFn } from '@storybook/react';
 import * as React from 'react';
 import { shallow } from 'zustand/shallow';
 
-import { DraggablePopoverProps } from '../../src/components/draggable-popover/DraggablePopover';
-import { useMediaStore } from '../../src/context';
-import { withCorePlayer, withDemoCard } from '../decorators';
+import { DraggablePopoverProps } from '../../src/components/draggable-popover/DraggablePopover.js';
+import { useMediaStore } from '../../src/context/index.js';
+import { withCorePlayer, withDemoCard } from '../decorators/index.js';
 
 export const DraggablePopover: StoryFn<
 	DraggablePopoverProps & { isPip: boolean }

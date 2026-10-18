@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
-import { MediaType } from '../../../types/media-type';
+import { MediaType } from '../../../types/media-type.js';
 
-import { getMediaType } from './media-type';
+import { getMediaType } from './media-type.js';
 
 interface UseCorePlayerHookProps {
 	url?: string;

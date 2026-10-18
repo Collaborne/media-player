@@ -1,7 +1,7 @@
 import type { Decorator } from '@storybook/react';
 import intl from 'react-intl-universal';
 
-import EN from '../locales/en.json';
+import EN from '../locales/en.json' with { type: 'json' };
 
 export const withIntl: Decorator = (StoryFn, context) => {
 	intl

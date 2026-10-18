@@ -4,5 +4,5 @@
 		"module": "esnext",
 		"rootDir": "."
 	},
-	"include": ["src/**/*", ".storybook/**/*"]
+	"include": ["src/**/*", ".storybook/**/*", "tasks/**/*"]
 }

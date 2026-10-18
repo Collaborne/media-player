@@ -1,6 +1,6 @@
-import { Colors as ColorsComponent } from '../components/colors/Colors';
-import { withDemoCard } from '../decorators';
-import { withPlayerTheme } from '../decorators/with-player-theme';
+import { Colors as ColorsComponent } from '../components/colors/Colors.js';
+import { withDemoCard } from '../decorators/index.js';
+import { withPlayerTheme } from '../decorators/with-player-theme.js';
 
 export const Colors = () => {
 	return <ColorsComponent />;

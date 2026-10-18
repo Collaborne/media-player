@@ -1,10 +1,15 @@
 import mitt from 'mitt';
 
-import { CORE_PLAYER_INITIAL_STATE } from '../components/core-player/types';
-import { MediaStore } from '../store/media-store';
-import { MediaStateExternalInitializers, MediaStateSetters } from '../types';
-import { MediaEvents } from '../types/emitters';
-import { MediaState } from '../types/media-state';
+import { CORE_PLAYER_INITIAL_STATE } from '../components/core-player/types.js';
+import { MediaStore } from '../store/media-store.js';
+import { MediaEvents } from '../types/emitters.js';
+import {
+	MediaStateExternalInitializers,
+	MediaStateSetters,
+} from '../types/index.js';
+import { MediaState } from '../types/media-state.js';
+
+const createEmitter = mitt as unknown as typeof import('mitt').default;
 
 export const NO_OP = () => [];
 
@@ -66,7 +71,7 @@ export const DEFAULT_MEDIA_STATE: MediaState = {
 	endTime: 0,
 	duration: 0,
 	volume: 1,
-	emitter: mitt<MediaEvents>(),
+	emitter: createEmitter<MediaEvents>(),
 	ready: false,
 	isPlaying: false,
 	isMuted: false,

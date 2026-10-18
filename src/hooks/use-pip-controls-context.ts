@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { PIPControlsContext } from '../context/pipControls';
+import { PIPControlsContext } from '../context/pipControls.js';
 
 /**
  * Selector for `PIPControlsContext` value

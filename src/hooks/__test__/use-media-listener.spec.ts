@@ -2,10 +2,12 @@ import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
 import mitt from 'mitt';
 
-import { EmitterListeners, MediaEvents } from '../../types';
-import { EventEmittersName, useMediaListener } from '../use-media-listener';
+import { EmitterListeners, MediaEvents } from '../../types/index.js';
+import { EventEmittersName, useMediaListener } from '../use-media-listener.js';
 
-const emitter = mitt<MediaEvents>();
+const createEmitter = mitt as unknown as typeof import('mitt').default;
+
+const emitter = createEmitter<MediaEvents>();
 const eventName: EventEmittersName = 'play';
 const emitApi: EmitterListeners = {
 	addEventListener: emitter.on,

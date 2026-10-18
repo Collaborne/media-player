@@ -1,8 +1,8 @@
 import { FC, ReactNode } from 'react';
 
-import { CONTROLS } from '../../utils';
+import { CONTROLS } from '../../utils/index.js';
 
-import { useControlsStyles } from './useControlsStyles';
+import { useControlsStyles } from './useControlsStyles.js';
 
 export interface ControlProps {
 	children: ReactNode;

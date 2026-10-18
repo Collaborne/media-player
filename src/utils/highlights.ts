@@ -1,4 +1,4 @@
-import { PROGRESS_BAR_DIVIDER } from './constants';
+import { PROGRESS_BAR_DIVIDER } from './constants.js';
 
 /** Get percentage of a media duration */
 export const getPercentFromDuration = (

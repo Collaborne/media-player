@@ -5,12 +5,12 @@ import {
 	Highlight,
 	MediaPlayer,
 	usePlayerContext,
-} from '../../src';
-import { RandomHighlight } from '../components/random-highlight/RandomHighlight';
-import { withDemoCard } from '../decorators';
-import { withPlayerTheme } from '../decorators/with-player-theme';
-import { createRandomId } from '../utils/create-random-id';
-import { highlightColors, pickRandomItem } from '../utils/highlights';
+} from '../../src/index.js';
+import { RandomHighlight } from '../components/random-highlight/RandomHighlight.js';
+import { withDemoCard } from '../decorators/index.js';
+import { withPlayerTheme } from '../decorators/with-player-theme.js';
+import { createRandomId } from '../utils/create-random-id.js';
+import { highlightColors, pickRandomItem } from '../utils/highlights.js';
 
 interface EventBasedProgressBarProps {
 	url: string;

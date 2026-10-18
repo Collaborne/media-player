@@ -1,9 +1,9 @@
 import { Typography, TypographyProps } from '@mui/material';
 import { FC } from 'react';
 
-import { useMediaStore } from '../../../context';
-import { toTimestamp } from '../../../utils/time';
-import { useTimeDisplayStyles } from '../hooks/useTimeDisplayStyles';
+import { useMediaStore } from '../../../context/index.js';
+import { toTimestamp } from '../../../utils/time.js';
+import { useTimeDisplayStyles } from '../hooks/useTimeDisplayStyles.js';
 
 interface TimeDisplayProps extends TypographyProps {
 	secondsMultiplier?: number;

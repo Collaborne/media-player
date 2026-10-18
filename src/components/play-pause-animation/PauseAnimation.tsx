@@ -1,15 +1,15 @@
 import { FC, useEffect, useState } from 'react';
 import { PiPauseCircleFill } from 'react-icons/pi';
 
-import { useMediaStore } from '../../context';
-import { useIsAudio, useMediaListener } from '../../hooks';
+import { useMediaStore } from '../../context/index.js';
+import { useIsAudio, useMediaListener } from '../../hooks/index.js';
 import {
 	DEFAULT_EVENT_ANIMATION_DURATION,
 	PAUSE_ANIMATION,
-} from '../../utils/constants';
-import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper';
+} from '../../utils/constants.js';
+import { AnimatedIconWrapper } from '../animated-icon-wrapper/AnimatedIconWrapper.js';
 
-import { usePlayPauseHook } from './usePlayPauseHook';
+import { usePlayPauseHook } from './usePlayPauseHook.js';
 
 interface PauseAnimationProps {
 	animationDuration?: number;

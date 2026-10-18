@@ -6,7 +6,7 @@
 			"dom",
 			"esnext"
 		],
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"jsx": "react-jsx",
 		"sourceMap": true,
 		"declaration": true,
@@ -30,8 +30,7 @@
 		"noFallthroughCasesInSwitch": true
 	},
 	"include": [
-		"src/**/*",
-		".storybook/**/*"
+		"./**/*"
 	],
 	"exclude": [
 		"node_modules/**/*",

@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import React from 'react';
 
-import { BottomControlButtons as BottomControlButtonsComponent } from '../../src/components/bottom-control-buttons/BottomControlButtons';
+import { BottomControlButtons as BottomControlButtonsComponent } from '../../src/components/bottom-control-buttons/BottomControlButtons.js';
 import {
 	PlayPauseReplay,
 	RwdButton,
@@ -12,11 +12,11 @@ import {
 	PlaybackRateButton,
 	PictureInPictureButton,
 	FullscreenButton,
-} from '../../src/components/bottom-control-buttons/components';
-import { BottomControls } from '../../src/components/bottom-controls/BottomControls';
-import { Controls } from '../../src/components/controls/Controls';
-import { useMediaPlayerStyles } from '../../src/components/media-player/useMediaPlayerStyles';
-import { withCorePlayer, withDemoCard } from '../decorators';
+} from '../../src/components/bottom-control-buttons/components/index.js';
+import { BottomControls } from '../../src/components/bottom-controls/BottomControls.js';
+import { Controls } from '../../src/components/controls/Controls.js';
+import { useMediaPlayerStyles } from '../../src/components/media-player/useMediaPlayerStyles.js';
+import { withCorePlayer, withDemoCard } from '../decorators/index.js';
 
 export const BottomControlButtons: React.FC = () => {
 	const { gridCentered } = useMediaPlayerStyles().classes;
