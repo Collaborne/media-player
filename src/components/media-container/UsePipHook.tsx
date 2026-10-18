@@ -1,5 +1,5 @@
 import { FC, RefObject, useEffect, useRef } from 'react';
-import useIntersection from 'react-use/lib/useIntersection.js';
+import { useIntersection } from 'react-use';
 import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/MediaProvider.js';

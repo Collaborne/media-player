@@ -1,6 +1,6 @@
 import lodash from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import useEvent from 'react-use/lib/useEvent.js';
+import { useEvent } from 'react-use';
 import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/index.js';

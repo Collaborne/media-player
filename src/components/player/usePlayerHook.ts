@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
-import useUnmount from 'react-use/lib/useUnmount.js';
+import { useUnmount } from 'react-use';
 import { shallow } from 'zustand/shallow';
 
 import { useMediaStore } from '../../context/index.js';

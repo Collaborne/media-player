@@ -5,8 +5,7 @@ import {
 	RndDragCallback,
 	RndResizeCallback,
 } from 'react-rnd';
-import useMeasure from 'react-use/lib/useMeasure.js';
-import usePrevious from 'react-use/lib/usePrevious.js';
+import { useMeasure, usePrevious } from 'react-use';
 
 import { DEFAULT_PIP_SIZE } from '../../utils/constants.js';
 import { MediaContainerProps } from '../media-container/MediaContainer.js';
