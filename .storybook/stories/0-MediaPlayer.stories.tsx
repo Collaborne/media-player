@@ -1,5 +1,5 @@
 import { StoryFn } from '@storybook/react';
-import useToggle from 'react-use/lib/useToggle.js';
+import { useToggle } from 'react-use';
 import { makeStyles } from 'tss-react/mui';
 
 import {
