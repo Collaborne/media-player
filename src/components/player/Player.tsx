@@ -27,7 +27,7 @@ export const Player: FC<PlayerProps> = memo(
 					src={url}
 					width="100%"
 					height="100%"
-					preload="none"
+					preload="auto"
 					{...reactPlayerProps}
 				/>
 			</div>
