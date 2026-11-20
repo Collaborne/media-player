@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-sJBDdmOt.js";import{n as t}from"./iframe-Doo3XAy3.js";var n,r,i;function a(){return(a=e((()=>{n=t(),r=function(e,t){return typeof t==`boolean`?t:!e},i=function(e){return(0,n.useReducer)(r,e)}})))()}export{i as n,a as t};
