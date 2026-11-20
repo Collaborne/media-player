@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { ExternalStateUpdater } from '../../components/core-player/components/ExternalStateUpdater.js';
 import { MediaProviderProps, useMediaStore } from '../../context/index.js';
 import { useMediaListener } from '../../hooks/index.js';

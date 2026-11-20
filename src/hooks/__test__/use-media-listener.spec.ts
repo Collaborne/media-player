@@ -1,6 +1,6 @@
-import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
 import mitt from 'mitt';
+import { describe, expect, it, vi } from 'vitest';
 
 import { EmitterListeners, MediaEvents } from '../../types/index.js';
 import { EventEmittersName, useMediaListener } from '../use-media-listener.js';
@@ -13,12 +13,12 @@ const emitApi: EmitterListeners = {
 	addEventListener: emitter.on,
 	removeEventListener: emitter.off,
 };
-const addEventListenerSpy = jest.spyOn(emitApi, 'addEventListener');
-const removeEventListenerSpy = jest.spyOn(emitApi, 'removeEventListener');
+const addEventListenerSpy = vi.spyOn(emitApi, 'addEventListener');
+const removeEventListenerSpy = vi.spyOn(emitApi, 'removeEventListener');
 
 describe('useMediaListener', () => {
 	it(`mount/unmount on "${eventName}" event`, async () => {
-		const handler = jest.fn();
+		const handler = vi.fn();
 		const { unmount } = renderHook(() =>
 			useMediaListener(eventName, handler, emitApi),
 		);

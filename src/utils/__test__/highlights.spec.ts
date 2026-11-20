@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { getPercentFromDuration } from '../highlights.js';
 
 describe('getPercentFromDuration', () => {

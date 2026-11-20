@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { isUrlSupported, isAudio, isVideo } from '../is-url-supported.js';
 
 const VIDEO_URL =

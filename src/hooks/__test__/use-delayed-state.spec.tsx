@@ -1,4 +1,5 @@
 import { act, render } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
 import { sleep } from '../../utils/sleep.js';
 import { useDelayedState } from '../use-delayed-state.js';

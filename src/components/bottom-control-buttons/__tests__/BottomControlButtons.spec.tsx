@@ -1,4 +1,6 @@
-import '@testing-library/jest-dom';
+import { describe, expect, it } from 'vitest';
+
+import '@testing-library/jest-dom/vitest';
 import {
 	PAUSE_ICON,
 	PIP_BUTTON,

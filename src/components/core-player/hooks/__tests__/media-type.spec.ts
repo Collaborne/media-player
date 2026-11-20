@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { getMediaType } from '../media-type.js';
 
 const URL = 'qa/projects/1/file.mp4';

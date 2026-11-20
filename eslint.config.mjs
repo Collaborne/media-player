@@ -1,5 +1,5 @@
+import vitest from '@vitest/eslint-plugin';
 import createCollaborneConfig from 'eslint-config-collaborne';
-import jest from 'eslint-plugin-jest';
 import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
@@ -29,7 +29,7 @@ export default [
 	},
 	{
 		files: ['src/**/*.spec.ts', 'src/**/*.spec.tsx'],
-		...jest.configs['flat/recommended'],
+		...vitest.configs.recommended,
 	},
 	{
 		ignores: [

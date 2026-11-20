@@ -1,6 +1,6 @@
-import { jest } from '@jest/globals';
 import { render } from '@testing-library/react';
 import { MutableRefObject, useEffect } from 'react';
+import { describe, expect, it, vi } from 'vitest';
 
 import { MediaStore } from '../../store/media-store.js';
 import { usePlayerContext } from '../use-player-context.js';
@@ -28,7 +28,7 @@ function setup(store: MediaStore) {
 
 describe('usePlayerContext', () => {
 	it('getCurrentTime from player context', () => {
-		const setCurrentTime = jest.fn();
+		const setCurrentTime = vi.fn();
 		const testMediaStore = { setCurrentTime } as unknown as MediaStore;
 		const { mediaContext } = setup(testMediaStore);
 		mediaContext?.setCurrentTime(10);

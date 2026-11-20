@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { toTimestamp } from '../time.js';
 
 // multiplier to convert ms to s

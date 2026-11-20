@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { findNextConsecutiveIndex } from '../array.js';
 
 const array = [0, 1, 2, 3, 4, 5];
